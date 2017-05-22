@@ -1,0 +1,27 @@
+{
+  "name": "post-it-app",
+  "version": "1.0.0",
+  "description": "PostIt is a simple application that allows friends and colleagues create groups for notification",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dannytebj/post-it-app.git"
+  },
+  "author": "Daniel Atebije",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dannytebj/post-it-app/issues"
+  },
+  "homepage": "https://github.com/Dannytebj/post-it-app#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "firebase-admin": "^5.0.0",
+    "body-parser": "~1.0.1"
+  }
+}
