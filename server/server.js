@@ -1,5 +1,5 @@
 const express = require('express'),
-  signUp = require('./routes/signUp'),
+  route = require('./routes/route'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 6969,
   // router = express.Router(),
@@ -17,6 +17,6 @@ app.use(bodyParser.json());
 
 //  Register Our ROUTES
 // All of our routes will be prefixed with /server
-app.use(signUp);
+app.use(route);
 app.listen(port);
 console.log('postIt App Restful Api server started on: ' + port);
