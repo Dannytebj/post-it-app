@@ -31,14 +31,11 @@ router.post('/signUp', (req, res) => {
     }).then(() => {
       res.send('Message: User Succesfully created!');
     });
-    // firebase.database().ref('users').push({
-      // userEmail: email,
-      // userPassword: password
   });
   promise
   .catch(error => res.send(error.message));
 });  //  end of signUp.post
-
+//  ROUTE THAT CREATES SIGN'S USER IN
 router.post('/signIn', (req, res) => {
   const email = req.body.email,
     password = req.body.password,
@@ -52,7 +49,7 @@ router.post('/signIn', (req, res) => {
     console.log(error.message);
   });
 });
-
+//  ROUTE THAT SIGN'S USER OUT
 router.post('/signOut', (req, res) => {
   auth.signOut().then(() => {
   })
@@ -60,21 +57,21 @@ router.post('/signOut', (req, res) => {
   res.send('User signed Out');
 });
 
-
+//  ROUTE THAT CREATES GROUP
 router.post('/group', (req, res) => {
   const currUser = firebase.auth().currentUser;
   if (currUser) {
     const groupName = req.body.groupName,
-      db = firebase.database();
-      // Ref = db.ref('users'),
-      // userRef = Ref.child(groupName);
-    // const currRef = firebase.database().ref.child('users'),
-    const groupId = db.ref('/group').child(groupName).push().key;
+      db = firebase.database(),
+      groupId = db.ref('/group').push({
+        ownerId: currUser.uid,
+        group_name: groupName
+      }).key;
     db.ref('/user/' + currUser.uid + '/groups').set({
       group_id: groupId,
     });
     console.log('We have a User ');
-    res.send(currUser.displayName + groupName);
+    res.send(groupName);
   } else {
     res.send('Nobody is signed In');
     console.log('Nobody is signed in!');
