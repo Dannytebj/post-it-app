@@ -16,31 +16,41 @@ const auth = firebase.auth();
 //   userRef = db.ref('users');
 
 router.use((req, res, next) => {
-  console.log('Welcome!');
+  // console.log('Welcome!');
       //  aunthentication
   next();
 });
 router.post('/signUp', (req, res) => {
   const email = req.body.email,
     password = req.body.password,
+    username = req.body.username,
     promise = auth.createUserWithEmailAndPassword(email, password)
-  .then(() => {
-    firebase.database().ref('users').push({
-      userEmail: email,
-      userPassword: password
+  .then((user) => {
+    user.updateProfile({
+      displayName: username
+    }).then(() => {
+      res.send('Message: User Succesfully created!');
     });
+    // firebase.database().ref('users').push({
+      // userEmail: email,
+      // userPassword: password
   });
   promise
-  .catch(error => console.log(error.message));
-  res.send('Message: User Succesfully created!');
-}); //  end of signUp.post
+  .catch(error => res.send(error.message));
+});  //  end of signUp.post
 
 router.post('/signIn', (req, res) => {
   const email = req.body.email,
     password = req.body.password,
-    promise = auth.signInWithEmailAndPassword(email, password);
-  res.send('user logged in successfully');
-  promise.catch(error => console.log(error.message));
+    promise = auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      res.send('user logged in successfully');
+    });
+  promise
+  .catch((error) => {
+    res.send(error.message);
+    console.log(error.message);
+  });
 });
 
 router.post('/signOut', (req, res) => {
@@ -54,21 +64,19 @@ router.post('/signOut', (req, res) => {
 router.post('/group', (req, res) => {
   const currUser = firebase.auth().currentUser;
   if (currUser) {
-    const db = firebase.database().ref(),
-      groupName = req.body.groupName;
+    const groupName = req.body.groupName,
+      db = firebase.database();
       // Ref = db.ref('users'),
       // userRef = Ref.child(groupName);
     // const currRef = firebase.database().ref.child('users'),
-    db.push({
-      groupName: {
-        ownerId: currUser.uid,
-        message: 'Wetin dey',
-      }
+    const groupId = db.ref('/group').child(groupName).push().key;
+    db.ref('/user/' + currUser.uid + '/groups').set({
+      group_id: groupId,
     });
-
     console.log('We have a User ');
-    res.send(currUser.uid);
+    res.send(currUser.displayName + groupName);
   } else {
+    res.send('Nobody is signed In');
     console.log('Nobody is signed in!');
   }
 });
