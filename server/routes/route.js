@@ -51,6 +51,27 @@ router.post('/signOut', (req, res) => {
 });
 
 
+router.post('/group', (req, res) => {
+  const currUser = firebase.auth().currentUser;
+  if (currUser) {
+    const db = firebase.database().ref(),
+      groupName = req.body.groupName;
+      // Ref = db.ref('users'),
+      // userRef = Ref.child(groupName);
+    // const currRef = firebase.database().ref.child('users'),
+    db.push({
+      groupName: {
+        ownerId: currUser.uid,
+        message: 'Wetin dey',
+      }
+    });
+
+    console.log('We have a User ');
+    res.send(currUser.uid);
+  } else {
+    console.log('Nobody is signed in!');
+  }
+});
 //  add real time listner
 auth.onAuthStateChanged((firebaseUser) => {
   if (firebaseUser) {
