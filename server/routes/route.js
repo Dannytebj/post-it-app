@@ -11,11 +11,17 @@ const config = {
   messagingSenderId: '276992209544'
 };
 firebase.initializeApp(config);
-const auth = firebase.auth();
-// const db = firebase.database(),
-//   userRef = db.ref('users');
-
+const auth = firebase.auth(),
+  db = firebase.database();
 router.use((req, res, next) => {
+  //  add real time listner
+  auth.onAuthStateChanged((firebaseUser) => {
+    if (firebaseUser) {
+      console.log('he is signed In');
+    } else {
+      console.log('not logged In');
+    }
+  });
   // console.log('Welcome!');
       //  aunthentication
   next();
@@ -35,6 +41,7 @@ router.post('/signUp', (req, res) => {
   promise
   .catch(error => res.send(error.message));
 });  //  end of signUp.post
+
 //  ROUTE THAT CREATES SIGN'S USER IN
 router.post('/signIn', (req, res) => {
   const email = req.body.email,
@@ -57,33 +64,41 @@ router.post('/signOut', (req, res) => {
   res.send('User signed Out');
 });
 
-//  ROUTE THAT CREATES GROUP
+// ROUTE THAT ALLOWS ONLY LOGGED IN USERS CREATE GROUP
 router.post('/group', (req, res) => {
   const currUser = firebase.auth().currentUser;
   if (currUser) {
-    const groupName = req.body.groupName,
-      db = firebase.database(),
-      groupId = db.ref('/group').push({
-        ownerId: currUser.uid,
-        group_name: groupName
+    const dbRef = db.ref('/group'),
+      group = req.body.groupName,
+      newGroupId = dbRef.push({
+        groupName: group,
+        createdBy: currUser.uid,
       }).key;
-    db.ref('/user/' + currUser.uid + '/groups').set({
-      group_id: groupId,
-    });
-    console.log('We have a User ');
-    res.send(groupName);
+    console.log('you have created a new group ');
+    res.send(newGroupId);
   } else {
     res.send('Nobody is signed In');
     console.log('Nobody is signed in!');
   }
 });
-//  add real time listner
-auth.onAuthStateChanged((firebaseUser) => {
-  if (firebaseUser) {
-    console.log('he is signed In');
+
+//  ROUTE THAT ADDS USER TO A GROUP
+router.post('/group/groupId', (req, res) => {
+  const currUser = firebase.auth().currentUser;
+  if (currUser) {
+    const groupId = req.body.groupid,
+      userId = req.body.userid;
+    const groupRef = db.ref('group/');
+    groupRef.child(groupId).update({
+      user: userId,
+    });
+    console.log('Your group has a new User ');
+    res.send('Your group has a new User ');
   } else {
-    console.log('not logged In');
+    res.send('Nobody is signed In');
+    console.log('Nobody is signed in!');
   }
 });
+
 
 module.exports = router;

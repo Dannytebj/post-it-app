@@ -2,7 +2,6 @@ const express = require('express'),
   route = require('./routes/route'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 9999,
-  // router = express.Router(),
   app = express();
 
 // for parsing application/x-www-form-urlencoded)
@@ -11,9 +10,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-  //  ROUTES FOR API
-// routes = require('../routes/index.js'),
-
+  //  TESTING THIS BECAUSE OF HEROKU
+app.get('/', (req, res, next) => {
+  res.send('Hello');
+  next();
+});
 
 //  Register Our ROUTES
 // All of our routes will be prefixed with /server
