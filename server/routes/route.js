@@ -13,6 +13,7 @@ const config = {
 firebase.initializeApp(config);
 const auth = firebase.auth(),
   db = firebase.database();
+  // Router Controlling Authentication
 router.use((req, res, next) => {
   //  add real time listner
   auth.onAuthStateChanged((firebaseUser) => {
@@ -22,19 +23,22 @@ router.use((req, res, next) => {
       console.log('not logged In');
     }
   });
-  // console.log('Welcome!');
-      //  aunthentication
   next();
 });
 router.post('/signUp', (req, res) => {
   const email = req.body.email,
     password = req.body.password,
-    username = req.body.username,
+    userName = req.body.username,
     promise = auth.createUserWithEmailAndPassword(email, password)
   .then((user) => {
     user.updateProfile({
-      displayName: username
+      displayName: userName
     }).then(() => {
+      db.ref('/users/' + userName).push(
+        {
+          userId: user.uid,
+        }
+      );
       res.send('Message: User Succesfully created!');
     });
   });
@@ -74,8 +78,13 @@ router.post('/group', (req, res) => {
         groupName: group,
         createdBy: currUser.uid,
       }).key;
+    db.ref('/users/' + currUser.displayName + '/groups').push(
+      {
+        groupId: newGroupId,
+        groupName: group,
+      });
     console.log('you have created a new group ');
-    res.send(newGroupId);
+    res.send('You Just Created ' + group);
   } else {
     res.send('Nobody is signed In');
     console.log('Nobody is signed in!');
@@ -83,15 +92,21 @@ router.post('/group', (req, res) => {
 });
 
 //  ROUTE THAT ADDS USER TO A GROUP
-router.post('/group/groupId', (req, res) => {
-  const currUser = firebase.auth().currentUser;
+router.post('/group/:groupId/user', (req, res) => {
+  const currUser = firebase.auth().currentUser,
+    groupId = req.params.groupId,
+    userId = req.body.userId;
   if (currUser) {
-    const groupId = req.body.groupid,
-      userId = req.body.userid;
-    const groupRef = db.ref('group/');
-    groupRef.child(groupId).update({
-      user: userId,
-    });
+    db.ref('group/'+ groupId).push(
+      {
+        newUser: userId,
+      }
+    );
+    // const userId = req.body.userId,
+    // const groupRef = db.ref('group/');
+    // groupRef.child(groupId).update({
+    //   user: userId,
+    // });
     console.log('Your group has a new User ');
     res.send('Your group has a new User ');
   } else {

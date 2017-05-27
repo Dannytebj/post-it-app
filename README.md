@@ -15,9 +15,16 @@ POST: /group
 An API route that allow users add other users to groups:
 POST: /group/<group id>/user
 
+##  How to run the API's
+FYI,these API's use the POST method, So you can test them using PostMan :
+1) https://postitdanny.herokuapp.com/signIn
+2) https://postitdanny.herokuapp.com/signUp
+3) https://postitdanny.herokuapp.com/group
+4) https://postitdanny.herokuapp.com/signOut
+
 ### Installing
 After collecting and installing the prerequisites:
-- 
+-
 Install dependencies
 ```
 npm install
