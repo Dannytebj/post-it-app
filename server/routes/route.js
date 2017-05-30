@@ -1,25 +1,25 @@
 const express = require('express'),
   firebase = require('firebase'),
-  router = express.Router();
-
-const config = {
-  apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
-  authDomain: 'postitapp-f266c.firebaseapp.com',
-  databaseURL: 'https://postitapp-f266c.firebaseio.com',
-  projectId: 'postitapp-f266c',
-  storageBucket: 'postitapp-f266c.appspot.com',
-  messagingSenderId: '276992209544'
-};
+  router = express.Router(),
+  config = {
+    apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
+    authDomain: 'postitapp-f266c.firebaseapp.com',
+    databaseURL: 'https://postitapp-f266c.firebaseio.com',
+    projectId: 'postitapp-f266c',
+    storageBucket: 'postitapp-f266c.appspot.com',
+    messagingSenderId: '276992209544' };
+//  Initialize Database
 firebase.initializeApp(config);
 const auth = firebase.auth(),
   db = firebase.database();
   // Router Controlling Authentication
-router.use((req, res, next) => {
+router.use((err, req, res, next) => {
   //  add real time listner
   auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
       console.log('he is signed In');
     } else {
+      res.status(401);
       console.log('not logged In');
     }
   });
@@ -43,7 +43,10 @@ router.post('/signUp', (req, res) => {
     });
   });
   promise
-  .catch(error => res.send(error.message));
+  .catch((error) => {
+    res.status(400);
+    res.send(error.message);
+  });
 });  //  end of signUp.post
 
 //  ROUTE THAT CREATES SIGN'S USER IN
@@ -56,6 +59,7 @@ router.post('/signIn', (req, res) => {
     });
   promise
   .catch((error) => {
+    res.status(401);
     res.send(error.message);
     console.log(error.message);
   });
@@ -83,35 +87,35 @@ router.post('/group', (req, res) => {
         groupId: newGroupId,
         groupName: group,
       });
-    console.log('you have created a new group ');
-    res.send('You Just Created ' + group);
+    res.status(200);
+    res.send('You Just Created a group called: ' + group);
   } else {
-    res.send('Nobody is signed In');
+    res.status(401);
+    res.send('You need to be signed In');
     console.log('Nobody is signed in!');
   }
 });
 
 //  ROUTE THAT ADDS USER TO A GROUP
-router.post('/group/:groupId/user', (req, res) => {
+router.post('/group/:groupId/users', (req, res) => {
   const currUser = firebase.auth().currentUser,
     groupId = req.params.groupId,
     userId = req.body.userId;
   if (currUser) {
-    db.ref('group/'+ groupId).push(
-      {
-        newUser: userId,
-      }
+    const promise = db.ref('group/' + groupId + '/users').push(
+      { UserId: userId, }
     );
-    // const userId = req.body.userId,
-    // const groupRef = db.ref('group/');
-    // groupRef.child(groupId).update({
-    //   user: userId,
-    // });
-    console.log('Your group has a new User ');
-    res.send('Your group has a new User ');
+    promise.then(() => {
+      res.status(200);
+      res.send('Your group has a new User ');
+    });
+    promise.catch((error) => {
+      res.status(400);
+      res.send(error.message);
+    });
   } else {
-    res.send('Nobody is signed In');
-    console.log('Nobody is signed in!');
+    res.status(401);
+    console.log(res.status(401));
   }
 });
 
