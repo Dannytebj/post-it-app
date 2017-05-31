@@ -17,10 +17,10 @@ router.use((err, req, res, next) => {
   //  add real time listner
   auth.onAuthStateChanged((firebaseUser) => {
     if (firebaseUser) {
-      console.log('he is signed In');
+      res.send('Welcome to PostIt...');
     } else {
       res.status(401);
-      console.log('not logged In');
+      res.send('You need to log in first!: ' + res.status(401));
     }
   });
   next();
@@ -61,14 +61,15 @@ router.post('/signIn', (req, res) => {
   .catch((error) => {
     res.status(401);
     res.send(error.message);
-    console.log(error.message);
   });
 });
 //  ROUTE THAT SIGN'S USER OUT
 router.post('/signOut', (req, res) => {
   auth.signOut().then(() => {
   })
-.catch(error => console.log(error.message));
+.catch((error) => {
+  res.send(error.message);
+});
   res.send('User signed Out');
 });
 
@@ -92,7 +93,6 @@ router.post('/group', (req, res) => {
   } else {
     res.status(401);
     res.send('You need to be signed In');
-    console.log('Nobody is signed in!');
   }
 });
 
@@ -115,7 +115,7 @@ router.post('/group/:groupId/users', (req, res) => {
     });
   } else {
     res.status(401);
-    console.log(res.status(401));
+    res.send('You need to be signed In');
   }
 });
 
