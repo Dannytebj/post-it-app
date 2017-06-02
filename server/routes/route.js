@@ -59,7 +59,7 @@ router.post('/signIn', (req, res) => {
     });
   promise
   .catch((error) => {
-    res.status(401);
+    res.status(400);
     res.send(error.message);
   });
 });
@@ -91,7 +91,7 @@ router.post('/group', (req, res) => {
     res.status(200);
     res.send('You Just Created a group called: ' + group);
   } else {
-    res.status(401);
+    res.status(400);
     res.send('You need to be signed In');
   }
 });
