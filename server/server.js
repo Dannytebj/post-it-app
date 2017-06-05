@@ -5,6 +5,7 @@ const express = require('express'),
   _ = require('underscore'),
   app = express();
 
+<<<<<<< HEAD
    allowCrossDomain = (req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 
@@ -28,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Add headers
+=======
+>>>>>>> 03067a0e2352ced60dfb963fb7c18bf0479dfb30
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -46,6 +49,12 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+
+// for parsing application/x-www-form-urlencoded)
+app.use(bodyParser.urlencoded({ extended: true }));
+ // for parsing application/json)
+app.use(bodyParser.json());
 
 
   //  Welcome
