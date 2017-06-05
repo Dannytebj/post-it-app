@@ -31,7 +31,7 @@ class LoginStore extends EventEmitter {
 
     clickSignUp({ email, password, username}) {
         superagent.post('https://postitdanny.herokuapp.com/signUp')
-            .send({ email: email, password: password, username: username })
+            .send({username: username , email: email, password: password})
             .set('Accept', 'application/json')
             .end((error, response) => {
                 if (error !== null) {

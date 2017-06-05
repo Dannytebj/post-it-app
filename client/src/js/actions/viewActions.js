@@ -9,10 +9,10 @@ const ViewActions = {
             payload: { email, password }
         });
     },
-    signUp: (email, username, password) => {
+    signUp: (username, email, password) => {
         AppDispatcher.handleViewAction({
             type: Constants.CLICK_SIGN_UP,
-            payload: {email, password, username}
+            payload: { username, email, password }
         });
     }
 };

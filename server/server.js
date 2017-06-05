@@ -29,8 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Add headers
-=======
->>>>>>> 03067a0e2352ced60dfb963fb7c18bf0479dfb30
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect

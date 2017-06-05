@@ -15,7 +15,7 @@ class Login extends Component {
             email: '',
             password: '',
             signingIn: true,
-            name: ''
+            username: ''
         };
         this._onChange = this._onChange.bind(this);
         this.clickSign = this.clickSign.bind(this);
@@ -36,23 +36,23 @@ class Login extends Component {
         });
     }
     clickSign() {
-        const { email, password, name, signingIn } = this.state;
+        const { email, password, username, signingIn } = this.state;
         if (signingIn) {
             signIn(email, password);
             return;
         }
-        signUp(email, password, name);
+        signUp( username,email, password);
     }
     render() {
-        const { email, password, name, signingIn } = this.state;
+        const { email, password, username, signingIn } = this.state;
         return (
         <div className="form">
         <div className="login">
             {UserStore.getMessage()}
             { (!signingIn) ? <TextBox
-                onChange={(value) => { this.setState({ name: value }); }}
+                onChange={(value) => { this.setState({ username: value }); }}
                 label="name"
-                currentValue={name}
+                currentValue={username}
                 /> : <div/> }
             <TextBox
                 onChange={(value) => { this.setState({ email: value }); }}
