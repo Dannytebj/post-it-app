@@ -8,6 +8,12 @@ const ViewActions = {
             type: Constants.CLICK_SIGN_IN,
             payload: { email, password }
         });
+    },
+    signUp: (email, username, password) => {
+        AppDispatcher.handleViewAction({
+            type: Constants.CLICK_SIGN_UP,
+            payload: {email, password, username}
+        });
     }
 };
 

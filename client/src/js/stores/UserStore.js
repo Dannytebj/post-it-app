@@ -13,31 +13,37 @@ class LoginStore extends EventEmitter {
     getMessage() {
         return message;
     }
-//     testing() {
-//     superagent.get('https://postitdanny.herokuapp.com/')
-//       .set('Accept', 'application/json')
-//       .end(function(err, response) {
-//         if (err){
-//             return console.error(err);
-//         } else{
-//             message = response
-//         }
 
-//       });
-//   }
     clickSignIn({ email, password }) {
         console.log(email, password);
-        superagent.post('https://postitdanny.herokuapp.com/')
-            .query({ email: email, password: password })
+        superagent.post('https://postitdanny.herokuapp.com/signIn')
+            .send({ email: email, password: password })
+            .set('Accept', 'application/json')
             .end((error, response) => {
                 if (error !== null) {
-                    message = response.status;
+                    message = response.status.toString();
                 } else {
-                    message = response;
+                    message = response.status.toString();
                 }
                 this.emitChange();
             });
     }
+
+    clickSignUp({ email, password, username}) {
+        superagent.post('https://postitdanny.herokuapp.com/signUp')
+            .send({ email: email, password: password, username: username })
+            .set('Accept', 'application/json')
+            .end((error, response) => {
+                if (error !== null) {
+                    message = response.status.toString();
+                } else {
+                    message = response.text.toString();
+                }
+                this.emitChange();
+            });
+
+    }
+
     emitChange() {
         this.emit('change');
     }
@@ -52,6 +58,9 @@ class LoginStore extends EventEmitter {
         switch (action.type) {
             case Constants.CLICK_SIGN_IN:
                 this.clickSignIn(action.payload);
+                break;
+            case Constants.CLICK_SIGN_UP:
+                this.clickSignUp(action.payload);
                 break;
             default:
                 console.log('default', action);

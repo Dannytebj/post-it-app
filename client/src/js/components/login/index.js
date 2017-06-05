@@ -3,9 +3,10 @@ import UserStore from '../../stores/UserStore';
 import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
+import './login.scss';
 
 const { signIn } = ViewActions;
-import './login.scss';
+const { signUp } = ViewActions;
 
 class Login extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class Login extends Component {
             signIn(email, password);
             return;
         }
-        signUp(email, password, name); // change to sign up
+        signUp(email, password, name);
     }
     render() {
         const { email, password, name, signingIn } = this.state;
