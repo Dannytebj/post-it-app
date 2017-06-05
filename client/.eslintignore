@@ -1,0 +1,8 @@
+node_modules
+dist
+**/log-version.js
+coverage
+**/webpack.config*
+test/mock/**
+**/server*js
+eslint_config
