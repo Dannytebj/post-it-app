@@ -1,0 +1,40 @@
+body{
+    background-color: #ccc;
+    overflow: hidden;
+    #main-container{
+        padding: 0 0 0 0 !important;
+        .app-navigator{
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            .app{
+                background-color: rgba(68,68,68,.8);
+                height: calc(100% - 50px);
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 50px;
+            }
+            .navigator{
+                background-color: rgba(68,68,68,.4);
+                height: 50px;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                a{
+                    color: #afaf95;
+                    float: left;
+                    padding: 10px 8px 3px 8px;
+                    font-size: larger;
+                    height: 35px;
+                    background-color: rgba(68, 68, 68, 0.8);
+                    text-decoration: none;
+                    border: thin solid #383835;
+                }
+            }
+        }
+    }
+}

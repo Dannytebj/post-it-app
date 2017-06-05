@@ -1,3 +1,4 @@
+
 const express = require('express'),
   firebase = require('firebase'),
   router = express.Router(),
@@ -34,7 +35,7 @@ router.post('/signUp', (req, res) => {
     user.updateProfile({
       displayName: userName
     }).then(() => {
-      db.ref('/users/' + userName).push(
+      db.ref('/users/' + userName).update(
         {
           userId: user.uid,
         }
@@ -59,7 +60,7 @@ router.post('/signIn', (req, res) => {
     });
   promise
   .catch((error) => {
-    res.status(401);
+    res.status(400);
     res.send(error.message);
   });
 });
@@ -91,7 +92,7 @@ router.post('/group', (req, res) => {
     res.status(200);
     res.send('You Just Created a group called: ' + group);
   } else {
-    res.status(401);
+    res.status(400);
     res.send('You need to be signed In');
   }
 });
@@ -117,6 +118,40 @@ router.post('/group/:groupId/users', (req, res) => {
     res.status(401);
     res.send('You need to be signed In');
   }
+});
+
+// ROUTE THAT ALLOWS USERS POST MESSAGES
+router.post('/message/:groupId', (req, res) => {
+  const currUser = firebase.auth().currentUser,
+    message = req.body.message,
+    groupId = req.params.groupId;
+  if (currUser) {
+    const  userId = currUser.uid;
+    const messagekey = db.ref('messages/' + groupId).push(
+      { userId:userId,
+        messageBody:{
+         message,
+      }
+    }
+    ).key;
+    const promise = db.ref('group/' + groupId + '/messages').push(
+      { 
+        userId:  userId,
+        messageKey: messagekey
+       }
+    ).then(() =>{
+      res.status(200);
+      res.send('Your message was posted successfully!');
+    }).catch((error) =>{
+      res.status(400);
+      res.send('Unfortunately,Your message was not posted');
+    });
+  }else {
+    res.status(401);
+    res.send('You need to be signed In');
+  }
+
+
 });
 
 
