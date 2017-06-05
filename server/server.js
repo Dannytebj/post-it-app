@@ -5,22 +5,24 @@ const express = require('express'),
   _ = require('underscore'),
   app = express();
 
-   allowCrossDomain = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+app.use(function (req, res, next) {
 
-  let origin = req.headers.origin;
-  if (_.contains(app.get('allowed_origins'), origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-  if (req.method === 'OPTIONS') {
-    res.send(200);
-  } else {
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
     next();
-  }
-}
-
-app.use(allowCrossDomain);
+});
 
 
 // for parsing application/x-www-form-urlencoded)
