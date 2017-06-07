@@ -1,1 +1,0 @@
-web: nodemon dist/server/server.js
