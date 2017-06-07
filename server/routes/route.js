@@ -75,8 +75,8 @@ router.post('/signIn', (req, res) => {
       res.send(userToken);
     });
   promise
-  .catch(() => {
-    res.status(400);
+  .catch((error) => {
+    res.status(400).send(error);
   });
 });
 //  ROUTE THAT SIGN'S USER OUT
