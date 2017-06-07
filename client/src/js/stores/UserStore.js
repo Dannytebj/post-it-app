@@ -2,6 +2,8 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import { EventEmitter } from 'events';
 import Constants from '../constants/';
 import superagent from 'superagent';
+import { browserHistory } from "react-router";
+// import Welcome from '../components/commons/main';
 
 let message = '';
 
@@ -24,6 +26,8 @@ class LoginStore extends EventEmitter {
                     message = response.status.toString();
                 } else {
                     message = response.status.toString();
+                    browserHistory.push('main');
+                    // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
             });
@@ -38,10 +42,24 @@ class LoginStore extends EventEmitter {
                     message = response.status.toString();
                 } else {
                     message = response.text.toString();
+                     browserHistory.push('main');
+                    // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
             });
 
+    }
+
+    clickSignOut(){
+        superagent.post('https://postitdanny.herokuapp.com/signOut')
+            .end((error, response) => {
+                if(error!== null){
+                    message = response.text.toString();
+                } else {
+                    message = response.text.toString();
+                     browserHistory.push('login');
+                }
+            })
     }
 
     emitChange() {
@@ -61,6 +79,9 @@ class LoginStore extends EventEmitter {
                 break;
             case Constants.CLICK_SIGN_UP:
                 this.clickSignUp(action.payload);
+                break;
+            case Constants.CLICK_SIGN_OUT:
+                this.clickSignOut()
                 break;
             default:
                 console.log('default', action);

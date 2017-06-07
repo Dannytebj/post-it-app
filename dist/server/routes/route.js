@@ -1,16 +1,13 @@
 'use strict';
 
-var _express = require('express');
+var express = require('express'),
+    firebase = require('firebase'),
+    emailValidation = require('../utils/emailValidation');
+// import express from 'express';
+// import firebase from 'firebase';
+// import emailValidation from '../utils/emailValidation';
 
-var _express2 = _interopRequireDefault(_express);
-
-var _firebase = require('firebase');
-
-var _firebase2 = _interopRequireDefault(_firebase);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router(),
+var router = express.Router(),
     config = {
   apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
   authDomain: 'postitapp-f266c.firebaseapp.com',
@@ -18,11 +15,10 @@ var router = _express2.default.Router(),
   projectId: 'postitapp-f266c',
   storageBucket: 'postitapp-f266c.appspot.com',
   messagingSenderId: '276992209544' };
-
 //  Initialize Database
-_firebase2.default.initializeApp(config);
-var auth = _firebase2.default.auth(),
-    db = _firebase2.default.database();
+firebase.initializeApp(config);
+var auth = firebase.auth(),
+    db = firebase.database();
 
 // Router Controlling Authentication
 router.use(function (err, req, res, next) {
@@ -40,33 +36,43 @@ router.use(function (err, req, res, next) {
 router.post('/signUp', function (req, res) {
   var email = req.body.email,
       password = req.body.password,
-      userName = req.body.username,
-      promise = auth.createUserWithEmailAndPassword(email, password).then(function (user) {
-    user.updateProfile({
-      displayName: userName
-    }).then(function () {
-      db.ref('/users/' + userName).update({
-        userId: user.uid
-      });
-      res.send('Message: User Succesfully created!');
-    });
-  });
-  promise.catch(function (error) {
+      userName = req.body.username;
+  var promise = void 0;
+  if (!emailValidation(email)) {
     res.status(400);
-    res.send(error.message);
-  });
-}); //  end of signUp.post
-
+    res.send({ message: 'Please use a valid email address' });
+  } else if (password === '') {
+    res.status(400);
+    res.send({ message: 'Please, you have not entered a password' });
+  } else {
+    promise = auth.createUserWithEmailAndPassword(email, password).then(function (user) {
+      user.updateProfile({
+        displayName: userName
+      });
+      user.sendEmailVerification().then(function () {
+        db.ref('/users/' + userName).update({
+          userId: user.uid
+        });
+        res.send('Message: User Succesfully created!');
+      });
+    });
+    promise.catch(function (error) {
+      res.status(400).send({ message: error });
+    });
+  }
+});
+//  end of signUp.post
 //  ROUTE THAT CREATES SIGN'S USER IN
 router.post('/signIn', function (req, res) {
   var email = req.body.email,
       password = req.body.password,
       promise = auth.signInWithEmailAndPassword(email, password).then(function () {
-    res.send('user logged in successfully');
+    var userToken = auth.currentUser;
+    res.status(200).send({ message: 'User signed In successfully!' });
+    res.send(userToken);
   });
   promise.catch(function (error) {
-    res.status(400);
-    res.send(error.message);
+    res.status(400).send(error);
   });
 });
 //  ROUTE THAT SIGN'S USER OUT
@@ -79,7 +85,7 @@ router.post('/signOut', function (req, res) {
 
 // ROUTE THAT ALLOWS ONLY LOGGED IN USERS CREATE GROUP
 router.post('/group', function (req, res) {
-  var currUser = _firebase2.default.auth().currentUser;
+  var currUser = firebase.auth().currentUser;
   if (currUser) {
     var dbRef = db.ref('/group'),
         group = req.body.groupName,
@@ -101,7 +107,7 @@ router.post('/group', function (req, res) {
 
 //  ROUTE THAT ADDS USER TO A GROUP
 router.post('/group/:groupId/users', function (req, res) {
-  var currUser = _firebase2.default.auth().currentUser,
+  var currUser = firebase.auth().currentUser,
       groupId = req.params.groupId,
       userId = req.body.userId;
   if (currUser) {
@@ -122,29 +128,30 @@ router.post('/group/:groupId/users', function (req, res) {
 
 // ROUTE THAT ALLOWS USERS POST MESSAGES
 router.post('/message/:groupId', function (req, res) {
-  var currUser = _firebase2.default.auth().currentUser,
+  var currUser = firebase.auth().currentUser,
       message = req.body.message,
       groupId = req.params.groupId;
   if (currUser) {
     var userId = currUser.uid;
-    var messagekey = db.ref('messages/' + groupId).push({ userId: userId,
+    var messagekey = db.ref('messages/' + groupId).push({ Id: userId,
       messageBody: {
         message: message
       }
     }).key;
     var promise = db.ref('group/' + groupId + '/messages').push({
-      userId: userId,
+      Id: userId,
       messageKey: messagekey
     }).then(function () {
       res.status(200);
       res.send('Your message was posted successfully!');
-    }).catch(function (error) {
+    });
+    promise.catch(function (error) {
       res.status(400);
-      res.send('Unfortunately,Your message was not posted');
+      res.send({ message: 'Unfortunately,Your message was not posted' }, error.message);
     });
   } else {
     res.status(401);
-    res.send('You need to be signed In');
+    res.send({ message: 'You need to be signed In' });
   }
 });
 

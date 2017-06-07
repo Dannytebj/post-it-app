@@ -1,28 +1,28 @@
-'use strict';
-
-var express = require('express'),
-    bodyParser = require('body-parser'),
-    route = require('./routes/route');
+const express = require('express'),
+  bodyParser = require('body-parser'),
+  route = require('./routes/route');
 // import express from 'express';
 // import bodyParser from 'body-parser';
 // import route from './routes/route';
 
-var port = process.env.PORT || 9999,
-    app = express();
+const port = process.env.PORT || 9999,
+  app = express();
 
 // for parsing application/x-www-form-urlencoded)
 app.use(bodyParser.urlencoded({ extended: true }));
-// for parsing application/json)
+ // for parsing application/json)
 app.use(bodyParser.json());
 
 // Add headers
-app.use(function (req, res, next) {
-  // Website you wish to allow to connect
+app.use((req, res, next) => {
+    // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods',
+  'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Headers',
+  'X-Requested-With,content-type');
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -30,8 +30,9 @@ app.use(function (req, res, next) {
   next();
 });
 
-//  Welcome
-app.get('/', function (req, res, next) {
+
+  //  Welcome
+app.get('/', (req, res, next) => {
   res.status(200);
   res.send('Hello');
   next();

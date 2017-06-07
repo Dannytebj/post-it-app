@@ -14,6 +14,11 @@ const ViewActions = {
             type: Constants.CLICK_SIGN_UP,
             payload: { username, email, password }
         });
+    },
+    signOut: () => {
+        AppDispatcher.handleViewAction({
+            type: Constants.CLICK_SIGN_OUT
+        });
     }
 };
 

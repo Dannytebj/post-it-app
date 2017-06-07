@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "mocha test/tests.js"
+    "test": "mocha test/tests.js",
+    "transpile": "babel --presets es2015 server/server.js --out-dir dist",
+    "transpile2":  "babel --presets es2015 server/routes/route.js --out-dir dist"
   },
   "repository": {
     "type": "git",
