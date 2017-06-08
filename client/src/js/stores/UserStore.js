@@ -6,6 +6,7 @@ import { browserHistory } from "react-router";
 // import Welcome from '../components/commons/main';
 
 let message = '';
+let token = {};
 
 class LoginStore extends EventEmitter {
     constructor() {
@@ -23,9 +24,11 @@ class LoginStore extends EventEmitter {
             .set('Accept', 'application/json')
             .end((error, response) => {
                 if (error !== null) {
-                    message = response.status.toString();
+                    message = response.text.toString();
                 } else {
-                    message = response.status.toString();
+                    token = response.userToken.toString();
+                    console.log(token.uid);
+                    message = response.text.toString();
                     browserHistory.push('main');
                     // window.location.href = `${window.location.origin}/main`;
                 }
