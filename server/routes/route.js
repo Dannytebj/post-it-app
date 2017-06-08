@@ -70,9 +70,8 @@ router.post('/signIn', (req, res) => {
     password = req.body.password,
     promise = auth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      res.status(200).send({ message: 'User signed In successfully!' });
       auth.currentUser.getIdToken(true).then((userToken) => {
-        console.log(userToken);
+        res.json({ message: 'User logged In succesfully', token: userToken });
       }).catch((error) => {
         res.send(error);
       });
