@@ -9,5 +9,6 @@ ReactDOM.render(
       <Route path="login" component={ Login } />
       <Route path= "main" component={ Welcome } />
   </Router>,
-  document.getElementById('main-container')
+  document.getElementById('main-container'),
+  document.getElementById('tray')
 );
