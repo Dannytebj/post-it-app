@@ -6,7 +6,8 @@ import { browserHistory } from "react-router";
 // import Welcome from '../components/commons/main';
 
 let message = '';
-let token;
+let received = {};
+
 
 class LoginStore extends EventEmitter {
     constructor() {
@@ -23,15 +24,14 @@ class LoginStore extends EventEmitter {
             .send({ email: email, password: password })
             .set('Accept', 'application/json')
             .end((error, response) => {
+             received = JSON.parse(response.text);
                 if (error !== null) {
-                    message = response.text.toString();
+                    message = received.message;
                 } else {
-                    // token = response.data.token;
-                    // console.log(token);
-                    // this.set('userToken', token);
-                    // console.log(token.uid);
-                    message = response.text.toString();
-                    browserHistory.push('main');
+                    const token = received.token;
+                    localStorage.setItem('userToken', token);
+                    message = received.message;
+                    browserHistory.push('home');
                     // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
@@ -47,7 +47,7 @@ class LoginStore extends EventEmitter {
                     message = response.status.toString();
                 } else {
                     message = response.text.toString();
-                     browserHistory.push('main');
+                     browserHistory.push('home');
                     // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
@@ -62,6 +62,7 @@ class LoginStore extends EventEmitter {
                     message = response.text.toString();
                 } else {
                     message = response.text.toString();
+                    localStorage.clear();
                      browserHistory.push('login');
                 }
             })
@@ -87,6 +88,9 @@ class LoginStore extends EventEmitter {
                 break;
             case Constants.CLICK_SIGN_OUT:
                 this.clickSignOut()
+                break;
+            case Constants.CLICK_CREATE_GROUP:
+                this.clickCreateGroup(action.payload);
                 break;
             default:
                 console.log('default', action);
