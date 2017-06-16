@@ -19,6 +19,12 @@ const ViewActions = {
         AppDispatcher.handleViewAction({
             type: Constants.CLICK_SIGN_OUT
         });
+    },
+    createGroup: (groupName) => {
+        AppDispatcher.handleViewAction({
+            type: Constants.CLICK_CREATE_GROUP,
+            payload: { groupName }
+        });
     }
 };
 
