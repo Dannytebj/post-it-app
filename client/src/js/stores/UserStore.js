@@ -68,6 +68,20 @@ class LoginStore extends EventEmitter {
             })
     }
 
+    clickCreateGroup({ groupName }) {
+        superagent.post('https://postitdanny.herokuapp.com/group')
+        .send({ groupName: groupName})
+        .set('Accept', 'application/json')
+        .end((error, response) => {
+            if (error !== null) {
+                    message = response.status.toString();
+                } else {
+                    message = response.text.toString();
+            }
+            this.emitChange();
+        });
+    }
+
     emitChange() {
         this.emit('change');
     }
