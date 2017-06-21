@@ -3,10 +3,11 @@ import Navigator from '../../navigation';
 
 class Home extends Component {
     render() {
+        const user = localStorage.getItem('userName');
         return (<div className="page">
             <Navigator/>
             <div className="page-content">
-                Welcome to Home
+                Welcome {user}
             </div>
         </div>);
     }

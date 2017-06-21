@@ -28,9 +28,11 @@ class LoginStore extends EventEmitter {
                 if (error !== null) {
                     message = received.message;
                 } else {
-                    const token = received.token;
-                    localStorage.setItem('userToken', token);
                     message = received.message;
+                    const userName = received.userName,
+                        userUid = received.userUid;
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('uid', userUid);
                     browserHistory.push('home');
                     // window.location.href = `${window.location.origin}/main`;
                 }
@@ -81,6 +83,7 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
+
 
     emitChange() {
         this.emit('change');
