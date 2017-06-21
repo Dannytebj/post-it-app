@@ -28,9 +28,11 @@ class LoginStore extends EventEmitter {
                 if (error !== null) {
                     message = received.message;
                 } else {
-                    const token = received.token;
-                    localStorage.setItem('userToken', token);
                     message = received.message;
+                    const userName = received.userName,
+                        userUid = received.userUid;
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('uid', userUid);
                     browserHistory.push('home');
                     // window.location.href = `${window.location.origin}/main`;
                 }
@@ -67,6 +69,21 @@ class LoginStore extends EventEmitter {
                 }
             })
     }
+
+    clickCreateGroup({ groupName }) {
+        superagent.post('https://postitdanny.herokuapp.com/group')
+        .send({ groupName: groupName})
+        .set('Accept', 'application/json')
+        .end((error, response) => {
+            if (error !== null) {
+                    message = response.status.toString();
+                } else {
+                    message = response.text.toString();
+            }
+            this.emitChange();
+        });
+    }
+
 
     emitChange() {
         this.emit('change');

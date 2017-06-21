@@ -16,6 +16,7 @@ const router = express.Router(),
 //  Initialize Database
 firebase.initializeApp(config);
 const auth = firebase.auth(),
+  currUser = auth.currentUser,
   db = firebase.database();
 
   // Router Controlling Authentication
@@ -69,18 +70,20 @@ router.post('/signIn', (req, res) => {
   const email = req.body.email,
     password = req.body.password,
     promise = auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      auth.currentUser.getIdToken(true).then((userToken) => {
-        res.json({ message: 'User logged In succesfully', token: userToken });
-      }).catch((error) => {
-        res.send(error);
+      .then(() => {
+        const user = firebase.auth().currentUser,
+          username = user.displayName,
+          uid = user.uid;
+        res.json({ message: 'User Logged In Successfully!',
+          userName: username,
+          userUid: uid });
       });
-    });
   promise
   .catch((error) => {
     res.status(400).send(error);
   });
 });
+
 //  ROUTE THAT SIGN'S USER OUT
 router.post('/signOut', (req, res) => {
   auth.signOut().then(() => {
@@ -93,7 +96,6 @@ router.post('/signOut', (req, res) => {
 
 // ROUTE THAT ALLOWS ONLY LOGGED IN USERS CREATE GROUP
 router.post('/group', (req, res) => {
-  const currUser = firebase.auth().currentUser;
   if (currUser) {
     const dbRef = db.ref('/group'),
       group = req.body.groupName,
@@ -116,8 +118,7 @@ router.post('/group', (req, res) => {
 
 //  ROUTE THAT ADDS USER TO A GROUP
 router.post('/group/:groupId/users', (req, res) => {
-  const currUser = firebase.auth().currentUser,
-    groupId = req.params.groupId,
+  const groupId = req.params.groupId,
     userId = req.body.userId;
   if (currUser) {
     const promise = db.ref('group/' + groupId + '/users').push(
@@ -139,8 +140,7 @@ router.post('/group/:groupId/users', (req, res) => {
 
 // ROUTE THAT ALLOWS USERS POST MESSAGES
 router.post('/message/:groupId', (req, res) => {
-  const currUser = firebase.auth().currentUser,
-    message = req.body.message,
+  const message = req.body.message,
     groupId = req.params.groupId;
   if (currUser) {
     const userId = currUser.uid;
