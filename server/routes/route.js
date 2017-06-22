@@ -171,4 +171,17 @@ router.post('/message/:groupId', (req, res) => {
 });
 
 
+// router.get('/group/:user', (req, res) => {
+//   const user = req.param.userName;
+//   firebase.database().ref('users/' + user + '/groups/').once('value')
+//     .then((snapshot) => {
+//       const name = snapshot.val().groupName;
+//       res.send({ group: name });
+//     })
+//     .catch((error) => {
+//       res.send(error);
+//     });
+// });
+
+
 module.exports = router;

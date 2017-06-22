@@ -41,10 +41,10 @@ class Groups extends Component {
     }
     render() {
         const { groupName } = this.state;
-        return (<div className="page">
+        return (
+        <div className="page">
             <Navigator/>
             <div className="page-content">
-                {UserStore.getCurrentUser()}
                 <div className="form">
                 {UserStore.getMessage()}
                 <h1>Create A Group!</h1>
