@@ -10,7 +10,7 @@ import './index.scss';
 
 ReactDOM.render(
   <Router history={ browserHistory }>
-      <Route path="login" component={ Login } />
+      <Route path="/" component={ Login } />
       <Route path= "home" component={ Home } />
       <Route path= "groups" component={ Groups } />
       <Route path= "addUser" component={ AddUser } />

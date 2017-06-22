@@ -28,13 +28,12 @@ class LoginStore extends EventEmitter {
                 if (error !== null) {
                     message = received.message;
                 } else {
-                    message = received.message;
+                    // message = received.message;
                     const userName = received.userName,
                         userUid = received.userUid;
                     localStorage.setItem('userName', userName);
                     localStorage.setItem('uid', userUid);
                     browserHistory.push('home');
-                    // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
             });
@@ -49,8 +48,9 @@ class LoginStore extends EventEmitter {
                     message = response.status.toString();
                 } else {
                     message = response.text.toString();
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('uid', userUid);
                      browserHistory.push('home');
-                    // window.location.href = `${window.location.origin}/main`;
                 }
                 this.emitChange();
             });
@@ -65,7 +65,8 @@ class LoginStore extends EventEmitter {
                 } else {
                     message = response.text.toString();
                     localStorage.clear();
-                     browserHistory.push('login');
+                    window.location.reload();
+                    browserHistory.push('/');
                 }
             })
     }
@@ -82,6 +83,19 @@ class LoginStore extends EventEmitter {
             }
             this.emitChange();
         });
+    }
+    getGroup(){
+        superagent.get('https://postitdanny.herokuapp.com/groups')
+        .set('Accept', 'application/json')
+            .end((error, response) => {
+                const collected = JSON.parse(response.text);
+                if(error !== null) {
+                    message = response.text.toString();
+                } else {
+                    console.log(collected);
+                }
+                this.emitChange();
+            });
     }
 
 
