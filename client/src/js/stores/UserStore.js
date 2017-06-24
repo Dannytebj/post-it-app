@@ -7,6 +7,7 @@ import { browserHistory } from "react-router";
 
 let message = '';
 let received = {};
+let gotUsers ={};
 
 
 class LoginStore extends EventEmitter {
@@ -122,6 +123,9 @@ class LoginStore extends EventEmitter {
                 break;
             case Constants.CLICK_CREATE_GROUP:
                 this.clickCreateGroup(action.payload);
+                break;
+            case Constants.GET_USER:
+                this.getGroup()
                 break;
             default:
                 console.log('default', action);

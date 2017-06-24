@@ -9,7 +9,7 @@ import '../../../../index.scss';
 
 
 const { createGroup } = viewActions;
-
+const { getUser } = viewActions
 class Groups extends Component {
     constructor(props) {
         super(props);
@@ -21,12 +21,9 @@ class Groups extends Component {
     }
     componentDidMount() {
         UserStore.addChangeListener(this._onChange);
-        // DataStore.addChangeListener(this._onChange);
-
     }
     componentWillUnmount() {
         UserStore.removeChangeListener(this._onChange);
-        // DataStore.addChangeListener(this._onChange);
     }
     _onChange() {
         this.forceUpdate();
@@ -37,7 +34,8 @@ class Groups extends Component {
         return;
     }
     do_fetchGroups() {
-
+        getUser();
+        return;
     }
     render() {
         const { groupName } = this.state;
@@ -57,7 +55,6 @@ class Groups extends Component {
                 onClick={ this.do_createGroup }
                 value={'Create Group' }
                 />
-                <p>Click here to view List of Groups</p>
                
             </div>
             </div>

@@ -8,7 +8,7 @@ const Navigator = () => (
     <div className="app-navigator">
         <div className="navigator">
             <Link to={'home'}>Home</Link>
-            <Link to={'groups'}>Groups</Link>
+            <Link to={'group'}>Groups</Link>
             <Link to={'addUser'}>Add User</Link>
             <Link to={'signOut'}>Sign Out</Link>
         </div>

@@ -25,6 +25,11 @@ const ViewActions = {
             type: Constants.CLICK_CREATE_GROUP,
             payload: { groupName }
         });
+    },
+    getUser: () => {
+        AppDispatcher.handleViewAction({
+            type: Constants.GET_USER
+        })
     }
 };
 
