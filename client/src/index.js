@@ -12,7 +12,7 @@ ReactDOM.render(
   <Router history={ browserHistory }>
       <Route path="/" component={ Login } />
       <Route path= "home" component={ Home } />
-      <Route path= "groups" component={ Groups } />
+      <Route path= "group" component={ Groups } />
       <Route path= "addUser" component={ AddUser } />
       <Route path= "signOut" component={ SignOut } />
   </Router>,

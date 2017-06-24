@@ -5,6 +5,6 @@ module.exports = keyMirror({
     CLICK_SIGN_UP: null,
     CLICK_SIGN_OUT: null,
     CLICK_CREATE_GROUP: null,
-    GET_CURRENT_USER: null
+    GET_USER: null
 
 });
