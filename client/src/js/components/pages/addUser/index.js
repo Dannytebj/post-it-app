@@ -40,7 +40,15 @@ do_fetchGroups() {
    
     render() {
         const { showUsers } = this.state;
-        // console.log(this.props);
+        let usersArray =['Daniel','Timothy'] ;
+        // const ulList = document.getElementById("myNames");                    
+        const ulList = document.createElement("ul");
+        for( const users of usersArray){
+            let li = document.createElement('li');
+            li.innerText = users;
+            ulList.appendChild(li);
+            console.log(li);
+        }
         return (
         <div className="page">
             <Navigator/>
@@ -52,12 +60,12 @@ do_fetchGroups() {
                 onClick={ this.do_fetchGroups }
                 value={'Get Users' }
                 />
-                 <div className ="showGroup">
-                     <h1>Show users !</h1>
-                </div>
+               { <ulList/> }
+
                 </div>
             </div>
         </div>);
+    
     }
 }
 

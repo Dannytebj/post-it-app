@@ -12,7 +12,7 @@ const router = express.Router(),
 //  Initialize Database
 // firebase.initializeApp(config);
 
-router.get('/groups', (req, res) => {
+router.get('/getUsers', (req, res) => {
   const ref = firebase.database().ref().child('users');
   // const ref2 = ref.child('"' + userss + '"');
   ref.once('value', (data) => {

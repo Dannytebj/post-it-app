@@ -7,7 +7,7 @@ import { browserHistory } from "react-router";
 
 let message = '';
 let received = {};
-let gotUsers ={};
+let userArray = [];
 
 
 class LoginStore extends EventEmitter {
@@ -17,6 +17,9 @@ class LoginStore extends EventEmitter {
     }
     getMessage() {
         return message;
+    }
+    getUsers (){
+       return userArray;
     }
 
     clickSignIn({ email, password }) {
@@ -49,8 +52,6 @@ class LoginStore extends EventEmitter {
                     message = response.status.toString();
                 } else {
                     message = response.text.toString();
-                    localStorage.setItem('userName', userName);
-                    localStorage.setItem('uid', userUid);
                      browserHistory.push('home');
                 }
                 this.emitChange();
@@ -86,14 +87,22 @@ class LoginStore extends EventEmitter {
         });
     }
     getGroup(){
-        superagent.get('https://postitdanny.herokuapp.com/groups')
+        superagent.get('https://postitdanny.herokuapp.com/getUsers')
         .set('Accept', 'application/json')
             .end((error, response) => {
                 const collected = JSON.parse(response.text);
                 if(error !== null) {
                     message = response.text.toString();
                 } else {
-                    console.log(collected);
+                    // console.log(Object.values(collected));
+                    Object.entries(collected).forEach(([key, value]) => {
+                        userArray = value['name'];
+                        // console.log(users);
+                    })
+                    // Object.keys(collected).forEach((key) => {
+                    //     let obj =collected[key];
+                    //     console.log(obj);
+                    // });
                 }
                 this.emitChange();
             });
