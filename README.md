@@ -21,16 +21,22 @@ POST: /message/:groupId
 An API that gets all registered users
 GET: /getUsers
 
-##  How to run the Run PostIt
+### Functionalities Currently Working
+At the present stage of development, the following functionalities have been implemented;
+The front end of Postit is developed with ReactJs using the Flux Architecture;
+1) A component to SignIn and SignUp new users
+2) A component that allows registered users create a group 
+
+##  How to run PostIt
 After cloning repo, change directory to server and install dependencies; 
 ```
 npm install
 ```
 change directory to clients and install dependencies too;
 ```
-cd install && npm install
+cd client && npm install
 ```
-next, still in the client directory run;
+Next, still in the client directory run;
 ```
 npm run start:dev
 ```
