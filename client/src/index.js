@@ -4,7 +4,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import Login from './js/components/login';
 import Home from './js/components/pages/home';
 import Groups from './js/components/pages/groups';
-import AddUser from './js/components/pages/addUser';
+import AddUser from './js/components/pages/addUser2';
 import SignOut from './js/components/pages/signOut';
 import './index.scss';
 

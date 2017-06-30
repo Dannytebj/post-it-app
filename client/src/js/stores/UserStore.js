@@ -86,7 +86,7 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
-    getGroup(){
+    getAllUsers(){
         superagent.get('https://postitdanny.herokuapp.com/getUsers')
         .set('Accept', 'application/json')
             .end((error, response) => {
@@ -94,11 +94,12 @@ class LoginStore extends EventEmitter {
                 if(error !== null) {
                     message = response.text.toString();
                 } else {
+                    userArray = Object.values(collected);
                     // console.log(Object.values(collected));
-                    Object.entries(collected).forEach(([key, value]) => {
-                        userArray = value['name'];
-                        // console.log(users);
-                    })
+                    // Object.entries(collected).forEach(([key, value]) => {
+                    //     userArray = value['name'];
+                        console.log(userArray);
+                    // })
                     // Object.keys(collected).forEach((key) => {
                     //     let obj =collected[key];
                     //     console.log(obj);
@@ -134,7 +135,7 @@ class LoginStore extends EventEmitter {
                 this.clickCreateGroup(action.payload);
                 break;
             case Constants.GET_USER:
-                this.getGroup()
+                this.getAllUsers();
                 break;
             default:
                 console.log('default', action);
