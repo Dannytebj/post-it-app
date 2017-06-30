@@ -1,6 +1,12 @@
 const express = require('express'),
   firebase = require('firebase');
 
+const getArrayOfUsers = (data) => {
+  return Object.keys(data).map((key) => {
+    return data[key];
+  });
+};
+
 const router = express.Router(),
   config = {
     apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
@@ -16,8 +22,8 @@ router.get('/getUsers', (req, res) => {
   const ref = firebase.database().ref().child('users');
   // const ref2 = ref.child('"' + userss + '"');
   ref.once('value', (data) => {
-    const name = data.val();
-    res.send(name);
+    const users = getArrayOfUsers(data.val());
+    res.send(users);
   }).catch((error) => {
     res.send(error);
   });
