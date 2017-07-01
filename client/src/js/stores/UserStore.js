@@ -86,29 +86,6 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
-    getAllUsers(){
-        superagent.get('https://postitdanny.herokuapp.com/getUsers')
-        .set('Accept', 'application/json')
-            .end((error, response) => {
-                const collected = JSON.parse(response.text);
-                if(error !== null) {
-                    message = response.text.toString();
-                } else {
-                    userArray = Object.values(collected);
-                    // console.log(Object.values(collected));
-                    // Object.entries(collected).forEach(([key, value]) => {
-                    //     userArray = value['name'];
-                        console.log(userArray);
-                    // })
-                    // Object.keys(collected).forEach((key) => {
-                    //     let obj =collected[key];
-                    //     console.log(obj);
-                    // });
-                }
-                this.emitChange();
-            });
-    }
-
 
     emitChange() {
         this.emit('change');
