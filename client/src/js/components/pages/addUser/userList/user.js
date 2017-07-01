@@ -34,14 +34,14 @@ class User extends Component {
             })
     }
     createUserAddButton(isLoading) {
-        return isLoading ? <span>Loading</span> : <span onClick={this.addUser}>Add</span>;
+        return isLoading ? <span>Loading</span> : <span id="add" onClick={this.addUser}> + </span>;
     }
     render() {
         const { user } = this.props;
         const { userAdded, isAddingUser } = this.state;
         return (<li>
             {user.name}
-            { (userAdded) ? createUserAddButton(isAddingUser) : ''}
+            { (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}
         </li>);
     }
 }
