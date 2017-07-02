@@ -130,7 +130,7 @@ router.post('/group/:groupId/users', (req, res) => {
     currUser = auth.currentUser,
     userId = req.body.userId;
   if (currUser) {
-    const promise = db.ref('group/' + groupId + '/users').push(
+    const promise = db.ref('group/' + groupId + '/users').update(
       { UserId: userId, }
     );
     promise.then(() => {

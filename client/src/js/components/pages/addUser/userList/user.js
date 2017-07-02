@@ -15,9 +15,11 @@ class User extends Component {
         this.setState({
             isAddingUser: true
         });
+        console.log({ userId: this.props.user.id , groupId: this.props.user.groups.groupId });
+        let groupId = this.props.user.groups.groupId;
         superagent
-            .post('url')
-            .send({ id: this.props.user.id })
+            .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
+            .send({ userId: this.props.user.id , groupId: this.props.user.groupId })
             .end((error, response) => {
                 if (error) {
                     this.setState({
@@ -34,14 +36,14 @@ class User extends Component {
             })
     }
     createUserAddButton(isLoading) {
-        return isLoading ? <span>Loading</span> : <span onClick={this.addUser}>Add</span>;
+        return isLoading ? <span>Loading</span> : <span id="add" onClick={this.addUser}> + </span>;
     }
     render() {
         const { user } = this.props;
         const { userAdded, isAddingUser } = this.state;
         return (<li>
             {user.name}
-            { (userAdded) ? createUserAddButton(isAddingUser) : ''}
+            { (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}
         </li>);
     }
 }

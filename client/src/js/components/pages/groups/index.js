@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Navigator from '../../navigation';
 import viewActions from '../../../actions/viewActions.js';
 import UserStore from '../../../stores/UserStore.js';
-// import DataStore from  '../../../stores/dataStores.js';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import '../../../../index.scss';
