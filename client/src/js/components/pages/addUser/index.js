@@ -14,6 +14,17 @@ class AddUser extends Component {
         }
         this.fetchUsers = this.fetchUsers.bind(this);
     }
+    getCurrentUser(arr){
+        // Gets loggedIn user's details
+        const currentUserId = localStorage.getItem('uid');
+        Object.entries(arr).forEach(([key, value]) => {
+            if (value['id'] === currentUserId){
+                localStorage.setItem('currentUser', JSON.stringify(value['groups']));
+            }
+
+        });
+
+    }
     fetchUsers() {
         this.setState({
             isFetchingData: true
@@ -30,6 +41,7 @@ class AddUser extends Component {
                         });
                         return;
                     }
+                    this.getCurrentUser(JSON.parse(response.text));
                     this.setState({
                         isFetchingData: false,
                         userList: JSON.parse(response.text),
@@ -40,6 +52,7 @@ class AddUser extends Component {
     }
     render() {
         const { userList, isFetchingData, fetchMessage } = this.state;
+
         if ( isFetchingData ){
             return <span>Loading!!</span>
         }
