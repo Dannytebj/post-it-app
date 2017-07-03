@@ -9,10 +9,12 @@ class AddUser extends Component {
         super(props);
         this.state = {
             userList: [],
+            groupList:[],
             isFetchingData: false,
             fetchMessage: ''
         }
         this.fetchUsers = this.fetchUsers.bind(this);
+        this.fetchGroups = this.fetchGroups.bind(this);
     }
     getCurrentUser(arr){
         // Gets loggedIn user's details
@@ -24,6 +26,38 @@ class AddUser extends Component {
 
         });
 
+    }
+    checkUserId(arr){
+        const currentUserId = localStorage.getItem('uid');
+        Object.entries(arr).forEach(([key, value]) => {
+            console.log(value['user']);
+
+        })
+    }
+    fetchGroups(){
+        this.setState({
+            isFetchingData: true
+        });
+        superagent
+            .get(`https://postitdanny.herokuapp.com/getGroup`)
+            .end(
+                (error, response) => {
+                    if (error) {
+                        console.log(error);
+                        this.setState({
+                            isFetchingData: false,
+                            fetchMessage: 'Error fetching Data'
+                    });
+                    return;
+                }
+                this.checkUserId(JSON.parse(response.text));
+                this.setState({
+                    isFetchingData: false,
+                    groupList: JSON.parse(response.text),
+                    fetchMessage: 'Successfully Loaded'
+                });
+                }
+            )
     }
     fetchUsers() {
         this.setState({
@@ -61,7 +95,8 @@ class AddUser extends Component {
             <Navigator/>
             <div className="page-content">
                 <div className="trey">
-            <Button value="Get Users" onClick={this.fetchUsers}/>
+            <Button value="Get Users" onClick={this.fetchUsers} />
+            <Button value="Get Groups" onClick={this.fetchGroups} />
             { fetchMessage }
             <UserList userList={userList}/>
         </div>
