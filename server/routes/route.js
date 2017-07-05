@@ -108,7 +108,7 @@ router.post('/group', (req, res) => {
         groupName: group,
         createdBy: currUser.uid,
       }).key;
-    db.ref('/users/' + currUser.uid + '/groups').update(
+    db.ref('/users/' + currUser.uid + '/groups').push(
       {
         groupId: newGroupId,
         groupName: group,
