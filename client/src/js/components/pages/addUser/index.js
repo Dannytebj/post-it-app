@@ -27,38 +27,8 @@ class AddUser extends Component {
         });
 
     }
-    checkUserId(arr){
-        const currentUserId = localStorage.getItem('uid');
-        Object.entries(arr).forEach(([key, value]) => {
-            console.log(value['user']);
-
-        })
-    }
-    fetchGroups(){
-        this.setState({
-            isFetchingData: true
-        });
-        superagent
-            .get(`https://postitdanny.herokuapp.com/getGroup`)
-            .end(
-                (error, response) => {
-                    if (error) {
-                        console.log(error);
-                        this.setState({
-                            isFetchingData: false,
-                            fetchMessage: 'Error fetching Data'
-                    });
-                    return;
-                }
-                this.checkUserId(JSON.parse(response.text));
-                this.setState({
-                    isFetchingData: false,
-                    groupList: JSON.parse(response.text),
-                    fetchMessage: 'Successfully Loaded'
-                });
-                }
-            )
-    }
+    
+    
     fetchUsers() {
         this.setState({
             isFetchingData: true
@@ -96,7 +66,6 @@ class AddUser extends Component {
             <div className="page-content">
                 <div className="trey">
             <Button value="Get Users" onClick={this.fetchUsers} />
-            <Button value="Get Groups" onClick={this.fetchGroups} />
             { fetchMessage }
             <UserList userList={userList}/>
         </div>

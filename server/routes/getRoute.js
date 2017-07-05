@@ -19,8 +19,10 @@ router.get('/getUsers', (req, res) => {
   });
 });
 
-router.get('/getGroup', (req, res) => {
-  const ref = firebase.database().ref().child('group');
+
+router.get('/getGroup/:userUid', (req, res) => {
+  const userUid = req.params.userUid;
+  const ref = firebase.database().ref('users/' + userUid + '/');
   ref.once('value', (data) => {
     const groups = getArray(data.val());
     res.send(groups);
