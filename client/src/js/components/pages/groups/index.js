@@ -16,7 +16,7 @@ class Groups extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            groupName: '',
+            newGroupName: '',
             groupList:[],
             isFetchingData: false,
             fetchMessage:''
@@ -52,8 +52,9 @@ class Groups extends Component {
         this.setState({
             isFetchingData: true
         });
+        const userUid = localStorage.getItem('uid');
         superagent
-            .get(`https://postitdanny.herokuapp.com/getGroup`)
+            .get(`https://postitdanny.herokuapp.com/getUsers`)
             .end(
                 (error, response) => {
                     if (error) {
@@ -70,11 +71,12 @@ class Groups extends Component {
                     groupList: JSON.parse(response.text),
                     fetchMessage: 'Successfully Loaded'
                 });
+                console.log(this.state.groupList);
                 }
             )
     }
     render() {
-        const { groupList, isFetchingData, fetchMessage } = this.state;
+        const { groupList, isFetchingData, fetchMessage, newGroupName } = this.state;
 
         if ( isFetchingData ){
             return <span>Loading!!</span>
@@ -89,17 +91,17 @@ class Groups extends Component {
                         onClick={ this.fetchGroups } value={'View Group' }
                         />
                         { fetchMessage }
-                       <GroupList groupList ={groupList} /> 
+                       <GroupList groupList={groupList} /> 
                     </div>
                 {UserStore.getMessage()}
                 <h1>Create A Group!</h1>
                 <TextBox
                 onChange={(value) => { this.setState({ groupName: value }); }}
                 label="Group Name"
-                currentValue={groupName}
+                currentValue={newGroupName}
                 />
                 <Button
-                onClick={ this.do_createGroup }
+                onClick={ this.createGroup }
                 value={'Create Group' }
                 />
                

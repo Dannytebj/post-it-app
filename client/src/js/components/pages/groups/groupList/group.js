@@ -9,7 +9,7 @@ class Group extends Component {
             isAddingUser: false,
             userAdded: false
         };
-        this.addUser = this.addUser.bind(this);
+        // this.addUser = this.addUser.bind(this);
     }
     // addUser() {
     //     this.setState({
@@ -43,7 +43,7 @@ class Group extends Component {
         const { group } = this.props;
         const { userAdded, isAddingUser } = this.state;
         return (<li>
-            {group.groupName}
+            {group.groups}
             {/*{ (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}*/}
         </li>);
     }

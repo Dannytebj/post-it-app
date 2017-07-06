@@ -9,12 +9,11 @@ class AddUser extends Component {
         super(props);
         this.state = {
             userList: [],
-            groupList:[],
             isFetchingData: false,
             fetchMessage: ''
         }
         this.fetchUsers = this.fetchUsers.bind(this);
-        this.fetchGroups = this.fetchGroups.bind(this);
+        // this.fetchGroups = this.fetchGroups.bind(this);
     }
     getCurrentUser(arr){
         // Gets loggedIn user's details
