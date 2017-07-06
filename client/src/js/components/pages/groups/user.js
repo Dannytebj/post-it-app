@@ -15,14 +15,12 @@ class User extends Component {
         this.setState({
             isAddingUser: true
         });
-
-        const groupId  = localStorage.getItem('groupId');;
-        // const loggedUser = localStorage.getItem('currentUser');
-        // const groupDetails = JSON.parse(loggedUser);
-        // const groupId = groupDetails['groupId'];
+        const loggedUser = localStorage.getItem('currentUser');
+        const groupDetails = JSON.parse(loggedUser);
+        const groupId = groupDetails['groupId'];
         superagent
             .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
-            .send({ userId: this.props.user.id , groupId: groupId })
+            .send({ userId: this.props.user.id , groupId: this.props.user.groupId })
             .end((error, response) => {
                 if (error) {
                     this.setState({
@@ -52,7 +50,7 @@ class User extends Component {
 }
 
 User.propTypes = {
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
 }
 
 export default User;

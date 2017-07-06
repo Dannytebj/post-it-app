@@ -6,6 +6,7 @@ import UserStore from '../../../stores/UserStore.js';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import GroupList from './groupList';
+// import User from './user.js';
 import '../../../../index.scss';
 
 

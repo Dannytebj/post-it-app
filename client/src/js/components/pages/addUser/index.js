@@ -44,7 +44,7 @@ class AddUser extends Component {
                         });
                         return;
                     }
-                    this.getCurrentUser(JSON.parse(response.text));
+                    // this.getCurrentUser(JSON.parse(response.text));
                     this.setState({
                         isFetchingData: false,
                         userList: JSON.parse(response.text),
