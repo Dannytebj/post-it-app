@@ -16,7 +16,7 @@ class Groups extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newGroupName: '',
+            newGroupName:'',
             groupList:[],
             isFetchingData: false,
             fetchMessage:''
@@ -36,8 +36,8 @@ class Groups extends Component {
         this.forceUpdate();
     }
     createGroup(){
-        const { groupName } = this.state;
-        createGroup(groupName);
+        const { newGroupName } = this.state;
+        createGroup(newGroupName);
         return;
     }
     // checkUserId(arr){
@@ -71,7 +71,6 @@ class Groups extends Component {
                     groupList: JSON.parse(response.text),
                     fetchMessage: 'Successfully Loaded'
                 });
-                console.log(this.state.groupList);
                 }
             )
     }
@@ -94,9 +93,10 @@ class Groups extends Component {
                        <GroupList groupList={groupList} /> 
                     </div>
                 {UserStore.getMessage()}
+                <hr />
                 <h1>Create A Group!</h1>
                 <TextBox
-                onChange={(value) => { this.setState({ groupName: value }); }}
+                onChange={(value) => { this.setState({ newGroupName: value }); }}
                 label="Group Name"
                 currentValue={newGroupName}
                 />
