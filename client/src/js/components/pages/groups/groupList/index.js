@@ -5,15 +5,19 @@ import Group from './group.js';
 const GroupList = ({ groupList }) => {
     return (<ul id="myDiv">
         {
-            groupList.map((group, index) => {
-                return (<Group group={group} key={index}/>);
+            Object.keys(groupList).map((key, index) =>{
+                console.log(groupList[index]);
+                return (<Group group ={groupList[key]} key={index} />)
             })
+            /*groupList.map((group, index) => {
+                return (<Group group={groups} key={index}/>);
+            })*/
         }
     </ul>);
 };
 
 GroupList.propTypes = {
-    groupList: PropTypes.array.isRequired
+    groupList: PropTypes.object.isRequired
 };
 
 export default GroupList;

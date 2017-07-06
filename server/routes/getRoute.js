@@ -22,9 +22,10 @@ router.get('/getUsers', (req, res) => {
 
 router.get('/getGroup/:userUid', (req, res) => {
   const userUid = req.params.userUid;
-  const ref = firebase.database().ref('users/' + userUid + '/');
+  const ref = firebase.database().ref('users/' + userUid + '/groups');
   ref.once('value', (data) => {
-    res.send(data.val());
+    const groups = getArray(data.val());
+    res.send(groups);
   }).catch((error) => {
     res.send(error);
   });

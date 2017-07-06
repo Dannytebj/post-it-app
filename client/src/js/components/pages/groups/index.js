@@ -54,7 +54,7 @@ class Groups extends Component {
         });
         const userUid = localStorage.getItem('uid');
         superagent
-            .get(`https://postitdanny.herokuapp.com/getUsers`)
+            .get(`https://postitdanny.herokuapp.com/getGroup/${userUid}/`)
             .end(
                 (error, response) => {
                     if (error) {

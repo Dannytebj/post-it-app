@@ -43,7 +43,7 @@ class Group extends Component {
         const { group } = this.props;
         const { userAdded, isAddingUser } = this.state;
         return (<li>
-            {group.groups}
+            {group.key.groupName}
             {/*{ (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}*/}
         </li>);
     }
