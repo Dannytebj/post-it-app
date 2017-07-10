@@ -7,7 +7,7 @@ import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import GroupList from './groupList';
 // import User from './user.js';
-import '../../../../index.scss';
+// import '../../../../index.scss';
 
 
 const { createGroup } = viewActions;
@@ -41,14 +41,7 @@ class Groups extends Component {
         createGroup(newGroupName);
         return;
     }
-    // checkUserId(arr){
-    //     const currentUserId = localStorage.getItem('uid');
-    //     Object.entries(arr).forEach(([key, value]) => {
-    //         console.log(value['users']);
-
-    //     })
-    // }
-
+    
     fetchGroups(){
         this.setState({
             isFetchingData: true
