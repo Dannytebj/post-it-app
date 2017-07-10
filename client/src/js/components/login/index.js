@@ -3,7 +3,7 @@ import UserStore from '../../stores/UserStore';
 import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
-// import './login.scss';
+import './login.scss';
 
 const { signIn } = ViewActions;
 const { signUp } = ViewActions;

@@ -44,31 +44,7 @@ class Group extends Component {
                 }
             )
     }
-    // addUser() {
-    //     this.setState({
-    //         isAddingUser: true
-    //     });
-    //     const loggedUser = localStorage.getItem('currentUser');
-    //     const groupDetails = JSON.parse(loggedUser);
-    //     const groupId = groupDetails['groupId'];
-    //     superagent
-    //         .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
-    //         .send({ userId: this.props.user.id , groupId: this.props.user.groupId })
-    //         .end((error, response) => {
-    //             if (error) {
-    //                 this.setState({
-    //                     isAddingUser: false,
-    //                     fetchMessage: 'Error Adding User'
-    //                 });
-    //                 return;
-    //             }
-    //             this.setState({
-    //                 isAddingUser: false,
-    //                 fetchMessage: 'Successfully Added',
-    //                 userAdded: true
-    //             });
-    //         })
-    // }
+
     createUserAddButton(isLoading) {
         return isLoading ? <span>Loading</span> : <span>
             <Button onClick={ this.fetchUsers } value={'Add Users' } />  </span>;

@@ -7,19 +7,17 @@ class User extends Component {
         super(props);
         this.state = {
             isAddingUser: false,
-            userAdded: false
+            userAdded: false,
         };
         this.addUser = this.addUser.bind(this);
     }
+    
     addUser() {
         this.setState({
             isAddingUser: true
         });
 
-        const groupId  = localStorage.getItem('groupId');;
-        // const loggedUser = localStorage.getItem('currentUser');
-        // const groupDetails = JSON.parse(loggedUser);
-        // const groupId = groupDetails['groupId'];
+        const groupId  = localStorage.getItem('groupId');
         superagent
             .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
             .send({ userId: this.props.user.id , groupId: groupId })
