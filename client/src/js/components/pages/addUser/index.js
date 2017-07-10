@@ -9,6 +9,8 @@ class AddUser extends Component {
         super(props);
         this.state = {
             userList: [],
+            groupUsers: [],
+            filteredUsers:[],            
             isFetchingData: false,
             fetchMessage: ''
         }
@@ -26,7 +28,21 @@ class AddUser extends Component {
         });
 
     }
-    
+getGroupUsers() {
+        superagent
+            .get(`https://postitdanny.herokuapp.com/group/${groupId}`)
+            .end((error, response) => {
+                if (error){
+                    this.state({
+                        fetchMessage: 'Error Fetching group users'
+                    });
+                    return;
+                }
+                this.setState({
+                    groupUsers: JSON.parse(response.text)
+                });
+            });
+    }    
     
     fetchUsers() {
         this.setState({
@@ -44,7 +60,7 @@ class AddUser extends Component {
                         });
                         return;
                     }
-                    this.getCurrentUser(JSON.parse(response.text));
+                    // this.getCurrentUser(JSON.parse(response.text));
                     this.setState({
                         isFetchingData: false,
                         userList: JSON.parse(response.text),
@@ -53,8 +69,23 @@ class AddUser extends Component {
                 }
             )
     }
+    filterUsers() {
+        const { userList, groupUsers, filteredUsers} = this.state;
+        fetchUsers();
+        getGroupUsers();
+        const newArray = userList.filter((userId) => {
+            return (groupUsers.indexOf(userId) < 0);
+
+        });
+        this.setState({ 
+            filteredUsers: newArray });
+            console.log(filteredUsers);
+
+        
+    }
+
     render() {
-        const { userList, isFetchingData, fetchMessage } = this.state;
+        const { filteredUsers, isFetchingData, fetchMessage } = this.state;
 
         if ( isFetchingData ){
             return <span>Loading!!</span>
@@ -64,9 +95,9 @@ class AddUser extends Component {
             <Navigator/>
             <div className="page-content">
                 <div className="trey">
-            <Button value="Get Users" onClick={this.fetchUsers} />
+            <Button value="Get Users" onClick={this.filterUsers } />
             { fetchMessage }
-            <UserList userList={userList}/>
+            <UserList userList={filteredUsers}/>
         </div>
     </div>
 </div>)
