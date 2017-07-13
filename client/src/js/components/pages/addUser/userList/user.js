@@ -6,12 +6,33 @@ class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            filtered:[],
             isAddingUser: false,
             userAdded: false,
         };
         this.addUser = this.addUser.bind(this);
     }
-    
+    getGroupUsers() {
+        const groupId  = localStorage.getItem('groupId');
+        superagent
+            .get(`https://postitdanny.herokuapp.com/getGroupUsers/${groupId}`)
+            .end((error, response) => {
+                if (error){
+                    this.state({
+                        fetchMessage: 'Error Fetching group users'
+                    });
+                    return;
+                } 
+                this.setState({
+                    filtered: JSON.parse(response.text)
+                });
+            });
+    }
+    // filter(){
+    //     const {userAdded , filtered} = this.state;
+
+    // }  
+
     addUser() {
         this.setState({
             isAddingUser: true

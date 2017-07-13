@@ -10,14 +10,17 @@ class Group extends Component {
         super(props);
         this.state = {
             userList:[],
+            filtered:[],
             isFetchingData:false,
             fetchMessage:'',
-            isAddingUser: false,
-            userAdded: false
+            isFetchingGroup: false,
+            groupFetched: false
         };
         // this.addUser = this.addUser.bind(this);
         this.fetchUsers = this.fetchUsers.bind(this);
     }
+ 
+
     fetchUsers() {
         this.setState({
             isFetchingData: true
@@ -35,7 +38,6 @@ class Group extends Component {
                         });
                         return;
                     }
-                    // this.getCurrentUser(JSON.parse(response.text));
                     this.setState({
                         isFetchingData: false,
                         userList: JSON.parse(response.text),
@@ -50,12 +52,12 @@ class Group extends Component {
             <Button onClick={ this.fetchUsers } value={'Add Users' } />  </span>;
     }
     render() {
-        const { group, user } = this.props;
-        const { userAdded, isAddingUser, userList} = this.state;
+        const { group } = this.props;
+        const { groupFetched, isFetchingGroup, userList} = this.state;
         return (<div>
         <li>
             {group.groupName}
-            { (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}
+            { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
        <UserList userList = {userList} />
        

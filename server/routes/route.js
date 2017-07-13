@@ -106,13 +106,16 @@ router.post('/group', (req, res) => {
       group = req.body.groupName,
       newGroupId = dbRef.push({
         groupName: group,
-        createdBy: currUser.uid,
       }).key;
     db.ref('/users/' + currUser.uid + '/groups').push(
       {
         groupId: newGroupId,
         groupName: group,
-      }).then(() => {
+      });
+    db.ref('group/' + newGroupId + '/users/' + currUser.uid).update({
+      name: currUser.displayName
+    })
+      .then(() => {
         res.status(200);
         res.send({ message: 'You Just Created a group called: ' + group });
       }).catch((error) => {
