@@ -2,6 +2,9 @@
   "name": "post-it-app",
   "version": "1.0.0",
   "description": "PostIt is a simple application that allows friends and colleagues create groups for notification",
+  "engines": {
+    "node":"6.11.1"
+  },
   "main": "server.js",
   "scripts": {
     "start": "nodemon server/server.js",

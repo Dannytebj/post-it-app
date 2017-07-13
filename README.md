@@ -24,11 +24,12 @@ GET: /getUsers
 ### Functionalities Currently Working
 At the present stage of development, the following functionalities have been implemented;
 The front end of Postit is developed with ReactJs using the Flux Architecture;
-1) A component to SignIn and SignUp new users
+1) Components to SignUp, SignIn and SignOut users
 2) A component that allows registered users create a group 
+3) A component that allows registered users add other users to their group
 
 ##  How to run PostIt
-After cloning repo, change directory to server and install dependencies; 
+After cloning repo, change directory to client and install dependencies; 
 ```
 npm install
 ```
@@ -40,12 +41,22 @@ Next, still in the client directory run;
 ```
 npm run start:dev
 ```
-This will start the client server on localhost:3000 . go to a web browser and start using Postit
+This will start the client server on http://localhost:3000 . go to a web browser and start using Postit.
+
+### N.B 
+After signing up, new user must activate account via email provided before you can sign In and use postit.
 
 ##  Dependencies
   express
-  firebase:
+  firebase
   body-parser
+  supertest
+  chai
+  react
+  flux
+  react-router
+  keymirror
+  underscore
 
   ## Acknowledgments
 * Andela Bootcamp Facilitators and BFAs

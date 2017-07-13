@@ -17,33 +17,18 @@ class AddUser extends Component {
         this.fetchUsers = this.fetchUsers.bind(this);
         // this.fetchGroups = this.fetchGroups.bind(this);
     }
-    getCurrentUser(arr){
-        // Gets loggedIn user's details
-        const currentUserId = localStorage.getItem('uid');
-        Object.entries(arr).forEach(([key, value]) => {
-            if (value['id'] === currentUserId){
-                localStorage.setItem('currentUser', JSON.stringify(value['groups']));
-            }
+    // getCurrentUser(arr){
+    //     // Gets loggedIn user's details
+    //     const currentUserId = localStorage.getItem('uid');
+    //     Object.entries(arr).forEach(([key, value]) => {
+    //         if (value['id'] === currentUserId){
+    //             localStorage.setItem('currentUser', JSON.stringify(value['groups']));
+    //         }
 
-        });
+    //     });
 
-    }
-getGroupUsers() {
-        superagent
-            .get(`https://postitdanny.herokuapp.com/group/${groupId}`)
-            .end((error, response) => {
-                if (error){
-                    this.state({
-                        fetchMessage: 'Error Fetching group users'
-                    });
-                    return;
-                }
-                this.setState({
-                    groupUsers: JSON.parse(response.text)
-                });
-            });
-    }    
-    
+    // }
+     
     fetchUsers() {
         this.setState({
             isFetchingData: true
@@ -88,7 +73,7 @@ getGroupUsers() {
         const { filteredUsers, isFetchingData, fetchMessage } = this.state;
 
         if ( isFetchingData ){
-            return <span>Loading!!</span>
+            return <span>Loading!</span>
         }
         return (
     <div className="page">
