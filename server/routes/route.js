@@ -87,6 +87,20 @@ router.post('/signIn', (req, res) => {
       });
 });
 
+// ROUTE THAT SIGN'S IN USER WITH GOOGLE PLUS
+router.post('/signIn/google', (req, res) => {
+  const idToken = req.body.idToken;
+  const provider = new firebase.auth.GoogleAuthProvider.credential(idToken);
+
+  firebase.auth().signInWithCredential(provider)
+  .then((googleUser) => {
+    res.send({ user: googleUser });
+  })
+  .catch((error) => {
+    res.status(401);
+    res.send(`Failed to signIn User:${error.message}`);
+  });
+});
 
 //  ROUTE THAT SIGN'S USER OUT
 router.post('/signOut', (req, res) => {

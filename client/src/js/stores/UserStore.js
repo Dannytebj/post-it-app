@@ -86,6 +86,20 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
+    signInWithGoogle( idToken ) {
+        superagent
+            .post('https://postitdanny.herokuapp.com/signIn/google')
+            .send({ userToken: idToken })
+            .set('Accept', 'application/json')
+            .end((error, response) => {
+                if (error !== null) {
+                    message = response.status.toString();
+                } else {
+                    received = JSON.parse(response.text);
+                }
+                this.emitChange();
+            });
+    }
 
     emitChange() {
         this.emit('change');
@@ -113,6 +127,9 @@ class LoginStore extends EventEmitter {
                 break;
             case Constants.GET_USER:
                 this.getAllUsers();
+                break;
+            case Constants.SIGN_IN_GOOGLE:
+                this.signInWithGoogle();
                 break;
             default:
                 console.log('default', action);

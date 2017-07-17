@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import '../../../index.scss';
+// import './style.scss';
 
 
 const Navigator = () => (

@@ -30,6 +30,12 @@ const ViewActions = {
         AppDispatcher.handleViewAction({
             type: Constants.GET_USER
         })
+    },
+    signInWithGoogle: (idToken) => {
+        AppDispatcher.handleViewAction({
+            type: Constants.SIGN_IN_GOOGLE,
+            payload: { idToken }
+        });
     }
 };
 
