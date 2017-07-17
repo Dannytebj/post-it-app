@@ -6,7 +6,7 @@ body{
     background-color: rgba(235,233,249,1);
     opacity: 0.7;
     overflow-x: scroll;
-    
+    .app-navigator{
       ul {
         list-style-type: none;
         margin: 0;
@@ -29,7 +29,7 @@ body{
         color: white;
       }
     }
-  
+  }
 
 
 .login-page {
