@@ -65,6 +65,7 @@ class LoginStore extends EventEmitter {
                 if(error!== null){
                     message = response.text.toString();
                 } else {
+                    gapi.auth2.getAuthInstance().signOut();
                     message = response.text.toString();
                     localStorage.clear();
                     window.location.reload();
@@ -86,16 +87,22 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
-    signInWithGoogle( idToken ) {
+    signInWithGoogle({ idToken }) {
         superagent
             .post('https://postitdanny.herokuapp.com/signIn/google')
-            .send({ userToken: idToken })
+            .send({ idToken: idToken })
             .set('Accept', 'application/json')
             .end((error, response) => {
+                received = JSON.parse(response.text);
                 if (error !== null) {
-                    message = response.status.toString();
+                    message = ({'message' :response.status.toString(), 'error': error.message })
                 } else {
-                    received = JSON.parse(response.text);
+                    console.log('there were no errors');
+                    const userName = received.user.displayName,
+                    userUid = received.user.uid;
+                    localStorage.setItem('userName', userName);
+                    localStorage.setItem('uid', userUid);
+                    browserHistory.push('home');
                 }
                 this.emitChange();
             });
@@ -129,7 +136,7 @@ class LoginStore extends EventEmitter {
                 this.getAllUsers();
                 break;
             case Constants.SIGN_IN_GOOGLE:
-                this.signInWithGoogle();
+                this.signInWithGoogle(action.payload);
                 break;
             default:
                 console.log('default', action);
