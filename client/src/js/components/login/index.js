@@ -3,7 +3,8 @@ import UserStore from '../../stores/UserStore';
 import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
-import './index.scss';
+import Google from './googleSignIn.js';
+import '../../../index.scss';
 
 const { signIn } = ViewActions;
 const { signUp } = ViewActions;
@@ -43,6 +44,7 @@ class Login extends Component {
         }
         signUp( username,email, password);
     }
+
     render() {
         const { email, password, username, signingIn } = this.state;
         return (
@@ -53,7 +55,7 @@ class Login extends Component {
                 onChange={(value) => { this.setState({ username: value }); }}
                 label="name"
                 currentValue={username}
-                /> : <div/> }
+                />  : <div/> }
             <TextBox
                 onChange={(value) => { this.setState({ email: value }); }}
                 label="email"
@@ -68,7 +70,11 @@ class Login extends Component {
             <Button
                 onClick={ this.clickSign }
                 value={ signingIn ? 'Sign In' : 'Sign up' }
-                />
+                /><p> OR</p>
+                <br/><hr/>
+            <div className="googleBut">
+            <Google />
+            </div>
             { (signingIn) ?
                 <p className="message">Not registered? <a onClick={this.toggleSignInUp}>Sign Up</a></p> :
                 <p className="message">Already registered? <a onClick={this.toggleSignInUp}>Sign In</a></p> }
