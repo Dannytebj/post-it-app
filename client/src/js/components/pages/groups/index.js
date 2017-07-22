@@ -59,7 +59,6 @@ class Groups extends Component {
                     });
                     return;
                 }
-                // this.checkUserId(JSON.parse(response.text));
                 this.setState({
                     isFetchingData: false,
                     groupList: JSON.parse(response.text),
@@ -79,13 +78,11 @@ class Groups extends Component {
             <Navigator/>
             <div className="page-content">
                 <div className="form">
-                    <div>
                         <Button
                         onClick={ this.fetchGroups } value={'View Group' }
                         />
                         { fetchMessage }
                        <GroupList groupList={groupList} /> 
-                    </div>
                 {UserStore.getMessage()}
                 <hr />
                 <h1>Create A Group!</h1>
@@ -98,8 +95,7 @@ class Groups extends Component {
                 onClick={ this.createGroup }
                 value={'Create Group' }
                 />
-               
-            </div>
+                 </div>
             </div>
         </div>);
     }

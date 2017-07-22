@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import User from './user';
 
 const UserList = ({ userList }) => {
-    return (<ul id="myDiv">
+    return (<ul id="groups">
         {
             userList.map((user, index) => {
                 return (<User user={user} key={index}/>);

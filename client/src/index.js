@@ -4,8 +4,8 @@ import { Router, Route, browserHistory } from 'react-router';
 import Login from './js/components/login';
 import Home from './js/components/pages/home';
 import Groups from './js/components/pages/groups';
-import AddUser from './js/components/pages/addUser';
 import SignOut from './js/components/pages/signOut';
+import MessageBoard from './js/components/pages/messageBoard';
 import './index.scss';
 
 ReactDOM.render(
@@ -13,7 +13,7 @@ ReactDOM.render(
       <Route path="/" component={ Login } />
       <Route path= "home" component={ Home } />
       <Route path= "group" component={ Groups } />
-      <Route path= "addUser" component={ AddUser } />
+      <Route path= "message" component={ MessageBoard } />
       <Route path= "signOut" component={ SignOut } />
   </Router>,
   document.getElementById('main-container')

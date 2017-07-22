@@ -11,9 +11,8 @@ class Google extends Component {
     }
      
     onSignIn(googleUser) {
-        console.log('called onSignIn funtion!!');
+        console.log('called onSignIn function!!');
         const idToken = googleUser.getAuthResponse().id_token;
-        console.log(idToken);
         signInWithGoogle(idToken);
        
     }
