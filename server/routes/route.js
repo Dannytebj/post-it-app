@@ -66,7 +66,7 @@ router.post('/signUp', (req, res) => {
   }
 });
  //  end of signUp.post
-//  ROUTE THAT CREATES SIGN'S USER IN
+//  ROUTE THAT  SIGN'S USER IN
 router.post('/signIn', (req, res) => {
   const email = req.body.email,
     password = req.body.password;
@@ -127,6 +127,7 @@ router.post('/group', (req, res) => {
         groupName: group,
       });
     db.ref('group/' + newGroupId + '/users/' + currUser.uid).update({
+      id: currUser.uid,
       name: currUser.displayName
     })
       .then(() => {
@@ -144,11 +145,11 @@ router.post('/group', (req, res) => {
 //  ROUTE THAT ADDS USER TO A GROUP
 router.post('/group/:groupId/users', (req, res) => {
   const groupId = req.params.groupId,
-    currUser = auth.currentUser,
+    currentUser = auth.currentUser,
     userId = req.body.userId;
-  if (currUser) {
+  if (currentUser) {
     const promise = db.ref('group/' + groupId + '/users/' + userId).update(
-      { UserId: userId, }
+      { id: userId, }
     );
     promise.then(() => {
       res.status(200);
@@ -172,14 +173,14 @@ router.post('/message/:groupId', (req, res) => {
   if (currUser) {
     const userId = currUser.uid;
     const messagekey = db.ref('messages/' + groupId).push(
-      { Id: userId,
+      { id: userId,
         messageBody: {
-          message,
+          message
         }
       }
     ).key;
     const promise = db.ref('group/' + groupId + '/messages').push({
-      Id: userId,
+      id: userId,
       messageKey: messagekey
     }
     ).then(() => {

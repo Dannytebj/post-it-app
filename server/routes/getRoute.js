@@ -40,6 +40,7 @@ router.get('/getGroup/:userUid', (req, res) => {
   });
 });
 
+// Route that filters users and returns users not in group
 router.get('/getGroupUsers/:groupId', (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref('group/' + groupId + '/users');
@@ -47,18 +48,20 @@ router.get('/getGroupUsers/:groupId', (req, res) => {
 
   ref.once('value', (data) => {
     const groupUsers = data.val();
-    const newArr = getKeys(groupUsers);
+    const newArr = getArray(groupUsers);
+    console.log(newArr);
     ref1.once('value', (data1) => {
-      // const genUsers = getArray(data1.val());
-      const allUsers = getKeys(data1.val());
-      const filtered = newArr.filter(x => allUsers.indexOf(x) === -1)
-      .concat(allUsers.filter(x => newArr.indexOf(x) === -1));
+      const allUsers = getArray(data1.val());
+      const filtered = allUsers.filter((userInAllUsers) => {
+        return !newArr.some((userInGroup) => {
+          return userInAllUsers.id === userInGroup.id; });
+      }
+    );
       res.send(filtered);
-    });
-  })
+    })
   .catch((error) => {
     res.send(error);
   });
+  });
 });
 module.exports = router;
-

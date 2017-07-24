@@ -55,14 +55,14 @@ render(){
         return <span>Loading!!!</span>
     }
     return(
-        <div id="main-container">
+        <div>
             <Navigator/>
             <div className="page-content">
             <h1>Welcome to Message Board</h1>
             <div className="form">
-            {fetchMessage}
             <GroupList groupList={groupList} />
             </div>
+             {fetchMessage}
             </div>
         </div>
     )

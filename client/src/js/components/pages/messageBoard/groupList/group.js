@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import superagent from 'superagent';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
+import Messages from '../messages.js';
 
 
 class Group extends Component {
@@ -11,12 +12,23 @@ class Group extends Component {
             isFetchingData:false,
             fetchMessage:'',
             isFetchingGroup: false,
-            messageFetched: false
+            messageFetched: false,
+            groupIsSet:false
         };
         this.getGroupMessages = this.getGroupMessages.bind(this);
+        this.collapse = this.collapse.bind(this);
     }
     getGroupMessages(){
+        localStorage.setItem('groupId', this.props.group.groupId);
+        this.setState({
+            groupIsSet: true
+        });
         console.log('Fetching Group Messages!');
+    }
+    collapse(){
+        this.setState({
+            groupIsSet: false
+        });
     }
 
   
@@ -26,14 +38,14 @@ class Group extends Component {
     }
     render() {
         const { group } = this.props;
-        const { groupFetched, isFetchingGroup} = this.state;
-        return (<div id="groups">
+        const { groupFetched, isFetchingGroup, groupIsSet} = this.state;
+        return (<div>
         <li>
             {group.groupName}
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
         <div className="chatBox">
-            
+           {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <Messages /> </div> : ''}
         </div>
        {/* <UserList userList = {userList} /> */}
        

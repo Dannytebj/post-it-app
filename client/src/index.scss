@@ -20,11 +20,41 @@ body{
       font-weight: bolder;
     }
     .chatBox {
-      border: 1px solid black;
-      width: 40%;
-      height: 60%;
-      overflow: scroll;
+      width: 100%;
+      #hide {
+        float: right;
+        font-weight: bolder;
+        cursor: pointer;
+      }
     }
+    input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 70%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  #sendButton {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 15%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      background: #43A047;
+    }
+  }
 }
 .form {
   position: relative;
@@ -73,11 +103,12 @@ body{
   }
 }
      .page-content{
-            top:15%;
-            width:75%;
-            float: right;
-            background-color: rgba(147,206,222,1);
+            top:1%;
+            position: absolute;
+            width: calc(100% - 350px);
+            left: 200px;
             padding: 25px;
+            margin-left: 50px;
             font-family: 'Open Sans', sans-serif;    
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
             a{
@@ -172,7 +203,9 @@ body{
           position:fixed;
           left: 0;
           top:0;
-          margin-top: 5px;
+          width: 200px;
+          height: 100%;
+          margin-right: 5px;
           box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
  
         }
@@ -180,8 +213,7 @@ body{
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 200px;
-  background-color: rgba(147,206,222,1);
+  height: 100%;
 }
 
 li a {
