@@ -80,7 +80,7 @@ class Group extends Component {
     render() {
         const { group } = this.props;
         const { groupFetched, isFetchingGroup, userList, newList} = this.state;
-        return (<div>
+        return (<div id="groups">
         <li>
             {group.groupName}
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}

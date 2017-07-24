@@ -37,7 +37,7 @@ class User extends Component {
             })
     }
     createUserAddButton(isLoading) {
-        return isLoading ? <span>Loading</span> : <span id="add" onClick={this.filter}> + </span>;
+        return isLoading ? <span>Loading</span> : <span id="add" onClick={this.addUser}> + </span>;
     }
     render() {
         const { user } = this.props;
