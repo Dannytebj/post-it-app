@@ -37,7 +37,8 @@ const config = {
   databaseURL: 'https://postitapp-f266c.firebaseio.com',
   projectId: 'postitapp-f266c',
   storageBucket: 'postitapp-f266c.appspot.com',
-  messagingSenderId: '276992209544' };
+  messagingSenderId: '276992209544'
+};
 //  Initialize Database
 firebase.initializeApp(config);
 

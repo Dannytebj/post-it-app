@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "PostIt is a simple application that allows friends and colleagues create groups for notification",
   "engines": {
-    "node":"6.11.1"
+    "node": "6.11.1"
   },
   "main": "server.js",
   "scripts": {
     "start": "nodemon server/server.js",
     "test": "mocha test/tests.js",
     "transpile": "babel --presets es2015 server/server.js --out-dir dist",
-    "transpile2":  "babel --presets es2015 server/routes/route.js --out-dir dist"
+    "transpile2": "babel --presets es2015 server/routes/route.js --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -35,15 +35,15 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
-    "nodemon": "^1.11.0",
     "util": "^0.10.3",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "express": "^4.15.3",
+    "body-parser": "~1.0.1",
     "chai": "^4.0.0",
-    "firebase": "^4.1.0",
+    "express": "^4.15.3",
+    "firebase": "^4.1.5",
     "http": "0.0.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
@@ -52,7 +52,6 @@
     "should": "^11.2.1",
     "sinon": "^2.3.2",
     "stream": "0.0.2",
-    "supertest": "^3.0.0",
-    "body-parser": "~1.0.1"
+    "supertest": "^3.0.0"
   }
 }
