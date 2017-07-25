@@ -1,12 +1,15 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
-  route = require('./routes/route'),
-  getRoute = require('./routes/getRoute');
+  routes = require('./routes/'),
+  getRoute = require('./routes/getRoute'),
+  firebase = require('firebase');
 // import express from 'express';
 // import bodyParser from 'body-parser';
 // import route from './routes/route';
-const port = process.env.PORT || 9999,
-  app = express();
+const port = process.env.PORT || 9999;
+
+const app = express();
+app.listen(port);
 
 // for parsing application/x-www-form-urlencoded)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,18 +32,23 @@ app.use((req, res, next) => {
   // Pass to next layer of middleware
   next();
 });
+const config = {
+  apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
+  authDomain: 'postitapp-f266c.firebaseapp.com',
+  databaseURL: 'https://postitapp-f266c.firebaseio.com',
+  projectId: 'postitapp-f266c',
+  storageBucket: 'postitapp-f266c.appspot.com',
+  messagingSenderId: '276992209544' };
+//  Initialize Database
+firebase.initializeApp(config);
 
-
-  //  Welcome
+//  Welcome
 app.get('/', (req, res, next) => {
   res.status(200);
   res.send('Hello');
   next();
 });
-
 //  Register Our ROUTES
-// All of our routes will be prefixed with /server
-app.use(route);
-app.use(getRoute);
-app.listen(port);
+routes(app, firebase);
+
 console.log('postIt App Restful Api server started on: ' + port);
