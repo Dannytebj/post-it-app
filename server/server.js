@@ -1,7 +1,6 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
   routes = require('./routes/'),
-  getRoute = require('./routes/getRoute'),
   firebase = require('firebase');
 // import express from 'express';
 // import bodyParser from 'body-parser';
