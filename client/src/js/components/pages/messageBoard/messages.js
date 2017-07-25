@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import superagent from 'superagent';
-import Button from './button.js';
+import superagent from 'superagent';
+// import Button from './button.js';
 import TextBox from '../../commons/textbox.js';
 
 class Messages extends Component{
@@ -9,7 +9,8 @@ class Messages extends Component{
         this.state = {
             message:'',
             isPostingData: false,
-            fetchMessage:''
+            fetchMessage:'',
+            messagePosted: false
         };
         this._onChange = this._onChange.bind(this);
         this.postMessage = this.postMessage.bind(this);
@@ -20,8 +21,27 @@ class Messages extends Component{
     }
     postMessage(){
         const { message } = this.state;
-        console.log(`your message has been posted!: ${message}`);
-    }
+        const groupId = localStorage.getItem('groupId');
+        superagent
+            .post(`https://postitdanny.herokuapp.com/message/${groupId}`)
+            .send({message: message})
+            .end((error, response) => {
+                if(error){
+                    this.setState({
+                        fetchMessage: 'Error Posting Message',
+                        isPostingData:false
+                    });
+                    return;
+                }
+                console.log(`your message has been posted!: ${message}`);
+                    this.setState({
+                        fetchMessage:'Successfully posted message',
+                        messagePosted: true,
+                        message:''
+                    });
+                })
+            }
+    
     render() {
         const { message }= this.state;
         return (

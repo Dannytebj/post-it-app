@@ -30,7 +30,8 @@ class MessageBoard extends Component{
         });
         const userUid = localStorage.getItem('uid');
         superagent
-            .get(`https://postitdanny.herokuapp.com/getGroup/${userUid}/`)
+            .get(`https://postitdanny.herokuapp.com/getGroup/${userUid}`)
+            .set('Accept', 'application/json')
             .end(
                 (error, response) => {
                     if (error) {
