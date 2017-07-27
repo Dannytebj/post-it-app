@@ -1,5 +1,5 @@
 const getArray = require('../utils/getArray');
-
+// Returns an Array of users not in group
 module.exports = (app, firebase) => {
   app.get('/getGroupUsers/:groupId', (req, res) => {
     const groupId = req.params.groupId;

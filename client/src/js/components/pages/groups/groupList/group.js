@@ -15,9 +15,10 @@ class Group extends Component {
             isFetchingData:false,
             fetchMessage:'',
             isFetchingGroup: false,
-            groupFetched: false
+            groupFetched: false,
+            userIsSet: false
         };
-        // this.addUser = this.addUser.bind(this);
+        this.collapse = this.collapse.bind(this);
         this.fetchUsers = this.fetchUsers.bind(this);
     }
 
@@ -42,10 +43,10 @@ class Group extends Component {
         this.setState({
             isFetchingData: true
         });
-        this.getGroupUsers();
-        localStorage.setItem('groupId', this.props.group.groupId);
+        const groupId  = this.props.group.groupId;
+        console.log(groupId);
         superagent
-            .get(`https://postitdanny.herokuapp.com/getUsers`)
+            .get(`https://postitdanny.herokuapp.com/getGroupUsers/${groupId}`)
             .end(
                 (error, response) => {
                     if (error) {
@@ -59,17 +60,15 @@ class Group extends Component {
                     this.setState({
                         isFetchingData: false,
                         userList: JSON.parse(response.text),
-                        fetchMessage: 'Successfully Loaded'
+                        fetchMessage: 'Successfully Loaded',
+                        userIsSet: true
                     });
-                this.filter();
                 }
             )
     }
-    filter(){
-        const {userList , newList} = this.state;
-        Object.entries(userList).forEach(([key,value]) => {
-            const checker = newList.indexOf((value['id'])) > -1 ;
-            console.log(checker);
+    collapse(){
+        this.setState({
+            userIsSet: false
         });
     }
 
@@ -79,13 +78,14 @@ class Group extends Component {
     }
     render() {
         const { group } = this.props;
-        const { groupFetched, isFetchingGroup, userList, newList} = this.state;
+        const { groupFetched, isFetchingGroup, userList, userIsSet} = this.state;
         return (<div id="groups">
         <li>
             {group.groupName}
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
-       <UserList userList = {userList} />
+        {(userIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <UserList userList = {userList} /></div> : ''}
+       
        
        </div>
         );

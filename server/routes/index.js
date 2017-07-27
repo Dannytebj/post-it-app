@@ -8,6 +8,7 @@ const signOutRoute = require('./signOutRoute');
 const getAllUsers = require('./getAllUsers');
 const getGroups = require('./getGroups');
 const getGroupUsers = require('./getGroupUsers');
+const getMessages = require('./getMessages');
 
 module.exports = (app, firebase) => {
   app.use((err, req, res, next) => {
@@ -38,4 +39,5 @@ module.exports = (app, firebase) => {
   getAllUsers(app, firebase);
   getGroupUsers(app, firebase);
   getGroups(app, firebase);
+  getMessages(app, firebase);
 };
