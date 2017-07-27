@@ -15,10 +15,10 @@ class Group extends Component {
             messageFetched: false,
             groupIsSet:false
         };
-        this.getGroupMessages = this.getGroupMessages.bind(this);
+        this.setGroup = this.setGroup.bind(this);
         this.collapse = this.collapse.bind(this);
     }
-    getGroupMessages(){
+    setGroup(){
         localStorage.setItem('groupId', this.props.group.groupId);
         this.setState({
             groupIsSet: true
@@ -34,7 +34,7 @@ class Group extends Component {
   
     createUserAddButton(isLoading) {
         return isLoading ? <span>Loading</span> : <span>
-            <Button onClick={ this.getGroupMessages } value={'Login to this group' } />  </span>;
+            <Button onClick={ this.setGroup } value={'Login to this group' } />  </span>;
     }
     render() {
         const { group } = this.props;
@@ -44,7 +44,7 @@ class Group extends Component {
             {group.groupName}
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
-        <div className="chatBox">
+        <div className="messages">
            {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <Messages /> </div> : ''}
         </div>
        {/* <UserList userList = {userList} /> */}
