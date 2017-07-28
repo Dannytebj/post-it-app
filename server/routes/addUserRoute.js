@@ -1,14 +1,24 @@
 module.exports = (app, firebase) => {
   app.post('/group/:groupId/users', (req, res) => {
-    const groupId = req.params.groupId,
+    const groupid = req.params.groupId,
       currentUser = firebase.auth().currentUser,
+      group = req.body.groupName,
+      username = req.body.name,
       userId = req.body.userId;
+
     if (currentUser) {
       const promise = firebase.database()
-      .ref(`group/${groupId}/users/${userId}`)
+      .ref(`group/${groupid}/users/${userId}`)
       .update({
-        id: userId
+        id: userId,
+        name: username
       });
+      firebase.database().ref('/users/' + userId + '/groups').push(
+        {
+          groupId: groupid,
+          groupName: group,
+          isAdmin: false
+        });
       promise.then(() => {
         res.status(200);
         res.send('Your group has a new User ');

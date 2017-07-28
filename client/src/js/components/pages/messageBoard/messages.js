@@ -74,7 +74,7 @@ class Messages extends Component{
                 </div>
                 <TextBox
                 onChange={(value) => { this.setState({ message: value }); }}
-                label="Username"
+                label=""
                 currentValue={message}
                 /> <button id="sendButton" onClick={this.postMessage}>Send</button>
             </div>
