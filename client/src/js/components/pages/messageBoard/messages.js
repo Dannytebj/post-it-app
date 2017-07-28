@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import superagent from 'superagent';
 // import Button from './button.js';
+import MessageList from './messageList/';
 import TextBox from '../../commons/textbox.js';
 
 class Messages extends Component{
@@ -10,7 +11,8 @@ class Messages extends Component{
             message:'',
             isPostingData: false,
             fetchMessage:'',
-            messagePosted: false
+            messagePosted: false,
+            messageList:[]
         };
         this._onChange = this._onChange.bind(this);
         this.postMessage = this.postMessage.bind(this);
@@ -21,6 +23,7 @@ class Messages extends Component{
         this.forceUpdate();
     }
     postMessage(){
+        this.getGroupMessages();
         const { message } = this.state;
         const groupId = localStorage.getItem('groupId');
         superagent
@@ -45,7 +48,8 @@ class Messages extends Component{
     getGroupMessages(){
         const groupId = localStorage.getItem('groupId');
         superagent
-            .post(`https://postitdanny.herokuapp.com/getMessages/${groupId}`)
+            .get(`https://postitdanny.herokuapp.com/getMessages/${groupId}`)
+            .set('Accept', 'application/json')
             .end((error, response)=> {
                 if(error) {
                     this.setState({
@@ -54,23 +58,27 @@ class Messages extends Component{
                     return;
                 }
                     this.setState({
-                        fetchMessage:'Successfully fetched messages'
-                    })
-            })
+                        fetchMessage:'Successfully fetched messages',
+                        messageList: JSON.parse(response.text)
+                    });
+                    console.log(messageArray);
+            });
     }
     
     render() {
-        const { message, fetchMessage }= this.state;
+        const { message, fetchMessage, messageList }= this.state;
         return (
             <div className="messages">
-                <div className="displayMessages"/>
+                <div className="displayMessages">
+                    <MessageList receivedMessage = {messageList} />
+                </div>
                 <TextBox
                 onChange={(value) => { this.setState({ message: value }); }}
                 label="Username"
                 currentValue={message}
                 /> <button id="sendButton" onClick={this.postMessage}>Send</button>
-                {fetchMessage}
             </div>
+            // {fetchMessage}
         )
     }
 }

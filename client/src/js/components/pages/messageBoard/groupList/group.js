@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import superagent from 'superagent';
+// import superagent from 'superagent';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
 import Messages from '../messages.js';

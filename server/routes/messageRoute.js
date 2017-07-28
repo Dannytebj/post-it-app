@@ -5,12 +5,12 @@ module.exports = (app, firebase) => {
       groupId = req.params.groupId;
     if (currUser) {
       const userId = currUser.uid;
+      const username = currUser.displayName;
       const messagekey = firebase.database().ref(`messages/${groupId}`)
       .push({
         id: userId,
-        messageBody: {
-          message
-        }
+        name: username,
+        messages: message
       }).key;
       const promise = firebase.database().ref(`group/${groupId}/messages`)
       .push({
