@@ -7,12 +7,13 @@ module.exports = (app, firebase) => {
         newGroupId = dbRef.push({
           groupName: group,
         }).key;
-      firebase.database().ref('/users/' + currUser.uid + '/groups').push(
+      firebase.database().ref(`/users/${currUser.uid}/groups`).push(
         {
           groupId: newGroupId,
           groupName: group,
+          isAdmin: true
         });
-      firebase.database().ref('group/' + newGroupId + '/users/' + currUser.uid)
+      firebase.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
       .update({
         id: currUser.uid,
         name: currUser.displayName

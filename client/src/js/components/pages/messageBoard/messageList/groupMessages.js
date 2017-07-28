@@ -11,7 +11,8 @@ class Groupmessage extends Component {
     const { messages } = this.props;
     return(
       <div>
-        <li>{messages.message}</li>
+        <span id ="nameTag">{ messages.name }</span>
+        <li>{messages.messages}</li>
       </div>
     )
   }

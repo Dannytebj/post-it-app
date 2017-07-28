@@ -29,45 +29,45 @@ class AddUser extends Component {
 
     // }
      
-    fetchUsers() {
-        this.setState({
-            isFetchingData: true
-        });
-        superagent
-            .get(`https://postitdanny.herokuapp.com/getUsers`)
-            .end(
-                (error, response) => {
-                    if (error) {
-                        console.log(error);
-                        this.setState({
-                            isFetchingData: false,
-                            fetchMessage: 'Error Fetching Data'
-                        });
-                        return;
-                    }
-                    // this.getCurrentUser(JSON.parse(response.text));
-                    this.setState({
-                        isFetchingData: false,
-                        userList: JSON.parse(response.text),
-                        fetchMessage: 'Successfully Loaded'
-                    });
-                }
-            )
-    }
-    filterUsers() {
-        const { userList, groupUsers, filteredUsers} = this.state;
-        fetchUsers();
-        getGroupUsers();
-        const newArray = userList.filter((userId) => {
-            return (groupUsers.indexOf(userId) < 0);
+    // fetchUsers() {
+    //     this.setState({
+    //         isFetchingData: true
+    //     });
+    //     superagent
+    //         .get(`https://postitdanny.herokuapp.com/getUsers`)
+    //         .end(
+    //             (error, response) => {
+    //                 if (error) {
+    //                     console.log(error);
+    //                     this.setState({
+    //                         isFetchingData: false,
+    //                         fetchMessage: 'Error Fetching Data'
+    //                     });
+    //                     return;
+    //                 }
+    //                 // this.getCurrentUser(JSON.parse(response.text));
+    //                 this.setState({
+    //                     isFetchingData: false,
+    //                     userList: JSON.parse(response.text),
+    //                     fetchMessage: 'Successfully Loaded'
+    //                 });
+    //             }
+    //         )
+    // }
+    // filterUsers() {
+    //     const { userList, groupUsers, filteredUsers} = this.state;
+    //     fetchUsers();
+    //     getGroupUsers();
+    //     const newArray = userList.filter((userId) => {
+    //         return (groupUsers.indexOf(userId) < 0);
 
-        });
-        this.setState({ 
-            filteredUsers: newArray });
-            console.log(filteredUsers);
+    //     });
+    //     this.setState({ 
+    //         filteredUsers: newArray });
+    //         console.log(filteredUsers);
 
         
-    }
+    // }
 
     render() {
         const { filteredUsers, isFetchingData, fetchMessage } = this.state;

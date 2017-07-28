@@ -18,9 +18,12 @@ class User extends Component {
         });
 
         const groupId  = localStorage.getItem('groupId');
+        const groupName = localStorage.getItem('groupName');
+        const userId = this.props.user.id;
+        const username = this.props.user.name;
         superagent
             .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
-            .send({ userId: this.props.user.id , groupId: groupId })
+            .send({ userId: userId , groupId: groupId, name: username, groupName: groupName})
             .end((error, response) => {
                 if (error) {
                     this.setState({

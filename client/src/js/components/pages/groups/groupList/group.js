@@ -3,7 +3,7 @@ import superagent from 'superagent';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
 import UserList from '../../addUser/userList';
-import NewList from '../../addUser/userList/newList.js';
+// import NewList from '../../addUser/userList/newList.js';
 
 
 class Group extends Component {
@@ -11,7 +11,6 @@ class Group extends Component {
         super(props);
         this.state = {
             userList:[],
-            newList:[],
             isFetchingData:false,
             fetchMessage:'',
             isFetchingGroup: false,
@@ -44,7 +43,10 @@ class Group extends Component {
             isFetchingData: true
         });
         const groupId  = this.props.group.groupId;
-        console.log(groupId);
+        const groupName = this.props.group.groupName;
+        localStorage.setItem('groupId', groupId);
+        localStorage.setItem('groupName', groupName);
+        // console.log(groupId);
         superagent
             .get(`https://postitdanny.herokuapp.com/getGroupUsers/${groupId}`)
             .end(
