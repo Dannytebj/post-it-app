@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import superagent from 'superagent';
 // import UserStore from '../../../stores/UserStore';
 // import viewActions from '../../../actions/viewActions';
+import Button from './button.js';
 import GroupList from './groupList/'
 import Navigator from '../../navigation';
 
@@ -21,9 +22,9 @@ class MessageBoard extends Component{
     _onChange() {
         this.forceUpdate();
     }
-    componentDidMount() {
-        window.addEventListener('load', this.fetchGroups);
-    }
+    // componentDidMount() {
+    //     window.addEventListener('load', this.fetchGroups);
+    // }
       fetchGroups(){
         this.setState({
             isFetchingData: true
@@ -61,6 +62,7 @@ render(){
             <div className="page-content">
             <h1>Welcome to Message Board</h1>
             <div className="form">
+                <p>You Can log into already created groups and send messages. To start chatting click <Button onClick ={this.fetchGroups} value ={'Start chatting'}/></p>
             <GroupList groupList={groupList} />
             </div>
              {fetchMessage}
