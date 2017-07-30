@@ -51,6 +51,7 @@
     "request": "^2.81.0",
     "should": "^11.2.1",
     "sinon": "^2.3.2",
+    "socket.io": "^2.0.3",
     "stream": "0.0.2",
     "supertest": "^3.0.0"
   }

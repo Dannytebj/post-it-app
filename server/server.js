@@ -1,14 +1,24 @@
 const express = require('express'),
   bodyParser = require('body-parser'),
   routes = require('./routes/'),
-  firebase = require('firebase');
+  firebase = require('firebase'),
+  socketio = require('socket.io');
 // import express from 'express';
 // import bodyParser from 'body-parser';
 // import route from './routes/route';
 const port = process.env.PORT || 9999;
 
 const app = express();
-app.listen(port);
+const server = app.listen(port);
+console.log('postIt App Restful Api server started on: ' + port);
+
+const io = socketio(server);
+io.on('connection', (socket) => {
+  console.log('A user Connected!');
+  socket.on('disconnect', () => {
+    console.log('Disconnected');
+  });
+});
 
 // for parsing application/x-www-form-urlencoded)
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,4 +61,3 @@ app.get('/', (req, res, next) => {
 //  Register Our ROUTES
 routes(app, firebase);
 
-console.log('postIt App Restful Api server started on: ' + port);
