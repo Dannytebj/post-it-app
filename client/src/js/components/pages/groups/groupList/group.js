@@ -80,11 +80,11 @@ class Group extends Component {
     }
     render() {
         const { group } = this.props;
-        const { groupFetched, isFetchingGroup, userList, userIsSet} = this.state;
+        const { isFetchingGroup, userList, userIsSet} = this.state;
         return (<div id="groups">
         <li>
             {group.groupName}
-            { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
+            { (group.isAdmin) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
         {(userIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <UserList userList = {userList} /></div> : ''}
        
