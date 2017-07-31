@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   // Pass to next layer of middleware
   next();
 });
+
 const config = {
   apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
   authDomain: 'postitapp-f266c.firebaseapp.com',
@@ -59,5 +60,5 @@ app.get('/', (req, res, next) => {
   next();
 });
 //  Register Our ROUTES
-routes(app, firebase);
+routes(app, firebase, io);
 
