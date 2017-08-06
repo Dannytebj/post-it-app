@@ -7,7 +7,7 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "start:dev": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000 --config webpack.config.devserver.js",
+    "start:dev": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --config webpack.config.devserver.js",
     "test": "jest --config jest.config.js"
   },
   "keywords": [],
