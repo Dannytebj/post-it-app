@@ -1,0 +1,178 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body{
+    background-color: white;
+    opacity: 0.7;
+    overflow-x: scroll;
+.navbar-fixed-left {
+  width: 170px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  padding: 10px;
+  .navbar-nav {
+    > li {
+      float: none;
+      /* Cancel default li float: left */
+      width: 139px;
+    }
+    > li > .dropdown-menu {
+      margin-top: -50px;
+      margin-left: 140px;
+    }
+  }
+  + .container {
+    padding-left: 100px;
+  }
+}
+
+.container-fluid{
+  padding-left: 0;
+}
+.nav .navbar-nav {
+  min-height: 650px;
+  background-color: #001f3f;
+  font-size: 1.4em;
+}
+/* On using dropdown menu (To right shift popuped) */
+
+/* make sidebar nav vertical */
+@media (min-width: 768px) {
+  .sidebar-nav .navbar {
+    .navbar-collapse {
+      padding: 0;
+      height:100%;
+    }
+    ul {
+      float: none;
+      display: block;
+    }
+    li {
+      float: none;
+      display: block;
+      a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+    a:hover {
+        background-color:#0074D9;
+        cursor: pointer;
+    }
+    }
+
+  }
+}
+    .sidebar-nav {
+       box-shadow: 0 0 20px 0 darkslateblue ;
+  }
+    .navbar-default{
+        background-color: whitesmoke;
+        border: 0;
+      }
+
+#groups{
+  background: white;
+  display: inline;
+  li {
+    padding: 10px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+}
+.messages{
+  display: inline-block;
+  width: 90%;
+  text-align: left;
+    #add {
+      padding: 10px;
+      font-size: x-large;
+      cursor: pointer;
+      font-weight: bolder;
+    }
+    #nameTag {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+      color: cornflowerblue;
+    }
+     #hide {
+        float: right;
+        font-weight: bolder;
+        cursor: pointer;
+      }
+    .chatBox {
+      width: 100%;
+    }
+    input {
+    float: left;
+    width: 90%;
+  
+  }
+  #sendButton {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    position: absolute;
+    width: 60px;
+    border: none;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      background: #43A047;
+    }
+  }
+}
+.form {
+  position: relative;
+  text-align: left;
+  max-width: 400px;
+  padding: 75px;
+  // z-index: 1;
+  
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      background: #43A047;
+    }
+  }
+  .message {
+    margin: 15px 0 0;
+    font-size: 12px;
+    a {
+      color: #4CAF50;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  .register-form {
+    display: none;
+  }
+}
+     
+}
