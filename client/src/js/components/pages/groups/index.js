@@ -90,12 +90,14 @@ class Groups extends Component {
           </div>
           </div>
         <div className="form">
+            <div className="alert alert-info" role="alert">
+                {UserStore.getMessage()}
+            </div>
             <Button
                 onClick={ this.fetchGroups } value={'View Group' }
             />
                 { fetchMessage }
             <GroupList groupList={groupList} /> 
-                {UserStore.getMessage()}
                 <hr />
             <h3>Create A Group!</h3>
             <TextBox
