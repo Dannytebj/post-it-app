@@ -1,7 +1,10 @@
 {
     "parser": "babel-eslint",
     "rules": {
+<<<<<<< HEAD
         "max-len": ["error", 80, 2],
+=======
+>>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
         "quotes": 0,
         "no-trailing-spaces": 0,
         "eqeqeq": 0,
@@ -77,8 +80,11 @@
     "env": {
         "browser": true,
         "es6": true
+<<<<<<< HEAD
     },
     "parserOptions": {
         "sourceType": "module"
+=======
+>>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
     }
 }
