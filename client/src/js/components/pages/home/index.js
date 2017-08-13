@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { browserHistory } from "react-router";
-<<<<<<< HEAD
 import Layout from '../layout';
 import EditProfile from './editProfile';
-=======
-import Navigator from '../../navigation';
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
 
 class Home extends Component {
     render() {
@@ -14,7 +10,6 @@ class Home extends Component {
             window.location.reload();
             browserHistory.push('/');  
         } else {
-<<<<<<< HEAD
         return (
 <div className="container-fluid">
 <div className="row">
@@ -40,14 +35,6 @@ class Home extends Component {
 </div>
 </div>
 );
-=======
-        return (<div className="page">
-            <Navigator/>
-            <div className="page-content">
-                Welcome {user}
-            </div>
-        </div>);
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
         }
     }
 }

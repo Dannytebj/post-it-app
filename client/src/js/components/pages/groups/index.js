@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import superagent from 'superagent';
-<<<<<<< HEAD
-=======
-import Navigator from '../../navigation';
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
 import viewActions from '../../../actions/viewActions.js';
 import UserStore from '../../../stores/UserStore.js';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import GroupList from './groupList';
-<<<<<<< HEAD
 import Layout from '../layout';
-=======
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
 // import User from './user.js';
 // import '../../../../index.scss';
 
@@ -76,20 +69,15 @@ class Groups extends Component {
             )
     }
     render() {
-<<<<<<< HEAD
         const { groupList, 
             isFetchingData, 
             fetchMessage, 
             newGroupName } = this.state;
-=======
-        const { groupList, isFetchingData, fetchMessage, newGroupName } = this.state;
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
 
         if ( isFetchingData ){
             return <span>Loading!!</span>
         }
         return (
-<<<<<<< HEAD
 <div className="container-fluid">
 <div className="row">
     <Layout/>
@@ -102,13 +90,13 @@ class Groups extends Component {
           </div>
           </div>
         <div className="form">
-            <div className="alert alert-info" role="alert">
-                {UserStore.getMessage()}
-            </div>
+            {(fetchMessage) ? <div className="alert alert-info" role="alert">
+               {fetchMessage}
+            </div> : ''}
+            
             <Button
                 onClick={ this.fetchGroups } value={'View Group' }
             />
-                { fetchMessage }
             <GroupList groupList={groupList} /> 
                 <hr />
             <h3>Create A Group!</h3>
@@ -128,32 +116,6 @@ class Groups extends Component {
     </div>
 </div>
     );
-=======
-        <div className="page">
-            <Navigator/>
-            <div className="page-content">
-                <div className="form">
-                        <Button
-                        onClick={ this.fetchGroups } value={'View Group' }
-                        />
-                        { fetchMessage }
-                       <GroupList groupList={groupList} /> 
-                {UserStore.getMessage()}
-                <hr />
-                <h1>Create A Group!</h1>
-                <TextBox
-                onChange={(value) => { this.setState({ newGroupName: value }); }}
-                label="Group Name"
-                currentValue={newGroupName}
-                />
-                <Button
-                onClick={ this.createGroup }
-                value={'Create Group' }
-                />
-                 </div>
-            </div>
-        </div>);
->>>>>>> 6ea970e1ca388c19e6d58ae1ef7e62fac43a3ecf
     }
 }
 

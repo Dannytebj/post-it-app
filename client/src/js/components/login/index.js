@@ -48,7 +48,11 @@ class Login extends Component {
     render() {
         const { email, password, username, signingIn } = this.state;
         return (
-        <div className="form">
+    <div className="container-fluid">
+        <div className="panel panel-success">
+        <div className="panel-heading"><h3>PostIT... #JustPostIt</h3></div>
+        <div className="panel-body">
+                  <div className="form">
         <div className="login">
             {UserStore.getMessage()}
             { (!signingIn) ? <TextBox
@@ -79,6 +83,10 @@ class Login extends Component {
                 <p className="message">Not registered? <a onClick={this.toggleSignInUp}>Sign Up</a></p> :
                 <p className="message">Already registered? <a onClick={this.toggleSignInUp}>Sign In</a></p> }
             </div>
+        </div>
+        </div>
+        </div>
+  
         </div>
         );
     }
