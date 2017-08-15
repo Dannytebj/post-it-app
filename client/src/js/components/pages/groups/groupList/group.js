@@ -76,7 +76,8 @@ class Group extends Component {
 
     createUserAddButton(isLoading) {
         return isLoading ? <span>Loading</span> : <span>
-            <Button onClick={ this.fetchUsers } value={'Add Users' } />  </span>;
+            <Button onClick={ this.fetchUsers } value={'Add Users' } />  
+            </span>;
     }
     render() {
         const { group } = this.props;
@@ -86,7 +87,8 @@ class Group extends Component {
             {group.groupName}
             { (group.isAdmin) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
-        {(userIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <UserList userList = {userList} /></div> : ''}
+        {(userIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide 
+            </span> <UserList userList = {userList} /></div> : ''}
        
        
        </div>

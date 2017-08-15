@@ -1,13 +1,13 @@
 
 module.exports = (app, firebase) => {
   app.post('/signIn', (req, res) => {
-    const email = req.body.email,
-      password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (user.emailVerified === true) {
-          const username = user.displayName,
-            uid = user.uid;
+          const username = user.displayName;
+          const uid = user.uid;
           res.json({ message: 'User Logged In Successfully!',
             userName: username,
             userUid: uid });

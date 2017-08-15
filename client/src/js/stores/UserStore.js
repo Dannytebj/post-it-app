@@ -13,7 +13,8 @@ let userArray = [];
 class LoginStore extends EventEmitter {
     constructor() {
         super();
-        this.dispatchToken = AppDispatcher.register(this.dispatcherCallback.bind(this));
+        this.dispatchToken = AppDispatcher.register(
+            this.dispatcherCallback.bind(this));
     }
     getMessage() {
         return message;
@@ -23,7 +24,7 @@ class LoginStore extends EventEmitter {
     }
 
     clickSignIn({ email, password }) {
-        console.log(email, password);
+        console.log('...signing user in');
         superagent.post('https://postitdanny.herokuapp.com/signIn')
             .send({ email: email, password: password })
             .set('Accept', 'application/json')
@@ -96,7 +97,8 @@ class LoginStore extends EventEmitter {
             .end((error, response) => {
                 received = JSON.parse(response.text);
                 if (error !== null) {
-                    message = ({'message' :response.status.toString(), 'error': error.message })
+                    message = ({'message' :response.status.toString(), 
+                    'error': error.message })
                 } else {
                     console.log('there were no errors');
                     const userName = received.user.displayName,

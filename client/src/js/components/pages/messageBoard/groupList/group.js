@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 // import superagent from 'superagent';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
+import MessageActions from '../../../../actions/MessageActions';
 import Messages from '../messages.js';
 
-
+const {getGroupMessages} = MessageActions;
 class Group extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +20,9 @@ class Group extends Component {
         this.collapse = this.collapse.bind(this);
     }
     setGroup(){
-        localStorage.setItem('groupId', this.props.group.groupId);
+        localStorage.setItem('groupId', this.props.group.groupId);        
+        const currentGroupId = this.props.group.groupId;
+        getGroupMessages(currentGroupId);
         this.setState({
             groupIsSet: true
         });
@@ -34,7 +37,8 @@ class Group extends Component {
   
     createUserAddButton(isLoading) {
         return isLoading ? <span>Loading</span> : <span>
-            <Button onClick={ this.setGroup } value={'Login to this group' } />  </span>;
+            <Button onClick={ this.setGroup } 
+            value={'Login to this group' } />  </span>;
     }
     render() {
         const { group } = this.props;
@@ -45,7 +49,8 @@ class Group extends Component {
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
         <div className="messages">
-           {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> Hide </span> <Messages /> </div> : ''}
+           {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> 
+               Hide </span> <Messages /> </div> : ''}
         </div>
        {/* <UserList userList = {userList} /> */}
        

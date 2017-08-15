@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import superagent from 'superagent';
 // import UserStore from '../../../stores/UserStore';
 // import viewActions from '../../../actions/viewActions';
-import Button from './button.js';
+// import Button from './button.js';
 import GroupList from './groupList/'
-import Navigator from '../../navigation';
+import Layout from '../layout';
 
 // const { fetchGroups } = Groups;
 class MessageBoard extends Component{
@@ -13,7 +13,8 @@ class MessageBoard extends Component{
         this.state = {
             groupList:[],
             isFetchingData: false,
-            fetchMessage:''
+            fetchMessage:'',
+            showChatBox:false
         };
         this._onChange = this._onChange.bind(this);
         this.fetchGroups = this.fetchGroups.bind(this);
@@ -46,28 +47,47 @@ class MessageBoard extends Component{
                 this.setState({
                     isFetchingData: false,
                     groupList: JSON.parse(response.text),
-                    fetchMessage: 'Successfully Loaded'
+                    fetchMessage: 'Successfully Loaded',
+                    showChatBox: true
                 });
                 }
             )
     }
 render(){
-    const { groupList, isFetchingData, fetchMessage} = this.state;
+    const { groupList, isFetchingData, fetchMessage, showChatBox} = this.state;
     if (isFetchingData){
         return <span>Loading!!!</span>
     }
     return(
-        <div>
-            <Navigator/>
+<div className="container-fluid">
+<div className="row">
+    <Layout/>
+  <div className="col-sm-9">
+      <div className="jumbotron">
+          <div className="panel panel-default">
+            <div className="panel-body">
+          <p>Welcome, Here are the list of group(s) you belong to, 
+              to send messages log into a group and post messages! <br/>
+              <button type="button" className="btn btn-primary btn-lg" 
+              onClick={this.fetchGroups}>Start Chatting!</button>
+              </p>
+             
+          </div>
+          </div>
+          {(!showChatBox) ? '' : 
             <div className="page-content">
-            <h1>Welcome to Message Board</h1>
+            {(fetchMessage) ? <div className="alert alert-info" 
+            role="alert">{fetchMessage}</div> : ''}
+            <h3>Welcome to Message Board</h3>
             <div className="form">
-                <p>You Can log into already created groups and send messages. To start chatting click <Button onClick ={this.fetchGroups} value ={'Start chatting'}/></p>
             <GroupList groupList={groupList} />
             </div>
-             {fetchMessage}
             </div>
+            }
         </div>
+        </div>
+    </div>
+</div>
     )
 }
 }

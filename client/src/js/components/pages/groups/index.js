@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import superagent from 'superagent';
-import Navigator from '../../navigation';
 import viewActions from '../../../actions/viewActions.js';
 import UserStore from '../../../stores/UserStore.js';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import GroupList from './groupList';
+import Layout from '../layout';
 // import User from './user.js';
 // import '../../../../index.scss';
 
@@ -69,36 +69,53 @@ class Groups extends Component {
             )
     }
     render() {
-        const { groupList, isFetchingData, fetchMessage, newGroupName } = this.state;
+        const { groupList, 
+            isFetchingData, 
+            fetchMessage, 
+            newGroupName } = this.state;
 
         if ( isFetchingData ){
             return <span>Loading!!</span>
         }
         return (
-        <div className="page">
-            <Navigator/>
-            <div className="page-content">
-                <div className="form">
-                        <Button
-                        onClick={ this.fetchGroups } value={'View Group' }
-                        />
-                        { fetchMessage }
-                       <GroupList groupList={groupList} /> 
-                {UserStore.getMessage()}
+<div className="container-fluid">
+<div className="row">
+    <Layout/>
+  <div className="col-sm-9">
+      <div className="jumbotron">
+          <div className="panel panel-default">
+            <div className="panel-body">
+          <p>Welcome, Here you can view groups you belong to, and add 
+              a user to that group if it was a group you created !</p>
+          </div>
+          </div>
+        <div className="form">
+            {(fetchMessage) ? <div className="alert alert-info" role="alert">
+               {fetchMessage}
+            </div> : ''}
+            
+            <Button
+                onClick={ this.fetchGroups } value={'View Group' }
+            />
+            <GroupList groupList={groupList} /> 
                 <hr />
-                <h1>Create A Group!</h1>
-                <TextBox
-                onChange={(value) => { this.setState({ newGroupName: value }); }}
+            <h3>Create A Group!</h3>
+            <TextBox
+                onChange={(value) => { 
+                    this.setState({ newGroupName: value }); }}
                 label="Group Name"
                 currentValue={newGroupName}
-                />
-                <Button
+            />
+            <Button
                 onClick={ this.createGroup }
                 value={'Create Group' }
-                />
-                 </div>
+            />
+              </div>
             </div>
-        </div>);
+        </div>
+    </div>
+</div>
+    );
     }
 }
 

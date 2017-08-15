@@ -4,6 +4,7 @@ const googleSignIn = require('./signInGoogle');
 const createGroup = require('./createGroupRoute');
 const addUserRoute = require('./addUserRoute');
 const messageRoute = require('./messageRoute');
+const editProfile = require('./editUserProfile');
 const signOutRoute = require('./signOutRoute');
 const getAllUsers = require('./getAllUsers');
 const getGroups = require('./getGroups');
@@ -18,14 +19,14 @@ module.exports = (app, firebase) => {
         res.send('Welcome to PostIt...');
       } else {
         res.status(401);
-        res.send('You need to log in first!: ' + res.status(401));
+        res.send(`You need to log in first :${res.status(401)}`);
       }
     });
     next();
   });
 
+  // END POINTS FOR POST-IT APP
   //  Post Routes
-
   signInRoute(app, firebase);
   signUpRoute(app, firebase);
   googleSignIn(app, firebase);
@@ -33,6 +34,7 @@ module.exports = (app, firebase) => {
   addUserRoute(app, firebase);
   messageRoute(app, firebase);
   signOutRoute(app, firebase);
+  editProfile(app, firebase);
 
   // Get Routes
 
