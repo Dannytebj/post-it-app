@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import superagent from 'superagent';
 // import UserStore from '../../../stores/UserStore';
 // import viewActions from '../../../actions/viewActions';
-import Button from './button.js';
+// import Button from './button.js';
 import GroupList from './groupList/'
 import Layout from '../layout';
 
@@ -76,7 +76,8 @@ render(){
           </div>
           {(!showChatBox) ? '' : 
             <div className="page-content">
-            {(fetchMessage) ? <div className="alert alert-info" role="alert">{fetchMessage}</div> : ''}
+            {(fetchMessage) ? <div className="alert alert-info" 
+            role="alert">{fetchMessage}</div> : ''}
             <h3>Welcome to Message Board</h3>
             <div className="form">
             <GroupList groupList={groupList} />
