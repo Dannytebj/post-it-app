@@ -84,6 +84,11 @@ body{
 .messages{
   width: 90%;
   text-align: left;
+  margin-bottom: 20px;
+  .messageBox{
+    float: left;
+    width: 80%;
+  }
     #add {
       padding: 10px;
       font-size: x-large;
@@ -108,6 +113,9 @@ body{
     width: 90%;
   
   }
+  .displayMessages{
+    margin-bottom: 5%;
+  }
   #sendButton {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -128,12 +136,10 @@ body{
   }
 }
 .form {
-  position: relative;
   text-align: left;
-  max-width: 400px;
-  padding: 75px;
+  max-width: 500px;
+  padding: 55px;
   // z-index: 1;
-  
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   input {
     font-family: "Roboto", sans-serif;
@@ -153,7 +159,7 @@ body{
     background: #4CAF50;
     width: 100%;
     border: 0;
-    padding: 15px;
+    padding: 10px;
     color: #FFFFFF;
     font-size: 14px;
     -webkit-transition: all 0.3 ease;

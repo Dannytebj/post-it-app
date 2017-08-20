@@ -1,3 +1,11 @@
+/**
+ * This route creates Groups for Users
+ * 
+ * @param {*} app Makes use of express router
+ * @param {*} firebase Makes use of the firebase Instance
+ * @return {array} Results from post request.
+ */
+
 module.exports = (app, firebase) => {
   app.post('/group', (req, res) => {
     const currUser = firebase.auth().currentUser;
@@ -14,13 +22,13 @@ module.exports = (app, firebase) => {
           isAdmin: true
         });
       firebase.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
-      .update({
-        id: currUser.uid,
-        name: currUser.displayName
-      })
+        .update({
+          id: currUser.uid,
+          name: currUser.displayName
+        })
         .then(() => {
           res.status(200);
-          res.send({ message: 'You Just Created a group called: ' + group });
+          res.send({ message: `You Just Created a group called:${group}` });
         })
         .catch((error) => {
           res.send(error);

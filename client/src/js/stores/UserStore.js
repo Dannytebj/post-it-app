@@ -3,12 +3,19 @@ import { EventEmitter } from 'events';
 import Constants from '../constants/';
 import superagent from 'superagent';
 import { browserHistory } from "react-router";
-// import Welcome from '../components/commons/main';
 
+/**
+ * This Store Handles Sign In, SignIn(Google)
+ * Sign Out, Create Group, and SignOut.
+ * @param {string} message - Initialized empty string to 
+ * hold status messages from server
+ * @param {object} received - Initialized empty object to 
+ * hold response data from server
+ * @param {array} userArray - Holds an array of Users from dataBase
+ */
 let message = '';
 let received = {};
 let userArray = [];
-
 
 class LoginStore extends EventEmitter {
     constructor() {
@@ -16,13 +23,27 @@ class LoginStore extends EventEmitter {
         this.dispatchToken = AppDispatcher.register(
             this.dispatcherCallback.bind(this));
     }
+    /**
+     * @method getMessage - Returns status message from server
+     * @return {string} - current status message
+     */
     getMessage() {
         return message;
     }
+    /**
+     * @method getUsers
+     * @return {array} - Returns an Array of Users
+     */
     getUsers (){
        return userArray;
     }
 
+    /**
+     * 
+     * @param {*} email - email of user
+     * @param {*} password - users password
+     * @return {array} array of users   
+     */
     clickSignIn({ email, password }) {
         console.log('...signing user in');
         superagent.post('https://postitdanny.herokuapp.com/signIn')
@@ -43,10 +64,21 @@ class LoginStore extends EventEmitter {
                 this.emitChange();
             });
     }
+    /**
+     * 
+     * @param {*} email - email of user
+     * @param {*} password - users password
+     * @param {*} username - hold Users full name
+     * @param {*} phoneNumber - holds user phone numbers 
+     * @return {array} array of users   
+     */
 
-    clickSignUp({ email, password, username}) {
+    clickSignUp({ email, password, username, phoneNumber}) {
         superagent.post('https://postitdanny.herokuapp.com/signUp')
-            .send({username: username , email: email, password: password})
+            .send({username: username ,
+                 email: email, 
+                 password: password,
+                 phoneNumber: phoneNumber})
             .set('Accept', 'application/json')
             .end((error, response) => {
                 if (error !== null) {
@@ -59,7 +91,9 @@ class LoginStore extends EventEmitter {
             });
 
     }
-
+    /**
+     * Sign's Users Out and clears localstorage
+     */
     clickSignOut(){
         superagent.post('https://postitdanny.herokuapp.com/signOut')
             .end((error, response) => {
@@ -73,9 +107,14 @@ class LoginStore extends EventEmitter {
                     localStorage.clear();
                     
                 }
-            })
+                this.emitChange();
+            });
     }
-
+    /**
+     * 
+     * @param {*} groupName - Holds group name
+     * @return {string} response from server   
+     */
     clickCreateGroup({ groupName }) {
         superagent.post('https://postitdanny.herokuapp.com/group')
         .send({ groupName: groupName})
@@ -89,6 +128,10 @@ class LoginStore extends EventEmitter {
             this.emitChange();
         });
     }
+    /**
+     * Method that handles signIn with Google Option
+     * @param {*} idToken - token collected from google 
+     */
     signInWithGoogle({ idToken }) {
         superagent
             .post('https://postitdanny.herokuapp.com/signIn/google')

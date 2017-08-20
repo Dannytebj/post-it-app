@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TextBox = ({ onChange, currentValue, label, isPassword }) => {
-    return (<div className="chatTextBox">
+    return (<div className="messageBox">
         <label>{label}</label>
         <input
             type = {isPassword ? 'password' : 'text'}

@@ -6,8 +6,10 @@ import ViewActions from '../../actions/viewActions';
 import Google from './googleSignIn.js';
 import '../../../index.scss';
 
-const { signIn } = ViewActions;
-const { signUp } = ViewActions;
+/**
+ * Component That handles SignIn and SignUP
+ */
+const { signIn, signUp } = ViewActions;
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +18,8 @@ class Login extends Component {
             email: '',
             password: '',
             signingIn: true,
-            username: ''
+            username: '',
+            phoneNumber:''
         };
         this._onChange = this._onChange.bind(this);
         this.clickSign = this.clickSign.bind(this);
@@ -36,17 +39,28 @@ class Login extends Component {
             signingIn: !this.state.signingIn
         });
     }
+    
+    /**
+     * Method that calls the signIn and 
+     * signUp Action and passes payload to it
+     */
     clickSign() {
-        const { email, password, username, signingIn } = this.state;
+        const { email, password, username, 
+            signingIn, phoneNumber } = this.state;
         if (signingIn) {
             signIn(email, password);
             return;
         }
-        signUp( username,email, password);
+        signUp( username,email, password, phoneNumber);
     }
 
     render() {
-        const { email, password, username, signingIn } = this.state;
+        const { 
+            email, 
+            password, 
+            username, 
+            signingIn, 
+            phoneNumber } = this.state;
         return (
     <div className="container-fluid">
         <div className="panel panel-success">
@@ -55,11 +69,15 @@ class Login extends Component {
                   <div className="form">
         <div className="login">
             {UserStore.getMessage()}
-            { (!signingIn) ? <TextBox
+            { (!signingIn) ? <div><TextBox
                 onChange={(value) => { this.setState({ username: value }); }}
-                label="name"
+                label="Full Name"
                 currentValue={username}
-                />  : <div/> }
+                /> <TextBox
+                onChange={(value) => { this.setState({ phoneNumber: value }); }}
+                label="Phone Number"
+                currentValue={phoneNumber}
+                /> </div> : <div/> }
             <TextBox
                 onChange={(value) => { this.setState({ email: value }); }}
                 label="email"

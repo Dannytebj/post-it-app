@@ -7,7 +7,9 @@ import Groups from './js/components/pages/groups';
 import SignOut from './js/components/pages/signOut';
 import MessageBoard from './js/components/pages/messageBoard';
 import './index.scss';
-
+/**
+ * Contains Routes to all my components
+ */
 ReactDOM.render(
   <Router history={ browserHistory }>
       <Route path="/" component={ Login } />

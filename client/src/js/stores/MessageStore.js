@@ -6,42 +6,35 @@ import {
     GET_ALL_MESSAGES
 } from '../constants/messageConstants';
 
+let allMessages = [];
+let errorMessage ='';
+let messages = [];
 class MessageStore extends EventEmitter {
  constructor() {
         super();
-        this.messages = [];
-        this.state = {
-            messageList:[],
-            statusMessage:'',
-            fetchMessage:''
-        },
         this.dispatchToken = AppDispatcher.register(
             this.dispatcherCallback.bind(this));
-            // this.getState=this.getState.bind(this);
-            this.addMessage=this.addMessage.bind(this);
-            this.getMessages = this.getMessages.bind(this);
-            this.getGroupMessages = this.getGroupMessages.bind(this);
-            this.allGroupMessages = this.allGroupMessages.bind(this);
     }
-        getMessages(){
-        console.log('get new message');
-        return this.messages;
+
+    getError(){
+            return errorMessage;
+    }
+    getMessages(){
+        return messages;
     }
     allGroupMessages(){
-        const messageList = this.state;
-        return messageList;
+        return allMessages;
     }
-    addMessage(message, groupId){
-        this.messages.push(
-            message,
-            groupId
-        );
-            this.emit('NewMessage');
-            console.log(this.messages);
-        }
 
-    postMessage({message, groupId}){
+    postMessage({message, groupId, priority}){
         console.log('message posting...');
+        const userId = localStorage.getItem('uid');
+        const userName = localStorage.getItem('userName');
+        allMessages.push({
+            id: userId,
+            messages: message,
+            name: userName
+        });
         // superagent
         //     .post(`https://postitdanny.herokuapp.com/message/${groupId}`)
         //     .send({message: message})
@@ -64,25 +57,22 @@ class MessageStore extends EventEmitter {
 
             // }
     getGroupMessages({groupId}){
-        console.log(groupId);
+        console.log('Getting all group Messages!');
         superagent
             .get(`https://postitdanny.herokuapp.com/getMessages/${groupId}`)
             .set('Accept', 'application/json')
             .end((error, response)=> {
-                if(error) {
-                    // this.setState({
-                    //     fetchMessage:'Failed to get Messages'
-                    // });
-                    return;
-                }
-                    // this.setState({
-                    //     fetchMessage:'Successfully fetched messages',
-                    //     messageList: JSON.parse(response.text)
-                    // });
-                    // console.log(messageArray);
-                    console.log(response);
+                if (error) {
+                    errorMessage = JSON.parse(error);
+                    return errorMessage;
+                } else {
+                    allMessages = JSON.parse(response.text);
+                } 
+            this.emit('updateStore');
             });
-            this.emitChange();
+                
+
+            // this.emitChange();
 
     }
   
@@ -93,10 +83,12 @@ class MessageStore extends EventEmitter {
     }
     addChangeListener(callback) {
         this.on('change', callback);
+        this.on('updateStore', callback);
     }
     // Remove change listener
     removeChangeListener(callback) {
         this.removeListener('change', callback);
+        this.removeChangeListener('updateStore', callback);
     }
     dispatcherCallback({ action }) {
         switch (action.type) {
@@ -113,6 +105,4 @@ class MessageStore extends EventEmitter {
         return true;
     }
 }
-const storages = new MessageStore;
-window.storages = storages;
 export default new MessageStore();

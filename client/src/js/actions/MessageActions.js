@@ -6,18 +6,21 @@ import {
 
 // Define action methods
 const MessageActions = {
-    // postMessage: (message, groupId) => {
-    //     AppDispatcher.handleViewAction({
-    //         type: ADD_NEW_MESSAGE,
-    //         payload: { message, groupId }
-    //     })
-    // },
-    addMessage: (message, groupId) => {
+   /**
+    * This action post messages to database
+    @param {*} message - Variable that holds user messages
+    @param {*} groupId 
+    @param priority
+    */
+    addMessage: (message, groupId, priority) => {
         AppDispatcher.handleViewAction({
             type:ADD_NEW_MESSAGE,
-            payload: {message, groupId}
+            payload: {message, groupId, priority}
         })
     },
+    /**
+     * This action get's all messages in a group
+     */
     getGroupMessages:(groupId)=> {
         AppDispatcher.handleViewAction({
             type: GET_ALL_MESSAGES,
