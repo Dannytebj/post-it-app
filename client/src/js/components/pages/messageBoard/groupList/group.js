@@ -51,9 +51,7 @@ class Group extends Component {
         <div className="messages">
            {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> 
                Hide </span> <Messages /> </div> : ''}
-        </div>
-       {/* <UserList userList = {userList} /> */}
-       
+        </div>       
        </div>
         );
     }

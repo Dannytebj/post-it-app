@@ -1,3 +1,11 @@
+/**
+ * This route handles signIp Post 
+ * Requests
+ * 
+ * @param {*} app Makes use of express router
+ * @param {*} firebase Makes use of the firebase Instance
+ * @return {*} results from post request
+ */
 
 module.exports = (app, firebase) => {
   app.post('/signIn', (req, res) => {

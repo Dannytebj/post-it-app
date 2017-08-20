@@ -78,7 +78,7 @@ render(){
             <div className="page-content">
             {(fetchMessage) ? <div className="alert alert-info" 
             role="alert">{fetchMessage}</div> : ''}
-            <h3>Welcome to Message Board</h3>
+            <h4>Welcome to Message Board</h4>
             <div className="form">
             <GroupList groupList={groupList} />
             </div>

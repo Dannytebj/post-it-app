@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import superagent from 'superagent';
-// import AppDispatcher from '../../../dispatcher/AppDispatcher';
 import MessageActions from '../../../actions/MessageActions';
 import MessageStore from '../../../stores/MessageStore';
 import MessageList from './messageList/';
@@ -19,23 +17,26 @@ class Messages extends Component{
             fetchMessage:'',
             messagePosted: false,
             messages: MessageStore.getMessages(),
-            messageList:MessageStore.allGroupMessages()
+            messageList: MessageStore.allGroupMessages(),
+            priority:'Normal'
         };
         this._onChange = this._onChange.bind(this);
-        // this.addMessage = this.addMessage.bind(this);
         this.doPostMessage = this.doPostMessage.bind(this);
         this.doGetGroupMessages = this.doGetGroupMessages.bind(this);
+        this.setPriorityUrgent = this.setPriorityUrgent.bind(this);
+        this.setPriorityCritical = this.setPriorityCritical.bind(this);
     }
+
+ 
     componentWillMount(){
-        MessageStore.on('NewMessage', ()=> {
+        MessageStore.on('updateStore', ()=> {
             this.setState({
-                messages:MessageStore.getMessages()
+                messageList: MessageStore.allGroupMessages()
             });
-        });
+        })
     }
     componentDidMount(){
         MessageStore.addChangeListener(this._onChange);
-
     }
     componentWillUnmount() {
         MessageStore.removeChangeListener(this._onChange);
@@ -43,11 +44,19 @@ class Messages extends Component{
     _onChange() {
         this.forceUpdate();
     }
+    setPriorityUrgent(){
+        this.setState({priority: 'Urgent'});
+
+    }
+    setPriorityCritical(){
+        this.setState({priority: 'Critical'});
+    }
     doPostMessage(){
         // this.getGroupMessages();
-        const { message } = this.state;
+        const { message, priority } = this.state;
         const groupId = localStorage.getItem('groupId');
-        addMessage(message, groupId);
+
+        addMessage(message, groupId, priority);
             console.log(`your message has been posted!: 
             ${message}, ${groupId}`);
                 this.setState({
@@ -63,24 +72,42 @@ class Messages extends Component{
     }
     
     render() {
-        const { message, messages, messageList }= this.state;
-        console.log(messages);
+        const { message, messageList}= this.state;
+        
         return (
             <div className="messages">
                 <div className="displayMessages">
-                    {/* <MessageList receivedMessage = {messageList} /> */}
+                      <MessageList receivedMessage = {messageList} />  
                 </div>
-                <TextBox
-                onChange={(value) => { this.setState({ message: value }); }}
-                label=""
-                currentValue={message}
-                /> 
-            <button id="sendButton" onClick={this.doPostMessage}>Send</button>
+                <div className="input-group">
+                    <TextBox
+                        onChange={(value) => { 
+                            this.setState({ message: value }); }}
+                        label="message"
+                        currentValue={message}
+                    />
+                        <div className="input-group-btn">
+                            <button className="btn btn-default" type="button" 
+                            onClick ={this.doPostMessage}>Send!</button>
+                                
+                        </div>
+                    </div>
+                <div className="dropdown">
+                    <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Priority
+                            <span className="caret" />
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li onClick ={this.setPriorityUrgent}>Urgent</li>
+                        <li onClick ={this.setPriorityCritical}>Critical</li>
+                    </ul>
+                </div>
             </div>
-            // {fetchMessage}
         )
     }
 }
+
 // Group.propTypes = {
 //     group: PropTypes.object.isRequired
 // }

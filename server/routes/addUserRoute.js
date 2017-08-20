@@ -1,3 +1,10 @@
+/**
+ * This route Adds Users to Groups
+ * 
+ * @param {*} app Makes use of express router
+ * @param {*} firebase Makes use of the firebase Instance
+ * @return {array} Results from post request.
+ */
 module.exports = (app, firebase) => {
   app.post('/group/:groupId/users', (req, res) => {
     const groupid = req.params.groupId,
@@ -8,12 +15,12 @@ module.exports = (app, firebase) => {
 
     if (currentUser) {
       const promise = firebase.database()
-      .ref(`group/${groupid}/users/${userId}`)
-      .update({
-        id: userId,
-        name: username
-      });
-      firebase.database().ref('/users/' + userId + '/groups').push(
+        .ref(`group/${groupid}/users/${userId}`)
+        .update({
+          id: userId,
+          name: username
+        });
+      firebase.database().ref(`/users/${userId}/groups`).push(
         {
           groupId: groupid,
           groupName: group,

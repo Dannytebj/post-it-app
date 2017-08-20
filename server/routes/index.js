@@ -11,6 +11,12 @@ const getGroups = require('./getGroups');
 const getGroupUsers = require('./getGroupUsers');
 const getMessages = require('./getMessages');
 
+/**
+ * 
+ * @param {*} app An Instance of express router
+ * @param {*} firebase An Instance of firebase config
+ * @return {*} End points for API's of Post It App
+ */
 module.exports = (app, firebase) => {
   app.use((err, req, res, next) => {
   //  add real time listner
