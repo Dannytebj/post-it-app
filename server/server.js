@@ -2,10 +2,13 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   routes = require('./routes/'),
   path = require('path'),
-  authentication = require('./middleware/authentication'),
+  firebase = require('firebase'),
+  dotenv = require('dotenv'),
+  // isAuthenticated = require('./middleware/authentication'),
   webpack = require('webpack'),
   webpackMiddleware = require('webpack-dev-middleware'),
   webpackHotMiddleware = require('webpack-hot-middleware'),
+  dbConfig = require('./config/config'),
   Config = require('../webpack.config');
 
 /**
@@ -20,10 +23,31 @@ app.use(webpackMiddleware(compiler, {
   historyApiFallback: true,
   stats: { colors: true }
 }));
-// Add headers
+// Initialize firebase App
+dotenv.config();
+const config = {
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  databaseURL: process.env.databaseURL,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId
+};
+firebase.initializeApp(config);
+
+// ===========Authentication function=================== //
+const isAuthenticated = () => new Promise((resolve) => {
+  firebase.auth().onAuthStateChanged((currentUser) => {
+    if (currentUser) {
+      resolve(currentUser);
+    }
+    resolve({});
+  });
+});
+
 app.use((req, res, next) => {
   // Aunthenticate Routes first
-  authentication.authenticateUser()
+  isAuthenticated()
     .then((currentUser) => {
       req.currentUser = currentUser;
       // Website you wish to allow to connect
@@ -34,9 +58,6 @@ app.use((req, res, next) => {
       // Request headers you wish to allow
       res.setHeader('Access-Control-Allow-Headers',
         'X-Requested-With,content-type');
-      // Set to true if you need the website to include cookies 
-      // in the requests sent
-      // to the API (e.g. in case you use sessions)
       res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, ' +
          'content-type, Authorization');
       next();
@@ -51,10 +72,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(routes);
 
-app.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../client/src/index.js'));
-  next();
-});
+// app.get('/*', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '../client/src/index.js'));
+//   next();
+// });
 app.listen(port);
 console.log(`postIt App Restful Api server started on: ${port}`);
 module.exports = app;

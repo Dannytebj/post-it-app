@@ -13,11 +13,12 @@
   },
   "scripts": {
     "start": "babel-watch ./server/server.js",
-    "dev:start": "nodemon server/server.js ",
     "starter": "babel-watch server/server.js",
     "start:dev": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000 --config webpack.config.devserver.js",
     "test": "jest --config jest.config.js",
-    "test2": "mocha test/tests.js"
+    "test2": "istanbul cover _mocha -- -R spec test/newtest.js",
+    "cover": "babel-node node_modules/.bin/istanbul cover _mocha",
+    "tester": "istanbul cover node_modules/mocha/bin/_mocha --report html --report text"
   },
   "repository": {
     "type": "git",
@@ -52,6 +53,7 @@
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.30.1",
     "image-webpack-loader": "^3.2.0",
+    "istanbul": "^1.0.0-alpha.2",
     "jest": "^20.0.4",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
