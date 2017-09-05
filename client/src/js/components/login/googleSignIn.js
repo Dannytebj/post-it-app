@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleLogin from 'react-google-login';
+// import GoogleLogin from 'react-google-login';
 import ViewActions from '../../actions/viewActions';
 import './login.scss';
 
@@ -20,13 +20,16 @@ class Google extends Component {
 
 render() {
     return(
-    <GoogleLogin
-        scope="https://www.googleapis.com/auth/plus.login"
-        clientId="276992209544-34s0o6vjvtahe85c8al49m9a5o390ats.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={this.onSignIn}    
-    />
-    );
+        <div>
+            How far!!
+        </div>
+    // <GoogleLogin
+    //     scope="https://www.googleapis.com/auth/plus.login"
+    //     clientId="276992209544-34s0o6vjvtahe85c8al49m9a5o390ats.apps.googleusercontent.com"
+    //     buttonText="Login with Google"
+    //     onSuccess={this.onSignIn}    
+    // />
+    )
 }
 }
 module.exports= Google;
