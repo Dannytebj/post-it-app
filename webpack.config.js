@@ -7,8 +7,7 @@ module.exports = {
     context: path.join(__dirname, './'),
   entry: [
     path.join(__dirname, 'client/src/index.js'),
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client'
+    'webpack/hot/dev-server'
   ],
     output: {
 
@@ -37,6 +36,7 @@ devServer: {
             {
                 test: /\.scss$/,
                 loaders: [
+                    'style-loader',
                     'css-loader',
                     'sass-loader'
                 ]
