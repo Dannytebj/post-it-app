@@ -90,7 +90,6 @@
     "sinon": "^2.3.2",
     "socket.io": "^2.0.3",
     "stream": "0.0.2",
-    "style-loader": "^0.13.2",
     "superagent": "^3.4.4",
     "supertest": "^3.0.0",
     "underscore": "^1.8.3",
