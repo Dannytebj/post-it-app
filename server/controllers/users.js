@@ -30,7 +30,7 @@ export const signUp = (req, res) => {
         user.sendEmailVerification()
           .then(() => {
             const uid = user.uid;
-            dbConfig.database().ref(`/users/${uid}`).set(
+            firebase.database().ref(`/users/${uid}`).set(
               {
                 name: user.displayName,
                 id: user.uid,
@@ -38,7 +38,8 @@ export const signUp = (req, res) => {
                 phoneNumber
               }
             );
-            res.send('Message: User Succesfully created!');
+            res.status(200)
+              .send('Message: User Succesfully created!');
           });
       });
     promise.catch((error) => {
@@ -46,6 +47,7 @@ export const signUp = (req, res) => {
     });
   }
 };
+
 // ============ Controller that Sign's In Users ============
 export const signIn = (req, res) => {
   const { email, password } = req.body;
@@ -72,7 +74,8 @@ export const signOut = (req, res) => {
     .catch((error) => {
       res.send(error.message);
     });
-  res.send('User signed Out');
+  res.status(200)
+    .send('User signed Out');
 };
 
 // =========== Controller for editing Registered User===========

@@ -1,15 +1,15 @@
-const express = require('express'),
-  bodyParser = require('body-parser'),
-  routes = require('./routes/'),
-  path = require('path'),
-  firebase = require('firebase'),
-  dotenv = require('dotenv'),
-  // isAuthenticated = require('./middleware/authentication'),
-  webpack = require('webpack'),
-  webpackMiddleware = require('webpack-dev-middleware'),
-  webpackHotMiddleware = require('webpack-hot-middleware'),
-  dbConfig = require('./config/config'),
-  Config = require('../webpack.config');
+import express from 'express';
+import webpack from 'webpack';
+import firebase from 'firebase';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import path from 'path';
+import bodyParser from 'body-parser';
+import Config from '../webpack.config';
+import routes from './routes/index';
+// import dotenv from 'dotenv';
+import config from './config/config';
+
 
 /**
  * Node Server file for PostIt App
@@ -23,46 +23,23 @@ app.use(webpackMiddleware(compiler, {
   historyApiFallback: true,
   stats: { colors: true }
 }));
-// Initialize firebase App
-dotenv.config();
-const config = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  databaseURL: process.env.databaseURL,
-  projectId: process.env.projectId,
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.messagingSenderId
-};
+
 firebase.initializeApp(config);
 
-// ===========Authentication function=================== //
-const isAuthenticated = () => new Promise((resolve) => {
-  firebase.auth().onAuthStateChanged((currentUser) => {
-    if (currentUser) {
-      resolve(currentUser);
-    }
-    resolve({});
-  });
+app.use((req, res, next) => {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers',
+    'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, ' +
+         'content-type, Authorization');
+  next();
 });
 
-app.use((req, res, next) => {
-  // Aunthenticate Routes first
-  isAuthenticated()
-    .then((currentUser) => {
-      req.currentUser = currentUser;
-      // Website you wish to allow to connect
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      // Request methods you wish to allow
-      res.setHeader('Access-Control-Allow-Methods',
-        'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-      // Request headers you wish to allow
-      res.setHeader('Access-Control-Allow-Headers',
-        'X-Requested-With,content-type');
-      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, ' +
-         'content-type, Authorization');
-      next();
-    });
-});
 app.use(webpackHotMiddleware(compiler));
 const publicPath = express.static(path.join(__dirname, '../client/src/js'));
 app.use('/', publicPath);

@@ -8,6 +8,15 @@ import dbConfig from '../config/config';
 //     resolve({});
 //   });
 // });
+// ===========Authentication function=================== //
+// const isAuthenticated = () => new Promise((resolve) => {
+//   dbConfigAuth.onAuthStateChanged((currentUser) => {
+//     if (currentUser) {
+//       resolve(currentUser);
+//     }
+//     resolve({});
+//   });
+// });
 
 const isAuthenticated = (req, res, next) => {
   const user = dbConfig.auth().currentUser;

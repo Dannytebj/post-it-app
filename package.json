@@ -16,9 +16,8 @@
     "starter": "babel-watch server/server.js",
     "start:dev": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000 --config webpack.config.devserver.js",
     "test": "jest --config jest.config.js",
-    "test2": "istanbul cover _mocha -- -R spec test/newtest.js",
-    "cover": "babel-node node_modules/.bin/istanbul cover _mocha",
-    "tester": "istanbul cover node_modules/mocha/bin/_mocha --report html --report text"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test1": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 ./test/tests.js && npm run coverage"
   },
   "repository": {
     "type": "git",
@@ -31,6 +30,10 @@
   },
   "homepage": "https://github.com/Dannytebj/post-it-app#readme",
   "devDependencies": {
+    "assert": "^1.4.1",
+    "babel-plugin-istanbul": "^4.1.4",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
     "enzyme": "^2.9.1",
     "eslint": "^4.4.1",
@@ -44,6 +47,7 @@
     "istanbul": "^1.0.0-alpha.2",
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
+    "nyc": "^11.2.1",
     "sinon": "^2.3.6"
   },
   "dependencies": {

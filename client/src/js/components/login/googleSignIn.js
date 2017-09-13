@@ -21,7 +21,7 @@ class Google extends Component {
 render() {
     return(
         <div>
-            How far!!
+          <div className="g-signin2" data-onsuccess= {this.onSignIn} data-theme="dark"/>
         </div>
     // <GoogleLogin
     //     scope="https://www.googleapis.com/auth/plus.login"

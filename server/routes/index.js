@@ -6,7 +6,7 @@ import {
   signOut,
   signInWithGoogle,
   editProfile
-} from '../controllers/users';
+} from '../controllers/user.controller';
 import {
   createGroup,
   getGroups,
@@ -16,23 +16,7 @@ import {
   getAllUsers,
   addUser
 } from '../controllers/groups';
-// const express = require('express');
-// const {
-//   signIn,
-//   signUp,
-//   signOut,
-//   signInWithGoogle,
-//   addUser,
-//   editProfile
-// } = require('../controllers/users');
-// const {
-//   getAllUsers,
-//   createGroup,
-//   getGroups,
-//   postMessage,
-//   getGroupUsers,
-//   getMessages
-// } = require('../controllers/groups');
+
 
 const router = express.Router();
 // END POINTS FOR POST-IT router
@@ -52,5 +36,5 @@ router.get('/getGroupUsers/:groupId', getGroupUsers);
 router.get('/getGroup/:userUid', getGroups);
 router.get('/getMessages/:groupId', getMessages);
 
-module.exports = router;
-// export default router;
+// module.exports = router;
+export default router;

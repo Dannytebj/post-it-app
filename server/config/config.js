@@ -1,16 +1,20 @@
 import firebase from 'firebase';
 import dotenv from 'dotenv';
 
-// dotenv.config();
+const env = process.env.NODE_ENV;
+let currentProcess = '';
+if (env === 'test') {
+  currentProcess = 'TEST';
+}
+dotenv.config();
 
-// const config = {
-//   apiKey: process.env.apiKey,
-//   authDomain: process.env.authDomain,
-//   databaseURL: process.env.databaseURL,
-//   projectId: process.env.projectId,
-//   storageBucket: process.env.storageBucket,
-//   messagingSenderId: process.env.messagingSenderId
-// };
-// const dbConfig = firebase.initializeApp(config);
+const config = {
+  apiKey: process.env[`${currentProcess}apiKey`],
+  authDomain: process.env[`${currentProcess}authDomain`],
+  databaseURL: process.env[`${currentProcess}databaseURL`],
+  projectId: process.env[`${currentProcess}projectId`],
+  storageBucket: process.env[`${currentProcess}storageBucket`],
+  messagingSenderId: process.env[`${currentProcess}messagingSenderId`]
+};
 
-// export default dbConfig;
+export default config;

@@ -1,88 +1,146 @@
-const supertest = require('supertest'),
-  should = require('should'),
-  mocha = require('mocha'),
-  assert = require('assert'),
-  expect = require('chai').expect,
-  firebase = require('firebase'),
-  sinon = require('sinon');
+import mocha from 'mocha';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import assert from 'assert';
+import { signUp, signIn, signOut} from '../server/controllers/user.controller';
 
-  // configure firebase
-const config = {
-  apiKey: 'AIzaSyAyLQtYUNfRvMG7tqL85kto0Zv9l0H0xxk',
-  authDomain: 'postitapp-f266c.firebaseapp.com',
-  databaseURL: 'https://postitapp-f266c.firebaseio.com',
-  projectId: 'postitapp-f266c',
-  storageBucket: 'postitapp-f266c.appspot.com',
-  messagingSenderId: '276992209544' };
-firebase.initializeApp(config);
-const server = supertest.agent('http://localhost:9999');
-const dbAuth = firebase.auth();
+const expect = require('chai').expect;
+const app = require('../server/server');
+chai.should();
+chai.use(chaiHttp);
 
-describe('Sign up route function', () => {
+describe('The SignUp route controller', () => {
+  let email, userName, password, phoneNumber;
   beforeEach(() => {
-    sinon.stub(dbAuth, 'createUserWithEmailAndPassword');
+    userName = 'John Doe';
+    email = 'john1.doe111@myself.com';
+    password = 'abc123';
+    phoneNumber = '+2348098765432';
   });
-  afterEach(() => {
-    sinon.stub(dbAuth, 'createUserWithEmailAndPassword').restore();
+  it('should return 200 on successful signUp', (done) => {
+    chai.request(app)
+      .post('/signUp', signUp)
+      .send({ email, password, userName, phoneNumber})
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(200);
+        }
+        done();
+      });
+  })
+  it('should return 400 if user already exist', (done) => {
+    chai.request(app)
+      .post('/signUp', signUp)
+      .send({ email, password, userName, phoneNumber })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done();
+      });
+  })
+  it('should return 400 if a badly formatted email is passed', (done) => {
+    const email = 'johndoe4me.com';
+    chai.request(app)
+      .post('/signUp', signUp)
+      .send({ email, password, userName, phoneNumber})
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done()
+      });
+  })
+  it('should return 400 if password is empty', (done) => {
+    const password = '';
+    chai.request(app)
+      .post('/signUp', signUp)
+      .send({ email, password, userName, phoneNumber })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done()
+      });
+  })
+  it('should return 400 if password is weak', (done) => {
+    const password = 'abc1';
+    const email = 'weakpass@myself.com'
+    chai.request(app)
+      .post('/signUp', signUp)
+      .send({ email, password, userName, phoneNumber })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done()
+      });
+  })
+
+}); // End of SignUp Test Suite
+
+describe('The SignIn Controller', () => {
+  let email, password;
+  beforeEach(() => {
+    email = 'john.doe111@myself.com';
+    password = 'abc123';
   });
-  it('should allow users create an account with valid email and password',
-  (done) => {
-    server
-    .post('/signUp')
-    .send({ userName: 'YourName',
-      email: 'YourName@gmail.com',
-      password: 'abc12' })
-    .expect('Content-type', /json/)
-    .expect(200);
-    done();
+  it('should return 200 on successful signIn', (done) => {
+    chai.request(app)
+      .post('/signIn', signIn)
+      .send({ email, password })
+      .set('Accept','application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(200)
+        }
+        done()
+      });
+  })
+  it('should return 400 for Invalid SignIn details', (done) => {
+    const email = 'johndoe4me.com';
+    const password = ''
+    chai.request(app)
+      .post('/signIn', signIn)
+      .send({ email, password })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400)
+        }
+        done()
+      });
+  })
+}); //End of SignIn Test Suite
+
+describe('The SignOut Controller', () => {
+  it('should return 200 when user successfully signOut', (done) => {
+    chai.request(app)
+      .post('/signOut')
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res){
+          res.status.should.equal(200);
+        }
+        done()
+      });
   });
-  // it('should return 400 for a bad signUp Request(invalid email or password)',
-  // (done) => {
-  //   server
-  //   .post('/signUp')
-  //   .send({ 
-  //     userName: 'YourName',
-  //     email: 'yourself4me',
-  //     password: 'abc12' 
-  //   })
-  //   .expect('Content-type', /json/)
-  //   .expect(400)
-  //   .end((err, res) => {
-  //     res.status.should.equal(400);
-  //     done();
-  //   });
-  // });
-});
-
-
-describe('The Sign In Route', () => {
-  // beforeEach(() => {
-  //   sinon.stub(dbAuth, 'signInWithEmailAndPassword');
-  // });
-  // afterEach(() => {
-  //   sinon.stub(dbAuth, 'signInWithEmailAndPassword').restore();
-  // });
-
-  it('should allow users sign In with valid email and password',
-  (done) => {
-    server
-    .post('/signIn')
-    .send({ email: 'YourName@gmail.com',
-      password: 'abc123' })
-    .expect('Content-type', /json/)
-    .expect(200);
-    done();
+  it('should return 400 when signOut fails', (done) => {
+    chai.request(app)
+      .post('/signOut')
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done()
+      });
   });
 
-  // it('should fail to sign in user with invalid email or password', (done) => {
-  //   server
-  //   .post('/signIn')
-  //   .send({ email: '', password: '' })
-  //   .expect('Content-type', /json/)
-  //   .expect(400)
-  //   .end((err, res) => {
-  //     res.status.should.equal(400);
-  //     done();
-  //   });
-  // });
-});
+}); // End of SignOut Test Suite
+

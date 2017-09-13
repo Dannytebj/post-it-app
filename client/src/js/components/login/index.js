@@ -4,6 +4,7 @@ import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
 import Google from './googleSignIn.js';
+import PassWordReset from './passwordReset';
 import '../../../index.scss';
 
 /**
@@ -18,13 +19,17 @@ class Login extends Component {
             email: '',
             password: '',
             signingIn: true,
+            resetPass: false,
             username: '',
             phoneNumber:''
         };
         this._onChange = this._onChange.bind(this);
         this.clickSign = this.clickSign.bind(this);
         this.toggleSignInUp = this.toggleSignInUp.bind(this);
+        this.toggleResetPass = this.toggleResetPass.bind(this);
+
     }
+
     componentDidMount() {
         UserStore.addChangeListener(this._onChange);
     }
@@ -37,6 +42,11 @@ class Login extends Component {
     toggleSignInUp() {
         this.setState({
             signingIn: !this.state.signingIn
+        });
+    }
+    toggleResetPass(){
+        this.setState({
+            resetPass: true
         });
     }
     
@@ -60,7 +70,8 @@ class Login extends Component {
             password, 
             username, 
             signingIn, 
-            phoneNumber } = this.state;
+            phoneNumber,
+            resetPass } = this.state;
         return (
     <div className="container-fluid">
         <div className="panel panel-success">
@@ -97,6 +108,8 @@ class Login extends Component {
             <div className="googleBut">
             <Google />
             </div>
+                <p className="message">Forgot Password ? <a onClick={this.resetPass}>Reset Password</a></p> 
+            {(!resetPass) ? '': <PassWordReset/> }
             { (signingIn) ?
                 <p className="message">Not registered? <a onClick={this.toggleSignInUp}>Sign Up</a></p> :
                 <p className="message">Already registered? <a onClick={this.toggleSignInUp}>Sign In</a></p> }
