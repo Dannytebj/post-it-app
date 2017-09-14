@@ -4,8 +4,7 @@ import {
   signUp,
   signIn,
   signOut,
-  signInWithGoogle,
-  editProfile
+  signInWithGoogle
 } from '../controllers/user.controller';
 import {
   createGroup,
@@ -28,7 +27,6 @@ router.post('/signIn/google', signInWithGoogle);
 router.post('/group', createGroup);
 router.post('/message/:groupId', postMessage);
 router.post('/group/:groupId/users', addUser);
-router.post('/updateProfile', editProfile);
 
 // Get Routes
 router.get('/getUsers', getAllUsers);

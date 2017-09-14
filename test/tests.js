@@ -121,7 +121,7 @@ describe('The SignIn Controller', () => {
 describe('The SignOut Controller', () => {
   it('should return 200 when user successfully signOut', (done) => {
     chai.request(app)
-      .post('/signOut')
+      .post('/signOut', signOut)
       .set('Accept', 'application/json')
       .end((res) => {
         if (res){
@@ -132,7 +132,7 @@ describe('The SignOut Controller', () => {
   });
   it('should return 400 when signOut fails', (done) => {
     chai.request(app)
-      .post('/signOut')
+      .post('/signOut', signOut)
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {

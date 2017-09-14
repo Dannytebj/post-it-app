@@ -20,13 +20,13 @@ export const createGroup = (req, res) => {
       newGroupId = dbRef.push({
         groupName: group,
       }).key;
-    dbConfig.database().ref(`/users/${currUser.uid}/groups`).push(
+    firebase.database().ref(`/users/${currUser.uid}/groups`).push(
       {
         groupId: newGroupId,
         groupName: group,
         isAdmin: true
       });
-    dbConfig.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
+    firebase.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
       .update({
         id: currUser.uid,
         name: currUser.displayName

@@ -3,7 +3,6 @@ import superagent from 'superagent';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
 import UserList from '../../addUser/userList';
-// import NewList from '../../addUser/userList/newList.js';
 
 
 class Group extends Component {

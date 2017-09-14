@@ -70,8 +70,7 @@ class Login extends Component {
             password, 
             username, 
             signingIn, 
-            phoneNumber,
-            resetPass } = this.state;
+            phoneNumber } = this.state;
         return (
     <div className="container-fluid">
         <div className="panel panel-success">
@@ -108,8 +107,8 @@ class Login extends Component {
             <div className="googleBut">
             <Google />
             </div>
-                <p className="message">Forgot Password ? <a onClick={this.resetPass}>Reset Password</a></p> 
-            {(!resetPass) ? '': <PassWordReset/> }
+                <p className="message">Forgot Password ? <a onClick={this.resetPassword} data-toggle="modal" data-target=".exampleModal">Reset Password</a></p>
+                <PassWordReset /> 
             { (signingIn) ?
                 <p className="message">Not registered? <a onClick={this.toggleSignInUp}>Sign Up</a></p> :
                 <p className="message">Already registered? <a onClick={this.toggleSignInUp}>Sign In</a></p> }

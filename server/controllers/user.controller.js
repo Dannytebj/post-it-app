@@ -74,32 +74,6 @@ export const signOut = (req, res) => {
     });
 };
 
-// =========== Controller for editing Registered User===========
-export const editProfile = (req, res) => {
-  const user = firebase.auth().currentUser;
-  const { newName, profilePic } = req.body;
-  user.updateProfile({
-    displayName: newName,
-    photoURL: profilePic,
-  })
-    .then(() => {
-      firebase.database().ref(`users/${user.uid}`)
-        .update({
-          id: user.uid,
-          name: newName,
-          photoURL: profilePic,
-        })
-        .then(() => {
-          res.status(200);
-          res.send('Your profile has been successfully Updated!');
-        });
-    })
-    .catch((error) => {
-      res.status(error.code);
-      res.send(`there was an error: ${error}`);
-    });
-};
-
 // =========== Controller for Google SignIn===========
 export const signInWithGoogle = (req, res) => {
   const idToken = req.body.idToken;
