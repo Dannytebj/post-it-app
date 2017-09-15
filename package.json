@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "attr-accept": "^1.1.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-react-remove-prop-types": "^3.0.0",
