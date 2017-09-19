@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import GoogleLogin from 'react-google-login';
 import ViewActions from '../../actions/viewActions';
-import './login.scss';
 
 const { signInWithGoogle } = ViewActions;
 class Google extends Component {

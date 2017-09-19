@@ -6,6 +6,7 @@ module.exports = keyMirror({
     SIGN_IN_GOOGLE: null,
     CLICK_SIGN_OUT: null,
     CLICK_CREATE_GROUP: null,
-    GET_USER: null
+    GET_USER: null,
+    RESET_PASSWORD:null
 
 });

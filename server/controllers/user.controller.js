@@ -87,3 +87,22 @@ export const signInWithGoogle = (req, res) => {
       res.send(`Failed to signIn User:${error.message}`);
     });
 };
+
+// ============ Controller for Password Reset ===========
+export const resetPassword = (req, res) => {
+  const emailAddress = req.body.email;
+  if (!emailValidation(emailAddress)) {
+    res.status(400)
+      .send({ message: 'Please use a valid email address' });
+  } else {
+    firebase.auth().sendPasswordResetEmail(emailAddress)
+      .then(() => {
+        res.status(200)
+          .send('A mail has been sent to the email address provided');
+      }).catch((error) => {
+        res.status(500)
+          .send({ message: 'Sorry, A problem occurred,Please try again',
+            error });
+      });
+  }
+};

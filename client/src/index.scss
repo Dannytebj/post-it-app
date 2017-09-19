@@ -141,7 +141,7 @@ body{
   padding: 55px;
   // z-index: 1;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  input {
+  .login input {
     font-family: "Roboto", sans-serif;
     outline: 0;
     background: #f2f2f2;
@@ -152,7 +152,7 @@ body{
     box-sizing: border-box;
     font-size: 14px;
   }
-  button {
+  .login button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -168,6 +168,18 @@ body{
     &:hover, &:active, &:focus {
       background: #43A047;
     }
+  }
+  .login {
+    .modal button {
+      width: 20%;
+      background: #4CAF50;
+      text-transform: lowercase;
+      a { 
+        width: 1px;
+        color: #001f3f;
+      }
+    }
+
   }
   .message {
     margin: 15px 0 0;

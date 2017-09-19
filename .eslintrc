@@ -1,5 +1,6 @@
 {
-    "parser": "babel-eslint",
+"root": true,
+  "extends": "airbnb-base",
     "rules": {
         "max-len": ["error", 80, 2],
         "quotes": 0,
@@ -43,11 +44,7 @@
     },
     "globals": {
         "jQuery": true,
-        "$": true,
-        "reveal": true,
-        "Pikaday": true,
-        "NProgress": true,
-        "cytoscape": true
+        "$": true
     },
     "plugins": ["react"],
     "ecmaFeatures": {

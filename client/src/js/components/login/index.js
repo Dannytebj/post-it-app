@@ -99,10 +99,12 @@ class Login extends Component {
                 currentValue={password}
                 isPassword ={true}
                 />
+                <div className="bigButton">
             <Button
                 onClick={ this.clickSign }
                 value={ signingIn ? 'Sign In' : 'Sign up' }
-                /><p> OR</p>
+                /></div>
+                <p> OR</p>
                 <br/><hr/>
             <div className="googleBut">
             <Google />

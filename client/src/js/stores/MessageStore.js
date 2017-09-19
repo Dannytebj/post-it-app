@@ -99,7 +99,6 @@ class MessageStore extends EventEmitter {
                 this.getGroupMessages(action.payload)
                 break;
             default:
-                console.log('default', action);
                 break;
         }
         return true;

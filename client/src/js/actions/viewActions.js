@@ -62,7 +62,17 @@ const ViewActions = {
             type: Constants.SIGN_IN_GOOGLE,
             payload: { idToken }
         });
+    },
+    /**
+     * Action method that lets users reset password
+     * @param {*} email the email of the user
+     */
+    sendPasswordReset: (email) => {
+        AppDispatcher.handleViewAction({
+            type: Constants.RESET_PASSWORD,
+            payload: { email }
+        });
     }
 };
 
-module.exports = ViewActions;
+export default ViewActions;
