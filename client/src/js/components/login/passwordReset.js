@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import toastr from 'toastr';
 import UserStore from '../../stores/UserStore';
 import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
 
-const sendPasswordReset = ViewActions;
+const {sendPasswordReset} = ViewActions;
 class PasswordReset extends Component {
     constructor(props) {
         super(props);
@@ -18,10 +19,12 @@ class PasswordReset extends Component {
     resetPassword(e) {
       e.preventDefault()
       const email = this.refs.email.value.trim()
-      console.log(email);
-      // if (email === '') {
-      //   // sendPasswordReset(email);
-      // }
+      if (email !== '') {
+        sendPasswordReset(email);
+        this.refs.email.value = '';
+        alert('An email has been sent to you..Cheers')
+        toastr.success('An email has been sent to you..Cheers');
+      }
       // // console.log('Chill first!!')
     }
     render(){

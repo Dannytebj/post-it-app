@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f2113eebf4888983f708"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "967776d346431c1e3f71"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -706,7 +706,7 @@
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(454)(__webpack_require__.s = 454);
+/******/ 	return hotCreateRequire(457)(__webpack_require__.s = 457);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10177,6 +10177,10 @@ exports.createMemoryHistory = _createMemoryHistory3.default;
 
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _AppDispatcher = __webpack_require__(87);
 
 var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
@@ -10186,74 +10190,84 @@ var _constants = __webpack_require__(217);
 var _constants2 = _interopRequireDefault(_constants);
 
 function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
 var ViewActions = {
-    /**
-     * Define action methods for User view Actions
-     * @param {*} email user email address
-     * @param {*} password user password
-     */
-    signIn: function signIn(email, password) {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.CLICK_SIGN_IN,
-            payload: { email: email, password: password }
-        });
-    },
-    /**
-     * Define action methods for User view Actions
-     * @param {*} email user email address
-     * @param {*} password user password
-     * @param {*} username users fullname
-     * @param {*} phoneNumber Users phone Number
-     */
-    signUp: function signUp(username, email, password, phoneNumber) {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.CLICK_SIGN_UP,
-            payload: { username: username, email: email, password: password, phoneNumber: phoneNumber }
-        });
-    },
-    /**
-     * Flux Action Method to sign Out users
-     */
-    signOut: function signOut() {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.CLICK_SIGN_OUT
-        });
-    },
-    /**
-     * Action methods that lets User create a group .
-     * @param {*} groupName name of the group created
-     */
+  /**
+   * Define action methods for User view Actions
+   * @param {*} email user email address
+   * @param {*} password user password
+   */
+  signIn: function signIn(email, password) {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.CLICK_SIGN_IN,
+      payload: { email: email, password: password }
+    });
+  },
+  /**
+  * Define action methods for User view Actions
+  * @param {*} email user email address
+  * @param {*} password user password
+  * @param {*} username users fullname
+  * @param {*} phoneNumber Users phone Number
+  */
+  signUp: function signUp(username, email, password, phoneNumber) {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.CLICK_SIGN_UP,
+      payload: { username: username, email: email, password: password, phoneNumber: phoneNumber }
+    });
+  },
+  /**
+  * Flux Action Method to sign Out users
+  */
+  signOut: function signOut() {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.CLICK_SIGN_OUT
+    });
+  },
+  /**
+  * Action methods that lets User create a group .
+  * @param {*} groupName name of the group created
+  */
 
-    createGroup: function createGroup(groupName) {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.CLICK_CREATE_GROUP,
-            payload: { groupName: groupName }
-        });
-    },
-    /**
-     * Action method to get Users
-     * 
-     */
-    getUser: function getUser() {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.GET_USER
-        });
-    },
-    /**
+  createGroup: function createGroup(groupName) {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.CLICK_CREATE_GROUP,
+      payload: { groupName: groupName }
+    });
+  },
+  /**
+  * Action method to get Users
+  * 
+  */
+  getUser: function getUser() {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.GET_USER
+    });
+  },
+  /**
      * Action method that let's Users Sign In with Gogle
      */
-    signInWithGoogle: function signInWithGoogle(idToken) {
-        _AppDispatcher2.default.handleViewAction({
-            type: _constants2.default.SIGN_IN_GOOGLE,
-            payload: { idToken: idToken }
-        });
-    }
+  signInWithGoogle: function signInWithGoogle(idToken) {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.SIGN_IN_GOOGLE,
+      payload: { idToken: idToken }
+    });
+  },
+  /**
+     * Action method that lets users reset password
+     * @param {*} email the email of the user
+     */
+  sendPasswordReset: function sendPasswordReset(email) {
+    _AppDispatcher2.default.handleViewAction({
+      type: _constants2.default.RESET_PASSWORD,
+      payload: { email: email }
+    });
+  }
 };
 
-module.exports = ViewActions;
+exports.default = ViewActions;
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(10); if (makeExportsHot(module, __webpack_require__(1))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "viewActions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
@@ -13070,7 +13084,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _navigation = __webpack_require__(438);
+var _navigation = __webpack_require__(439);
 
 var _navigation2 = _interopRequireDefault(_navigation);
 
@@ -13214,28 +13228,20 @@ exports.default = AppDispatcher;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
 }();
 
-var _AppDispatcher = __webpack_require__(87);
-
-var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
-
 var _events = __webpack_require__(89);
-
-var _constants = __webpack_require__(217);
-
-var _constants2 = _interopRequireDefault(_constants);
 
 var _superagent = __webpack_require__(54);
 
@@ -13243,26 +13249,38 @@ var _superagent2 = _interopRequireDefault(_superagent);
 
 var _reactRouter = __webpack_require__(62);
 
+var _toastr = __webpack_require__(433);
+
+var _toastr2 = _interopRequireDefault(_toastr);
+
+var _AppDispatcher = __webpack_require__(87);
+
+var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
+
+var _constants = __webpack_require__(217);
+
+var _constants2 = _interopRequireDefault(_constants);
+
 function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : { default: obj };
+  return obj && obj.__esModule ? obj : { default: obj };
 }
 
 function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
 }
 
 function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
 }
 
 function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
 /**
@@ -13276,224 +13294,249 @@ function _inherits(subClass, superClass) {
  */
 var message = '';
 var received = {};
-var userArray = [];
+var userArray = []; // eslint-disable-line
 
 var LoginStore = function (_EventEmitter) {
-    _inherits(LoginStore, _EventEmitter);
+  _inherits(LoginStore, _EventEmitter);
 
-    function LoginStore() {
-        _classCallCheck(this, LoginStore);
+  function LoginStore() {
+    _classCallCheck(this, LoginStore);
 
-        var _this = _possibleConstructorReturn(this, (LoginStore.__proto__ || Object.getPrototypeOf(LoginStore)).call(this));
+    var _this = _possibleConstructorReturn(this, (LoginStore.__proto__ || Object.getPrototypeOf(LoginStore)).call(this));
 
-        _this.dispatchToken = _AppDispatcher2.default.register(_this.dispatcherCallback.bind(_this));
-        return _this;
-    }
-    /**
+    _this.dispatchToken = _AppDispatcher2.default.register(_this.dispatcherCallback.bind(_this));
+    return _this;
+  }
+  /**
      * @method getMessage - Returns status message from server
      * @return {string} - current status message
      */
 
-    _createClass(LoginStore, [{
-        key: 'getMessage',
-        value: function getMessage() {
-            return message;
+  _createClass(LoginStore, [{
+    key: 'getMessage',
+    value: function getMessage() {
+      return message;
+    }
+    /**
+       * @method getUsers
+       * @return {array} - Returns an Array of Users
+       */
+
+  }, {
+    key: 'getUsers',
+    value: function getUsers() {
+      return userArray;
+    }
+
+    /**
+       * 
+       * @param {*} email - email of user
+       * @param {*} password - users password
+       * @return {array} array of users   
+       */
+
+  }, {
+    key: 'clickSignIn',
+    value: function clickSignIn(_ref) {
+      var _this2 = this;
+
+      var email = _ref.email,
+          password = _ref.password;
+
+      console.log('...signing user in');
+      _superagent2.default.post('/signIn').send({ email: email, password: password }).set('Accept', 'application/json').end(function (error, response) {
+        received = JSON.parse(response.text);
+        if (error !== null) {
+          message = received.message;
+        } else {
+          // message = received.message;
+          var userName = received.userName;
+          var userUid = received.userUid;
+          localStorage.setItem('userName', userName);
+          localStorage.setItem('uid', userUid);
+          _reactRouter.browserHistory.push('home');
         }
-        /**
-         * @method getUsers
-         * @return {array} - Returns an Array of Users
-         */
+        _this2.emitChange();
+      });
+    }
+    /**
+       * 
+       * @param {*} email - email of user
+       * @param {*} password - users password
+       * @param {*} username - hold Users full name
+       * @param {*} phoneNumber - holds user phone numbers 
+       * @return {array} array of users   
+       */
 
-    }, {
-        key: 'getUsers',
-        value: function getUsers() {
-            return userArray;
+  }, {
+    key: 'clickSignUp',
+    value: function clickSignUp(_ref2) {
+      var _this3 = this;
+
+      var email = _ref2.email,
+          password = _ref2.password,
+          username = _ref2.username,
+          phoneNumber = _ref2.phoneNumber;
+
+      _superagent2.default.post('/signUp').send({ username: username,
+        email: email,
+        password: password,
+        phoneNumber: phoneNumber }).set('Accept', 'application/json').end(function (error, response) {
+        if (error !== null) {
+          message = response.status.toString();
+        } else {
+          message = response.text.toString();
+          _reactRouter.browserHistory.push('home');
         }
+        _this3.emitChange();
+      });
+    }
+    /**
+       * Sign's Users Out and clears localstorage
+       */
 
-        /**
-         * 
-         * @param {*} email - email of user
-         * @param {*} password - users password
-         * @return {array} array of users   
-         */
+  }, {
+    key: 'clickSignOut',
+    value: function clickSignOut() {
+      var _this4 = this;
 
-    }, {
-        key: 'clickSignIn',
-        value: function clickSignIn(_ref) {
-            var _this2 = this;
-
-            var email = _ref.email,
-                password = _ref.password;
-
-            console.log('...signing user in');
-            _superagent2.default.post('/signIn').send({ email: email, password: password }).set('Accept', 'application/json').end(function (error, response) {
-                received = JSON.parse(response.text);
-                if (error !== null) {
-                    message = received.message;
-                } else {
-                    // message = received.message;
-                    var userName = received.userName,
-                        userUid = received.userUid;
-                    localStorage.setItem('userName', userName);
-                    localStorage.setItem('uid', userUid);
-                    _reactRouter.browserHistory.push('home');
-                }
-                _this2.emitChange();
-            });
+      _superagent2.default.post('/signOut').end(function (error, response) {
+        if (error !== null) {
+          message = response.text.toString();
+        } else {
+          window.location.reload();
+          _reactRouter.browserHistory.push('/');
+          gapi.auth2.getAuthInstance().signOut();
+          message = response.text.toString();
+          localStorage.clear();
         }
-        /**
-         * 
-         * @param {*} email - email of user
-         * @param {*} password - users password
-         * @param {*} username - hold Users full name
-         * @param {*} phoneNumber - holds user phone numbers 
-         * @return {array} array of users   
-         */
+        _this4.emitChange();
+      });
+    }
+    /**
+       * 
+       * @param {*} groupName - Holds group name
+       * @return {string} response from server   
+       */
 
-    }, {
-        key: 'clickSignUp',
-        value: function clickSignUp(_ref2) {
-            var _this3 = this;
+  }, {
+    key: 'clickCreateGroup',
+    value: function clickCreateGroup(_ref3) {
+      var _this5 = this;
 
-            var email = _ref2.email,
-                password = _ref2.password,
-                username = _ref2.username,
-                phoneNumber = _ref2.phoneNumber;
+      var groupName = _ref3.groupName;
 
-            _superagent2.default.post('/signUp').send({ username: username,
-                email: email,
-                password: password,
-                phoneNumber: phoneNumber }).set('Accept', 'application/json').end(function (error, response) {
-                if (error !== null) {
-                    message = response.status.toString();
-                } else {
-                    message = response.text.toString();
-                    _reactRouter.browserHistory.push('home');
-                }
-                _this3.emitChange();
-            });
+      _superagent2.default.post('/group').send({ groupName: groupName }).set('Accept', 'application/json').end(function (error, response) {
+        if (error !== null) {
+          message = response.status.toString();
+        } else {
+          message = response.text.toString();
         }
-        /**
-         * Sign's Users Out and clears localstorage
-         */
+        _this5.emitChange();
+      });
+    }
+    /**
+       * Method that handles signIn with Google Option
+       * @param {*} idToken - token collected from google 
+       */
 
-    }, {
-        key: 'clickSignOut',
-        value: function clickSignOut() {
-            var _this4 = this;
+  }, {
+    key: 'signInWithGoogle',
+    value: function signInWithGoogle(_ref4) {
+      var _this6 = this;
 
-            _superagent2.default.post('/signOut').end(function (error, response) {
-                if (error !== null) {
-                    message = response.text.toString();
-                } else {
-                    window.location.reload();
-                    _reactRouter.browserHistory.push('/');
-                    gapi.auth2.getAuthInstance().signOut();
-                    message = response.text.toString();
-                    localStorage.clear();
-                }
-                _this4.emitChange();
-            });
+      var idToken = _ref4.idToken;
+
+      _superagent2.default.post('/signIn/google').send({ idToken: idToken }).set('Accept', 'application/json').end(function (error, response) {
+        received = JSON.parse(response.text);
+        if (error !== null) {
+          message = { message: response.status.toString(),
+            error: error.message };
+        } else {
+          console.log('there were no errors');
+          var userName = received.user.displayName;
+          var userUid = received.user.uid;
+          localStorage.setItem('userName', userName);
+          localStorage.setItem('uid', userUid);
+          _reactRouter.browserHistory.push('home');
         }
-        /**
-         * 
-         * @param {*} groupName - Holds group name
-         * @return {string} response from server   
-         */
+        _this6.emitChange();
+      });
+    }
+    /**
+       * 
+       */
 
-    }, {
-        key: 'clickCreateGroup',
-        value: function clickCreateGroup(_ref3) {
-            var _this5 = this;
+  }, {
+    key: 'resetPassword',
+    value: function resetPassword(_ref5) {
+      var _this7 = this;
 
-            var groupName = _ref3.groupName;
+      var email = _ref5.email;
 
-            _superagent2.default.post('/group').send({ groupName: groupName }).set('Accept', 'application/json').end(function (error, response) {
-                if (error !== null) {
-                    message = response.status.toString();
-                } else {
-                    message = response.text.toString();
-                }
-                _this5.emitChange();
-            });
+      console.log('sending password reset mail');
+      _superagent2.default.post('/resetPassword').send({ email: email }).set('Accept', 'application/json').end(function (error, response) {
+        if (error !== null) {
+          message = 'A problem occured!';
+        } else {
+          message = response.text.toString();
+          _toastr2.default.success(message);
         }
-        /**
-         * Method that handles signIn with Google Option
-         * @param {*} idToken - token collected from google 
-         */
+        _this7.emitChange();
+      });
+    }
+  }, {
+    key: 'emitChange',
+    value: function emitChange() {
+      this.emit('change');
+    }
+  }, {
+    key: 'addChangeListener',
+    value: function addChangeListener(callback) {
+      this.on('change', callback);
+    }
+    // Remove change listener
 
-    }, {
-        key: 'signInWithGoogle',
-        value: function signInWithGoogle(_ref4) {
-            var _this6 = this;
+  }, {
+    key: 'removeChangeListener',
+    value: function removeChangeListener(callback) {
+      this.removeListener('change', callback);
+    }
+  }, {
+    key: 'dispatcherCallback',
+    value: function dispatcherCallback(_ref6) {
+      var action = _ref6.action;
 
-            var idToken = _ref4.idToken;
+      switch (action.type) {
+        case _constants2.default.CLICK_SIGN_IN:
+          this.clickSignIn(action.payload);
+          break;
+        case _constants2.default.CLICK_SIGN_UP:
+          this.clickSignUp(action.payload);
+          break;
+        case _constants2.default.CLICK_SIGN_OUT:
+          this.clickSignOut();
+          break;
+        case _constants2.default.CLICK_CREATE_GROUP:
+          this.clickCreateGroup(action.payload);
+          break;
+        case _constants2.default.GET_USER:
+          this.getAllUsers();
+          break;
+        case _constants2.default.SIGN_IN_GOOGLE:
+          this.signInWithGoogle(action.payload);
+          break;
+        case _constants2.default.RESET_PASSWORD:
+          this.resetPassword(action.payload);
+          break;
+        default:
+          break;
+      }
+      return true;
+    }
+  }]);
 
-            _superagent2.default.post('/signIn/google').send({ idToken: idToken }).set('Accept', 'application/json').end(function (error, response) {
-                received = JSON.parse(response.text);
-                if (error !== null) {
-                    message = { 'message': response.status.toString(),
-                        'error': error.message };
-                } else {
-                    console.log('there were no errors');
-                    var userName = received.user.displayName,
-                        userUid = received.user.uid;
-                    localStorage.setItem('userName', userName);
-                    localStorage.setItem('uid', userUid);
-                    _reactRouter.browserHistory.push('home');
-                }
-                _this6.emitChange();
-            });
-        }
-    }, {
-        key: 'emitChange',
-        value: function emitChange() {
-            this.emit('change');
-        }
-    }, {
-        key: 'addChangeListener',
-        value: function addChangeListener(callback) {
-            this.on('change', callback);
-        }
-        // Remove change listener
-
-    }, {
-        key: 'removeChangeListener',
-        value: function removeChangeListener(callback) {
-            this.removeListener('change', callback);
-        }
-    }, {
-        key: 'dispatcherCallback',
-        value: function dispatcherCallback(_ref5) {
-            var action = _ref5.action;
-
-            switch (action.type) {
-                case _constants2.default.CLICK_SIGN_IN:
-                    this.clickSignIn(action.payload);
-                    break;
-                case _constants2.default.CLICK_SIGN_UP:
-                    this.clickSignUp(action.payload);
-                    break;
-                case _constants2.default.CLICK_SIGN_OUT:
-                    this.clickSignOut();
-                    break;
-                case _constants2.default.CLICK_CREATE_GROUP:
-                    this.clickCreateGroup(action.payload);
-                    break;
-                case _constants2.default.GET_USER:
-                    this.getAllUsers();
-                    break;
-                case _constants2.default.SIGN_IN_GOOGLE:
-                    this.signInWithGoogle(action.payload);
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
-    }]);
-
-    return LoginStore;
+  return LoginStore;
 }(_events.EventEmitter);
 
 exports.default = new LoginStore();
@@ -19096,7 +19139,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(453)(content, options);
+var update = __webpack_require__(454)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(true) {
@@ -31265,7 +31308,8 @@ module.exports = (0, _keymirror2.default)({
     SIGN_IN_GOOGLE: null,
     CLICK_SIGN_OUT: null,
     CLICK_CREATE_GROUP: null,
-    GET_USER: null
+    GET_USER: null,
+    RESET_PASSWORD: null
 
 });
 
@@ -31326,7 +31370,7 @@ if (true) {
 				check();
 			}
 
-			__webpack_require__(434)(updatedModules, updatedModules);
+			__webpack_require__(435)(updatedModules, updatedModules);
 
 			if (upToDate()) {
 				console.log("[HMR] App is up to date.");
@@ -31342,7 +31386,7 @@ if (true) {
 			}
 		});
 	};
-	var hotEmitter = __webpack_require__(433);
+	var hotEmitter = __webpack_require__(434);
 	hotEmitter.on("webpackHotUpdate", function (currentHash) {
 		lastHash = currentHash;
 		if (!upToDate() && module.hot.status() === "idle") {
@@ -31373,23 +31417,23 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouter = __webpack_require__(62);
 
-var _login = __webpack_require__(436);
+var _login = __webpack_require__(437);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _home = __webpack_require__(444);
+var _home = __webpack_require__(445);
 
 var _home2 = _interopRequireDefault(_home);
 
-var _groups = __webpack_require__(443);
+var _groups = __webpack_require__(444);
 
 var _groups2 = _interopRequireDefault(_groups);
 
-var _signOut = __webpack_require__(451);
+var _signOut = __webpack_require__(452);
 
 var _signOut2 = _interopRequireDefault(_signOut);
 
-var _messageBoard = __webpack_require__(447);
+var _messageBoard = __webpack_require__(448);
 
 var _messageBoard2 = _interopRequireDefault(_messageBoard);
 
@@ -62753,13 +62797,449 @@ exports.clearImmediate = clearImmediate;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+/*
+ * Toastr
+ * Copyright 2012-2015
+ * Authors: John Papa, Hans Fjällemark, and Tim Ferrell.
+ * All Rights Reserved.
+ * Use, reproduction, distribution, and modification of this code is subject to the terms and
+ * conditions of the MIT license, available at http://www.opensource.org/licenses/mit-license.php
+ *
+ * ARIA Support: Greta Krafsig
+ *
+ * Project: https://github.com/CodeSeven/toastr
+ */
+/* global define */
+;(function (define) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(456)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+        return function () {
+            var $container;
+            var listener;
+            var toastId = 0;
+            var toastType = {
+                error: 'error',
+                info: 'info',
+                success: 'success',
+                warning: 'warning'
+            };
+
+            var toastr = {
+                clear: clear,
+                remove: remove,
+                error: error,
+                getContainer: getContainer,
+                info: info,
+                options: {},
+                subscribe: subscribe,
+                success: success,
+                version: '2.1.2',
+                warning: warning
+            };
+
+            var previousToast;
+
+            return toastr;
+
+            ////////////////
+
+            function error(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.error,
+                    iconClass: getOptions().iconClasses.error,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function getContainer(options, create) {
+                if (!options) {
+                    options = getOptions();
+                }
+                $container = $('#' + options.containerId);
+                if ($container.length) {
+                    return $container;
+                }
+                if (create) {
+                    $container = createContainer(options);
+                }
+                return $container;
+            }
+
+            function info(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.info,
+                    iconClass: getOptions().iconClasses.info,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function subscribe(callback) {
+                listener = callback;
+            }
+
+            function success(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.success,
+                    iconClass: getOptions().iconClasses.success,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function warning(message, title, optionsOverride) {
+                return notify({
+                    type: toastType.warning,
+                    iconClass: getOptions().iconClasses.warning,
+                    message: message,
+                    optionsOverride: optionsOverride,
+                    title: title
+                });
+            }
+
+            function clear($toastElement, clearOptions) {
+                var options = getOptions();
+                if (!$container) {
+                    getContainer(options);
+                }
+                if (!clearToast($toastElement, options, clearOptions)) {
+                    clearContainer(options);
+                }
+            }
+
+            function remove($toastElement) {
+                var options = getOptions();
+                if (!$container) {
+                    getContainer(options);
+                }
+                if ($toastElement && $(':focus', $toastElement).length === 0) {
+                    removeToast($toastElement);
+                    return;
+                }
+                if ($container.children().length) {
+                    $container.remove();
+                }
+            }
+
+            // internal functions
+
+            function clearContainer(options) {
+                var toastsToClear = $container.children();
+                for (var i = toastsToClear.length - 1; i >= 0; i--) {
+                    clearToast($(toastsToClear[i]), options);
+                }
+            }
+
+            function clearToast($toastElement, options, clearOptions) {
+                var force = clearOptions && clearOptions.force ? clearOptions.force : false;
+                if ($toastElement && (force || $(':focus', $toastElement).length === 0)) {
+                    $toastElement[options.hideMethod]({
+                        duration: options.hideDuration,
+                        easing: options.hideEasing,
+                        complete: function complete() {
+                            removeToast($toastElement);
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            }
+
+            function createContainer(options) {
+                $container = $('<div/>').attr('id', options.containerId).addClass(options.positionClass).attr('aria-live', 'polite').attr('role', 'alert');
+
+                $container.appendTo($(options.target));
+                return $container;
+            }
+
+            function getDefaults() {
+                return {
+                    tapToDismiss: true,
+                    toastClass: 'toast',
+                    containerId: 'toast-container',
+                    debug: false,
+
+                    showMethod: 'fadeIn', //fadeIn, slideDown, and show are built into jQuery
+                    showDuration: 300,
+                    showEasing: 'swing', //swing and linear are built into jQuery
+                    onShown: undefined,
+                    hideMethod: 'fadeOut',
+                    hideDuration: 1000,
+                    hideEasing: 'swing',
+                    onHidden: undefined,
+                    closeMethod: false,
+                    closeDuration: false,
+                    closeEasing: false,
+
+                    extendedTimeOut: 1000,
+                    iconClasses: {
+                        error: 'toast-error',
+                        info: 'toast-info',
+                        success: 'toast-success',
+                        warning: 'toast-warning'
+                    },
+                    iconClass: 'toast-info',
+                    positionClass: 'toast-top-right',
+                    timeOut: 5000, // Set timeOut and extendedTimeOut to 0 to make it sticky
+                    titleClass: 'toast-title',
+                    messageClass: 'toast-message',
+                    escapeHtml: false,
+                    target: 'body',
+                    closeHtml: '<button type="button">&times;</button>',
+                    newestOnTop: true,
+                    preventDuplicates: false,
+                    progressBar: false
+                };
+            }
+
+            function publish(args) {
+                if (!listener) {
+                    return;
+                }
+                listener(args);
+            }
+
+            function notify(map) {
+                var options = getOptions();
+                var iconClass = map.iconClass || options.iconClass;
+
+                if (typeof map.optionsOverride !== 'undefined') {
+                    options = $.extend(options, map.optionsOverride);
+                    iconClass = map.optionsOverride.iconClass || iconClass;
+                }
+
+                if (shouldExit(options, map)) {
+                    return;
+                }
+
+                toastId++;
+
+                $container = getContainer(options, true);
+
+                var intervalId = null;
+                var $toastElement = $('<div/>');
+                var $titleElement = $('<div/>');
+                var $messageElement = $('<div/>');
+                var $progressElement = $('<div/>');
+                var $closeElement = $(options.closeHtml);
+                var progressBar = {
+                    intervalId: null,
+                    hideEta: null,
+                    maxHideTime: null
+                };
+                var response = {
+                    toastId: toastId,
+                    state: 'visible',
+                    startTime: new Date(),
+                    options: options,
+                    map: map
+                };
+
+                personalizeToast();
+
+                displayToast();
+
+                handleEvents();
+
+                publish(response);
+
+                if (options.debug && console) {
+                    console.log(response);
+                }
+
+                return $toastElement;
+
+                function escapeHtml(source) {
+                    if (source == null) source = "";
+
+                    return new String(source).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                }
+
+                function personalizeToast() {
+                    setIcon();
+                    setTitle();
+                    setMessage();
+                    setCloseButton();
+                    setProgressBar();
+                    setSequence();
+                }
+
+                function handleEvents() {
+                    $toastElement.hover(stickAround, delayedHideToast);
+                    if (!options.onclick && options.tapToDismiss) {
+                        $toastElement.click(hideToast);
+                    }
+
+                    if (options.closeButton && $closeElement) {
+                        $closeElement.click(function (event) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (event.cancelBubble !== undefined && event.cancelBubble !== true) {
+                                event.cancelBubble = true;
+                            }
+                            hideToast(true);
+                        });
+                    }
+
+                    if (options.onclick) {
+                        $toastElement.click(function (event) {
+                            options.onclick(event);
+                            hideToast();
+                        });
+                    }
+                }
+
+                function displayToast() {
+                    $toastElement.hide();
+
+                    $toastElement[options.showMethod]({ duration: options.showDuration, easing: options.showEasing, complete: options.onShown });
+
+                    if (options.timeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.timeOut);
+                        progressBar.maxHideTime = parseFloat(options.timeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                        if (options.progressBar) {
+                            progressBar.intervalId = setInterval(updateProgress, 10);
+                        }
+                    }
+                }
+
+                function setIcon() {
+                    if (map.iconClass) {
+                        $toastElement.addClass(options.toastClass).addClass(iconClass);
+                    }
+                }
+
+                function setSequence() {
+                    if (options.newestOnTop) {
+                        $container.prepend($toastElement);
+                    } else {
+                        $container.append($toastElement);
+                    }
+                }
+
+                function setTitle() {
+                    if (map.title) {
+                        $titleElement.append(!options.escapeHtml ? map.title : escapeHtml(map.title)).addClass(options.titleClass);
+                        $toastElement.append($titleElement);
+                    }
+                }
+
+                function setMessage() {
+                    if (map.message) {
+                        $messageElement.append(!options.escapeHtml ? map.message : escapeHtml(map.message)).addClass(options.messageClass);
+                        $toastElement.append($messageElement);
+                    }
+                }
+
+                function setCloseButton() {
+                    if (options.closeButton) {
+                        $closeElement.addClass('toast-close-button').attr('role', 'button');
+                        $toastElement.prepend($closeElement);
+                    }
+                }
+
+                function setProgressBar() {
+                    if (options.progressBar) {
+                        $progressElement.addClass('toast-progress');
+                        $toastElement.prepend($progressElement);
+                    }
+                }
+
+                function shouldExit(options, map) {
+                    if (options.preventDuplicates) {
+                        if (map.message === previousToast) {
+                            return true;
+                        } else {
+                            previousToast = map.message;
+                        }
+                    }
+                    return false;
+                }
+
+                function hideToast(override) {
+                    var method = override && options.closeMethod !== false ? options.closeMethod : options.hideMethod;
+                    var duration = override && options.closeDuration !== false ? options.closeDuration : options.hideDuration;
+                    var easing = override && options.closeEasing !== false ? options.closeEasing : options.hideEasing;
+                    if ($(':focus', $toastElement).length && !override) {
+                        return;
+                    }
+                    clearTimeout(progressBar.intervalId);
+                    return $toastElement[method]({
+                        duration: duration,
+                        easing: easing,
+                        complete: function complete() {
+                            removeToast($toastElement);
+                            if (options.onHidden && response.state !== 'hidden') {
+                                options.onHidden();
+                            }
+                            response.state = 'hidden';
+                            response.endTime = new Date();
+                            publish(response);
+                        }
+                    });
+                }
+
+                function delayedHideToast() {
+                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
+                        intervalId = setTimeout(hideToast, options.extendedTimeOut);
+                        progressBar.maxHideTime = parseFloat(options.extendedTimeOut);
+                        progressBar.hideEta = new Date().getTime() + progressBar.maxHideTime;
+                    }
+                }
+
+                function stickAround() {
+                    clearTimeout(intervalId);
+                    progressBar.hideEta = 0;
+                    $toastElement.stop(true, true)[options.showMethod]({ duration: options.showDuration, easing: options.showEasing });
+                }
+
+                function updateProgress() {
+                    var percentage = (progressBar.hideEta - new Date().getTime()) / progressBar.maxHideTime * 100;
+                    $progressElement.width(percentage + '%');
+                }
+            }
+
+            function getOptions() {
+                return $.extend({}, getDefaults(), toastr.options);
+            }
+
+            function removeToast($toastElement) {
+                if (!$container) {
+                    $container = getContainer();
+                }
+                if ($toastElement.is(':visible')) {
+                    return;
+                }
+                $toastElement.remove();
+                $toastElement = null;
+                if ($container.children().length === 0) {
+                    $container.remove();
+                    previousToast = undefined;
+                }
+            }
+        }();
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+})(__webpack_require__(455));
+
+/***/ }),
+/* 434 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 var EventEmitter = __webpack_require__(89);
 module.exports = new EventEmitter();
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62796,7 +63276,7 @@ module.exports = function (updatedModules, renewedModules) {
 };
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -62891,7 +63371,7 @@ module.exports = Google;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -62930,11 +63410,11 @@ var _viewActions = __webpack_require__(63);
 
 var _viewActions2 = _interopRequireDefault(_viewActions);
 
-var _googleSignIn = __webpack_require__(435);
+var _googleSignIn = __webpack_require__(436);
 
 var _googleSignIn2 = _interopRequireDefault(_googleSignIn);
 
-var _passwordReset = __webpack_require__(437);
+var _passwordReset = __webpack_require__(438);
 
 var _passwordReset2 = _interopRequireDefault(_passwordReset);
 
@@ -63096,7 +63576,7 @@ module.exports = Login;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63173,6 +63653,8 @@ function _inherits(subClass, superClass) {
   }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
+var sendPasswordReset = _viewActions2.default.sendPasswordReset;
+
 var PasswordReset = function (_Component) {
   _inherits(PasswordReset, _Component);
 
@@ -63184,29 +63666,28 @@ var PasswordReset = function (_Component) {
     _this.state = {
       email: ''
       // this._onChange = this._onChange.bind(this);
-    };_this.resetPassword = _this.resetPassword.bind(_this);
-    return _this;
+      // this.resetPassword = this.resetPassword.bind(this);
+    };return _this;
   }
 
   _createClass(PasswordReset, [{
     key: 'resetPassword',
-    value: function resetPassword() {
-      console.log('Chill first!!');
+    value: function resetPassword(e) {
+      e.preventDefault();
+      var email = this.refs.email.value.trim();
+      // console.log(email);
+      if (email !== '') {
+        sendPasswordReset(email);
+        this.refs.email.value = '';
+      }
+      // // console.log('Chill first!!')
     }
   }, {
     key: 'render',
     value: function render() {
-      var _React$createElement,
-          _this2 = this,
-          _React$createElement2;
+      var _React$createElement;
 
-      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'modal fade exampleModal', id: 'exampleModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' }, _react2.default.createElement('div', { className: 'modal-dialog', role: 'document' }, _react2.default.createElement('div', { className: 'modal-content' }, _react2.default.createElement('div', { className: 'modal-header' }, _react2.default.createElement('h5', { className: 'modal-title', id: 'exampleModalLabel' }, 'Reset Password'), _react2.default.createElement('a', (_React$createElement = { type: 'button', className: 'times' }, _defineProperty(_React$createElement, 'className', 'close'), _defineProperty(_React$createElement, 'data-dismiss', 'modal'), _defineProperty(_React$createElement, 'aria-label', 'Close'), _React$createElement), _react2.default.createElement('span', { 'aria-hidden': 'true' }, '\xD7'))), _react2.default.createElement('div', { className: 'modal-body' }, _react2.default.createElement(_textbox2.default, {
-        onChange: function onChange(value) {
-          _this2.setState({ email: value });
-        },
-        label: 'email',
-        currentValue: email
-      })), _react2.default.createElement('div', { className: 'modal-footer' }, _react2.default.createElement('button', (_React$createElement2 = { type: 'button', className: 'send' }, _defineProperty(_React$createElement2, 'className', 'btn btn-primary'), _defineProperty(_React$createElement2, 'onClick', this.resetPassword), _React$createElement2), 'Send message'))))));
+      return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'modal fade exampleModal', id: 'exampleModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' }, _react2.default.createElement('div', { className: 'modal-dialog', role: 'document' }, _react2.default.createElement('div', { className: 'modal-content' }, _react2.default.createElement('div', { className: 'modal-header' }, _react2.default.createElement('h5', { className: 'modal-title', id: 'exampleModalLabel' }, 'Reset Password'), _react2.default.createElement('a', (_React$createElement = { type: 'button', className: 'times' }, _defineProperty(_React$createElement, 'className', 'close'), _defineProperty(_React$createElement, 'data-dismiss', 'modal'), _defineProperty(_React$createElement, 'aria-label', 'Close'), _React$createElement), _react2.default.createElement('span', { 'aria-hidden': 'true' }, '\xD7'))), _react2.default.createElement('div', { className: 'modal-body' }, _react2.default.createElement('form', { onSubmit: this.resetPassword.bind(this) }, _react2.default.createElement('div', { className: 'form-group' }, _react2.default.createElement('input', { type: 'email', ref: 'email', className: 'form-control', id: 'emailAddress', required: true }), _react2.default.createElement('button', _defineProperty({ type: 'submit', className: 'send' }, 'className', 'btn btn-primary'), 'Submit'))))))));
     }
   }]);
 
@@ -63219,7 +63700,7 @@ exports.default = PasswordReset;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63252,7 +63733,7 @@ exports.default = Navigator;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63271,7 +63752,7 @@ var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _user = __webpack_require__(440);
+var _user = __webpack_require__(441);
 
 var _user2 = _interopRequireDefault(_user);
 
@@ -63297,7 +63778,7 @@ exports.default = UserList;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63428,7 +63909,7 @@ exports.default = User;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63467,7 +63948,7 @@ var _button = __webpack_require__(64);
 
 var _button2 = _interopRequireDefault(_button);
 
-var _userList = __webpack_require__(439);
+var _userList = __webpack_require__(440);
 
 var _userList2 = _interopRequireDefault(_userList);
 
@@ -63600,7 +64081,7 @@ exports.default = Group;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 442 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63619,7 +64100,7 @@ var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _group = __webpack_require__(441);
+var _group = __webpack_require__(442);
 
 var _group2 = _interopRequireDefault(_group);
 
@@ -63645,7 +64126,7 @@ exports.default = GroupList;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 443 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63692,7 +64173,7 @@ var _button = __webpack_require__(64);
 
 var _button2 = _interopRequireDefault(_button);
 
-var _groupList = __webpack_require__(442);
+var _groupList = __webpack_require__(443);
 
 var _groupList2 = _interopRequireDefault(_groupList);
 
@@ -63836,7 +64317,7 @@ exports.default = Groups;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 444 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63924,7 +64405,7 @@ exports.default = Home;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 445 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63963,7 +64444,7 @@ var _MessageActions = __webpack_require__(216);
 
 var _MessageActions2 = _interopRequireDefault(_MessageActions);
 
-var _messages = __webpack_require__(450);
+var _messages = __webpack_require__(451);
 
 var _messages2 = _interopRequireDefault(_messages);
 
@@ -64063,7 +64544,7 @@ exports.default = Group;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 446 */
+/* 447 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64082,7 +64563,7 @@ var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _group = __webpack_require__(445);
+var _group = __webpack_require__(446);
 
 var _group2 = _interopRequireDefault(_group);
 
@@ -64108,7 +64589,7 @@ exports.default = GroupList;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 447 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64135,7 +64616,7 @@ var _superagent = __webpack_require__(54);
 
 var _superagent2 = _interopRequireDefault(_superagent);
 
-var _groupList = __webpack_require__(446);
+var _groupList = __webpack_require__(447);
 
 var _groupList2 = _interopRequireDefault(_groupList);
 
@@ -64251,7 +64732,7 @@ module.exports = MessageBoard;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 448 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64335,7 +64816,7 @@ exports.default = Groupmessage;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 449 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64354,7 +64835,7 @@ var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _groupMessages = __webpack_require__(448);
+var _groupMessages = __webpack_require__(449);
 
 var _groupMessages2 = _interopRequireDefault(_groupMessages);
 
@@ -64380,7 +64861,7 @@ exports.default = MessageList;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 450 */
+/* 451 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64407,11 +64888,11 @@ var _MessageActions = __webpack_require__(216);
 
 var _MessageActions2 = _interopRequireDefault(_MessageActions);
 
-var _MessageStore = __webpack_require__(452);
+var _MessageStore = __webpack_require__(453);
 
 var _MessageStore2 = _interopRequireDefault(_MessageStore);
 
-var _messageList = __webpack_require__(449);
+var _messageList = __webpack_require__(450);
 
 var _messageList2 = _interopRequireDefault(_messageList);
 
@@ -64567,7 +65048,7 @@ module.exports = Messages;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 451 */
+/* 452 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64688,7 +65169,7 @@ exports.default = SignOut;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 452 */
+/* 453 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(8), RootInstanceProvider = __webpack_require__(9), ReactMount = __webpack_require__(6), React = __webpack_require__(1); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64880,7 +65361,7 @@ exports.default = new MessageStore();
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 453 */
+/* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -65239,7 +65720,22 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 454 */
+/* 455 */
+/***/ (function(module, exports) {
+
+module.exports = function() {
+	throw new Error("define cannot be used indirect");
+};
+
+
+/***/ }),
+/* 456 */
+/***/ (function(module, exports) {
+
+module.exports = jQuery;
+
+/***/ }),
+/* 457 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(220);

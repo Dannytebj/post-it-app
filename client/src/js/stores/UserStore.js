@@ -155,15 +155,17 @@ class LoginStore extends EventEmitter {
      * 
      */
   resetPassword({ email }) {
+    console.log('sending password reset mail');
     superagent
       .post('/resetPassword')
       .send({ email })
       .set('Accept', 'application/json')
       .end((error, response) => {
-        if(error !== null) {
+        if (error !== null) {
           message = 'A problem occured!';
         } else {
           message = response.text.toString();
+          toastr.success(message);
         }
         this.emitChange();
       });
