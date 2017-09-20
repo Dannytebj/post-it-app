@@ -1,72 +1,53 @@
 import React, { Component } from 'react';
 import superagent from 'superagent';
-import viewActions from '../../../actions/viewActions.js';
-import UserStore from '../../../stores/UserStore.js';
+import GroupActions from '../../../actions/groupActions';
+// import UserStore from '../../../stores/UserStore.js';
+import groupStore from '../../../stores/groupStore';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';
 import GroupList from './groupList';
 import Layout from '../layout';
-// import User from './user.js';
-// import '../../../../index.scss';
 
-
-const { createGroup } = viewActions;
-// const { fetchGroups } = AddUser;
-
+const { fetchGroups, createGroup } = GroupActions;
 class Groups extends Component {
     constructor(props) {
         super(props);
         this.state = {
             newGroupName:'',
-            groupList:[],
+            groupList:groupStore.allGroups(),
             isFetchingData: false,
             fetchMessage:''
         };
         this._onChange = this._onChange.bind(this);
-        this.createGroup = this.createGroup.bind(this);
+        this.doCreateGroup = this.doCreateGroup.bind(this);
         this.fetchGroups = this.fetchGroups.bind(this);
 
     }
     componentDidMount() {
-        UserStore.addChangeListener(this._onChange);
+        groupStore.addChangeListener(this._onChange);
     }
     componentWillUnmount() {
-        UserStore.removeChangeListener(this._onChange);
+        groupStore.removeChangeListener(this._onChange);
     }
     _onChange() {
         this.forceUpdate();
     }
-    createGroup(){
+    doCreateGroup(){
         const { newGroupName } = this.state;
         createGroup(newGroupName);
+        this.setState({
+            fetchMessage: groupStore.getMessage(),
+        });
         return;
     }
     
     fetchGroups(){
-        this.setState({
-            isFetchingData: true
-        });
         const userUid = localStorage.getItem('uid');
-        superagent
-            .get(`https://postitdanny.herokuapp.com/getGroup/${userUid}/`)
-            .set('Accept', 'application/json')
-            .end(
-                (error, response) => {
-                    if (error) {
-                        console.log(error);
-                        this.setState({
-                            isFetchingData: false,
-                            fetchMessage: 'Error fetching Data'
-                    });
-                    return;
-                }
-                this.setState({
-                    isFetchingData: false,
-                    groupList: JSON.parse(response.text),
-                    fetchMessage: 'Successfully Loaded'
-                });
-                }
-            )
+        getGroups(userUid);
+        this.setState({
+            fetchMessage: groupStore.getMessage(),
+        });
+        return;
     }
     render() {
         const { groupList, 
@@ -107,7 +88,7 @@ class Groups extends Component {
                 currentValue={newGroupName}
             />
             <Button
-                onClick={ this.createGroup }
+                onClick={ this.doCreateGroup }
                 value={'Create Group' }
             />
               </div>
