@@ -13,12 +13,12 @@ import './index.scss';
  */
 ReactDOM.render(
   <Router history={ browserHistory }>
-      <Route path="/" component={ Login } />
-      <Route exact path= "/home" component={ Home } />
-      <Route exact path= "/group" component={ Groups } />
-      <Route exact path= "/message" component={ MessageBoard } />
-      <Route exact path= "/signOut" component={ SignOut } />
-      <Route path ="/*" component ={ NotFound } />
+      <Route exact path="/" component={ Login } />
+      <Route  path= "/home" component={ Home } />
+      <Route  path= "/group" component={ Groups } />
+      <Route  path= "/message" component={ MessageBoard } />
+      <Route  path= "/signOut" component={ SignOut } />
+      <Route  path ="/*" component ={ NotFound } />
   </Router>,
   document.getElementById('main-container')
 );

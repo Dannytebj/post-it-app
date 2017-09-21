@@ -5,7 +5,7 @@ import { GET_GROUPS, CREATE_GROUP } from '../constants/groupConstants';
 const GroupActions = {
   /**
  * Action method to get User's groups
- * 
+ * @param {string} userUid 
  */
   getGroups: (userUid) => {
     AppDispatcher.handleViewAction({

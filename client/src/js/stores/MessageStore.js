@@ -56,18 +56,17 @@ class MessageStore extends EventEmitter {
   // this.emitChange();
 
   // }
-  getGroupMessages({groupId}){
+  getGroupMessages({groupId}) {
     console.log('Getting all group Messages!');
     superagent
       .get(`https://postitdanny.herokuapp.com/getMessages/${groupId}`)
       .set('Accept', 'application/json')
-      .end((error, response)=> {
+      .end((error, response) => {
         if (error) {
           errorMessage = JSON.parse(error);
           return errorMessage;
-        } else {
-          allMessages = JSON.parse(response.text);
         } 
+        allMessages = JSON.parse(response.text);
         this.emit('updateStore');
       });
                 

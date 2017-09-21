@@ -8,7 +8,7 @@ import Button from '../../commons/button.js';
 import GroupList from './groupList';
 import Layout from '../layout';
 
-const { fetchGroups, createGroup } = GroupActions;
+const { getGroups, createGroup } = GroupActions;
 class Groups extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +22,13 @@ class Groups extends Component {
         this.doCreateGroup = this.doCreateGroup.bind(this);
         this.fetchGroups = this.fetchGroups.bind(this);
 
+    }
+    componentWillMount(){
+        groupStore.on('updateGroupStore', ()=> {
+            this.setState({
+                groupList:groupStore.allGroups()
+            });
+        })
     }
     componentDidMount() {
         groupStore.addChangeListener(this._onChange);
