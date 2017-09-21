@@ -28,7 +28,7 @@ class Groups extends Component {
             this.setState({
                 groupList:groupStore.allGroups()
             });
-        })
+        });
     }
     componentDidMount() {
         groupStore.addChangeListener(this._onChange);
