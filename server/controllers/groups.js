@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import dbConfig from '../config/config';
+// import dbConfig from '../config/config';
 import getArray from '../utils/getArray';
 import sendUserEmails from '../utils/sendUserEmails';
 
@@ -47,7 +47,7 @@ export const createGroup = (req, res) => {
 //  ============ Controller that Gets all groups created  ============
 export const getGroups = (req, res) => {
   const userUid = req.params.userUid;
-  const ref = dbConfig.database().ref(`users/${userUid}/groups`);
+  const ref = firebase.database().ref(`users/${userUid}/groups`);
   ref.once('value', (data) => {
     const groups = getArray(data.val());
     res.send(groups);

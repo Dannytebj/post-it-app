@@ -23,9 +23,7 @@ class MessageBoard extends Component{
     _onChange() {
         this.forceUpdate();
     }
-    // componentDidMount() {
-    //     window.addEventListener('load', this.fetchGroups);
-    // }
+  
       fetchGroups(){
         this.setState({
             isFetchingData: true

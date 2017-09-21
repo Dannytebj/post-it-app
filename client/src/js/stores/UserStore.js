@@ -108,24 +108,7 @@ class LoginStore extends EventEmitter {
         this.emitChange();
       });
   }
-  /**
-     * 
-     * @param {*} groupName - Holds group name
-     * @return {string} response from server   
-     */
-  clickCreateGroup({ groupName }) {
-    superagent.post('/group')
-      .send({ groupName })
-      .set('Accept', 'application/json')
-      .end((error, response) => {
-        if (error !== null) {
-          message = response.status.toString();
-        } else {
-          message = response.text.toString();
-        }
-        this.emitChange();
-      });
-  }
+
   /**
      * Method that handles signIn with Google Option
      * @param {*} idToken - token collected from google 
@@ -165,7 +148,7 @@ class LoginStore extends EventEmitter {
           message = 'A problem occured!';
         } else {
           message = response.text.toString();
-          toastr.success(message);
+        //   toastr.success(message);
         }
         this.emitChange();
       });
@@ -190,10 +173,7 @@ class LoginStore extends EventEmitter {
         this.clickSignUp(action.payload);
         break;
       case Constants.CLICK_SIGN_OUT:
-        this.clickSignOut()
-        break;
-      case Constants.CLICK_CREATE_GROUP:
-        this.clickCreateGroup(action.payload);
+        this.clickSignOut();
         break;
       case Constants.GET_USER:
         this.getAllUsers();

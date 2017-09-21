@@ -4,9 +4,8 @@ import MessageStore from '../../../stores/MessageStore';
 import MessageList from './messageList/';
 import TextBox from '../../commons/textbox.js';
 
-const { addMessage } = MessageActions
 // const { postMessage} = MessageActions;
-const { getGroupMessages} = MessageActions;
+const { getGroupMessages, addMessage} = MessageActions;
 
 class Messages extends Component{
      constructor(props) {
