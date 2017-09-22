@@ -36,5 +36,6 @@ router.get('/getGroupUsers/:groupId', getGroupUsers);
 router.get('/getGroup/:userUid', getGroups);
 router.get('/getMessages/:groupId', getMessages);
 
+
 // module.exports = router;
 export default router;

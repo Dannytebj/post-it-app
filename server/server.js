@@ -17,14 +17,13 @@ import config from './config/config';
  */
 const port = process.env.PORT || 9999;
 const app = express();
-const compiler = webpack(Config);
-app.use(webpackMiddleware(compiler, {
-  publicPath: Config.output.publicPath,
-  historyApiFallback: true,
-  stats: { colors: true }
-}));
+const publicPath = express.static(path.join(__dirname, '../client/src/public'));
+app.use('/', publicPath);
 
-firebase.initializeApp(config);
+// for parsing application/x-www-form-urlencoded)
+app.use(bodyParser.urlencoded({ extended: true }));
+// for parsing application/json)
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   // Website you wish to allow to connect
@@ -40,19 +39,26 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(webpackHotMiddleware(compiler));
-const publicPath = express.static(path.join(__dirname, '../client/src/js'));
-app.use('/', publicPath);
-// for parsing application/x-www-form-urlencoded)
-app.use(bodyParser.urlencoded({ extended: true }));
-// for parsing application/json)
-app.use(bodyParser.json());
 app.use(routes);
 
+const compiler = webpack(Config);
+app.use(webpackMiddleware(compiler, {
+  publicPath: Config.output.publicPath
+}));
+
+firebase.initializeApp(config);
+
+app.use(webpackHotMiddleware(compiler));
 // app.get('/*', (req, res, next) => {
 //   res.sendFile(path.join(__dirname, '../client/src/index.js'));
 //   next();
 // });
-app.listen(port);
-console.log(`postIt App Restful Api server started on: ${port}`);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.listen(port, () => {
+  console.log(`postIt App Restful Api server started on: ${port}`);
+});
 module.exports = app;
