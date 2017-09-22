@@ -2,25 +2,31 @@ import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import assert from 'assert';
-import { signUp, signIn, signOut} from '../server/controllers/user.controller';
+import faker from 'faker';
+import { signUp, signIn, signOut, resetPassword } from '../server/controllers/user.controller';
+
+const app = require('../server/server');
 
 const expect = require('chai').expect;
-const app = require('../server/server');
+
 chai.should();
 chai.use(chaiHttp);
 
 describe('The SignUp route controller', () => {
-  let email, userName, password, phoneNumber;
+  let email; 
+  let userName;
+  let password; 
+  let phoneNumber;
   beforeEach(() => {
-    userName = 'John Doe';
-    email = 'john1.doe111@myself.com';
+    userName = faker.name.findName();
+    email = faker.internet.email();
     password = 'abc123';
     phoneNumber = '+2348098765432';
   });
   it('should return 200 on successful signUp', (done) => {
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber})
+      .send({ email, password, userName, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -28,7 +34,7 @@ describe('The SignUp route controller', () => {
         }
         done();
       });
-  })
+  });
   it('should return 400 if user already exist', (done) => {
     chai.request(app)
       .post('/signUp', signUp)
@@ -40,20 +46,20 @@ describe('The SignUp route controller', () => {
         }
         done();
       });
-  })
+  });
   it('should return 400 if a badly formatted email is passed', (done) => {
     const email = 'johndoe4me.com';
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber})
+      .send({ email, password, userName, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
           res.status.should.equal(400);
         }
-        done()
+        done();
       });
-  })
+  });
   it('should return 400 if password is empty', (done) => {
     const password = '';
     chai.request(app)
@@ -64,12 +70,12 @@ describe('The SignUp route controller', () => {
         if (res) {
           res.status.should.equal(400);
         }
-        done()
+        done();
       });
-  })
+  });
   it('should return 400 if password is weak', (done) => {
     const password = 'abc1';
-    const email = 'weakpass@myself.com'
+    const email = 'weakpass@myself.com';
     chai.request(app)
       .post('/signUp', signUp)
       .send({ email, password, userName, phoneNumber })
@@ -78,33 +84,33 @@ describe('The SignUp route controller', () => {
         if (res) {
           res.status.should.equal(400);
         }
-        done()
+        done();
       });
-  })
-
+  });
 }); // End of SignUp Test Suite
 
 describe('The SignIn Controller', () => {
-  let email, password;
+  let email; 
+  let password;
   beforeEach(() => {
-    email = 'john.doe111@myself.com';
+    email = 'john.doe@myself.com';
     password = 'abc123';
   });
   it('should return 200 on successful signIn', (done) => {
     chai.request(app)
       .post('/signIn', signIn)
       .send({ email, password })
-      .set('Accept','application/json')
+      .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
-          res.status.should.equal(200)
+          res.status.should.equal(200);
         }
-        done()
+        done();
       });
-  })
+  });
   it('should return 400 for Invalid SignIn details', (done) => {
     const email = 'johndoe4me.com';
-    const password = ''
+    const password = '';
     chai.request(app)
       .post('/signIn', signIn)
       .send({ email, password })
@@ -113,10 +119,10 @@ describe('The SignIn Controller', () => {
         if (res) {
           res.status.should.equal(400)
         }
-        done()
+        done();
       });
-  })
-}); //End of SignIn Test Suite
+  });
+}); // End of SignIn Test Suite
 
 describe('The SignOut Controller', () => {
   it('should return 200 when user successfully signOut', (done) => {
@@ -124,10 +130,10 @@ describe('The SignOut Controller', () => {
       .post('/signOut', signOut)
       .set('Accept', 'application/json')
       .end((res) => {
-        if (res){
+        if (res) {
           res.status.should.equal(200);
         }
-        done()
+        done();
       });
   });
   it('should return 400 when signOut fails', (done) => {
@@ -138,9 +144,37 @@ describe('The SignOut Controller', () => {
         if (res) {
           res.status.should.equal(400);
         }
-        done()
+        done();
+      });
+  });
+}); // End of SignOut Test Suite
+
+describe('The Reset Password Controller', () => {
+  it('should return 200 on successful password reset', (done) => {
+    const emailAddress = 'johndoe@myself.com';
+    chai.request(app)
+      .post('/resetPassword', resetPassword)
+      .send({ emailAddress })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(200);
+        }
+        done();
       });
   });
 
-}); // End of SignOut Test Suite
-
+  it('should return 400 if an invalid email is passed', (done) => {
+    const badEmail = 'badtguy.com';
+    chai.request(app)
+      .post('/resetPassword', resetPassword)
+      .send({ badEmail })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(400);
+        }
+        done();
+      });
+  });
+}); // End of Reset Password test suite

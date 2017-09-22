@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import AppDispatcher from '../dispatcher/AppDispatcher';
 import superagent from 'superagent';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import { GET_GROUPS, CREATE_GROUP } from '../constants/groupConstants';
 
 let groupList = [];

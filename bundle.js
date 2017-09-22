@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "29e57d5e5d1644d528c7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4a07d3ac8444c73f6716"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -9354,67 +9354,67 @@ module.exports = reactProdInvariant;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () {
-    function defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }return function (Constructor, protoProps, staticProps) {
-        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-    };
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
 }();
 
 var _flux = __webpack_require__(305);
 
 function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
 }
 
 function _possibleConstructorReturn(self, call) {
-    if (!self) {
-        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
 }
 
 function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-        throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
 var DispatcherClass = function (_Dispatcher) {
-    _inherits(DispatcherClass, _Dispatcher);
+  _inherits(DispatcherClass, _Dispatcher);
 
-    function DispatcherClass() {
-        _classCallCheck(this, DispatcherClass);
+  function DispatcherClass() {
+    _classCallCheck(this, DispatcherClass);
 
-        return _possibleConstructorReturn(this, (DispatcherClass.__proto__ || Object.getPrototypeOf(DispatcherClass)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (DispatcherClass.__proto__ || Object.getPrototypeOf(DispatcherClass)).apply(this, arguments));
+  }
+
+  _createClass(DispatcherClass, [{
+    key: 'handleViewAction',
+    value: function handleViewAction(action) {
+      this.dispatch({
+        source: 'VIEW_ACTION',
+        action: action
+      });
     }
+  }, {
+    key: 'handleServerAction',
+    value: function handleServerAction(action) {
+      this.dispatch({
+        source: 'SERVER_ACTION',
+        action: action
+      });
+    }
+  }]);
 
-    _createClass(DispatcherClass, [{
-        key: 'handleViewAction',
-        value: function handleViewAction(action) {
-            this.dispatch({
-                source: 'VIEW_ACTION',
-                action: action
-            });
-        }
-    }, {
-        key: 'handleServerAction',
-        value: function handleServerAction(action) {
-            this.dispatch({
-                source: 'SERVER_ACTION',
-                action: action
-            });
-        }
-    }]);
-
-    return DispatcherClass;
+  return DispatcherClass;
 }(_flux.Dispatcher);
 
 var AppDispatcher = new DispatcherClass();
@@ -65424,9 +65424,8 @@ var MessageStore = function (_EventEmitter) {
         if (error) {
           errorMessage = JSON.parse(error);
           return errorMessage;
-        } else {
-          allMessages = JSON.parse(response.text);
         }
+        allMessages = JSON.parse(response.text);
         _this2.emit('updateStore');
       });
 
@@ -65504,13 +65503,13 @@ var _createClass = function () {
 
 var _events = __webpack_require__(65);
 
-var _AppDispatcher = __webpack_require__(56);
-
-var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
-
 var _superagent = __webpack_require__(44);
 
 var _superagent2 = _interopRequireDefault(_superagent);
+
+var _AppDispatcher = __webpack_require__(56);
+
+var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
 
 var _groupConstants = __webpack_require__(217);
 
