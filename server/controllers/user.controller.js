@@ -6,14 +6,13 @@ const emailValidation = require('../utils/emailValidation');
 
 /**
  * This Controller exports controllers for the user endpoints
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req User Requests
+ * @param {*} res Server Responses
  */
 
 // ============ Controller for Signing Up Users ============
 export const signUp = (req, res) => {
   const { email, password, userName, phoneNumber } = req.body;
-  console.log(req.body);
   let promise;
   if (!emailValidation(email)) {
     res.status(400)

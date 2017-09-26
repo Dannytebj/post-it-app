@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import superagent from 'superagent';
 import GroupActions from '../../../actions/groupActions';
-// import UserStore from '../../../stores/UserStore.js';
 import groupStore from '../../../stores/groupStore';
 import TextBox from '../../commons/textbox.js';
 import Button from '../../commons/button.js';

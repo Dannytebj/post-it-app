@@ -26,7 +26,7 @@ router.post('/signUp', signUp);
 router.post('/signOut', signOut);
 router.post('/signIn/google', signInWithGoogle);
 router.post('/group', createGroup);
-router.post('/message/:groupId', postMessage);
+router.post('/message', postMessage);
 router.post('/group/:groupId/users', addUser);
 router.post('/resetPassword', resetPassword);
 

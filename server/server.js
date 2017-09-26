@@ -49,10 +49,6 @@ app.use(webpackMiddleware(compiler, {
 firebase.initializeApp(config);
 
 app.use(webpackHotMiddleware(compiler));
-// app.get('/*', (req, res, next) => {
-//   res.sendFile(path.join(__dirname, '../client/src/index.js'));
-//   next();
-// });
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -61,4 +57,5 @@ app.get('/*', (req, res) => {
 app.listen(port, () => {
   console.log(`postIt App Restful Api server started on: ${port}`);
 });
-module.exports = app;
+export default app;
+

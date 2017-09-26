@@ -22,7 +22,7 @@ class User extends Component {
         const userId = this.props.user.id;
         const username = this.props.user.name;
         superagent
-            .post(`https://postitdanny.herokuapp.com/group/${groupId}/users`)
+            .post(`/group/${groupId}/users`)
             .send({ userId: userId , groupId: groupId, name: username, groupName: groupName})
             .end((error, response) => {
                 if (error) {

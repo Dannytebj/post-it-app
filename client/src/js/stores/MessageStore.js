@@ -1,13 +1,13 @@
 import { EventEmitter } from 'events';
-import AppDispatcher from '../dispatcher/AppDispatcher';
 import superagent from 'superagent';
+import AppDispatcher from '../dispatcher/AppDispatcher';
 import {
   ADD_NEW_MESSAGE,
-  GET_ALL_MESSAGES
+  GET_ALL_MESSAGES,
 } from '../constants/messageConstants';
 
 let allMessages = [];
-let errorMessage = '';
+let statusMessage = '';
 let messages = [];
 class MessageStore extends EventEmitter {
   constructor() {
@@ -16,65 +16,53 @@ class MessageStore extends EventEmitter {
       this.dispatcherCallback.bind(this));
   }
 
-  getError(){
-    return errorMessage;
+  getStatusMessage() {
+    return statusMessage;
   }
-  getMessages(){
+  getMessages() {
     return messages;
   }
-  allGroupMessages(){
+  allGroupMessages() {
     return allMessages;
   }
 
-  postMessage({message, groupId, priority}){
+  postMessage({ message, groupId, priority }) {
     console.log('message posting...');
     const userId = localStorage.getItem('uid');
     const userName = localStorage.getItem('userName');
     allMessages.push({
       id: userId,
       messages: message,
-      name: userName
+      name: userName,
     });
-    // superagent
-    //     .post(`https://postitdanny.herokuapp.com/message/${groupId}`)
-    //     .send({message: message})
-    //     .end((error, response) => {
-    //         if(error){
-    //             this.setState({
-    //                 fetchMessage: 'Error Posting Message',
-    //                 isPostingData:false
-    //             });
-    //             return;
-    //         }
-    console.log(`your message has been posted!: ${message}, ${groupId}`);
-    // this.setState({
-    //     fetchMessage:'Successfully posted message',
-    //     messagePosted: true,
-    //     // statusMessage: JSON.parse(response.text)
-    // });
-  }
-  // this.emitChange();
-
-  // }
-  getGroupMessages({groupId}) {
-    console.log('Getting all group Messages!');
     superagent
-      .get(`https://postitdanny.herokuapp.com/getMessages/${groupId}`)
+      .post('/message')
+      .send({ message, priority, groupId, userId })
+      .end((error, response) => {
+        if (error) {
+          statusMessage = error;
+          return;
+        }
+        statusMessage = JSON.parse(response.text);
+        // console.log(`your message has been posted!`);
+      });
+    this.emitChange();
+  }
+  getGroupMessages({ groupId }) {
+    // console.log('Getting all group Messages!');
+    superagent
+      .get(`/getMessages/${groupId}`)
       .set('Accept', 'application/json')
       .end((error, response) => {
         if (error) {
-          errorMessage = JSON.parse(error);
-          return errorMessage;
-        } 
-        allMessages = JSON.parse(response.text);
-        this.emit('updateStore');
-      });
-                
-
-    // this.emitChange();
-
+          statusMessage = JSON.parse(error);
+          // return statusMessage;
+        } else {
+          allMessages = JSON.parse(response.text);
+          this.emit('updateStore');
+        }            
+      });  
   }
-  
     
 
   emitChange() {

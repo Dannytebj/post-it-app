@@ -56,8 +56,7 @@ class Messages extends Component{
         const groupId = localStorage.getItem('groupId');
 
         addMessage(message, groupId, priority);
-            console.log(`your message has been posted!: 
-            ${message}, ${groupId}`);
+            console.log(`your message has been posted!`);
                 this.setState({
                     fetchMessage:'Successfully posted message',
                     messagePosted: true,
@@ -107,7 +106,4 @@ class Messages extends Component{
     }
 }
 
-// Group.propTypes = {
-//     group: PropTypes.object.isRequired
-// }
-module.exports = Messages;
+export default Messages;
