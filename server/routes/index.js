@@ -26,7 +26,7 @@ router.post('/signUp', signUp);
 router.post('/signOut', signOut);
 router.post('/signIn/google', signInWithGoogle);
 router.post('/group', createGroup);
-router.post('/message/:groupId', postMessage);
+router.post('/message', postMessage);
 router.post('/group/:groupId/users', addUser);
 router.post('/resetPassword', resetPassword);
 
@@ -35,6 +35,7 @@ router.get('/getUsers', getAllUsers);
 router.get('/getGroupUsers/:groupId', getGroupUsers);
 router.get('/getGroup/:userUid', getGroups);
 router.get('/getMessages/:groupId', getMessages);
+
 
 // module.exports = router;
 export default router;

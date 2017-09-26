@@ -6,8 +6,8 @@ const emailValidation = require('../utils/emailValidation');
 
 /**
  * This Controller exports controllers for the user endpoints
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req User Requests
+ * @param {*} res Server Responses
  */
 
 // ============ Controller for Signing Up Users ============

@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-// import UserStore from '../../../stores/UserStore';
-// import viewActions from '../../../actions/viewActions';
-import { browserHistory } from "react-router";
+import { Link } from 'react-router';
+import Img from 'react-image';
 
-class NotFound extends Component {
-    render(){
-        return (
-            <div>
-                <p><h1>Biko!!!, What are you looking for na?</h1></p>
-            </div>
-        )
-    }
-}
+const NotFound = () => 
+    <div>
+        <Img src="http://media02.hongkiat.com/funny-creative-error-404/37-error-404-page.jpg" />
+        <ul className="nav navbar-nav">         
+    <li>
+    <Link to={'home'}>
+        Go back Home
+    </Link>
+    </li>
+    </ul>
+
+    </div>
 export default NotFound;

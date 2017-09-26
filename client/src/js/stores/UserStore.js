@@ -40,8 +40,8 @@ class LoginStore extends EventEmitter {
 
   /**
      * 
-     * @param {*} email - email of user
-     * @param {*} password - users password
+     * @param {string} email - email of user
+     * @param {string} password - users password
      * @return {array} array of users   
      */
   clickSignIn({ email, password }) {
@@ -54,7 +54,6 @@ class LoginStore extends EventEmitter {
         if (error !== null) {
           message = received.message;
         } else {
-          // message = received.message;
           const userName = received.userName;
           const userUid = received.userUid;
           localStorage.setItem('userName', userName);
@@ -66,10 +65,10 @@ class LoginStore extends EventEmitter {
   }
   /**
      * 
-     * @param {*} email - email of user
-     * @param {*} password - users password
-     * @param {*} username - hold Users full name
-     * @param {*} phoneNumber - holds user phone numbers 
+     * @param {string} email - email of user
+     * @param {string} password - users password
+     * @param {string} username - hold Users full name
+     * @param {string} phoneNumber - holds user phone numbers 
      * @return {array} array of users   
      */
 
@@ -111,7 +110,7 @@ class LoginStore extends EventEmitter {
 
   /**
      * Method that handles signIn with Google Option
-     * @param {*} idToken - token collected from google 
+     * @param {string} idToken - token collected from google 
      */
   signInWithGoogle({ idToken }) {
     superagent
@@ -148,7 +147,6 @@ class LoginStore extends EventEmitter {
           message = 'A problem occured!';
         } else {
           message = response.text.toString();
-        //   toastr.success(message);
         }
         this.emitChange();
       });

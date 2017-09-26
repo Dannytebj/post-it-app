@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 // import dbConfig from '../config/config';
 import getArray from '../utils/getArray';
-import sendUserEmails from '../utils/sendUserEmails';
+import SendNotification from '../utils/sendNotifications';
 
 /**
  * This Controller file exports all controllers for the group 
@@ -66,11 +66,8 @@ export const getGroupUsers = (req, res) => {
     const newArr = getArray(groupUsers);
     ref1.once('value', (data1) => {
       const allUsers = getArray(data1.val());
-      const filtered = allUsers.filter((userInAllUsers) => {
-        return !newArr.some((userInGroup) => {
-          return userInAllUsers.id === userInGroup.id;
-        });
-      }
+      const filtered = allUsers.filter(userInAllUsers => !newArr.some(
+        userInGroup => userInAllUsers.id === userInGroup.id)
       );
       res.send(filtered);
     })
@@ -95,11 +92,9 @@ export const getMessages = (req, res) => {
 
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
-  const { message, priority } = req.body;
-  const groupId = req.params;
+  const { message, priority, groupId, userId } = req.body;
   const currUser = firebase.auth().currentUser;
   if (currUser) {
-    const userId = currUser.uid;
     const username = currUser.displayName;
     const messagekey = firebase.database().ref(`messages/${groupId}`)
       .push({
@@ -115,7 +110,7 @@ export const postMessage = (req, res) => {
       })
       .then(() => {
         if (priority === 'Urgent' || priority === 'Critical') {
-          sendUserEmails(groupId, firebase, priority);
+          SendNotification(groupId, priority);
         }
         res.status(200).send('Your message was posted successfully!');
       });

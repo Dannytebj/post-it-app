@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import '../../../index.scss';
 
 const Navigator = () => (
 <ul className="nav navbar-nav">         
