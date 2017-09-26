@@ -7,15 +7,16 @@ after_script:
   - npm run test1
 
 env:
-- TESTapiKey=AIzaSyDkPt22XPPEkOkOYPh6ISF_uvvToJqh2Og
-- TESTauthDomain=post-it-test.firebaseapp.com
-- TESTdatabaseURL=https://post-it-test.firebaseio.com
-- TESTprojectId=post-it-test
-- TESTstorageBucket=post-it-test.appspot.com
-- TESTmessagingSenderId=653724014643
+  global:
+    - TESTapiKey=AIzaSyDkPt22XPPEkOkOYPh6ISF_uvvToJqh2Og
+    - TESTauthDomain=post-it-test.firebaseapp.com
+    - TESTdatabaseURL=https://post-it-test.firebaseio.com
+    - TESTprojectId=post-it-test
+    - TESTstorageBucket=post-it-test.appspot.com
+    - TESTmessagingSenderId=653724014643
 
-- GMAIL_USERNAME=postitbydanny@gmail.com
-- PASS=andela098
+    - GMAIL_USERNAME=postitbydanny@gmail.com
+    - PASS=andela098
 
-- NEXMO_API_KEY=d50a66e6
-- NEXTMO_API_SECRET=0848dec271458a5c
+    - NEXMO_API_KEY=d50a66e6
+    - NEXTMO_API_SECRET=0848dec271458a5c
