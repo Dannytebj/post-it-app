@@ -55,7 +55,7 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`postIt App Restful Api server started on: ${port}`);
+  console.log(`postIt App Restful Api server started on: ${port}`);  // eslint-disable-line
 });
 export default app;
 

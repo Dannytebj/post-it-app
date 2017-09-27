@@ -34,7 +34,7 @@ class LoginStore extends EventEmitter {
      * @method getUsers
      * @return {array} - Returns an Array of Users
      */
-  getUsers () {
+  getUsers() {
     return userArray;
   }
 
@@ -45,7 +45,7 @@ class LoginStore extends EventEmitter {
      * @return {array} array of users   
      */
   clickSignIn({ email, password }) {
-    console.log('...signing user in');
+    // console.log('...signing user in');
     superagent.post('/signIn')
       .send({ email, password })
       .set('Accept', 'application/json')
@@ -123,7 +123,7 @@ class LoginStore extends EventEmitter {
           message = ({ message: response.status.toString(), 
             error: error.message });
         } else {
-          console.log('there were no errors');
+          // console.log('there were no errors');
           const userName = received.user.displayName;
           const userUid = received.user.uid;
           localStorage.setItem('userName', userName);
@@ -137,7 +137,7 @@ class LoginStore extends EventEmitter {
      * 
      */
   resetPassword({ email }) {
-    console.log('sending password reset mail');
+    // console.log('sending password reset mail');
     superagent
       .post('/resetPassword')
       .send({ email })

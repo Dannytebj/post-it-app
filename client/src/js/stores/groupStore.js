@@ -28,13 +28,12 @@ class GroupStore extends EventEmitter {
      * @return {string} response from server   
      */
   getGroups({ userUid }) {
-    console.log('..getting Users groups');
     superagent
       .get(`/getGroup/${userUid}`)
       .set('Accept', 'application/json')
       .end((error, response) => {
         if (error) {
-          console.log(error);
+          console.log(error);  // eslint-disable-line
           messages = JSON.parse(error);
         } else {
           groupList = JSON.parse(response.text);
