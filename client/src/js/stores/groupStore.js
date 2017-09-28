@@ -46,9 +46,9 @@ class GroupStore extends EventEmitter {
      * @param {*} groupName - Holds group name
      * @return {string} response from server   
      */
-  createGroup({ groupName }) {
+  createGroup({ groupName, userId, userName }) {
     superagent.post('/group')
-      .send({ groupName })
+      .send({ groupName, userId, userName })
       .set('Accept', 'application/json')
       .end((error, response) => {
         if (error !== null) {

@@ -6,7 +6,7 @@ before_install:
 after_script:
   - npm run test1
 after_success:
-  - coveralls
+  - npm run coveralls
 
 env:
   global:
@@ -22,3 +22,5 @@ env:
 
     - NEXMO_API_KEY=d50a66e6
     - NEXTMO_API_SECRET=0848dec271458a5c
+    
+    CODECLIMATE_REPO_TOKEN: ab14f029319defa6d4d279712330e17b674d6be5d4960b33fbf3581064954dda

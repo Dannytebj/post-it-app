@@ -23,7 +23,7 @@ class Group extends Component {
     getGroupUsers() {
         const groupId  = localStorage.getItem('groupId');
         superagent
-            .get(`https://postitdanny.herokuapp.com/getGroupUsers/${groupId}`)
+            .get(`/getGroupUsers/${groupId}`)
             .end((error, response) => {
                 if (error){
                     this.state({
@@ -47,7 +47,7 @@ class Group extends Component {
         localStorage.setItem('groupName', groupName);
         // console.log(groupId);
         superagent
-            .get(`https://postitdanny.herokuapp.com/getGroupUsers/${groupId}`)
+            .get(`/getGroupUsers/${groupId}`)
             .end(
                 (error, response) => {
                     if (error) {

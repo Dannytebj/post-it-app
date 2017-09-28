@@ -13,24 +13,25 @@ import SendNotification from '../utils/sendNotifications';
 // ============Controller for Creating Groups ============
 
 export const createGroup = (req, res) => {
-  const currUser = firebase.auth().currentUser;
-  console.log(currUser);
-  if (currUser !== null) {
+  // const currUser = firebase.auth().currentUser;
+  const userUid = req.body.userId;
+  const userName = req.body.userName;
+  if (userUid !== null) {
     const dbRef = firebase.database().ref('/group'),
       group = req.body.groupName,
       newGroupId = dbRef.push({
         groupName: group,
       }).key;
-    firebase.database().ref(`/users/${currUser.uid}/groups`).push(
+    firebase.database().ref(`/users/${userUid}/groups`).push(
       {
         groupId: newGroupId,
         groupName: group,
         isAdmin: true
       });
-    firebase.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
+    firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
       .update({
-        id: currUser.uid,
-        name: currUser.displayName
+        id: userUid,
+        name: userName
       })
       .then(() => {
         res.status(200);
@@ -146,8 +147,8 @@ export const getAllUsers = (req, res) => {
 export const addUser = (req, res) => {
   const { group, username, userId } = req.body;
   const groupId = req.params.groupId;
-  const currentUser = firebase.auth().currentUser;
-  if (currentUser) {
+  // const currentUser = firebase.auth().currentUser;
+  if (groupId) {
     const promise = firebase.database()
       .ref(`group/${groupId}/users/${userId}`)
       .update({

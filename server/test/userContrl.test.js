@@ -3,9 +3,9 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import assert from 'assert';
 import faker from 'faker';
-import { signUp, signIn, signOut, resetPassword } from '../server/controllers/user.controller';
+import { signUp, signIn, signOut, resetPassword } from '../controllers/user.controller';
 
-const app = require('../server/server');
+const app = require('../server');
 
 const expect = require('chai').expect;
 
@@ -13,9 +13,9 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('The SignUp route controller', () => {
-  let email; 
+  let email;
   let userName;
-  let password; 
+  let password;
   let phoneNumber;
   beforeEach(() => {
     userName = faker.name.findName();

@@ -40,7 +40,9 @@ class Groups extends Component {
     }
     doCreateGroup(){
         const { newGroupName } = this.state;
-        createGroup(newGroupName);
+        const userId = localStorage.getItem('uid');
+        const userName = localStorage.getItem('userName')
+        createGroup(newGroupName, userId, userName);
         this.setState({
             fetchMessage: groupStore.getMessage(),
         });
