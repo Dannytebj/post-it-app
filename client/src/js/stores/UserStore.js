@@ -84,7 +84,7 @@ class LoginStore extends EventEmitter {
           message = response.status.toString();
         } else {
           message = response.text.toString();
-          browserHistory.push('home');
+          browserHistory.push('/home');
         }
         this.emitChange();
       });

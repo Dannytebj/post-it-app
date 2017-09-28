@@ -12,7 +12,7 @@ const emailValidation = require('../utils/emailValidation');
 
 // ============ Controller for Signing Up Users ============
 export const signUp = (req, res) => {
-  const { email, password, userName, phoneNumber } = req.body;
+  const { email, password, username, phoneNumber } = req.body;
   let promise;
   if (!emailValidation(email)) {
     res.status(400)
@@ -24,7 +24,7 @@ export const signUp = (req, res) => {
     promise = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
-          displayName: userName,
+          displayName: username,
         })
           .then(() => {
             const uid = user.uid;

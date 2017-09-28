@@ -27,7 +27,6 @@ body{
 }
 
 .container-fluid{
-  padding-left: 0;
 }
 .nav .navbar-nav {
   min-height: 50px;
@@ -202,6 +201,7 @@ body{
   text-align: left;
   max-width: 500px;
   padding: 55px;
+  margin-left: 30%;
   // z-index: 1;
 
   
