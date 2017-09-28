@@ -14,6 +14,7 @@ import SendNotification from '../utils/sendNotifications';
 
 export const createGroup = (req, res) => {
   const currUser = firebase.auth().currentUser;
+  console.log(currUser);
   if (currUser !== null) {
     const dbRef = firebase.database().ref('/group'),
       group = req.body.groupName,
@@ -50,7 +51,8 @@ export const getGroups = (req, res) => {
   const ref = firebase.database().ref(`users/${userUid}/groups`);
   ref.once('value', (data) => {
     const groups = getArray(data.val());
-    res.send(groups);
+    res.status(200)
+      .send(groups);
   }).catch((error) => {
     res.send(error);
   });
@@ -69,10 +71,12 @@ export const getGroupUsers = (req, res) => {
       const filtered = allUsers.filter(userInAllUsers => !newArr.some(
         userInGroup => userInAllUsers.id === userInGroup.id)
       );
-      res.send(filtered);
+      res.status(200)
+        .send(filtered);
     })
       .catch((error) => {
-        res.send(error);
+        res.status(400)
+          .send(error);
       });
   });
 };
@@ -83,7 +87,8 @@ export const getMessages = (req, res) => {
   const ref = firebase.database().ref(`/messages/${groupId}`);
   ref.once('value', (data) => {
     const messages = getArray(data.val());
-    res.send(messages);
+    res.status(200)
+      .send(messages);
   })
     .catch((error) => {
       res.send(error);
@@ -112,7 +117,8 @@ export const postMessage = (req, res) => {
         if (priority === 'Urgent' || priority === 'Critical') {
           SendNotification(groupId, priority);
         }
-        res.status(200).send('Your message was posted successfully!');
+        res.status(200)
+          .send('Your message was posted successfully!');
       });
     promise.catch((error) => {
       res.status(400)
@@ -130,7 +136,8 @@ export const getAllUsers = (req, res) => {
   const ref = firebase.database().ref().child('users');
   ref.once('value', (data) => {
     const users = getArray(data.val());
-    res.send(users);
+    res.status(200)
+      .send(users);
   }).catch((error) => {
     res.send(error);
   });

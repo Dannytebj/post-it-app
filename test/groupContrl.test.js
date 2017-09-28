@@ -14,6 +14,7 @@ import {
 
 const expect = require('chai').expect;
 const app = require('../server/server');
+
 chai.should();
 chai.use(chaiHttp);
 
@@ -25,11 +26,11 @@ describe('The Group controller', () => {
     email = 'john.doe@myself.com';
     password = 'abc123';
     // let currUser;
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        const currUser = user;
-        return currUser;
-      });
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then((user) => {
+    //     const currUser = user;
+    //     return currUser;
+    //   });
     // userName = 'John Doe';
     // 
     // phoneNumber = '+2348098765432';
