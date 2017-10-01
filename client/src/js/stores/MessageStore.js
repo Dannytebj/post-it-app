@@ -75,7 +75,7 @@ class MessageStore extends EventEmitter {
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    this.removeChangeListener('updateStore', callback);
+    this.removeListener('updateStore', callback);
   }
   dispatcherCallback({ action }) {
     switch (action.type) {

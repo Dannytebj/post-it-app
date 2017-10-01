@@ -12,13 +12,21 @@ import './index.scss';
 /**
  * Contains Routes to all my components
  */
+const RequireAuth = (nextState, replace) => {
+    const user = localStorage.getItem('userName');
+  if (!user) {
+    replace({
+      pathname: '/'
+    });
+  }
+}
 ReactDOM.render(
   <Router history={ browserHistory }>
       <Route exact path="/" component={ Login } />
-      <Route  path= "/home" component={ Home } />
-      <Route  path= "/group" component={ Groups } />
-      <Route  path= "/message" component={ MessageBoard } />
-      <Route  path= "/signOut" component={ SignOut } />
+      <Route  path= "home" component={ Home } onEnter= {RequireAuth}/>
+      <Route  path= "group" component={ Groups } onEnter= {RequireAuth} />
+      <Route  path= "message" component={ MessageBoard } onEnter= {RequireAuth} />
+      <Route  path= "signOut" component={ SignOut } />
       <Route  path ="/*" component ={ NotFound } />
   </Router>,
   document.getElementById('app')

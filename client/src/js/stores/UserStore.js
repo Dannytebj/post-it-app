@@ -50,17 +50,20 @@ class LoginStore extends EventEmitter {
       .send({ email, password })
       .set('Accept', 'application/json')
       .end((error, response) => {
-        received = JSON.parse(response.text);
         if (error !== null) {
-          message = received.message;
+          message = response.text.toString();
+          console.log(message);
+          this.emit('signInError');
+          // message = received.message;
         } else {
+          received = JSON.parse(response.text);
           const userName = received.userName;
           const userUid = received.userUid;
           localStorage.setItem('userName', userName);
           localStorage.setItem('uid', userUid);
           browserHistory.push('home');
+          this.emit('welcome');
         }
-        this.emitChange();
       });
   }
   /**
@@ -81,12 +84,13 @@ class LoginStore extends EventEmitter {
       .set('Accept', 'application/json')
       .end((error, response) => {
         if (error !== null) {
-          message = response.status.toString();
+          message = response.text.toString();
+          this.emit('signUpError');
         } else {
           message = response.text.toString();
-          browserHistory.push('/home');
+          this.emit('welcome');
+          browserHistory.push('home');
         }
-        this.emitChange();
       });
   }
   /**
@@ -144,11 +148,12 @@ class LoginStore extends EventEmitter {
       .set('Accept', 'application/json')
       .end((error, response) => {
         if (error !== null) {
-          message = 'A problem occured!';
+          message = response.body.error.message;
+          this.emit('resetError');
         } else {
           message = response.text.toString();
+          this.emit('messageSent');
         }
-        this.emitChange();
       });
   }
 
@@ -157,10 +162,22 @@ class LoginStore extends EventEmitter {
   }
   addChangeListener(callback) {
     this.on('change', callback);
+    this.on('messageSent', callback);
+    this.on('resetError', callback);
+    this.on('signUpError', callback);
+    this.on('signInError', callback);
+    this.on('welcome', callback);
   }
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
+    this.removeListener('messageSent', callback);
+    this.removeListener('resetError', callback);
+    this.removeListener('signUpError', callback);
+    this.removeListener('signInError', callback);
+    this.removeListener('welcome', callback);
+    
+   
   }
   dispatcherCallback({ action }) {
     switch (action.type) {

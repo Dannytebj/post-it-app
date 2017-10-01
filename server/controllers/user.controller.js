@@ -1,7 +1,5 @@
-// import { dbConfigDb, dbConfigAuth } from '../config/config';
 
 const firebase = require('firebase');
-// const dbConfig = require('../config/config');
 const emailValidation = require('../utils/emailValidation');
 
 /**
@@ -57,7 +55,12 @@ export const signIn = (req, res) => {
         userUid: uid });
     })
     .catch((error) => {
-      res.status(400).send(error);
+      if (error.code === 'auth/user-not-found') {
+        res.status(404)
+          .send('Sorry!, User not found!!, Kindly SignUp first');
+      } else {
+        res.status(400).send(error);
+      }
     });
 };
 
@@ -70,7 +73,7 @@ export const signOut = (req, res) => {
     })
     .catch((error) => {
       res.status(400)
-        .send(error.message);
+        .send(error);
     });
 };
 
@@ -84,7 +87,7 @@ export const signInWithGoogle = (req, res) => {
     })
     .catch((error) => {
       res.status(401);
-      res.send(`Failed to signIn User:${error.message}`);
+      res.send(error);
     });
 };
 
@@ -101,8 +104,7 @@ export const resetPassword = (req, res) => {
           .send('A mail has been sent to the email address provided');
       }).catch((error) => {
         res.status(500)
-          .send({ message: 'Sorry, A problem occurred,Please try again',
-            error });
+          .send(error);
       });
   }
 };
