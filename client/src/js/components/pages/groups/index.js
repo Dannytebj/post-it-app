@@ -40,7 +40,9 @@ class Groups extends Component {
     }
     doCreateGroup(){
         const { newGroupName } = this.state;
-        createGroup(newGroupName);
+        const userId = localStorage.getItem('uid');
+        const userName = localStorage.getItem('userName')
+        createGroup(newGroupName, userId, userName);
         this.setState({
             fetchMessage: groupStore.getMessage(),
         });
@@ -72,18 +74,19 @@ class Groups extends Component {
       <div className="jumbotron">
           <div className="panel panel-default">
             <div className="panel-body">
-          <p>Welcome, Here you can view groups you belong to, and add 
+          <p><h2>Welcome,</h2><br/> Here you can view groups you belong to, and add 
               a user to that group if it was a group you created !</p>
+            <Button
+                onClick={ this.fetchGroups } value={'View Your Groups' }
+            />
           </div>
           </div>
-        <div className="form">
+        <div className="form1">
             {(fetchMessage) ? <div className="alert alert-info" role="alert">
                {fetchMessage}
             </div> : ''}
-            
-            <Button
-                onClick={ this.fetchGroups } value={'View Group' }
-            />
+            <div className="groups">
+ 
             <GroupList groupList={groupList} /> 
                 <hr />
             <h3>Create A Group!</h3>
@@ -97,6 +100,7 @@ class Groups extends Component {
                 onClick={ this.doCreateGroup }
                 value={'Create Group' }
             />
+            </div>
               </div>
             </div>
         </div>

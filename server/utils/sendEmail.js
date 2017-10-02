@@ -34,9 +34,9 @@ module.exports = (emails, priority) => {
       emailOptions.to = email;
       transporter.sendMail(emailOptions, (error, info) => {
         if (error) {
-          return console.log(error);
+          return console.log(error);  // eslint-disable-line
         }
-        // console.log(info.response);
+        console.log(info.response);  // eslint-disable-line
       });
     });
   }

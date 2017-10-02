@@ -18,10 +18,10 @@ const GroupActions = {
  * @param {*} groupName name of the group created
  */
 
-  createGroup: (groupName) => {
+  createGroup: (groupName, userId, userName) => {
     AppDispatcher.handleViewAction({
       type: CREATE_GROUP,
-      payload: { groupName },
+      payload: { groupName, userId, userName },
     });
   },
 

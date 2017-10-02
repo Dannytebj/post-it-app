@@ -8,7 +8,7 @@ import {
 
 let allMessages = [];
 let statusMessage = '';
-let messages = [];
+// let messages = [];
 class MessageStore extends EventEmitter {
   constructor() {
     super();
@@ -19,15 +19,15 @@ class MessageStore extends EventEmitter {
   getStatusMessage() {
     return statusMessage;
   }
-  getMessages() {
-    return messages;
-  }
+  // getMessages() {
+  //   return messages;
+  // }
   allGroupMessages() {
     return allMessages;
   }
 
   postMessage({ message, groupId, priority }) {
-    console.log('message posting...');
+    // console.log('message posting...');
     const userId = localStorage.getItem('uid');
     const userName = localStorage.getItem('userName');
     allMessages.push({
@@ -75,7 +75,7 @@ class MessageStore extends EventEmitter {
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    this.removeChangeListener('updateStore', callback);
+    this.removeListener('updateStore', callback);
   }
   dispatcherCallback({ action }) {
     switch (action.type) {
@@ -83,7 +83,7 @@ class MessageStore extends EventEmitter {
         this.postMessage(action.payload);
         break;
       case GET_ALL_MESSAGES:
-        this.getGroupMessages(action.payload)
+        this.getGroupMessages(action.payload);
         break;
       default:
         break;

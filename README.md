@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Dannytebj/post-it-app.svg?branch=dev1)](https://travis-ci.org/Dannytebj/post-it-app)
+[![Coverage Status](https://coveralls.io/repos/github/Dannytebj/post-it-app/badge.svg?branch=dev1)](https://coveralls.io/github/Dannytebj/post-it-app?branch=dev1)
 # PostIt
 PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
 

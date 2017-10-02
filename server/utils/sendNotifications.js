@@ -20,25 +20,18 @@ const SendNotification = (groupId, priority) => {
     const newArr = getArray(groupUsers);
     ref1.once('value', (data1) => {
       const allUsers = getArray(data1.val());
-      const filtered = allUsers.filter((el) => {
-        return newArr.some((usersInGroup) => {
+      const filtered = allUsers.filter((el) => {  // eslint-disable-line
+        return newArr.some((usersInGroup) => {  // eslint-disable-line
           return el.id === usersInGroup.id;
         });
       });
-      filtered.map((user, index) => {
+      filtered.map((user, index) => {  // eslint-disable-line
         return emails.push(user.email);
       });
-      filtered.map((user,index) => {
+      filtered.map((user,index) => { // eslint-disable-line
         return phoneNumbers.push(user.phoneNumber);
       });
-      console.log(phoneNumbers, emails);
-      //  Send email to users based on priority!
-      if (priority === 'Urgent' || priority === 'Critical') {
-        sendEmail(emails, priority);
-      } else if (priority === 'Critical') {
-        // SendSMS(phoneNumbers)
-        sendSms(phoneNumbers);
-      }
+      sendSms(phoneNumbers, priority);
       sendEmail(emails, priority);
     });
   });

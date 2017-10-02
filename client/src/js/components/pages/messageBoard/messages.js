@@ -15,7 +15,6 @@ class Messages extends Component{
             isPostingData: false,
             fetchMessage:'',
             messagePosted: false,
-            messages: MessageStore.getMessages(),
             messageList: MessageStore.allGroupMessages(),
             priority:'Normal'
         };
