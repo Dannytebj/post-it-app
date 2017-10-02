@@ -1,7 +1,7 @@
 import firebase from 'firebase';
-import dbConfig from '../config/config';
+// import dbConfig from '../config/config';
 import getArray from '../utils/getArray';
-import sendUserEmails from '../utils/sendUserEmails';
+import SendNotification from '../utils/sendNotifications';
 
 /**
  * This Controller file exports all controllers for the group 
@@ -13,23 +13,25 @@ import sendUserEmails from '../utils/sendUserEmails';
 // ============Controller for Creating Groups ============
 
 export const createGroup = (req, res) => {
-  const currUser = firebase.auth().currentUser;
-  if (currUser !== null) {
+  // const currUser = firebase.auth().currentUser;
+  const userUid = req.body.userId;
+  const userName = req.body.userName;
+  if (userUid !== null) {
     const dbRef = firebase.database().ref('/group'),
       group = req.body.groupName,
       newGroupId = dbRef.push({
         groupName: group,
       }).key;
-    firebase.database().ref(`/users/${currUser.uid}/groups`).push(
+    firebase.database().ref(`/users/${userUid}/groups`).push(
       {
         groupId: newGroupId,
         groupName: group,
         isAdmin: true
       });
-    firebase.database().ref(`group/${newGroupId}/users/${currUser.uid}`)
+    firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
       .update({
-        id: currUser.uid,
-        name: currUser.displayName
+        id: userUid,
+        name: userName
       })
       .then(() => {
         res.status(200);
@@ -47,10 +49,11 @@ export const createGroup = (req, res) => {
 //  ============ Controller that Gets all groups created  ============
 export const getGroups = (req, res) => {
   const userUid = req.params.userUid;
-  const ref = dbConfig.database().ref(`users/${userUid}/groups`);
+  const ref = firebase.database().ref(`users/${userUid}/groups`);
   ref.once('value', (data) => {
     const groups = getArray(data.val());
-    res.send(groups);
+    res.status(200)
+      .send(groups);
   }).catch((error) => {
     res.send(error);
   });
@@ -66,16 +69,15 @@ export const getGroupUsers = (req, res) => {
     const newArr = getArray(groupUsers);
     ref1.once('value', (data1) => {
       const allUsers = getArray(data1.val());
-      const filtered = allUsers.filter((userInAllUsers) => {
-        return !newArr.some((userInGroup) => {
-          return userInAllUsers.id === userInGroup.id;
-        });
-      }
+      const filtered = allUsers.filter(userInAllUsers => !newArr.some(
+        userInGroup => userInAllUsers.id === userInGroup.id)
       );
-      res.send(filtered);
+      res.status(200)
+        .send(filtered);
     })
       .catch((error) => {
-        res.send(error);
+        res.status(400)
+          .send(error);
       });
   });
 };
@@ -86,7 +88,8 @@ export const getMessages = (req, res) => {
   const ref = firebase.database().ref(`/messages/${groupId}`);
   ref.once('value', (data) => {
     const messages = getArray(data.val());
-    res.send(messages);
+    res.status(200)
+      .send(messages);
   })
     .catch((error) => {
       res.send(error);
@@ -95,11 +98,9 @@ export const getMessages = (req, res) => {
 
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
-  const { message, priority } = req.body;
-  const groupId = req.params;
+  const { message, priority, groupId, userId } = req.body;
   const currUser = firebase.auth().currentUser;
   if (currUser) {
-    const userId = currUser.uid;
     const username = currUser.displayName;
     const messagekey = firebase.database().ref(`messages/${groupId}`)
       .push({
@@ -115,9 +116,10 @@ export const postMessage = (req, res) => {
       })
       .then(() => {
         if (priority === 'Urgent' || priority === 'Critical') {
-          sendUserEmails(groupId, firebase, priority);
+          SendNotification(groupId, priority);
         }
-        res.status(200).send('Your message was posted successfully!');
+        res.status(200)
+          .send('Your message was posted successfully!');
       });
     promise.catch((error) => {
       res.status(400)
@@ -135,7 +137,8 @@ export const getAllUsers = (req, res) => {
   const ref = firebase.database().ref().child('users');
   ref.once('value', (data) => {
     const users = getArray(data.val());
-    res.send(users);
+    res.status(200)
+      .send(users);
   }).catch((error) => {
     res.send(error);
   });
@@ -144,8 +147,8 @@ export const getAllUsers = (req, res) => {
 export const addUser = (req, res) => {
   const { group, username, userId } = req.body;
   const groupId = req.params.groupId;
-  const currentUser = firebase.auth().currentUser;
-  if (currentUser) {
+  // const currentUser = firebase.auth().currentUser;
+  if (groupId) {
     const promise = firebase.database()
       .ref(`group/${groupId}/users/${userId}`)
       .update({

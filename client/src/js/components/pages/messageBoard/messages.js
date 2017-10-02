@@ -4,9 +4,8 @@ import MessageStore from '../../../stores/MessageStore';
 import MessageList from './messageList/';
 import TextBox from '../../commons/textbox.js';
 
-const { addMessage } = MessageActions
 // const { postMessage} = MessageActions;
-const { getGroupMessages} = MessageActions;
+const { getGroupMessages, addMessage} = MessageActions;
 
 class Messages extends Component{
      constructor(props) {
@@ -16,7 +15,6 @@ class Messages extends Component{
             isPostingData: false,
             fetchMessage:'',
             messagePosted: false,
-            messages: MessageStore.getMessages(),
             messageList: MessageStore.allGroupMessages(),
             priority:'Normal'
         };
@@ -57,8 +55,7 @@ class Messages extends Component{
         const groupId = localStorage.getItem('groupId');
 
         addMessage(message, groupId, priority);
-            console.log(`your message has been posted!: 
-            ${message}, ${groupId}`);
+            console.log(`your message has been posted!`);
                 this.setState({
                     fetchMessage:'Successfully posted message',
                     messagePosted: true,
@@ -108,7 +105,4 @@ class Messages extends Component{
     }
 }
 
-// Group.propTypes = {
-//     group: PropTypes.object.isRequired
-// }
-module.exports = Messages;
+export default Messages;

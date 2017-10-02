@@ -1,18 +1,16 @@
-// import { dbConfigDb, dbConfigAuth } from '../config/config';
 
 const firebase = require('firebase');
-// const dbConfig = require('../config/config');
 const emailValidation = require('../utils/emailValidation');
 
 /**
  * This Controller exports controllers for the user endpoints
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req User Requests
+ * @param {*} res Server Responses
  */
 
 // ============ Controller for Signing Up Users ============
 export const signUp = (req, res) => {
-  const { email, password, userName, phoneNumber } = req.body;
+  const { email, password, username, phoneNumber } = req.body;
   let promise;
   if (!emailValidation(email)) {
     res.status(400)
@@ -24,7 +22,7 @@ export const signUp = (req, res) => {
     promise = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
-          displayName: userName,
+          displayName: username,
         })
           .then(() => {
             const uid = user.uid;
@@ -57,7 +55,12 @@ export const signIn = (req, res) => {
         userUid: uid });
     })
     .catch((error) => {
-      res.status(400).send(error);
+      if (error.code === 'auth/user-not-found') {
+        res.status(404)
+          .send('Sorry!, User not found!!, Kindly SignUp first');
+      } else {
+        res.status(400).send(error);
+      }
     });
 };
 
@@ -70,7 +73,7 @@ export const signOut = (req, res) => {
     })
     .catch((error) => {
       res.status(400)
-        .send(error.message);
+        .send(error);
     });
 };
 
@@ -84,7 +87,7 @@ export const signInWithGoogle = (req, res) => {
     })
     .catch((error) => {
       res.status(401);
-      res.send(`Failed to signIn User:${error.message}`);
+      res.send(error);
     });
 };
 
@@ -101,8 +104,7 @@ export const resetPassword = (req, res) => {
           .send('A mail has been sent to the email address provided');
       }).catch((error) => {
         res.status(500)
-          .send({ message: 'Sorry, A problem occurred,Please try again',
-            error });
+          .send(error);
       });
   }
 };

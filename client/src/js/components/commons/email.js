@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Email = ({onChange, email, label, currentValue}) => {
     return( 
-    <div>
+    <div> 
         <label> {label} </label>
             <input
             type = {email}
@@ -22,7 +22,7 @@ Email.PropTypes = {
     currentValue: PropTypes.func.isRequired,
     email: function(props, email, componentName) {
           if (!/emailRegex/.test(props[email])) {
-               return new Error('Give me a real email!');
+               return new Error('Please Enter a Valid Email Address! Thanks.');
           }
         }
 };

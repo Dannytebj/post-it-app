@@ -1,6 +1,11 @@
+import dotenv from 'dotenv';
+
+dotenv.load();
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
+dotenv.load();
+// console.log( process.env.GMAIL_USERNAME, process.env.PASS );
 /**
  * This Module uses nodemailer transporter to send 
  * emails to users based on proirity
@@ -13,8 +18,8 @@ const transporter = nodemailer.createTransport(smtpTransport({
   port: 465,
   secure: true,
   auth: {
-    user: 'postitbydanny@gmail.com',
-    pass: 'andela098'
+    user: process.env.GMAIL_USERNAME,
+    pass: process.env.PASS
   }
 })
 );
@@ -29,9 +34,9 @@ module.exports = (emails, priority) => {
       emailOptions.to = email;
       transporter.sendMail(emailOptions, (error, info) => {
         if (error) {
-          return console.log(error);
+          return console.log(error);  // eslint-disable-line
         }
-        console.log(info.response);
+        console.log(info.response);  // eslint-disable-line
       });
     });
   }

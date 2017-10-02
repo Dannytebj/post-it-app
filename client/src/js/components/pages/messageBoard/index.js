@@ -23,16 +23,14 @@ class MessageBoard extends Component{
     _onChange() {
         this.forceUpdate();
     }
-    // componentDidMount() {
-    //     window.addEventListener('load', this.fetchGroups);
-    // }
+  
       fetchGroups(){
         this.setState({
             isFetchingData: true
         });
         const userUid = localStorage.getItem('uid');
         superagent
-            .get(`https://postitdanny.herokuapp.com/getGroup/${userUid}`)
+            .get(`/getGroup/${userUid}`)
             .set('Accept', 'application/json')
             .end(
                 (error, response) => {
@@ -91,4 +89,4 @@ render(){
     )
 }
 }
-module.exports = MessageBoard;
+export default MessageBoard;

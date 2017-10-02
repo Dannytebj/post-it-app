@@ -46,15 +46,6 @@ const ViewActions = {
     });
   },
   /**
- * Action method to get Users
- * 
- */
-  getUser: () => {
-    AppDispatcher.handleViewAction({
-      type: Constants.GET_USER
-    });
-  },
-  /**
      * Action method that let's Users Sign In with Gogle
      */
   signInWithGoogle: (idToken) => {

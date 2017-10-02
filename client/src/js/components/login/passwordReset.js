@@ -6,15 +6,42 @@ import TextBox from '../commons/textbox.js';
 import Button from '../commons/button.js';
 import ViewActions from '../../actions/viewActions';
 
+const ReactToastr = require('react-toastr');
+const { ToastContainer } = ReactToastr;
+const ToastMessageFactory = React.createFactory(ReactToastr.ToastMessage.animation);
+
 const {sendPasswordReset} = ViewActions;
 class PasswordReset extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: ''
+            email: '',
         }
-      // this._onChange = this._onChange.bind(this);
-      // this.resetPassword = this.resetPassword.bind(this);
+        // this.addAlert = this.addAlert.bind(this);
+        // this._onChange = this._onChange.bind(this);
+
+    }
+
+    componentWillMount() {
+      UserStore.on('messageSent', () => {
+        let message =UserStore.getMessage();
+        this.container.success(
+          "Messsage:",
+          message, {
+            timeOut: 5000,
+            extendedTimeOut: 3000
+          });
+      });
+      UserStore.on('resetError', ()=> {
+        let message =UserStore.getMessage();
+        this.container.error(
+          message,
+          'Sorry and Error has ocurred',{
+            timeOut: 5000,
+            extendedTimeOut: 3000
+          })
+      })
+
     }
     resetPassword(e) {
       e.preventDefault()
@@ -22,14 +49,16 @@ class PasswordReset extends Component {
       if (email !== '') {
         sendPasswordReset(email);
         this.refs.email.value = '';
-        alert('An email has been sent to you..Cheers')
-        toastr.success('An email has been sent to you..Cheers');
       }
-      // // console.log('Chill first!!')
     }
     render(){
         return(
           <div> 
+            <ToastContainer ref={(input) => {this.container = input;}}
+                        toastMessageFactory={ToastMessageFactory}
+                        className="toast-top-right"
+                        preventDuplicates= {true} />
+
             <div className="modal fade exampleModal" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">

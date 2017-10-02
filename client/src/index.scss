@@ -27,17 +27,26 @@ body{
 }
 
 .container-fluid{
-  padding-left: 0;
 }
 .nav .navbar-nav {
-  min-height: 650px;
+  min-height: 50px;
   background-color: #001f3f;
   font-size: 1.4em;
 }
+ .navbar-header{
+    background: black;
+  }
 /* On using dropdown menu (To right shift popuped) */
 
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
+  
+  .navbar-header{
+    background: black;
+  }
+  .nav .navbar-nav{
+    height: 200px;
+  }
   .sidebar-nav .navbar {
     .navbar-collapse {
       padding: 0;
@@ -70,15 +79,60 @@ body{
         background-color: whitesmoke;
         border: 0;
       }
+      .groupName {
+        text-align: center;
+        h3 {
+          font-weight: 400;
+        }
+      }
 
-#groups{
-  background: white;
+.groups{
   display: inline;
   list-style-type: none;
 
+  button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 40%;
+    border: 0;
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      background: #43A047;
+    }
+  }
+   input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+
   li {
+    width: 95%;
+  margin-bottom: 5px;
+  background: white;
     padding: 10px;
       box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      &:hover, &:active, &:focus {
+        height: 150px;
+        width: 100%;
+        -webkit-transition: all 2s ease;
+     -moz-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+    }
   }
 }
 .messages{
@@ -135,11 +189,25 @@ body{
     }
   }
 }
+.form1{
+  height: 550px;
+  overflow: scroll;
+  text-align: left;
+  max-width: 500px;
+  padding: 25px;  
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 .form {
   text-align: left;
   max-width: 500px;
   padding: 55px;
+  margin-left: 15%;
+  margin-right: 15%;
   // z-index: 1;
+.centered {
+  text-align: center;
+}
+  
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   .login input {
     font-family: "Roboto", sans-serif;
