@@ -51,9 +51,15 @@ export const getGroups = (req, res) => {
   const userUid = req.params.userUid;
   const ref = firebase.database().ref(`users/${userUid}/groups`);
   ref.once('value', (data) => {
-    const groups = getArray(data.val());
-    res.status(200)
-      .send(groups);
+    const groupList = data.val();
+    if (groupList === null) {
+      res.status(404)
+        .send('You do not belong to any group yet');
+    } else {
+      const groups = getArray(groupList);
+      res.status(200)
+        .send(groups);
+    }
   }).catch((error) => {
     res.send(error);
   });
@@ -66,19 +72,27 @@ export const getGroupUsers = (req, res) => {
   const ref1 = firebase.database().ref().child('users');
   ref.once('value', (data) => {
     const groupUsers = data.val();
-    const newArr = getArray(groupUsers);
-    ref1.once('value', (data1) => {
-      const allUsers = getArray(data1.val());
-      const filtered = allUsers.filter(userInAllUsers => !newArr.some(
-        userInGroup => userInAllUsers.id === userInGroup.id)
-      );
-      res.status(200)
-        .send(filtered);
-    })
-      .catch((error) => {
-        res.status(400)
-          .send(error);
-      });
+    if (groupUsers === null) {
+      res.status(404)
+        .send('This group has no user yet!');
+    } else {
+      const newArr = getArray(groupUsers);
+      ref1.once('value', (data1) => {
+        const usersGotten = data1.val();
+        if (data1 !== null) {
+          const allUsers = getArray(usersGotten);
+          const filtered = allUsers.filter(userInAllUsers => !newArr.some(
+            userInGroup => userInAllUsers.id === userInGroup.id)
+          );
+          res.status(200)
+            .send(filtered);
+        }
+      })
+        .catch((error) => {
+          res.status(400)
+            .send(error);
+        });
+    }
   });
 };
 
@@ -87,9 +101,15 @@ export const getMessages = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`/messages/${groupId}`);
   ref.once('value', (data) => {
-    const messages = getArray(data.val());
-    res.status(200)
-      .send(messages);
+    const mesResponse = data.val();
+    if (mesResponse !== null) {
+      const messages = getArray(mesResponse);
+      res.status(200)
+        .send(messages);
+    } else {
+      res.status(404)
+        .send('There are no Messages!');
+    }
   })
     .catch((error) => {
       res.send(error);

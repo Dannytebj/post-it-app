@@ -65,7 +65,7 @@ class Login extends Component {
     }
 
     // componentDidMount() {
-    //     UserStore.addChangeListener(this._onChange);
+    //     UserStore.removeChangeListener(this._onChange);
     // }
     
     // _onChange() {
@@ -112,7 +112,7 @@ class Login extends Component {
         <div className="panel panel-success">
         <div className="panel-heading"><h3>PostIT... #JustPostIt</h3></div>
         <div className="panel-body">
-        <div className="form">
+        <div className="form center-block">
          {(!signingIn) ? <h2><p className="centered">SIGN UP</p></h2> : <h2><p className="centered">SIGN IN</p></h2> }   
         <div className="login">
             { (!signingIn) ? <div><TextBox
@@ -143,7 +143,7 @@ class Login extends Component {
                 <br/>
                 <p className="centered"> OR</p>
                 <hr/>
-            <div className="googleBut">
+            <div className="googleBut loginBtn loginBtn--google">
             <Google />
             </div>
                 <p className="message">Forgot Password ? <a onClick={this.resetPassword} data-toggle="modal" data-target=".exampleModal">Reset Password</a></p>

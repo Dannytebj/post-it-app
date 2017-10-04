@@ -22,7 +22,7 @@ const RequireAuth = (nextState, replace) => {
 }
 ReactDOM.render(
   <Router history={ browserHistory }>
-      <Route exact path="/" component={ Login } />
+      <Route  path="/" component={ Login } />
       <Route  path= "home" component={ Home } onEnter= {RequireAuth}/>
       <Route  path= "group" component={ Groups } onEnter= {RequireAuth} />
       <Route  path= "message" component={ MessageBoard } onEnter= {RequireAuth} />

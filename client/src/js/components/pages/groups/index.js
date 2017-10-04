@@ -7,6 +7,9 @@ import Button from '../../commons/button.js';
 import GroupList from './groupList';
 import Layout from '../layout';
 
+const ReactToastr = require('react-toastr');
+const { ToastContainer } = ReactToastr;
+const ToastMessageFactory = React.createFactory(ReactToastr.ToastMessage.animation);
 const { getGroups, createGroup } = GroupActions;
 class Groups extends Component {
     constructor(props) {
@@ -24,14 +27,40 @@ class Groups extends Component {
     }
     componentWillMount(){
         groupStore.on('updateGroupStore', ()=> {
+        let message = groupStore.getMessage();
             this.setState({
                 groupList:groupStore.allGroups()
             });
+        this.container.success(
+          "Messsage:",
+          message, {
+            timeOut: 5000,
+            extendedTimeOut: 3000
+          });
+      });    
+        groupStore.on('getGroupError', ()=> {
+        let message = groupStore.getMessage();
+        this.container.error(
+          message,
+          'Sorry and Error has ocurred',{
+            timeOut: 5000,
+            extendedTimeOut: 3000
+          })
+        });
+        groupStore.on('createGroupError', ()=> {
+        let message = groupStore.getMessage();
+        this.container.error(
+          message,
+          'Sorry and Error has ocurred',{
+            timeOut: 5000,
+            extendedTimeOut: 3000
+          })
         });
     }
     componentDidMount() {
         groupStore.addChangeListener(this._onChange);
     }
+
     componentWillUnmount() {
         groupStore.removeChangeListener(this._onChange);
     }
@@ -68,6 +97,10 @@ class Groups extends Component {
         }
         return (
 <div className="container-fluid">
+    <ToastContainer ref={(input) => {this.container = input;}}
+                        toastMessageFactory={ToastMessageFactory}
+                        className="toast-top-right"
+                        preventDuplicates= {true} />
 <div className="row">
     <Layout/>
   <div className="col-sm-9">
