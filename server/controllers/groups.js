@@ -165,7 +165,7 @@ export const getAllUsers = (req, res) => {
 };
 //  ============Controller Adds user to group ============ 
 export const addUser = (req, res) => {
-  const { group, username, userId } = req.body;
+  const { groupName, username, userId } = req.body;
   const groupId = req.params.groupId;
   // const currentUser = firebase.auth().currentUser;
   if (groupId) {
@@ -178,7 +178,7 @@ export const addUser = (req, res) => {
     firebase.database().ref(`/users/${userId}/groups`).push(
       {
         groupId,
-        groupName: group,
+        groupName,
         isAdmin: false
       });
     promise.then(() => {

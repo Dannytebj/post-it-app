@@ -21,6 +21,7 @@ class User extends Component {
         const groupName = localStorage.getItem('groupName');
         const userId = this.props.user.id;
         const username = this.props.user.name;
+        // console.log(groupId,groupName,userId,username);
         superagent
             .post(`/group/${groupId}/users`)
             .send({ userId: userId , groupId: groupId, name: username, groupName: groupName})
@@ -40,13 +41,13 @@ class User extends Component {
             })
     }
     createUserAddButton(isLoading) {
-        return isLoading ? <span>Loading</span> : <span id="add" onClick={this.addUser}> add User </span>;
+        return isLoading ? <span>Loading</span> : <button id="add" onClick={this.addUser}> add User </button>;
     }
     render() {
         const { user } = this.props;
         const { userAdded, isAddingUser } = this.state;
         return (<li>
-            {user.name}
+            <p className="names">{user.name}</p>
             { (!userAdded) ? this.createUserAddButton(isAddingUser) : ''}
         </li>);
     }
