@@ -165,15 +165,16 @@ export const getAllUsers = (req, res) => {
 };
 //  ============Controller Adds user to group ============ 
 export const addUser = (req, res) => {
-  const { groupName, username, userId } = req.body;
+  const { groupName, name, userId } = req.body;
   const groupId = req.params.groupId;
+  // console.log(groupId, userId, name);
   // const currentUser = firebase.auth().currentUser;
   if (groupId) {
     const promise = firebase.database()
-      .ref(`group/${groupId}/users/${userId}`)
+      .ref(`/group/${groupId}/users/${userId}`)
       .update({
         id: userId,
-        name: username
+        name
       });
     firebase.database().ref(`/users/${userId}/groups`).push(
       {
