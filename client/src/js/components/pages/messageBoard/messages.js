@@ -60,7 +60,6 @@ class Messages extends Component{
                     fetchMessage:'Successfully posted message',
                     messagePosted: true,
                     message:'',
-                    messages:MessageStore.getMessages()
                 });
                 }
     doGetGroupMessages(){

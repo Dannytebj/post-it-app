@@ -43,6 +43,7 @@ class MessageStore extends EventEmitter {
           statusMessage = error;
           return;
         }
+        this.emit('updateStore');
         statusMessage = JSON.parse(response.text);
         // console.log(`your message has been posted!`);
       });

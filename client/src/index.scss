@@ -89,7 +89,11 @@ body{
 .groups{
   display: inline;
   list-style-type: none;
-
+.names {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em;
+}
   button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -124,6 +128,7 @@ body{
   margin-bottom: 5px;
   background: white;
     padding: 10px;
+    list-style: none;
       box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
       &:hover, &:active, &:focus {
         height: 150px;
