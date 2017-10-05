@@ -105,8 +105,8 @@ class LoginStore extends EventEmitter {
           window.location.reload();
           browserHistory.push('/');
           gapi.auth2.getAuthInstance().signOut();
-          message = response.text.toString();
           localStorage.clear();
+          // message = response.text.toString();
         }
         this.emitChange();
       });

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../commons/button.js';
 import MessageActions from '../../../../actions/MessageActions';
+import MessageStore from "../../../../stores/MessageStore";
 import Messages from '../messages.js';
 
 const {getGroupMessages} = MessageActions;
@@ -32,6 +33,7 @@ class Group extends Component {
         this.setState({
             groupIsSet: false
         });
+       MessageStore.clearMessages(); 
     }
 
   
@@ -45,12 +47,12 @@ class Group extends Component {
         const { groupFetched, isFetchingGroup, groupIsSet} = this.state;
         return (<div>
         <li>
-            {group.groupName}
+            <p className="groupName">{group.groupName}</p><hr/>
             { (!groupFetched) ? this.createUserAddButton(isFetchingGroup) : ''}
         </li>
         <div className="messages">
            {(groupIsSet) ? <div><span id="hide" onClick={this.collapse}> 
-               Hide </span> <Messages /> </div> : ''}
+               Close </span> <Messages /> </div> : ''}
         </div>       
        </div>
         );

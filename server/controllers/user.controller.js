@@ -58,6 +58,9 @@ export const signIn = (req, res) => {
       if (error.code === 'auth/user-not-found') {
         res.status(404)
           .send('Sorry!, User not found!!, Kindly SignUp first');
+      } else if (error.code === 'auth/wrong-password') {
+        res.status(400)
+          .send('Hey! you have provided an invalid password!!');
       } else {
         res.status(400).send(error);
       }

@@ -32,13 +32,15 @@ class GroupStore extends EventEmitter {
       .get(`/getGroup/${userUid}`)
       .set('Accept', 'application/json')
       .end((error, response) => {
-        if (error) {
+        if (error !== null) {
           console.log(error);  // eslint-disable-line
-          messages = JSON.parse(error);
+          messages = response.text.toString();
+          this.emit('getGroupError');
+          console.log(messages);
         } else {
           groupList = JSON.parse(response.text);
+          this.emit('updateGroupStore');
         }
-        this.emit('updateGroupStore');
       });
   }
   /**
@@ -53,8 +55,10 @@ class GroupStore extends EventEmitter {
       .end((error, response) => {
         if (error !== null) {
           messages = response.status.toString();
+          this.emit('createGroupError');
         } else {
           messages = response.text.toString();
+          this.emit('createdGroup');
         }
         this.emitChange();
       });
@@ -66,11 +70,17 @@ class GroupStore extends EventEmitter {
   addChangeListener(callback) {
     this.on('change', callback);
     this.on('updateGroupStore', callback);
+    this.on('getGroupError', callback);
+    this.on('createdGroup', callback);
+    this.on('createGroupError', callback);
   }
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    this.removeChangeListener('updateGroupStore', callback);
+    this.removeListener('updateGroupStore', callback);
+    this.removeListener('getGroupError', callback);
+    this.removeListener('createdGroup', callback);
+    this.removeListener('createGroupError', callback);
   }
   dispatcherCallback({ action }) {
     switch (action.type) {
