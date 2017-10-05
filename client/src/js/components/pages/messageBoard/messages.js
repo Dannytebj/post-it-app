@@ -72,7 +72,7 @@ class Messages extends Component{
         const { message, messageList}= this.state;
         
         return (
-            <div className="messages">
+            <div>
                 <div className="displayMessages">
                       <MessageList receivedMessage = {messageList} />  
                 </div>

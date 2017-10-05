@@ -139,6 +139,7 @@ body{
   width: 90%;
   text-align: left;
   margin-bottom: 20px;
+  border: 1px solid green;
   .messageBox{
     float: left;
     width: 80%;
@@ -167,9 +168,7 @@ body{
     width: 90%;
   
   }
-  .displayMessages{
-    margin-bottom: 5%;
-  }
+ 
   #sendButton {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -303,6 +302,64 @@ body{
 .loginBtn--google:focus {
   background: #E74B37;
 }
+}
+
+.displayMessages{
+  height: 500px;
+  overflow: scroll;
+  margin-bottom: 5%;
+}
+.messageBoard{
+   text-align: left;
+  max-width: 500px;
+  padding: 55px;
+  background: white;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+  li {
+    width: 95%;
+  margin-bottom: 5px;
+  background: white;
+    padding: 10px;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      list-style: none;
+  }
+     button {
+      background: #4CAF50;
+      text-transform: lowercase;
+      color:white;
+      border: 0 none;
+    }
+    input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  #sendButton {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    position: absolute;
+    width: 60px;
+    border: none;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      background: #43A047;
+    }
+  }
+
 }
      
 }

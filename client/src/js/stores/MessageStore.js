@@ -63,6 +63,9 @@ class MessageStore extends EventEmitter {
         }            
       });  
   }
+  clearMessages() {
+    allMessages = [];
+  }
     
 
   emitChange() {
