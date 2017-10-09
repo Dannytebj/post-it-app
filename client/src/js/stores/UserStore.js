@@ -52,7 +52,7 @@ class LoginStore extends EventEmitter {
       .end((error, response) => {
         if (error !== null) {
           message = response.text.toString();
-          console.log(message);
+          // console.log(message);
           this.emit('signInError');
           // message = received.message;
         } else {
@@ -176,9 +176,8 @@ class LoginStore extends EventEmitter {
     this.removeListener('signUpError', callback);
     this.removeListener('signInError', callback);
     this.removeListener('welcome', callback);
-    
-   
   }
+
   dispatcherCallback({ action }) {
     switch (action.type) {
       case Constants.CLICK_SIGN_IN:
