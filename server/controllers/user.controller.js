@@ -14,10 +14,10 @@ export const signUp = (req, res) => {
   let promise;
   if (!emailValidation(email)) {
     res.status(400)
-      .send({ message: 'Please use a valid email address' });
+      .send({ error: 'Please use a valid email address' });
   } else if (password === '') {
     res.status(400)
-      .send({ message: 'Please, you have not entered a password' });
+      .send({ error: 'Please, you have not entered a password' });
   } else {
     promise = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
@@ -35,11 +35,11 @@ export const signUp = (req, res) => {
               }
             );
             res.status(201)
-              .send('Message: User Succesfully created!');
+              .send({ message: 'User Succesfully created!' });
           });
       });
     promise.catch((error) => {
-      res.status(400).send({ message: error });
+      res.status(400).send({ error: error.message });
     });
   }
 };
@@ -50,19 +50,21 @@ export const signIn = (req, res) => {
     .then((user) => {
       const username = user.displayName;
       const uid = user.uid;
-      res.json({ message: 'User Logged In Successfully!',
+      res.json({
+        message: 'User Logged In Successfully!',
         userName: username,
-        userUid: uid });
+        userUid: uid
+      });
     })
     .catch((error) => {
       if (error.code === 'auth/user-not-found') {
         res.status(404)
-          .send('Sorry!, User not found!!, Kindly SignUp first');
+          .send({ error: 'Sorry!, User not found!!, Kindly SignUp first' });
       } else if (error.code === 'auth/wrong-password') {
-        res.status(400)
-          .send('Hey! you have provided an invalid password!!');
+        res.status(422)
+          .send({ error: 'Hey! you have provided an invalid password!!' });
       } else {
-        res.status(400).send(error);
+        res.status(400).send({ error: error.message });
       }
     });
 };
@@ -72,11 +74,11 @@ export const signOut = (req, res) => {
   firebase.auth().signOut()
     .then(() => {
       res.status(200)
-        .send('User signed Out');
+        .send({ message: 'User signed Out' });
     })
     .catch((error) => {
-      res.status(400)
-        .send(error);
+      res.status(500)
+        .send({ error: error.message });
     });
 };
 
@@ -90,7 +92,7 @@ export const signInWithGoogle = (req, res) => {
     })
     .catch((error) => {
       res.status(401);
-      res.send(error);
+      res.send({ error: error.message });
     });
 };
 
@@ -99,15 +101,17 @@ export const resetPassword = (req, res) => {
   const emailAddress = req.body.email;
   if (!emailValidation(emailAddress)) {
     res.status(400)
-      .send({ message: 'Please use a valid email address' });
+      .send({ error: 'Please use a valid email address' });
   } else {
     firebase.auth().sendPasswordResetEmail(emailAddress)
       .then(() => {
         res.status(200)
-          .send('A mail has been sent to the email address provided');
+          .send({
+            message: 'A mail has been sent to the email address provided'
+          });
       }).catch((error) => {
         res.status(500)
-          .send(error);
+          .send({ error: error.message });
       });
   }
 };
