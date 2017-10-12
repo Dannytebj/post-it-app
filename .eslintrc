@@ -75,7 +75,10 @@
         "browser": true,
         "es6": true
     },
-    "parserOptions": {
-        "sourceType": "module"
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
     }
+}
 }

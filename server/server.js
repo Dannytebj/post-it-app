@@ -17,7 +17,7 @@ import config from './config/config';
  */
 const port = process.env.PORT || 9999;
 const app = express();
-const publicPath = express.static(path.join(__dirname, '../client/src/public'));
+const publicPath = express.static(path.join(__dirname, '../client/public'));
 app.use('/', publicPath);
 
 // for parsing application/x-www-form-urlencoded)
@@ -43,7 +43,7 @@ app.use(routes);
 
 const compiler = webpack(Config);
 app.use(webpackMiddleware(compiler, {
-  publicPath: Config.output.publicPath
+  publicPath: Config.output.publicPath,
 }));
 
 firebase.initializeApp(config);

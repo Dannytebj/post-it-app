@@ -13,8 +13,8 @@ module.exports = {
   target: 'web',
   output: {
 
-    path: path.join(__dirname, './client/src/public/js'),
-    publicPath: path.join(__dirname, '/client/src/public'),
+    path: path.join(__dirname, './client/public/js'),
+    publicPath: path.join(__dirname, '/client/public'),
     filename: 'bundle.js',
   },
   devServer: {
@@ -47,12 +47,6 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin(),
-    // new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new HtmlWebpackPlugin({
-    //   template: './server/index.html', // Move the index.html file...
-    // }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],

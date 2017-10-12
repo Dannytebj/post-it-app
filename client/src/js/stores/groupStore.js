@@ -1,10 +1,28 @@
 import { EventEmitter } from 'events';
-import superagent from 'superagent';
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import { GET_GROUPS, CREATE_GROUP } from '../constants/groupConstants';
+import AppConstants from '../constants/AppConstants';
+import AppAPI from '../utils/AppAPI';
 
-let groupList = [];
-let messages = '';
+/**
+ * This Store Handles Sign In, SignIn(Google)
+ * Sign Out, Create Group, and SignOut.
+ * @param {string} message - Initialized empty string to 
+ * hold status messages from server
+ * @param {object} received - Initialized empty object to 
+ * hold response data from server
+ * @param {array} userArray - Holds an array of Users from dataBase
+ */
+let groupArray = [];
+
+function addToGroupArray(payload) {
+  const { newGroupName } = payload;
+  groupArray.push(newGroupName);
+}
+function setGroups(payload) {
+  const { groups } = payload;
+  groupArray = groups;
+  return groupArray;
+}
 
 class GroupStore extends EventEmitter {
   constructor() {
@@ -12,83 +30,38 @@ class GroupStore extends EventEmitter {
     this.dispatchToken = AppDispatcher.register(
       this.dispatcherCallback.bind(this));
   }
-  /**
- * @method getMessage - Returns status message from server
- * @return {string} - current status message
- */
-  getMessage() {
-    return messages;
-  }
-  allGroups() {
-    return groupList;
-  }
-  /**
-     * 
-     * @param {*} userUid - Holds group name
-     * @return {string} response from server   
-     */
-  getGroups({ userUid }) {
-    superagent
-      .get(`/getGroup/${userUid}`)
-      .set('Accept', 'application/json')
-      .end((error, response) => {
-        if (error !== null) {
-          console.log(error);  // eslint-disable-line
-          messages = response.text.toString();
-          this.emit('getGroupError');
-          console.log(messages);
-        } else {
-          groupList = JSON.parse(response.text);
-          this.emit('updateGroupStore');
-        }
-      });
-  }
-  /**
-     * 
-     * @param {*} groupName - Holds group name
-     * @return {string} response from server   
-     */
-  createGroup({ groupName, userId, userName }) {
-    superagent.post('/group')
-      .send({ groupName, userId, userName })
-      .set('Accept', 'application/json')
-      .end((error, response) => {
-        if (error !== null) {
-          messages = response.status.toString();
-          this.emit('createGroupError');
-        } else {
-          messages = response.text.toString();
-          this.emit('createdGroup');
-        }
-        this.emitChange();
-      });
-  }
 
+  getGroups() {
+    return groupArray;
+  }
   emitChange() {
     this.emit('change');
   }
   addChangeListener(callback) {
     this.on('change', callback);
-    this.on('updateGroupStore', callback);
-    this.on('getGroupError', callback);
-    this.on('createdGroup', callback);
-    this.on('createGroupError', callback);
+    this.on('updateGroups', callback);
   }
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    this.removeListener('updateGroupStore', callback);
-    this.removeListener('getGroupError', callback);
-    this.removeListener('createdGroup', callback);
-    this.removeListener('createGroupError', callback);
+    this.removeListener('updateGroups', callback);
+
   }
+
   dispatcherCallback({ action }) {
     switch (action.type) {
-      case GET_GROUPS:
-        this.getGroups(action.payload);
+      case AppConstants.GET_GROUPS:
+        AppAPI.getGroups(action.payload);
+        this.emitChange();
         break;
-      case CREATE_GROUP:
-        this.createGroup(action.payload);
+      case AppConstants.RECEIVE_GROUPS:
+        setGroups(action.payload);
+        this.emit('updateGroups');
+        break;
+      case AppConstants.CREATE_GROUP:
+        addToGroupArray(action.payload);
+        AppAPI.createGroup(action.payload);
+        this.emitChange();
         break;
       default:
         break;
@@ -96,4 +69,5 @@ class GroupStore extends EventEmitter {
     return true;
   }
 }
+
 export default new GroupStore();
