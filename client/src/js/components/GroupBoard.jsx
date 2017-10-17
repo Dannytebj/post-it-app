@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import superagent from 'superagent';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
-import TextBox from '../utils/textbox';
-import Button from '../utils/button';
 import GroupList from './GroupList.jsx';
 import Layout from './Layout.jsx';
 
@@ -80,7 +77,7 @@ class Groups extends Component {
               </form>
             </div>
             <div className="tab-pane 2a" id="2a" aria-hidden="true">
-              <h3>The List of Groups You have created Appears here</h3>
+              <h3>The groups you Belong to;</h3>
               <GroupList groupList= {groupList}/>
             </div>
           </div>

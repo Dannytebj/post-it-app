@@ -69,6 +69,17 @@ module.exports = {
         toastr.error(message);
       });
   },  
+  addUser({ groupId, groupName, name, id }) {
+    axios.post(`/group/${groupId}/users`, { groupName, name, id })
+      .then((response) =>  {
+        const { message } = response.data;
+        AppActions.addUserResponse();
+        toastr.success(message);
+      }).catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },  
   createGroup({ groupName, userId, userName }) {
     axios.post('/group', { groupName, userId, userName })
       .then((response) => {
@@ -87,6 +98,27 @@ module.exports = {
         toastr.success(message);
       }).catch((error) => {
         // const { message } = error.response.data;
+        toastr.error(error);
+      });
+  },
+  getGroupUsers({ groupId }) {
+    axios.get(`/getGroupUsers/${groupId}`)
+      .then((response) => {
+        const { message, groupUser } = response.data;
+        AppActions.receiveGroupUsers(groupUser);
+        toastr.success(message);
+      }).catch((error) => {
+        toastr.error(error);
+      });
+  },
+  getAllUsers({ groupId }) {
+    axios.get(`/notGroupUsers/${groupId}`)
+      .then((response) => {
+        const { message, allUsers } = response.data;
+        // console.log(allUsers,'====> From AppAPI');
+        AppActions.receiveAllUsers(allUsers);
+        toastr.success(message);
+      }).catch((error) => {
         toastr.error(error);
       });
   },

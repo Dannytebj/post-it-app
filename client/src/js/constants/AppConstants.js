@@ -12,4 +12,10 @@ module.exports = keyMirror({
   CREATE_GROUP: null,
   ADD_NEW_MESSAGE: null,
   GET_ALL_MESSAGES: null,
+  GET_GROUP_USERS: null,
+  GET_ALL_USERS: null,
+  RECEIVE_GROUP_USERS: null,
+  RECEIVE_ALL_USERS: null,
+  ADD_USER: null,
+  ADD_USER_RESPONSE: null,
 });

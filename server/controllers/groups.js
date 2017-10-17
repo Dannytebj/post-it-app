@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import _ from 'underscore';
 import getArray from '../utils/getArray';
 import SendNotification from '../utils/sendNotifications';
 
@@ -70,11 +71,46 @@ export const getGroupUsers = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`group/${groupId}/users`);
   const ref1 = firebase.database().ref().child('users');
+
   ref.once('value', (users) => {
     const groupUsers = users.val();
     if (groupUsers === null) {
-      res.status(404)
-        .send({ error: 'This group has no user yet!' });
+      res.status(200)
+        .send({ message: 'This group has no user yet!' });
+    } else {
+      const newArr = getArray(groupUsers);
+      ref1.once('value', (users2) => {
+        const usersGotten = users2.val();
+        if (users2 !== null) {
+          const allUsers = getArray(usersGotten);
+          const filtered = allUsers.filter(userInAllUsers => newArr.some(
+            userInGroup => userInAllUsers.id === userInGroup.id),
+          );
+          res.status(200)
+            .send({
+              message: 'Users fetched successfully',
+              groupUser: filtered,
+            });
+        }
+      })
+        .catch((error) => {
+          res.status(400)
+            .send({ message: error.message });
+        });
+    }
+  });
+};
+
+// ===========controller gets the all users not in a particular group =========
+export const notGroupUsers = (req, res) => {
+  const groupId = req.params.groupId;
+  const ref = firebase.database().ref(`group/${groupId}/users`);
+  const ref1 = firebase.database().ref().child('users');
+  ref.once('value', (users) => {
+    const groupUsers = users.val();
+    if (groupUsers === null) {
+      res.status(200)
+        .send({ message: 'This group has no user yet!' });
     } else {
       const newArr = getArray(groupUsers);
       ref1.once('value', (users2) => {
@@ -87,7 +123,7 @@ export const getGroupUsers = (req, res) => {
           res.status(200)
             .send({
               message: 'Users fetched successfully',
-              groupUser: filtered,
+              allUsers: filtered,
             });
         }
       })
@@ -166,16 +202,16 @@ export const getAllUsers = (req, res) => {
 };
 //  ============Controller Adds user to group ============ 
 export const addUser = (req, res) => {
-  const { groupName, name, userId } = req.body;
+  const { groupName, name, id } = req.body;
   const groupId = req.params.groupId;
-  if (userId) {
+  if (id) {
     const promise = firebase.database()
-      .ref(`/group/${groupId}/users/${userId}`)
+      .ref(`/group/${groupId}/users/${id}`)
       .update({
-        id: userId,
+        id,
         name,
       });
-    firebase.database().ref(`/users/${userId}/groups`).push(
+    firebase.database().ref(`/users/${id}/groups`).push(
       {
         groupId,
         groupName,
