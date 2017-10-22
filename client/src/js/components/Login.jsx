@@ -73,7 +73,7 @@ class Login extends Component {
     return (
       <div className="container-fluid">
         <div className="panel panel-success">
-          <div className="panel-heading"><h3>PostIT... #JustPostIt</h3></div>
+          <div className="panel-heading"><h5>PostIT... #JustPostIt</h5></div>
           <div className="panel-body">
             <div className="form center-block">
               {(!signingIn) ? <h2><p className="centered">SIGN UP</p></h2> :

@@ -10,26 +10,25 @@ class Group extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList: GroupStore.getUsers(),
+      userList: [],
       showMessages: false,
     };
     this.showGroupUsers = this.showGroupUsers.bind(this);
     this.showAllUsers = this.showAllUsers.bind(this);
     this.showMessageBoard = this.showMessageBoard.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
   componentWillMount() {
-    GroupStore.on('updateGroupUsers', () => {
-      this.setState({
-        userList: GroupStore.getUsers(),
-      });
-    });
+    GroupStore.addChangeListener(this._onChange);
   }
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this.onChange);
+    GroupStore.removeChangeListener(this._onChange);
   }
-  onChange() {
-    this.forceUpdate();
+
+  _onChange() {
+    this.setState({
+      userList: GroupStore.getUsers(),
+    });
   }
   showGroupUsers() {
     const { groupId, groupName } = this.props.group;

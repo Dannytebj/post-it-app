@@ -12,21 +12,24 @@ class  AddUser extends Component {
     this.state = {
       allUserList: GroupStore.getAllUsers(),
     };
-    this.onChange = this.onChange.bind(this);
+    this._onChange = this._onChange.bind(this);
+    this.removeNode = this.removeNode.bind(this);
   }
   componentWillMount() {
-    GroupStore.on('updateAllUsers', () => {
-      this.setState({
-        allUserList: GroupStore.getAllUsers(),
-      });
-    });
+    GroupStore.addChangeListener(this._onChange);
   }
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this.onChange);
+    GroupStore.removeChangeListener(this._onChange);
   }
-  onChange() {
-    this.forceUpdate();
+  _onChange() {
+    this.setState({
+      allUserList: GroupStore.getAllUsers(),
+    });
+  } 
+  removeNode() {
+    GroupStore.removeChangeListener(this._onChange);
   }
+
   
   render() {
     const { allUserList } = this.state;
@@ -42,7 +45,7 @@ class  AddUser extends Component {
                 <h5 className="modal-title" 
                   id="addUser">Add Users to Your Group</h5>
                 <a type="button" className="times" 
-                  className="close" data-dismiss="modal" aria-label="Close">
+                  className="close" onClick={this.removeNode} data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </a>
               </div>

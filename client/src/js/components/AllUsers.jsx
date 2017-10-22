@@ -13,13 +13,18 @@ class AllUsers extends Component {
       userAdded: false,
     };
     this.addUser = this.addUser.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   componentWillMount() {
-    GroupStore.on('userAdded', () => {
-      this.setState({
-        userAdded: false,
-      });
+    GroupStore.addChangeListener(this._onChange);
+  }
+  componentWillUnmount() {
+    GroupStore.removeChangeListener(this._onChange);
+  }
+  _onChange() {
+    this.setState({
+      userAdded: false,
     });
   }
   addUser() {

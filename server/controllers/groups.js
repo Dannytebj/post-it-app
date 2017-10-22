@@ -146,7 +146,7 @@ export const getMessages = (req, res) => {
       res.status(200)
         .send({ messages });
     } else {
-      res.status(404)
+      res.status(200)
         .send({ message: 'There are no Messages!' });
     }
   })
@@ -157,20 +157,20 @@ export const getMessages = (req, res) => {
 
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
-  const { message, priority, groupId, userId, userName } = req.body;
+  const { message, priority, groupId, id, name } = req.body;
   // const currUser = firebase.auth().currentUser;
-  if (userId) {
-    const messagekey = firebase.database().ref(`messages/${groupId}`)
+  if (id) {
+    const messageKey = firebase.database().ref(`messages/${groupId}`)
       .push({
-        id: userId,
-        name: userName,
-        messages: message,
-        Priority: priority,
+        id,
+        name,
+        message,
+        priority,
       }).key;
     const promise = firebase.database().ref(`group/${groupId}/messages`)
       .push({
-        id: userId,
-        messageKey: messagekey,
+        id,
+        messageKey,
       })
       .then(() => {
         if (priority === 'Urgent' || priority === 'Critical') {

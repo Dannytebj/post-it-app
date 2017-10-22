@@ -15,21 +15,19 @@ class Groups extends Component {
       isFetchingData: false,
       fetchMessage: '',
     };
-    this.onChange = this.onChange.bind(this);
+    this._onChange = this._onChange.bind(this);
     this.fetchGroups = this.fetchGroups.bind(this);
   }
   componentWillMount() {
-    GroupStore.on('updateGroups', () => {
-      this.setState({
-        groupList: GroupStore.getGroups(),
-      });
-    });
+    GroupStore.addChangeListener(this._onChange);
   }
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this.onChange);
+    GroupStore.removeChangeListener(this._onChange);
   }
-  onChange() {
-    this.forceUpdate();
+  _onChange() {
+    this.setState({
+      groupList: GroupStore.getGroups(),
+    });
   }
   doCreateGroup(event) {
     event.preventDefault();
@@ -66,12 +64,12 @@ class Groups extends Component {
               <form onSubmit={this.doCreateGroup.bind(this)}>
                 <div className="form-group row">
                   <div className ="col-sm-4">
-                    <input type="text" ref="groupName" className="form-control" 
+                    <input type="text" ref="groupName" className="form-control grpInput" 
                       id="groupName" required={true} />
                   </div>
                   <div className="col-sm-4">
                     <button type="submit" className="send" 
-                      className="btn btn-primary" >Create Group</button>
+                      className="btn btn-primary grpButton" >Create Group</button>
                   </div>
                 </div>
               </form>

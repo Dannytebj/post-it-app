@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
-import { browserHistory } from "react-router";
 
 // import AppActions from '../actions/AppActions';
 
@@ -9,14 +9,13 @@ module.exports = {
   signIn({ email, password }) {
     axios.post('/signIn', { email, password })
       .then((response) =>  {
-        browserHistory.push('home');
         const { userName, userUid, message } = response.data;
         localStorage.setItem('userName', userName);
         localStorage.setItem('userUid', userUid);
+        browserHistory.push('home');
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
-        // console.log(error.response.data);
         toastr.error(message);
       });
   },
@@ -122,21 +121,31 @@ module.exports = {
         toastr.error(error);
       });
   },
+  postMessage({ groupId, message, priority, id, name }) {
+    axios.post('/message', { groupId, message, priority, id, name })
+      .then(() => {
+        // const { message } = response.data;
+        const messages = { id, message, name };
+        console.log(messages, "=====> ApppApi");
+        AppActions.updateMessageStore(id, message, name);
+      }).catch((error) => {
+        toastr.error(error);
+      });
+  },
+  getAllMessages({ groupId }) {
+    axios.get(`/getMessages/${groupId}`)
+      .then((response) => {
+        const { messages } = response.data;
+        if (messages) {
+          AppActions.receiveAllMessages(messages);
+        } else {
+          const { message } = response.data;
+          toastr.info(message);
+          AppActions.resetMessageStore();
+        }
+      }).catch((error) => {
+        toastr.error(error);
+      });
+  },
   
 };
-
-// export const signIn = ({ email, password }) => {
-//   axios.post('/signIn', { email, password })
-//     .then((response) => {
-//       const { userName, userUid, message } = response;
-//       localStorage.setItem('userName', userName);
-//       localStorage.setItem('uid', userUid);
-//       toastr.success(message);
-//       browserHistory.push('home');
-//     }).catch((error) => {
-//       toastr.error(error);
-//     });
-// };
-// export const signUp = ({ email, password }) => {
-
-// };

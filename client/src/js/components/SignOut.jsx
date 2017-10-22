@@ -22,10 +22,10 @@ class SignOut extends Component {
   _onChange() {
     this.forceUpdate();
   } 
-  static logOut() {
+  logOut() {
     signOut();
   }
-  static home() {
+  home() {
     browserHistory.push('home');
   }
   render() {

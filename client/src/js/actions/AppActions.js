@@ -157,6 +157,44 @@ const ViewActions = {
       type: AppConstants.ADD_USER_RESPONSE,
     });
   },
+  /**
+ * Action methods that Adds 
+ *  Users to a groupserver response
+ * @param {string} groupId groupId to Add User
+ * @param {string} message Name of Group
+ * @param {string} name Name of User
+ * @param {string} id Id of User
+ * @param {string} priority priority of message
+ */
+  postMessage: (groupId, message, priority, id, name) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.POST_MESSAGE,
+      payload: { groupId, message, priority, id, name },
+    });
+  },
+  getMessages: (groupId) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_ALL_MESSAGES,
+      payload: { groupId },
+    });
+  },
+  updateMessageStore: (id, message, name) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.UPDATE_MESSAGE_STORE,
+      payload: { id, message, name },
+    });
+  },
+  receiveAllMessages: (messages) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RECEIVE_ALL_MESSAGES,
+      payload: { messages },
+    });
+  }, 
+  resetMessageStore: () => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RESET_STORE,
+    });
+  },
 };
 
 export default ViewActions;
