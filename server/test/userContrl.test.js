@@ -150,20 +150,6 @@ describe('The SignOut Controller', () => {
 }); // End of SignOut Test Suite
 
 describe('The Reset Password Controller', () => {
-  it('should return 200 on successful password reset', (done) => {
-    const emailAddress = 'johndoe@myself.com';
-    chai.request(app)
-      .post('/resetPassword', resetPassword)
-      .send({ emailAddress })
-      .set('Accept', 'application/json')
-      .end((res) => {
-        if (res) {
-          res.status.should.equal(200);
-        }
-        done();
-      });
-  });
-
   it('should return 400 if an invalid email is passed', (done) => {
     const badEmail = 'badtguy.com';
     chai.request(app)

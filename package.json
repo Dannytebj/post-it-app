@@ -15,8 +15,8 @@
     "dev": "babel-watch ./server/server.js",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
     "start:dev": "babel-node ./server/server.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "test1": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js && npm run coverage"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",    
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js && npm run coverage"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "attr-accept": "^1.1.0",
+    "axios": "^0.16.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.4.1",

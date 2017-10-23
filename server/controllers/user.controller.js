@@ -53,18 +53,18 @@ export const signIn = (req, res) => {
       res.json({
         message: 'User Logged In Successfully!',
         userName: username,
-        userUid: uid
+        userUid: uid,
       });
     })
     .catch((error) => {
       if (error.code === 'auth/user-not-found') {
         res.status(404)
-          .send({ error: 'Sorry!, User not found!!, Kindly SignUp first' });
+          .send({ message: 'Sorry!, User not found!!, Kindly SignUp first' });
       } else if (error.code === 'auth/wrong-password') {
         res.status(422)
-          .send({ error: 'Hey! you have provided an invalid password!!' });
+          .send({ message: 'Hey! you have provided an invalid password!!' });
       } else {
-        res.status(400).send({ error: error.message });
+        res.status(400).send({ message: error.message });
       }
     });
 };
@@ -78,7 +78,7 @@ export const signOut = (req, res) => {
     })
     .catch((error) => {
       res.status(500)
-        .send({ error: error.message });
+        .send({ message: error.message });
     });
 };
 
@@ -92,7 +92,7 @@ export const signInWithGoogle = (req, res) => {
     })
     .catch((error) => {
       res.status(401);
-      res.send({ error: error.message });
+      res.send({ message: error.message });
     });
 };
 
@@ -111,7 +111,7 @@ export const resetPassword = (req, res) => {
           });
       }).catch((error) => {
         res.status(500)
-          .send({ error: error.message });
+          .send({ message: error.message });
       });
   }
 };

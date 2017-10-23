@@ -5,7 +5,7 @@ import {
   signIn,
   signOut,
   signInWithGoogle,
-  resetPassword
+  resetPassword,
 } from '../controllers/user.controller';
 import {
   createGroup,
@@ -14,7 +14,8 @@ import {
   getMessages,
   postMessage,
   getAllUsers,
-  addUser
+  notGroupUsers,
+  addUser,
 } from '../controllers/groups';
 
 
@@ -33,6 +34,7 @@ router.post('/resetPassword', resetPassword);
 // Get Routes
 router.get('/getUsers', getAllUsers);
 router.get('/getGroupUsers/:groupId', getGroupUsers);
+router.get('/notGroupUsers/:groupId', notGroupUsers);
 router.get('/getGroup/:userUid', getGroups);
 router.get('/getMessages/:groupId', getMessages);
 

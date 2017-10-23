@@ -9,6 +9,8 @@ import {
   getGroups,
   getGroupUsers, 
   postMessage,
+  getMessages,
+  notGroupUsers,
   getAllUsers,
   addUser } from '../controllers/groups';
 
@@ -100,20 +102,20 @@ describe('The Get All Users controller', () => {
 });
 
 describe('The Add User Controller', () => {
-  let userId; 
-  let username;
-  let group;
+  let id; 
+  let name;
+  let groupName;
   let groupId;
   beforeEach(() => {
-    username = 'Roosevelt Halvorson';
-    userId = '2Gw8x06GEKhxBmoOsArdbzIcmYF3';
+    name = 'Roosevelt Halvorson';
+    id = '2Gw8x06GEKhxBmoOsArdbzIcmYF3';
     groupId = '-Kv5rBdlfntOZp1ICdPp';
-    group = 'Testers Group';
+    groupName = 'Testers Group';
   });
   it('should return 200 when a user is successfully added to group', (done) => {
     chai.request(app)
       .post(`/group/${groupId}/users`, addUser)
-      .send({ group, username, userId })
+      .send({ groupName, name, id })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -123,3 +125,82 @@ describe('The Add User Controller', () => {
       });
   });
 });
+
+describe('The Get Group Users Controller', () => {
+  let groupId;
+  beforeEach(() => {
+    groupId = '-Kv5rBdlfntOZp1ICdPp';
+  });
+  it('should return 200 when all Group Users are fetched', (done) => {
+    chai.request(app)
+      .get(`/getGroupUsers/${groupId}`, getGroupUsers)
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(200);
+        }
+        done();
+      });
+  });
+});
+
+describe('The Get All Users Controller', () => {
+  let groupId;
+  beforeEach(() => {
+    groupId = '-Kv5rBdlfntOZp1ICdPp';
+  });
+  it('should return 200 when all Users not in that group are fetched', 
+    (done) => {
+      chai.request(app)
+        .get(`/notGroupUsers/${groupId}`, notGroupUsers)
+        .set('Accept', 'application/json')
+        .end((res) => {
+          if (res) {
+            res.status.should.equal(200);
+          }
+          done();
+        });
+    });
+});
+
+describe('The Message Controllers', () => {
+  let id; 
+  let name;
+  let message;
+  let priority;
+  let groupId;
+  beforeEach(() => {
+    name = 'Roosevelt Halvorson';
+    id = '2Gw8x06GEKhxBmoOsArdbzIcmYF3';
+    groupId = '-Kv5rBdlfntOZp1ICdPp';
+    message = 'Testers Group Message';
+    priority = 'Normal';
+  });
+  it('should return 200 when a message is successfully posted to a group', 
+    (done) => {
+      chai.request(app)
+        .post('/message', postMessage)
+        .send({ message, name, id, priority, groupId })
+        .set('Accept', 'application/json')
+        .end((res) => {
+          if (res) {
+            res.status.should.equal(200);
+          }
+          done();
+        });
+    });
+
+  it('should return 200 when all messages are successfully fetched',
+    (done) => {
+      chai.request(app)
+        .get(`/getMessages/${groupId}`, getMessages)
+        .set('Accept', 'application/json')
+        .end((res) => {
+          if (res) {
+            res.status.should.equal(200);
+          }
+          done();
+        });
+    });
+});
+

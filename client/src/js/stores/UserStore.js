@@ -1,8 +1,7 @@
 import { EventEmitter } from 'events';
-import superagent from 'superagent';
-import { browserHistory } from "react-router";
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import Constants from '../constants/';
+import AppConstants from '../constants/AppConstants';
+import AppAPI from '../utils/AppAPI';
 
 /**
  * This Store Handles Sign In, SignIn(Google)
@@ -13,29 +12,12 @@ import Constants from '../constants/';
  * hold response data from server
  * @param {array} userArray - Holds an array of Users from dataBase
  */
-let message = '';
-let received = {};
-let userArray = []; // eslint-disable-line
 
 class LoginStore extends EventEmitter {
   constructor() {
     super();
     this.dispatchToken = AppDispatcher.register(
       this.dispatcherCallback.bind(this));
-  }
-  /**
-     * @method getMessage - Returns status message from server
-     * @return {string} - current status message
-     */
-  getMessage() {
-    return message;
-  }
-  /**
-     * @method getUsers
-     * @return {array} - Returns an Array of Users
-     */
-  getUsers() {
-    return userArray;
   }
 
   /**
@@ -45,7 +27,6 @@ class LoginStore extends EventEmitter {
      * @return {array} array of users   
      */
   clickSignIn({ email, password }) {
-    // console.log('...signing user in');
     superagent.post('/signIn')
       .send({ email, password })
       .set('Accept', 'application/json')
@@ -162,41 +143,33 @@ class LoginStore extends EventEmitter {
   }
   addChangeListener(callback) {
     this.on('change', callback);
-    this.on('messageSent', callback);
-    this.on('resetError', callback);
-    this.on('signUpError', callback);
-    this.on('signInError', callback);
-    this.on('welcome', callback);
   }
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    this.removeListener('messageSent', callback);
-    this.removeListener('resetError', callback);
-    this.removeListener('signUpError', callback);
-    this.removeListener('signInError', callback);
-    this.removeListener('welcome', callback);
   }
 
   dispatcherCallback({ action }) {
     switch (action.type) {
-      case Constants.CLICK_SIGN_IN:
-        this.clickSignIn(action.payload);
+      case AppConstants.CLICK_SIGN_IN:
+        AppAPI.signIn(action.payload);
+        this.emitChange();
         break;
-      case Constants.CLICK_SIGN_UP:
-        this.clickSignUp(action.payload);
+      case AppConstants.CLICK_SIGN_UP:
+        AppAPI.signUp(action.payload);
+        this.emitChange();
         break;
-      case Constants.CLICK_SIGN_OUT:
-        this.clickSignOut();
+      case AppConstants.CLICK_SIGN_OUT:
+        AppAPI.signOut();
+        this.emitChange();
         break;
-      case Constants.GET_USER:
-        this.getAllUsers();
+      case AppConstants.SIGN_IN_GOOGLE:
+        AppAPI.signInWithGoogle(action.payload);
+        this.emitChange();
         break;
-      case Constants.SIGN_IN_GOOGLE:
-        this.signInWithGoogle(action.payload);
-        break;
-      case Constants.RESET_PASSWORD:
-        this.resetPassword(action.payload);
+      case AppConstants.RESET_PASSWORD:
+        AppAPI.resetPassword(action.payload);
+        this.emitChange();
         break;
       default:
         break;
