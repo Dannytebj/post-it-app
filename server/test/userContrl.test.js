@@ -151,7 +151,7 @@ describe('The SignOut Controller', () => {
 
 describe('The Reset Password Controller', () => {
   it('should return 200 on successful password reset', (done) => {
-    const emailAddress = 'johndoe@myself.com';
+    const emailAddress = 'postitbydanny@gmail.com';
     chai.request(app)
       .post('/resetPassword', resetPassword)
       .send({ emailAddress })
