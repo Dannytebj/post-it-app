@@ -4,9 +4,9 @@ node_js:
 before_install:
   - npm install
 after_script:
-  - npm run test1
+  - npm run test
 after_success:
-  - npm run coveralls
+  - npm run coverage
 
 env:
   CODECLIMATE_REPO_TOKEN: ab14f029319defa6d4d279712330e17b674d6be5d4960b33fbf3581064954dda
