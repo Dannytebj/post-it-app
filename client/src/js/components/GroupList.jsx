@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Group from './Group.jsx';
+import Group from './Group';
 
 const GroupList = ({ groupList }) => {
   return (

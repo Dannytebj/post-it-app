@@ -15,7 +15,8 @@
     "dev": "babel-watch ./server/server.js",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
     "start:dev": "babel-node ./server/server.js",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",    
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "client-test": "jest ./client/src/__test__/*.spec.js --coverage",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js && npm run coverage"
   },
   "repository": {
@@ -30,12 +31,17 @@
   "homepage": "https://github.com/Dannytebj/post-it-app#readme",
   "devDependencies": {
     "assert": "^1.4.1",
+    "babel-eslint": "^8.0.1",
+    "babel-jest": "^21.2.0",
     "babel-plugin-istanbul": "^4.1.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "coveralls": "^2.13.1",
     "dotenv": "^4.0.0",
     "enzyme": "^2.9.1",
+    "enzyme-to-json": "^3.1.4",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^11.3.1",
@@ -48,7 +54,32 @@
     "jest": "^20.0.4",
     "nodemon": "^1.11.0",
     "nyc": "^11.2.1",
+    "react-test-renderer": "^16.0.0",
     "sinon": "^2.3.6"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "Login": "<rootDir>/client/src/js/components/Login.jsx",
+      "GroupStore": "<rootDir>/client/src/js/stores/GroupStore.js",
+      "MessageStore": "<rootDir>/client/src/js/stores/MessageStore.js",
+      "UserStore": "<rootDir>/client/src/js/stores/UserStore.js",
+      "^.+\\.(s?css|less)$": "<rootDir>/client/src/__test__/mocks/styleMock.js"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendors/**",
+      "!**/public/**",
+      "!**/server/**",
+      "!**/coverage/**",
+      "!webpack.config.js",
+      "!bundle.js"
+    ]
   },
   "dependencies": {
     "attr-accept": "^1.1.0",

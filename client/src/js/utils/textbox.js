@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextBox = ({ onChange, currentValue, label, isPassword }) => {
+const TextBox = ({ onChange, currentValue, label, isPassword, className }) => {
   return (<div>
     <label>{label}</label>
-    <input className= "form-control"
+    <input className={className}
       type = {isPassword ? 'password' : 'text'}
       onChange = { (event) => {
         onChange(event.target.value);
@@ -20,6 +20,7 @@ TextBox.propTypes = {
   currentValue: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   isPassword: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default TextBox;

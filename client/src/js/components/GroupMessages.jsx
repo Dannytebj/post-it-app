@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ViewActions from '../actions/AppActions';
 import MessageStore from '../stores/MessageStore';
-import MessageList from './MessageList.jsx';
+import MessageList from './MessageList';
 import MessageTextBox from '../utils/msgText';
 
 const { getMessages, postMessage } = ViewActions;
@@ -79,14 +79,14 @@ class GroupMessages extends Component {
               <div className="row msgBox">
                 <div className="col-lg-6">
                   <div className="input-group">
-                    <MessageTextBox
+                    <MessageTextBox className='msgText'
                       onChange={(value) => { 
                         this.setState({ message: value });
                       }}
                       currentValue={message}
                     />
                     <span className="input-group-btn">
-                      <button className="btn btn-default" 
+                      <button className="btn btn-default send-msg" 
                         type="button" onClick={this.sendMessage}>send</button>
                     </span>
                   </div>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ViewActions from '../actions/AppActions';
 import MessageStore from '../stores/MessageStore';
-import MessageGroupList from './MessageGroupList.jsx';
-import Layout from './Layout.jsx';
+import MessageGroupList from './MessageGroupList';
+import Layout from './Layout';
 
 
 const { getGroups } = ViewActions;
@@ -33,9 +33,7 @@ class MessageBoard extends Component {
   }
 
   fetchGroups() {
-    console.log('I was called !');
     const userUid = localStorage.getItem('userUid');
-    console.log('fetching groups!!');
     getGroups(userUid);
   }
   render() {

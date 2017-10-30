@@ -1,12 +1,16 @@
 import React from 'react';
 import MyNavigator from './Navigation.jsx';
         
-const user = localStorage.getItem('userName');
-const Layout = () => (
-  <nav className="navbar navbar-default">
+const Layout = () => {
+  const user = localStorage.getItem('userName');
+  return (<nav className="navbar navbar-default">
     <div className="container-fluid">
       <div className="navbar-header">
-        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#my-navbar-collapse" aria-expanded="false">
+        <button type="button" 
+          className="navbar-toggle collapsed" 
+          data-toggle="collapse" 
+          data-target="#my-navbar-collapse" 
+          aria-expanded="false">
           <span className="sr-only">Toggle navigation</span>
           <span className="icon-bar" />
           <span className="icon-bar" />
@@ -18,7 +22,7 @@ const Layout = () => (
         <MyNavigator/>
       </div>
     </div>
-  </nav>
-);
+  </nav>);
+};
 
 export default Layout;  

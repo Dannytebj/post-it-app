@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
-import GroupList from './GroupList.jsx';
-import Layout from './Layout.jsx';
+import GroupList from './GroupList';
+import Layout from './Layout';
 
 
 const { getGroups, createGroup } = ViewActions;
@@ -41,7 +41,7 @@ class Groups extends Component {
   }  
   fetchGroups() {
     const userUid = localStorage.getItem('userUid');
-    console.log('fetching groups!!');
+    console.log(userUid);
     getGroups(userUid);
   }
   render() {
@@ -54,7 +54,7 @@ class Groups extends Component {
             <li className="active">
               <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
             </li>
-            <li><a href="" onClick = {this.fetchGroups} data-target=".2a"  data-toggle="tab">View Your Groups</a>
+            <li><a className="fetchGroups" href="" onClick = {this.fetchGroups} data-target=".2a"  data-toggle="tab">View Your Groups</a>
             </li>
           </ul>
 

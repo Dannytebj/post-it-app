@@ -124,15 +124,13 @@ module.exports = {
   postMessage({ groupId, message, priority, id, name }) {
     axios.post('/message', { groupId, message, priority, id, name })
       .then(() => {
-        // const { message } = response.data;
-        const messages = { id, message, name };
-        console.log(messages, "=====> ApppApi");
         AppActions.updateMessageStore(id, message, name);
       }).catch((error) => {
         toastr.error(error);
       });
   },
   getAllMessages({ groupId }) {
+    console.log(groupId, "=====> ApppApi");
     axios.get(`/getMessages/${groupId}`)
       .then((response) => {
         const { messages } = response.data;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from "react-router";
 import UserStore from '../stores/UserStore';
 import viewActions from '../actions/AppActions';
-import Layout from './Layout.jsx';
+import Layout from './Layout';
 
 
 const { signOut } = viewActions;
@@ -11,6 +11,7 @@ class SignOut extends Component {
     super();
     this._onChange = this._onChange.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.home = this.home.bind(this);
   }
  
   componentDidMount() {
@@ -37,9 +38,9 @@ class SignOut extends Component {
             <div className="well well-lg">
               <div className="btn-group" role="group" aria-label="Sign Out">
                 <h3>Are you sure you want to leave?</h3>
-                <button type="button" className="btn btn-default" 
+                <button type="button" className="btn btn-default yes-btn" 
                   onClick={this.logOut}>Yes</button>
-                <button type="button" className="btn btn-default" 
+                <button type="button" className="btn btn-default no-btn" 
                   onClick={this.home}>No</button>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GroupMessages from './GroupMessages.jsx';
+import GroupMessages from './GroupMessages';
 
 const MessageGroupList = ({ groupList }) => {
   return (

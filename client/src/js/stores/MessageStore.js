@@ -21,14 +21,11 @@ function setMessages(payload) {
 }
 function setGroups(payload) {
   const { groups } = payload;
-  // console.log(groups, '======> groupStore');
   groupArray = groups;
 }
 function updateMessages(payload) {
-  const {id, message, name } = payload;
-  // const messages = { id, message, name };
+  const { id, message, name } = payload;
   messageArray.push({ id, message, name });
-  console.log(messageArray, '===> updated messages');
 }
 function clearMessageArray() {
   messageArray = [];

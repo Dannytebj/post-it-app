@@ -58,7 +58,6 @@ const ViewActions = {
  * @param {string} userUid 
  */
   getGroups: (userUid) => {
-    console.log(userUid);
     AppDispatcher.handleViewAction({
       type: AppConstants.GET_GROUPS,
       payload: { userUid },
