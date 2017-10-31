@@ -18,3 +18,4 @@ exclude_paths:
 - server/test/
 - client/src/__test__/*
 - bundle.js
+- client/public/js/bundle.js
