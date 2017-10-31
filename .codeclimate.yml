@@ -17,3 +17,4 @@ exclude_paths:
 - node_modules/
 - server/test/
 - client/src/__test__/*
+- bundle.js
