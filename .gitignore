@@ -3,7 +3,7 @@ node_modules
 
 # testing
 coverage
-
+.coveralls.yml
 # production
 build
 dist
@@ -12,3 +12,4 @@ dist
 .DS_Store
 .env
 npm-debug.log
+.nyc_output

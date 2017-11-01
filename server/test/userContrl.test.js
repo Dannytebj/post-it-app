@@ -1,13 +1,13 @@
-import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import assert from 'assert';
 import faker from 'faker';
-import { signUp, signIn, signOut, resetPassword } from '../controllers/user.controller';
+import { 
+  signUp,
+  signIn,
+  signOut, 
+  resetPassword } from '../controllers/user.controller';
 
 const app = require('../server');
-
-const expect = require('chai').expect;
 
 chai.should();
 chai.use(chaiHttp);
@@ -21,7 +21,7 @@ describe('The SignUp route controller', () => {
     userName = faker.name.findName();
     email = faker.internet.email();
     password = 'abc123';
-    phoneNumber = '+2348098765432';
+    phoneNumber = faker.phone.phoneNumber();
   });
   it('should return 200 on successful signUp', (done) => {
     chai.request(app)
@@ -117,7 +117,7 @@ describe('The SignIn Controller', () => {
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
-          res.status.should.equal(400)
+          res.status.should.equal(400);
         }
         done();
       });
@@ -150,20 +150,6 @@ describe('The SignOut Controller', () => {
 }); // End of SignOut Test Suite
 
 describe('The Reset Password Controller', () => {
-  it('should return 200 on successful password reset', (done) => {
-    const emailAddress = 'johndoe@myself.com';
-    chai.request(app)
-      .post('/resetPassword', resetPassword)
-      .send({ emailAddress })
-      .set('Accept', 'application/json')
-      .end((res) => {
-        if (res) {
-          res.status.should.equal(200);
-        }
-        done();
-      });
-  });
-
   it('should return 400 if an invalid email is passed', (done) => {
     const badEmail = 'badtguy.com';
     chai.request(app)

@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-// import dbConfig from '../config/config';
+import _ from 'underscore';
 import getArray from '../utils/getArray';
 import SendNotification from '../utils/sendNotifications';
 
@@ -17,32 +17,32 @@ export const createGroup = (req, res) => {
   const userUid = req.body.userId;
   const userName = req.body.userName;
   if (userUid !== null) {
-    const dbRef = firebase.database().ref('/group'),
-      group = req.body.groupName,
-      newGroupId = dbRef.push({
-        groupName: group,
-      }).key;
+    const dbRef = firebase.database().ref('/group');
+    const group = req.body.groupName;
+    const newGroupId = dbRef.push({
+      groupName: group,
+    }).key;
     firebase.database().ref(`/users/${userUid}/groups`).push(
       {
         groupId: newGroupId,
         groupName: group,
-        isAdmin: true
+        isAdmin: true,
       });
     firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
       .update({
         id: userUid,
-        name: userName
+        name: userName,
       })
       .then(() => {
         res.status(200);
         res.send({ message: `You Just Created a group called:${group}` });
       })
       .catch((error) => {
-        res.send(error);
+        res.send({ message: error.message });
       });
   } else {
     res.status(400);
-    res.send('Please sign In first!');
+    res.send({ message: 'Please sign In first!' });
   }
 };
 
@@ -54,14 +54,15 @@ export const getGroups = (req, res) => {
     const groupList = data.val();
     if (groupList === null) {
       res.status(404)
-        .send('You do not belong to any group yet');
+        .send({ message: 'You do not belong to any group yet' });
     } else {
       const groups = getArray(groupList);
       res.status(200)
-        .send(groups);
+        .send({ message: 'groups fetched successfully!', groups });
     }
   }).catch((error) => {
-    res.send(error);
+    res.status(500)
+      .send({ message: error.message });
   });
 };
 
@@ -70,27 +71,65 @@ export const getGroupUsers = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`group/${groupId}/users`);
   const ref1 = firebase.database().ref().child('users');
-  ref.once('value', (data) => {
-    const groupUsers = data.val();
+
+  ref.once('value', (users) => {
+    const groupUsers = users.val();
     if (groupUsers === null) {
-      res.status(404)
-        .send('This group has no user yet!');
+      res.status(200)
+        .send({ message: 'This group has no user yet!' });
     } else {
       const newArr = getArray(groupUsers);
-      ref1.once('value', (data1) => {
-        const usersGotten = data1.val();
-        if (data1 !== null) {
+      ref1.once('value', (users2) => {
+        const usersGotten = users2.val();
+        if (users2 !== null) {
+          const allUsers = getArray(usersGotten);
+          const filtered = allUsers.filter(userInAllUsers => newArr.some(
+            userInGroup => userInAllUsers.id === userInGroup.id),
+          );
+          res.status(200)
+            .send({
+              message: 'Users fetched successfully',
+              groupUser: filtered,
+            });
+        }
+      })
+        .catch((error) => {
+          res.status(400)
+            .send({ message: error.message });
+        });
+    }
+  });
+};
+
+// ===========controller gets the all users not in a particular group =========
+export const notGroupUsers = (req, res) => {
+  const groupId = req.params.groupId;
+  const ref = firebase.database().ref(`group/${groupId}/users`);
+  const ref1 = firebase.database().ref().child('users');
+  ref.once('value', (users) => {
+    const groupUsers = users.val();
+    if (groupUsers === null) {
+      res.status(200)
+        .send({ message: 'This group has no user yet!' });
+    } else {
+      const newArr = getArray(groupUsers);
+      ref1.once('value', (users2) => {
+        const usersGotten = users2.val();
+        if (users2 !== null) {
           const allUsers = getArray(usersGotten);
           const filtered = allUsers.filter(userInAllUsers => !newArr.some(
             userInGroup => userInAllUsers.id === userInGroup.id)
           );
           res.status(200)
-            .send(filtered);
+            .send({
+              message: 'Users fetched successfully',
+              allUsers: filtered,
+            });
         }
       })
         .catch((error) => {
           res.status(400)
-            .send(error);
+            .send({ message: error.message });
         });
     }
   });
@@ -100,51 +139,49 @@ export const getGroupUsers = (req, res) => {
 export const getMessages = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`/messages/${groupId}`);
-  ref.once('value', (data) => {
-    const mesResponse = data.val();
+  ref.once('value', (msgData) => {
+    const mesResponse = msgData.val();
     if (mesResponse !== null) {
       const messages = getArray(mesResponse);
       res.status(200)
-        .send(messages);
+        .send({ messages });
     } else {
-      res.status(404)
-        .send('There are no Messages!');
+      res.status(200)
+        .send({ message: 'There are no Messages!' });
     }
   })
     .catch((error) => {
-      res.send(error);
+      res.send({ message: error.message });
     });
 };
 
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
-  const { message, priority, groupId, userId } = req.body;
-  const currUser = firebase.auth().currentUser;
-  if (currUser) {
-    const username = currUser.displayName;
-    const messagekey = firebase.database().ref(`messages/${groupId}`)
+  const { message, priority, groupId, id, name } = req.body;
+  // const currUser = firebase.auth().currentUser;
+  if (id) {
+    const messageKey = firebase.database().ref(`messages/${groupId}`)
       .push({
-        id: userId,
-        name: username,
-        messages: message,
-        Priority: priority
+        id,
+        name,
+        message,
+        priority,
       }).key;
     const promise = firebase.database().ref(`group/${groupId}/messages`)
       .push({
-        id: userId,
-        messageKey: messagekey
+        id,
+        messageKey,
       })
       .then(() => {
         if (priority === 'Urgent' || priority === 'Critical') {
           SendNotification(groupId, priority);
         }
         res.status(200)
-          .send('Your message was posted successfully!');
+          .send({ message: 'Your message was posted successfully!' });
       });
     promise.catch((error) => {
       res.status(400)
-        .send({ message: 'Unfortunately,Your message was not posted' },
-          error.message);
+        .send({ message: error.message });
     });
   } else {
     res.status(401);
@@ -160,38 +197,36 @@ export const getAllUsers = (req, res) => {
     res.status(200)
       .send(users);
   }).catch((error) => {
-    res.send(error);
+    res.send({ message: error.message });
   });
 };
 //  ============Controller Adds user to group ============ 
 export const addUser = (req, res) => {
-  const { groupName, name, userId } = req.body;
+  const { groupName, name, id } = req.body;
   const groupId = req.params.groupId;
-  // console.log(groupId, userId, name);
-  // const currentUser = firebase.auth().currentUser;
-  if (groupId) {
+  if (id) {
     const promise = firebase.database()
-      .ref(`/group/${groupId}/users/${userId}`)
+      .ref(`/group/${groupId}/users/${id}`)
       .update({
-        id: userId,
-        name
+        id,
+        name,
       });
-    firebase.database().ref(`/users/${userId}/groups`).push(
+    firebase.database().ref(`/users/${id}/groups`).push(
       {
         groupId,
         groupName,
-        isAdmin: false
+        isAdmin: false,
       });
     promise.then(() => {
       res.status(200);
-      res.send('Your group has a new User ');
+      res.send({ message: 'Your group has a new User ' });
     });
     promise.catch((error) => {
       res.status(400);
-      res.send(error.message);
+      res.send({ message: error.message });
     });
   } else {
     res.status(401);
-    res.send('You need to be signed In');
+    res.send({ message: 'You need to be signed In' });
   }
 };

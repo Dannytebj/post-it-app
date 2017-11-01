@@ -4,10 +4,10 @@
         "jsx"
     ],
     "moduleNameMapper": {
-        "Login":"<rootDir>/src/js/components/login/index.js"
-
+        "Login":"<rootDir>/client/src/js/components/Login.jsx",
+        "^.+\\.(s?css|less)$": "<rootDir>/client/src/__test__/mocks/styleMock.js"
     },
     "setupTestFrameworkScriptFile": {
-        "localstorage":"<rootDir>/src/js/components/__localStorageMock__/localStorageMock.js"
+        "localstorage":"<rootDir>/client/src/__test__/mocks/localStorageMock.js"
     }
 }
