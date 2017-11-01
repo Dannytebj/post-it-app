@@ -1,0 +1,13 @@
+{
+    "moduleFileExtensions": [
+        "js",
+        "jsx"
+    ],
+    "moduleNameMapper": {
+        "Login":"<rootDir>/client/src/js/components/Login.jsx",
+        "^.+\\.(s?css|less)$": "<rootDir>/client/src/__test__/mocks/styleMock.js"
+    },
+    "setupTestFrameworkScriptFile": {
+        "localstorage":"<rootDir>/client/src/__test__/mocks/localStorageMock.js"
+    }
+}
