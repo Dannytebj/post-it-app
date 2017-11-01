@@ -49,7 +49,6 @@ class GroupMessages extends Component {
     this.setState({
       message: '',
     });
-    // console.log(priority, message);
   }
   setPriorityUrgent() {
     this.setState({ priority: 'Urgent' });
@@ -74,7 +73,8 @@ class GroupMessages extends Component {
           {(group.groupId !== groupId) ? '' :
             <div className="col-md-6 messageArea">
               <div className="messageTray">
-                {(messageList === '') ? '' : <MessageList messageList={ messageList } />}
+                {(messageList === '') ? '' :
+                  <MessageList messageList={ messageList } />}
               </div>
               <div className="row msgBox">
                 <div className="col-lg-6">
@@ -93,8 +93,10 @@ class GroupMessages extends Component {
                 </div>
               </div>
               <div className="dropdown">
-                <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button className="btn btn-default dropdown-toggle" 
+                  type="button" id="dropdownMenu1" 
+                  data-toggle="dropdown" aria-haspopup="true" 
+                  aria-expanded="true">
                         Priority
                   <span className="caret" />
                 </button>

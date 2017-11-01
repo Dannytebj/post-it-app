@@ -3,8 +3,6 @@ import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
 
-// import AppActions from '../actions/AppActions';
-
 module.exports = {
   signIn({ email, password }) {
     axios.post('/signIn', { email, password })
@@ -96,7 +94,6 @@ module.exports = {
         AppActions.receiveGroups(groups);
         toastr.success(message);
       }).catch((error) => {
-        // const { message } = error.response.data;
         toastr.error(error);
       });
   },
@@ -114,7 +111,6 @@ module.exports = {
     axios.get(`/notGroupUsers/${groupId}`)
       .then((response) => {
         const { message, allUsers } = response.data;
-        // console.log(allUsers,'====> From AppAPI');
         AppActions.receiveAllUsers(allUsers);
         toastr.success(message);
       }).catch((error) => {
@@ -130,7 +126,6 @@ module.exports = {
       });
   },
   getAllMessages({ groupId }) {
-    console.log(groupId, "=====> ApppApi");
     axios.get(`/getMessages/${groupId}`)
       .then((response) => {
         const { messages } = response.data;

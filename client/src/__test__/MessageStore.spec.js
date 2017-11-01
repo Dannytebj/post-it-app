@@ -73,10 +73,6 @@ describe('PostIt MessageStore', () => {
   });
 });
 
-/**
- * AppConstants.RECEIVE_ALL_MESSAGES
- * 
- */
 describe('PostIt MessageStore', () => {
   const receiveAllMessages = {
     source: 'VIEW_ACTION',
@@ -90,7 +86,7 @@ describe('PostIt MessageStore', () => {
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call setMessages when messages are gotten from API', () => {
+  it('should call setMessages when messages are gotten from API', () => {
     mockCall(receiveAllMessages);
     const setMessages = jest.fn();
     const emitChange = jest.fn();

@@ -16,8 +16,8 @@
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
     "start:dev": "babel-node ./server/server.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "client-test": "jest ./client/src/__test__/*.spec.js --coverage",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js && npm run coverage"
+    "client-test": "jest client/src/__test__/*.spec.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -78,7 +78,8 @@
       "!**/server/**",
       "!**/coverage/**",
       "!webpack.config.js",
-      "!bundle.js"
+      "!bundle.js",
+      "!client/src/index.js"
     ]
   },
   "dependencies": {

@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Messages from './Messages.jsx';
+import Messages from './Messages';
 
-const MessageList = ({ messageList }) => {
-  return (
-    <ul className="list-group">
-      {
-        messageList.map((messages, index) => {
-          return (<Messages messages={messages} key={index}/>);
-        })
-      }
-    </ul>
-  );
-};
+const MessageList = ({ messageList }) => (
+  <ul className="list-group">
+    {
+      messageList.map((messages, index) => 
+        (<Messages messages={messages} key={index}/>))
+    }
+  </ul>
+);
 
 MessageList.propTypes = {
   messageList: PropTypes.array.isRequired,

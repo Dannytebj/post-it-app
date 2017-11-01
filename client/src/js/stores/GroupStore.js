@@ -20,9 +20,6 @@ function addToGroupArray(payload) {
   const { newGroupName } = payload;
   groupArray.push(newGroupName);
 }
-// function addToUserArray(payload) {
-//   const { groupUser } = payload;
-// }
 function setGroups(payload) {
   const { groups } = payload;
   groupArray = groups;
@@ -95,11 +92,9 @@ class GroupStore extends EventEmitter {
       case AppConstants.RECEIVE_ALL_USERS:
         setAllUsers(action.payload);
         this.emitChange();
-        // this.emit('updateAllUsers');
         break;
       case AppConstants.ADD_USER:
         AppAPI.addUser(action.payload);
-        addToUserArray(action.payload);
         this.emitChange();
         break;
       case AppConstants.ADD_USER_RESPONSE:

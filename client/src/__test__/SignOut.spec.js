@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import localStorageMock from './mocks/localstorageMock';
 import SignOut from '../js/components/SignOut';
 import Layout from '../js/components/Layout';
@@ -19,13 +19,6 @@ describe('The SignOut Component', () => {
     logOut();
     wrapper.find('.yes-btn').simulate('click');
     expect(logOut).toHaveBeenCalled();
-  });
-  it('should calls the home method', () => {
-    const wrapper = mount(<SignOut/>);
-    const home = jest.fn();
-    home();
-    wrapper.find('.no-btn').simulate('click');
-    expect(home).toHaveBeenCalled();
   });
   it('Should addChangeListener when component will mount', () => {
     const listenerSpy = spyOn(UserStore, 'addChangeListener');

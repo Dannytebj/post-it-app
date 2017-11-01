@@ -1,9 +1,6 @@
-import mocha from 'mocha';
 import chai from 'chai';
-// import firebase from 'firebase';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
-import assert from 'assert';
 import { 
   createGroup,
   getGroups,
@@ -14,7 +11,6 @@ import {
   getAllUsers,
   addUser } from '../controllers/groups';
 
-const expect = require('chai').expect;
 const app = require('../server');
 
 chai.should();
@@ -194,6 +190,20 @@ describe('The Message Controllers', () => {
     (done) => {
       chai.request(app)
         .get(`/getMessages/${groupId}`, getMessages)
+        .set('Accept', 'application/json')
+        .end((res) => {
+          if (res) {
+            res.status.should.equal(200);
+          }
+          done();
+        });
+    });
+  it('should return call sendNotification when message Urgent/Critical',
+    (done) => {
+      const priority = 'Critical';
+      chai.request(app)
+        .post('/message', postMessage)
+        .send({ message, name, id, priority, groupId })
         .set('Accept', 'application/json')
         .end((res) => {
           if (res) {

@@ -48,7 +48,7 @@ describe('PostIt GroupStore', () => {
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call GetGroups API', () => {
+  it('should successfully call receiveGroups API', () => {
     mockCall(receiveGroups);
     const setGroups = jest.fn();
     const emitChange = jest.fn();
@@ -98,7 +98,7 @@ describe('PostIt GroupStore', () => {
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call GetGroups API', () => {
+  it('should successfully call getGroupUsers API', () => {
     mockCall(getGroupUsers);
     const emitChange = jest.fn();
     emitChange();
@@ -106,3 +106,135 @@ describe('PostIt GroupStore', () => {
     expect(emitChange).toHaveBeenCalled();
   });
 });
+
+describe('PostIt GroupStore', () => {
+  const receiveGroupUsers = {
+    source: 'VIEW_ACTION',
+    action: {
+      type: AppConstants.RECEIVE_GROUP_USERS,
+      payload: { 
+        groupUser: [
+          {
+            id: "-KqA34JyVjKTzw0-Pbrx",
+            name: "Test User",
+            email: 'testemail@email.com',
+          },
+          {
+            id: "-KqA34JyVjKTzw0-Pbry",
+            name: "Test User2",
+            email: 'testemail@email.com',
+          },
+        ],
+      },
+    },
+  };
+  const mockCall = AppDispatcher.register.mock.calls[0][0];
+  it('should successfully call receiveGroupUsers Action', () => {
+    mockCall(receiveGroupUsers);
+    const setGroupUsers = jest.fn();
+    const emitChange = jest.fn();
+    setGroupUsers();
+    emitChange();
+    const groupUsersArray = GroupStore.getUsers();
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(setGroupUsers).toHaveBeenCalled();
+    expect(groupUsersArray.length).toBeGreaterThan(0);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+describe('PostIt GroupStore', () => {
+  const getAllUsers = {
+    source: 'VIEW_ACTION',
+    action: {
+      type: AppConstants.GET_ALL_USERS,
+      payload: { 
+        groupId: '-KqA34JyVjKTzw0-Pbry',
+      },
+    },
+  };
+  const mockCall = AppDispatcher.register.mock.calls[0][0];
+  it('should successfully call getAllUsers API', () => {
+    mockCall(getAllUsers);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
+describe('PostIt GroupStore', () => {
+  const receiveAllUsers = {
+    source: 'VIEW_ACTION',
+    action: {
+      type: AppConstants.RECEIVE_ALL_USERS,
+      payload: { 
+        allUsers: [
+          {
+            id: "-KqA34JyVjKTzw0-Pbrx",
+            name: "Test User",
+            email: 'testemail@email.com',
+          },
+          {
+            id: "-KqA34JyVjKTzw0-Pbry",
+            name: "Test User2",
+            email: 'testemail@email.com',
+          },
+        ],
+      },
+    },
+  };
+  const mockCall = AppDispatcher.register.mock.calls[0][0];
+  it('should successfully receive/set all Users array', () => {
+    mockCall(receiveAllUsers);
+    const setAllUsers = jest.fn();
+    const emitChange = jest.fn();
+    setAllUsers();
+    emitChange();
+    const allUserArray = GroupStore.getAllUsers();
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(setAllUsers).toHaveBeenCalled();
+    expect(allUserArray.length).toBeGreaterThan(0);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
+describe('PostIt GroupStore', () => {
+  const addUser = {
+    source: 'VIEW_ACTION',
+    action: {
+      type: AppConstants.ADD_USER,
+      payload: {
+        groupId: "-KqA34JyVjKTzw0-Pbrx",        
+        groupName: 'Test Group', 
+        name: 'Danny Boy',
+        id: '22446438dhdhdjkwi2',
+      },
+    },
+  };
+  const mockCall = AppDispatcher.register.mock.calls[0][0];
+  it('should successfully call addUser API', () => {
+    mockCall(addUser);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
+describe('PostIt GroupStore', () => {
+  const addUserResponse = {
+    source: 'VIEW_ACTION',
+    action: {
+      type: AppConstants.ADD_USER_RESPONSE,
+    },
+  };
+  const mockCall = AppDispatcher.register.mock.calls[0][0];
+  it('should successfully call addUser API', () => {
+    mockCall(addUserResponse);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
