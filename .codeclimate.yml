@@ -14,8 +14,8 @@ ratings:
  - "server/*.js"
  - "server/**/*.js"
 exclude_paths:
-- node_modules/
-- server/test/
-- client/src/__test__/*
-- bundle.js
-- client/public/js/bundle.js
+- "node_modules/"
+- "server/test/"
+- "client/src/__test__/*"
+- "bundle.js"
+- "client/public/js/bundle.js"
