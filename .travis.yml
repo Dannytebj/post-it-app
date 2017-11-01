@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "node"
+  - "6.11.2"
+before_install:
+  - npm install
+script:
+  - npm run test
+after_script:
+  - npm run coverage
+
+env:
+  CODECLIMATE_REPO_TOKEN: ab14f029319defa6d4d279712330e17b674d6be5d4960b33fbf3581064954dda
+
+    
