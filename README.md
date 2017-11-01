@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
-To view the project visit this [link](https://postitdanny.herokuapp.com)
+To view the project visit this [PostitByDanny](https://postitdanny.herokuapp.com)
 
 ## Key Features of this Application
 + Users can Create Account
