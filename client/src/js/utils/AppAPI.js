@@ -95,7 +95,6 @@ module.exports = {
         if (groups) {
           AppActions.receiveGroups(groups);
         } else {
-          const { message } = response.data;
           toastr.info(message);          
         }
       }).catch((error) => {
@@ -110,7 +109,6 @@ module.exports = {
           AppActions.receiveGroupUsers(groupUser);
           toastr.success(message);
         } else {
-          const { message } = response.data;
           toastr.info(message);
         }
       }).catch((error) => {
@@ -125,7 +123,6 @@ module.exports = {
           AppActions.receiveAllUsers(allUsers);
           toastr.success(message);
         } else {
-          const { message } = response.data;
           toastr.info(message);
         }
       }).catch((error) => {
@@ -147,7 +144,6 @@ module.exports = {
         if (messages) {
           AppActions.receiveAllMessages(messages);
         } else {
-          const { message } = response.data;
           toastr.info(message);
           AppActions.resetMessageStore();
         }
