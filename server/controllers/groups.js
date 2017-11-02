@@ -53,7 +53,7 @@ export const getGroups = (req, res) => {
   ref.once('value', (data) => {
     const groupList = data.val();
     if (groupList === null) {
-      res.status(404)
+      res.status(200)
         .send({ message: 'You do not belong to any group yet' });
     } else {
       const groups = getArray(groupList);
@@ -78,13 +78,14 @@ export const getGroupUsers = (req, res) => {
       res.status(200)
         .send({ message: 'This group has no user yet!' });
     } else {
-      const newArr = getArray(groupUsers);
+      const groupUsersArray = getArray(groupUsers);
       ref1.once('value', (users2) => {
         const usersGotten = users2.val();
         if (users2 !== null) {
           const allUsers = getArray(usersGotten);
-          const filtered = allUsers.filter(userInAllUsers => newArr.some(
-            userInGroup => userInAllUsers.id === userInGroup.id),
+          const filtered = allUsers.filter(userInAllUsers => 
+            groupUsersArray.some(
+              userInGroup => userInAllUsers.id === userInGroup.id),
           );
           res.status(200)
             .send({
@@ -112,13 +113,14 @@ export const notGroupUsers = (req, res) => {
       res.status(200)
         .send({ message: 'This group has no user yet!' });
     } else {
-      const newArr = getArray(groupUsers);
+      const groupUsersArray = getArray(groupUsers);
       ref1.once('value', (users2) => {
         const usersGotten = users2.val();
-        if (users2 !== null) {
+        if (usersGotten !== null) {
           const allUsers = getArray(usersGotten);
-          const filtered = allUsers.filter(userInAllUsers => !newArr.some(
-            userInGroup => userInAllUsers.id === userInGroup.id)
+          const filtered = allUsers.filter(userInAllUsers => 
+            !groupUsersArray.some(
+              userInGroup => userInAllUsers.id === userInGroup.id),
           );
           res.status(200)
             .send({
