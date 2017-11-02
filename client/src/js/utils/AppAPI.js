@@ -77,8 +77,8 @@ module.exports = {
         toastr.error(message);
       });
   },  
-  createGroup({ groupName, userId, userName }) {
-    axios.post('/group', { groupName, userId, userName })
+  createGroup({ groupName, userUid, userName }) {
+    axios.post('/group', { groupName, userUid, userName })
       .then((response) => {
         const { message } = response.data;
         toastr.success(message);

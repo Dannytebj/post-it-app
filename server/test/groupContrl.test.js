@@ -17,19 +17,19 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('The Create Group controller', () => {
-  let userId; 
+  let userUid; 
   let userName;
 
   beforeEach(() => {
     userName = 'John Doe';
-    userId = 'vmodRxnuhhXZQsqTBQx4A6V48CI2';
+    userUid = 'vmodRxnuhhXZQsqTBQx4A6V48CI2';
   });
 
   it('should return 200 when a Group is Successfully created', (done) => {
     const groupName = faker.company.companyName();
     chai.request(app)
       .post('/group', createGroup)
-      .send({ groupName, userName, userId })
+      .send({ groupName, userName, userUid })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {

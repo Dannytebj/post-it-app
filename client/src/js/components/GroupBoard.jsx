@@ -32,16 +32,15 @@ class Groups extends Component {
   doCreateGroup(event) {
     event.preventDefault();
     const newGroupName = this.refs.groupName.value.trim();
-    const userId = localStorage.getItem('userUid');
+    const userUid = localStorage.getItem('userUid');
     const userName = localStorage.getItem('userName');
     if (newGroupName !== '') {
-      createGroup(newGroupName, userId, userName);
+      createGroup(newGroupName, userUid, userName);
       this.refs.groupName.value = '';
     }
   }  
   fetchGroups() {
     const userUid = localStorage.getItem('userUid');
-    console.log(userUid);
     getGroups(userUid);
   }
   render() {
@@ -54,7 +53,8 @@ class Groups extends Component {
             <li className="active">
               <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
             </li>
-            <li><a className="fetchGroups" href="" onClick = {this.fetchGroups} data-target=".2a"  data-toggle="tab">View Your Groups</a>
+            <li><a className="fetchGroups" href="" onClick = {this.fetchGroups} 
+              data-target=".2a"  data-toggle="tab">View Your Groups</a>
             </li>
           </ul>
 
@@ -64,12 +64,14 @@ class Groups extends Component {
               <form onSubmit={this.doCreateGroup.bind(this)}>
                 <div className="form-group row">
                   <div className ="col-sm-4">
-                    <input type="text" ref="groupName" className="form-control grpInput" 
+                    <input type="text" ref="groupName" 
+                      className="form-control grpInput" 
                       id="groupName" required={true} />
                   </div>
                   <div className="col-sm-4">
                     <button type="submit" className="send" 
-                      className="btn btn-primary grpButton" >Create Group</button>
+                      className="btn btn-primary grpButton" >
+                      Create Group</button>
                   </div>
                 </div>
               </form>

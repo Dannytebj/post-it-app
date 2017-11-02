@@ -16,6 +16,7 @@ import {
   getAllUsers,
   notGroupUsers,
   addUser,
+  checkGroupName,
 } from '../controllers/groups';
 
 
@@ -30,6 +31,7 @@ router.post('/group', createGroup);
 router.post('/message', postMessage);
 router.post('/group/:groupId/users', addUser);
 router.post('/resetPassword', resetPassword);
+// router.post('/checkGroupName', checkGroupName);
 
 // Get Routes
 router.get('/getUsers', getAllUsers);

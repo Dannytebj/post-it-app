@@ -126,9 +126,11 @@ class Login extends Component {
                 <PassWordReset/>
                 { (signingIn) ?
                   <p className="message">Not registered ? 
-                    <a className="toggler1" onClick={this.toggleSignInUp}>Sign Up</a></p> :
+                    <a className="toggler1" 
+                      onClick={this.toggleSignInUp}>Sign Up</a></p> :
                   <p className="message">Already registered? 
-                    <a className="toggler2" onClick={this.toggleSignInUp}>Sign In</a></p> 
+                    <a className="toggler2" 
+                      onClick={this.toggleSignInUp}>Sign In</a></p> 
                 }
               </div>
             </div>
