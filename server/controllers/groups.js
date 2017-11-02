@@ -53,7 +53,7 @@ export const getGroups = (req, res) => {
   ref.once('value', (data) => {
     const groupList = data.val();
     if (groupList === null) {
-      res.status(404)
+      res.status(200)
         .send({ message: 'You do not belong to any group yet' });
     } else {
       const groups = getArray(groupList);

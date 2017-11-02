@@ -3,8 +3,8 @@ import UserStore from '../stores/UserStore';
 import TextBox from '../utils/textbox';
 import Button from '../utils/button';
 import ViewActions from '../actions/AppActions';
-import Google from './GoogleSignIn.jsx';
-import PassWordReset from './PasswordReset.jsx';
+import Google from './GoogleSignIn';
+import PassWordReset from './PasswordReset';
 import '../../scss/index.scss';
 
 /**
@@ -60,7 +60,7 @@ class Login extends Component {
       signIn(email, password);
       return;
     }
-    signUp(username, email, password, phoneNumber);
+    signUp(email, password, username, phoneNumber);
   }
 
   render() {
