@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
-import UserList from './UserList.jsx';
-import AddUser from './AddUser.jsx';
+import UserList from './UserList';
+import AddUser from './AddUser';
 
 const { getGroupUsers, getAllUsers } = ViewActions;
 class Group extends Component {
@@ -15,7 +15,7 @@ class Group extends Component {
     };
     this.showGroupUsers = this.showGroupUsers.bind(this);
     this.showAllUsers = this.showAllUsers.bind(this);
-    this.showMessageBoard = this.showMessageBoard.bind(this);
+    // this.showMessageBoard = this.showMessageBoard.bind(this);
     this._onChange = this._onChange.bind(this);
   }
   componentWillMount() {
@@ -36,11 +36,11 @@ class Group extends Component {
     localStorage.setItem('groupName', groupName);
     getGroupUsers(groupId);
   }
-  showMessageBoard() {
-    this.setState({
-      showMessages: true,
-    });
-  }
+  // showMessageBoard() {
+  //   this.setState({
+  //     showMessages: true,
+  //   });
+  // }
   showAllUsers() {
     const groupId = localStorage.getItem('groupId');
     console.log(groupId);
@@ -49,7 +49,7 @@ class Group extends Component {
   render() {
     const { group } = this.props;
     const groupId = localStorage.getItem('groupId');
-    const { userList, showMessages } = this.state;
+    const { userList } = this.state;
     return (
       <div className="groups">
         <div className="row">
@@ -67,13 +67,7 @@ class Group extends Component {
                 data-target=".addUser">Add User</a> <a onClick={this.showMessageBoard}>MessageBoard</a></div> : '' }
               <AddUser/>
             </div>
-          } 
-          { (showMessages) ? 
-            <div className="col-md-3">
-             MessageBoard
-            </div> : ''  
-          }
-              
+          }   
         </div>
       </div>
     );

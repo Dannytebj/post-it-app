@@ -20,10 +20,10 @@ const ViewActions = {
  * @param {string} username users fullname
  * @param {string} phoneNumber Users phone Number
  */
-  signUp: (username, email, password, phoneNumber) => {
+  signUp: (email, password, username, phoneNumber) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.CLICK_SIGN_UP,
-      payload: { username, email, password, phoneNumber },
+      payload: { email, password, username, phoneNumber },
     });
   },
   /**
@@ -58,7 +58,6 @@ const ViewActions = {
  * @param {string} userUid 
  */
   getGroups: (userUid) => {
-    console.log(userUid);
     AppDispatcher.handleViewAction({
       type: AppConstants.GET_GROUPS,
       payload: { userUid },

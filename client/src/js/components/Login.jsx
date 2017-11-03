@@ -3,8 +3,8 @@ import UserStore from '../stores/UserStore';
 import TextBox from '../utils/textbox';
 import Button from '../utils/button';
 import ViewActions from '../actions/AppActions';
-import Google from './GoogleSignIn.jsx';
-import PassWordReset from './PasswordReset.jsx';
+import Google from './GoogleSignIn';
+import PassWordReset from './PasswordReset';
 import '../../scss/index.scss';
 
 /**
@@ -60,7 +60,7 @@ class Login extends Component {
       signIn(email, password);
       return;
     }
-    signUp(username, email, password, phoneNumber);
+    signUp(email, password, username, phoneNumber);
   }
 
   render() {
@@ -80,10 +80,12 @@ class Login extends Component {
                 <h2><p className="centered">SIGN IN</p></h2> }   
               <div className="login">
                 { (!signingIn) ? <div><TextBox
+                  className = "fullName"
                   onChange={(value) => { this.setState({ username: value }); }}
                   label="Full Name"
                   currentValue={username}
                 /> <TextBox
+                  className = "phoneNumber"
                   onChange={(value) => { 
                     this.setState({ phoneNumber: value });
                   }}
@@ -91,6 +93,7 @@ class Login extends Component {
                   currentValue={phoneNumber}
                 /> </div> : <div/> }
                 <TextBox
+                  className = "email"
                   onChange={(value) => { 
                     this.setState({ email: value });
                   }}
@@ -98,6 +101,7 @@ class Login extends Component {
                   currentValue={email}
                 />
                 <TextBox
+                  className = "password"
                   onChange={(value) => { this.setState({ password: value }); }}
                   label="password"
                   currentValue={password}
@@ -116,15 +120,15 @@ class Login extends Component {
                   <Google/>
                 </div>
                 <p className="message">Forgot Password ? 
-                  <a onClick={this.resetPassword}
+                  <a className="toggler3" onClick={this.resetPassword}
                     data-toggle="modal" 
                     data-target=".resetPassword">Reset Password</a></p>
                 <PassWordReset/>
                 { (signingIn) ?
                   <p className="message">Not registered ? 
-                    <a onClick={this.toggleSignInUp}>Sign Up</a></p> :
+                    <a className="toggler1" onClick={this.toggleSignInUp}>Sign Up</a></p> :
                   <p className="message">Already registered? 
-                    <a onClick={this.toggleSignInUp}>Sign In</a></p> 
+                    <a className="toggler2" onClick={this.toggleSignInUp}>Sign In</a></p> 
                 }
               </div>
             </div>

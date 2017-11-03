@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GroupMessages from './GroupMessages.jsx';
+import GroupMessages from './GroupMessages';
 
-const MessageGroupList = ({ groupList }) => {
-  return (
-    <ul id="groups">
-      {
-        groupList.map((group, index) => {
-          return (<GroupMessages group={group} key={index}/>);
-        })
-      }
-    </ul>);
-};
+const MessageGroupList = ({ groupList }) => (
+  <ul id="groups">
+    {
+      groupList.map((group, index) => 
+        (<GroupMessages group={group} key={index}/>))
+    }
+  </ul>);
 
 MessageGroupList.propTypes = {
   groupList: PropTypes.array.isRequired,

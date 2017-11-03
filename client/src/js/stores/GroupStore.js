@@ -20,27 +20,18 @@ function addToGroupArray(payload) {
   const { newGroupName } = payload;
   groupArray.push(newGroupName);
 }
-function addToUserArray(payload) {
-  const { groupUser } = payload;
-    // console.log(allUserArray, ' ====> From GroupStore');
-  // groupUsersArray.push(groupUser);
-}
 function setGroups(payload) {
   const { groups } = payload;
   groupArray = groups;
-  // console.log(groupArray, ' ====> From GroupStore');
-  // return groupArray;
 }
 function setGroupUsers(payload) {
   const { groupUser } = payload;
-  // console.log(groupUser, '======> groupStore');
   groupUsersArray = groupUser;
   return groupUsersArray;
 }
 function setAllUsers(payload) {
   const { allUsers } = payload;
   allUserArray = allUsers;
-  // return allUserArray;
 }
 
 class GroupStore extends EventEmitter {
@@ -64,19 +55,11 @@ class GroupStore extends EventEmitter {
   }
   addChangeListener(callback) {
     this.on('change', callback);
-    // this.on('updateGroups', callback);
-    // this.on('updateAllUsers', callback);
-    // this.on('updateGroupUsers', callback);
-    // this.on('userAdded', callback);
   }
 
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    // this.removeListener('updateGroups', callback);
-    // this.removeListener('updateGroupUsers', callback);
-    // this.removeListener('updateAllUsers', callback);
-    // this.removeListener('userAdded', callback);
   }
 
   dispatcherCallback({ action }) {
@@ -101,7 +84,6 @@ class GroupStore extends EventEmitter {
       case AppConstants.RECEIVE_GROUP_USERS:
         setGroupUsers(action.payload);
         this.emitChange();
-        // this.emit('updateGroupUsers');
         break;
       case AppConstants.GET_ALL_USERS:
         AppAPI.getAllUsers(action.payload);
@@ -110,16 +92,13 @@ class GroupStore extends EventEmitter {
       case AppConstants.RECEIVE_ALL_USERS:
         setAllUsers(action.payload);
         this.emitChange();
-        // this.emit('updateAllUsers');
         break;
       case AppConstants.ADD_USER:
         AppAPI.addUser(action.payload);
-        addToUserArray(action.payload);
         this.emitChange();
         break;
       case AppConstants.ADD_USER_RESPONSE:
         this.emitChange();
-        // this.emit('updateGroupUsers');
         break;
       default:
         break;

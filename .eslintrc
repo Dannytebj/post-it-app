@@ -19,6 +19,7 @@
         "no-unused-vars": 2, // disallow declaration of variables that are not used in the code
         "no-redeclare": 2, // disallow declaring the same variable more then once
         "new-cap": 0,
+        "class-methods-use-this": 0,
         //
         // eslint-plugin-react
         //
@@ -75,10 +76,21 @@
         "browser": true,
         "es6": true
     },
+"parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
     "ecmaFeatures": {
-        "jsx": true,
-        "modules": true
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
     }
-}
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx"]
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GroupStore from '../stores/GroupStore';
 import ViewActions from '../actions/AppActions';
-import AllUserList from './AllUserList.jsx';
+import AllUserList from './AllUserList';
 
 
 const { getAllUsers } = ViewActions;

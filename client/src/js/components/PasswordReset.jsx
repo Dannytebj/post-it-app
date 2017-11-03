@@ -48,9 +48,9 @@ class PasswordReset extends Component {
                 </a>
               </div>
               <div className="modal-body">
-                <form onSubmit={this.resetPassword.bind(this)}>
+                <form className="reset-password" onSubmit={this.resetPassword.bind(this)}>
                   <div className="form-group">
-                    <input type="email" ref="email" className="form-control" 
+                    <input type="email" ref="email" className="form-control reset-email" 
                       id="emailAddress" required={true} />
                     <button type="submit" className="send" 
                       className="btn btn-primary" >Submit</button>

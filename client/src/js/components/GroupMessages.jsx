@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ViewActions from '../actions/AppActions';
 import MessageStore from '../stores/MessageStore';
-import MessageList from './MessageList.jsx';
+import MessageList from './MessageList';
 import MessageTextBox from '../utils/msgText';
 
 const { getMessages, postMessage } = ViewActions;
@@ -49,7 +49,6 @@ class GroupMessages extends Component {
     this.setState({
       message: '',
     });
-    // console.log(priority, message);
   }
   setPriorityUrgent() {
     this.setState({ priority: 'Urgent' });
@@ -74,27 +73,30 @@ class GroupMessages extends Component {
           {(group.groupId !== groupId) ? '' :
             <div className="col-md-6 messageArea">
               <div className="messageTray">
-                {(messageList === '') ? '' : <MessageList messageList={ messageList } />}
+                {(messageList === '') ? '' :
+                  <MessageList messageList={ messageList } />}
               </div>
               <div className="row msgBox">
                 <div className="col-lg-6">
                   <div className="input-group">
-                    <MessageTextBox
+                    <MessageTextBox className='msgText'
                       onChange={(value) => { 
                         this.setState({ message: value });
                       }}
                       currentValue={message}
                     />
                     <span className="input-group-btn">
-                      <button className="btn btn-default" 
+                      <button className="btn btn-default send-msg" 
                         type="button" onClick={this.sendMessage}>send</button>
                     </span>
                   </div>
                 </div>
               </div>
               <div className="dropdown">
-                <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" 
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button className="btn btn-default dropdown-toggle" 
+                  type="button" id="dropdownMenu1" 
+                  data-toggle="dropdown" aria-haspopup="true" 
+                  aria-expanded="true">
                         Priority
                   <span className="caret" />
                 </button>

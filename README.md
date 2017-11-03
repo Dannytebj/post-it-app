@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/Dannytebj/post-it-app.svg?branch=dev1)](https://travis-ci.org/Dannytebj/post-it-app)
-
-[![Coverage Status](https://coveralls.io/repos/github/Dannytebj/post-it-app/badge.svg?branch=ft-Refactor-UI-2)](https://coveralls.io/github/Dannytebj/post-it-app?branch=ft-Refactor-UI-2)
+[![Coverage Status](https://coveralls.io/repos/github/Dannytebj/post-it-app/badge.svg?branch=dev1)](https://coveralls.io/github/Dannytebj/post-it-app?branch=dev1)
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 
 PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
-To view the project visit this [link](https://postitdanny.herokuapp.com)
+To view the project visit this [PostitByDanny](https://postitdanny.herokuapp.com)
 
 ## Key Features of this Application
 + Users can Create Account
@@ -53,7 +53,6 @@ To view the project visit this [link](https://postitdanny.herokuapp.com)
 
 
 ## Limitations
-+ Users cannot upload picture
 + Users cannot choose to accept invitation request
 + Users cannot leave a group
 + Users cannot delete a message when sent
