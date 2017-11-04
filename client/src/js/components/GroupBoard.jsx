@@ -7,7 +7,19 @@ import Layout from './Layout';
 
 const { getGroups, createGroup } = ViewActions;
 
+/**
+ * 
+ * 
+ * @class Groups
+ * @extends {Component}
+ */
 class Groups extends Component {
+  /**
+   * @constructor
+   * Creates an instance of Groups.
+   * @param {any} props 
+   * @memberof Groups
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,17 +30,42 @@ class Groups extends Component {
     this._onChange = this._onChange.bind(this);
     this.fetchGroups = this.fetchGroups.bind(this);
   }
+  /**
+   * @description Adds a change listener to the
+   * Groupstore just before the component is mounted
+   * 
+   * @memberof Groups
+   */
   componentWillMount() {
     GroupStore.addChangeListener(this._onChange);
   }
+  /**
+   * @description Removes change listener just before 
+   * the component unmounts
+   * 
+   * @memberof Groups
+   */
   componentWillUnmount() {
     GroupStore.removeChangeListener(this._onChange);
   }
+  /**
+   *  @description This method is passed to the change listeners
+   * to update the state of the component when there is a 
+   * change in the store
+   * 
+   * @memberof Groups
+   */
   _onChange() {
     this.setState({
       groupList: GroupStore.getGroups(),
     });
   }
+  /**
+   * @description This method calls the createGroup Action
+   * 
+   * @param {any} event 
+   * @memberof Groups
+   */
   doCreateGroup(event) {
     event.preventDefault();
     const newGroupName = this.refs.groupName.value.trim();
@@ -38,11 +75,22 @@ class Groups extends Component {
       createGroup(newGroupName, userUid, userName);
       this.refs.groupName.value = '';
     }
-  }  
+  } 
+  /**
+   * @description This method calls the getGoups action
+   * 
+   * @memberof Groups
+   */
   fetchGroups() {
     const userUid = localStorage.getItem('userUid');
     getGroups(userUid);
   }
+  /**
+   * 
+   * 
+   * @returns jsx component of the GroupBoard
+   * @memberof Groups
+   */
   render() {
     const { groupList } = this.state;
     return (

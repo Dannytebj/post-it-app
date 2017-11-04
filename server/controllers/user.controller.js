@@ -3,8 +3,8 @@ const firebase = require('firebase');
 const emailValidation = require('../utils/emailValidation');
 
 /**
- * This Controller exports controllers for the user endpoints
- * @param {*} req User Requests
+ * This file exports controllers for the user endpoints
+ * @param {*} req All User Requests
  * @param {*} res Server Responses
  */
 

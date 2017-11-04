@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import PropTypes from 'prop-types';
 import ViewActions from '../actions/AppActions';
 import MessageStore from '../stores/MessageStore';
 import MessageList from './MessageList';
 import MessageTextBox from '../utils/msgText';
 
-const { getMessages, postMessage } = ViewActions;
+const { getMessages, postMessage, updateMessageStore } = ViewActions;
+const socket = io('http://localhost:9999');
+
+/**
+ * 
+ * 
+ * @class GroupMessages
+ * @extends {Component}
+ */
 class GroupMessages extends Component {
+  /**
+   * Creates an instance of GroupMessages.
+   * @constructor
+   * @param {any} props 
+   * @memberof GroupMessages
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,25 +36,60 @@ class GroupMessages extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this._onChange = this._onChange.bind(this);
   }
+  /**
+   * @description Adds a change listener to the
+   * MessageStore just before the component is mounted
+   * 
+   * @memberof GroupMessages
+   */
   componentWillMount() {
+    const groupId = localStorage.getItem('groupId');        
+    socket.on(`newMessage${groupId}`, (payload) => {
+      const { id, message, name } = payload;
+      updateMessageStore(id, message, name);
+    });
+
     MessageStore.addChangeListener(this._onChange);
   }
+  /**
+   * @description Removes change listener just before 
+   * the component unmounts
+   * 
+   * @memberof GroupMessages
+   */
   componentWillUnmount() {
     MessageStore.removeChangeListener(this._onChange);
   }
-
+  /**
+ * @description This method is passed to the change listeners
+ * to update the state of the component when there is a 
+ * change in the store
+ * 
+ * @memberof GroupMessages
+ */
   _onChange() {
     this.setState({
       messageList: MessageStore.getAllMessages(),
     });
   }
+  /**
+   * @description When called this method takes the groupId
+   * and groupName and  passes it to the getMessages action
+   * 
+   * @memberof GroupMessages
+   */
   showGroupMessages() {
     const { groupId, groupName } = this.props.group;
     localStorage.setItem('groupId', groupId);
     localStorage.setItem('groupName', groupName);
     getMessages(groupId);
   }
-
+  /**
+ * @description When called this method triggers the
+ * postMessage action
+ * 
+ * @memberof GroupMessages
+ */
   sendMessage() {
     const { priority, message } = this.state;
     const groupId = localStorage.getItem('groupId');
@@ -50,14 +100,29 @@ class GroupMessages extends Component {
       message: '',
     });
   }
+  /**
+   * @description set the priority of the message to Urgent
+   * 
+   * @memberof GroupMessages
+   */
   setPriorityUrgent() {
     this.setState({ priority: 'Urgent' });
   }
+  /**
+   * @description set the priority of messages to crititcal
+   * 
+   * @memberof GroupMessages
+   */
   setPriorityCritical() {
     this.setState({ priority: 'Critical' });
   }
 
-
+  /**
+ * 
+ * 
+ * @returns 
+ * @memberof GroupMessages
+ */
   render() {
     const { group } = this.props;
     const groupId = localStorage.getItem('groupId');

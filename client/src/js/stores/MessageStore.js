@@ -81,7 +81,6 @@ class MessageStore extends EventEmitter {
         break;
       case AppConstants.UPDATE_MESSAGE_STORE:
         updateMessages(action.payload);
-        // console.log(action.payload, '===> Message store !!');
         this.emitChange();
         break;
       case AppConstants.RESET_STORE:

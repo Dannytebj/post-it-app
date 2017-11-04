@@ -6,7 +6,18 @@ import UserList from './UserList';
 import AddUser from './AddUser';
 
 const { getGroupUsers, getAllUsers } = ViewActions;
+/**
+ * 
+ * 
+ * @class Group
+ * @extends {Component}
+ */
 class Group extends Component {
+  /**
+   * Creates an instance of Group.
+   * @param {any} props 
+   * @memberof Group
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,37 +26,66 @@ class Group extends Component {
     };
     this.showGroupUsers = this.showGroupUsers.bind(this);
     this.showAllUsers = this.showAllUsers.bind(this);
-    // this.showMessageBoard = this.showMessageBoard.bind(this);
     this._onChange = this._onChange.bind(this);
   }
+  /**
+   * @description Adds a change listener to the
+   * Groupstore just before the component is mounted
+   * 
+   * @memberof Group
+   */
   componentWillMount() {
     GroupStore.addChangeListener(this._onChange);
   }
+  /**
+   *  @description Removes change listener just before 
+   * the component unmounts
+   * 
+   * @memberof Group
+   */
   componentWillUnmount() {
     GroupStore.removeChangeListener(this._onChange);
   }
-
+  /**
+ * @description This method is passed to the change listeners
+   * to update the state of the component when there is a 
+   * change in the store
+ * 
+ * @memberof Group
+ */
   _onChange() {
     this.setState({
       userList: GroupStore.getUsers(),
     });
   }
+  /**
+   * @description this method calls the getGroupUsers action
+   * which populates the userList array
+   * 
+   * @memberof Group
+   */
   showGroupUsers() {
     const { groupId, groupName } = this.props.group;
     localStorage.setItem('groupId', groupId);
     localStorage.setItem('groupName', groupName);
     getGroupUsers(groupId);
   }
-  // showMessageBoard() {
-  //   this.setState({
-  //     showMessages: true,
-  //   });
-  // }
+  /**
+   * @description This method calls the getallUsers action
+   * when clicked
+   * 
+   * @memberof Group
+   */
   showAllUsers() {
     const groupId = localStorage.getItem('groupId');
-    console.log(groupId);
     getAllUsers(groupId);
   }
+  /**
+   * 
+   * 
+   * @returns jsx component for group users
+   * @memberof Group
+   */
   render() {
     const { group } = this.props;
     const groupId = localStorage.getItem('groupId');
@@ -64,7 +104,8 @@ class Group extends Component {
               {(group.isAdmin) ? <div><a className=".btn-success" 
                 data-toggle="modal"
                 onClick = {this.showAllUsers} 
-                data-target=".addUser">Add User</a> <a onClick={this.showMessageBoard}>MessageBoard</a></div> : '' }
+                data-target=".addUser">Add User</a> 
+              <a onClick={this.showMessageBoard}>MessageBoard</a></div> : '' }
               <AddUser/>
             </div>
           }   

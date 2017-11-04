@@ -2,6 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AllUsers from './AllUsers';
 
+/**
+ * @description Receives an array of Object(allUser)
+ * and creates a list element
+ * 
+ * @returns a list element
+ * 
+ * @param {Array} allUserList 
+ */
 const AllUserList = ({ allUserList }) => (
   <ul className="list-group">
     {

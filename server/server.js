@@ -5,8 +5,10 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import path from 'path';
 import bodyParser from 'body-parser';
+import socketio from 'socket.io';
 import Config from '../webpack.config';
 import routes from './routes/index';
+import socketConfig from './utils/socketConfig';
 // import dotenv from 'dotenv';
 import config from './config/config';
 
@@ -48,14 +50,29 @@ app.use(webpackMiddleware(compiler, {
 
 firebase.initializeApp(config);
 
+const server = app.listen(port, () => {
+  console.log(`postIt App Restful Api server started on: ${port}`);  // eslint-disable-line
+});
+
+const io = socketio(server);
+io.on('connection', (socket) => {
+  console.log('Connected');
+  socket.on('disconnect', () => {
+    console.log('Disconnected');
+  });
+});
+
+socketConfig.socketInstance(io);
+
+setTimeout(() => {
+  io.emit('randomEventInHistory', 'something');
+}, 5000);
+
 app.use(webpackHotMiddleware(compiler));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`postIt App Restful Api server started on: ${port}`);  // eslint-disable-line
-});
 module.exports = app;
 

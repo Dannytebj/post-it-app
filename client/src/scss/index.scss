@@ -324,17 +324,7 @@ li {
       color:white;
       border: 0 none;
     }
-    input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
+
   #sendButton {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -372,6 +362,15 @@ footer {
 
 .msgBox{
   margin-top: 5px;
+}
+.msgText {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 .dropdown {
   margin-top: 5px;

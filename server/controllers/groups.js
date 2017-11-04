@@ -2,9 +2,10 @@ import firebase from 'firebase';
 import getArray from '../utils/getArray';
 import SendNotification from '../utils/sendNotifications';
 import convertCase from '../utils/convertCase';
+import io from '../utils/socketConfig';
 
 /**
- * This Controller file exports all controllers for the group 
+ * This file exports all controllers for the group 
  * endpoints
  * @param {*} req 
  * @param {*} res 
@@ -191,6 +192,8 @@ export const postMessage = (req, res) => {
         if (priority === 'Urgent' || priority === 'Critical') {
           SendNotification(groupId, priority);
         }
+        const payload = { id, message, name };
+        io.emit(`newMessage${groupId}`, payload);
         res.status(200)
           .send({ message: 'Your message was posted successfully!' });
       });

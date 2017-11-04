@@ -131,8 +131,8 @@ module.exports = {
   },
   postMessage({ groupId, message, priority, id, name }) {
     axios.post('/message', { groupId, message, priority, id, name })
-      .then(() => {
-        AppActions.updateMessageStore(id, message, name);
+      .then((response) => {
+        const { message } = response.data;
       }).catch((error) => {
         toastr.error(error);
       });
