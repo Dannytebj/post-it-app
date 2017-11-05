@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Img from 'react-image';
-
+/**
+ * @description This component is rendered when an invalid route is hit
+ */
 const NotFound = () => (
   <div className="container-fluid">
     <div className="row">

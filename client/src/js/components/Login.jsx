@@ -17,6 +17,7 @@ const { signIn, signUp } = ViewActions;
  */
 class Login extends Component {
   /**
+   * @constructor
    * Creates an instance of Login.
    * @param {any} props 
    * @memberof Login

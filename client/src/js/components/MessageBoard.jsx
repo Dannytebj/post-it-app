@@ -8,7 +8,7 @@ const { getGroups } = ViewActions;
 
 
 /**
- * 
+ * @description This class is the Parent of the message components
  * 
  * @class MessageBoard
  * @extends {Component}

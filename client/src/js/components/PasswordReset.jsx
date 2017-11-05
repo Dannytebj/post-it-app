@@ -5,24 +5,63 @@ import ViewActions from '../actions/AppActions';
 
 const { sendPasswordReset } = ViewActions;
 
+/**
+ * @description This class contains a modal that renders
+ * a textbox and button
+ * 
+ * @class PasswordReset
+ * @extends {Component}
+ */
 class PasswordReset extends Component {
+  /**
+   * @constructor 
+   * Creates an instance of PasswordReset.
+   * @param {any} props 
+   * @memberof PasswordReset
+   */
   constructor(props) {
     super(props);
     this.state = {
       email: '',
     };
-    // this.addAlert = this.addAlert.bind(this);
     this.onChange = this.onChange.bind(this);
   }
+  /**
+   * @description Adds a change listener to the Userstore
+   * when this component is mounted
+   * 
+   * @memberof PasswordReset
+   */
   componentDidMount() {
     UserStore.addChangeListener(this.onChange);
   }
+  /**
+   * @description Removes change listener just before the component
+   * will unmount
+   * 
+   * @memberof PasswordReset
+   */
   componentWillUnmount() {
     UserStore.removeChangeListener(this.onChange);
   }
+  /**
+   * @description This method is passed to the change listeners
+   * to update the state of the component when there is a 
+   * change in the store
+   * 
+   * @memberof PasswordReset
+   */
   onChange() {
     this.forceUpdate();
   }
+  /**
+   * @description This method is called when the send
+   * button is clicked. It calls the sendResetpassword
+   * action with email as a parameter
+   * 
+   * @param {any} event 
+   * @memberof PasswordReset
+   */
   resetPassword(event) {
     event.preventDefault();
     const email = this.refs.email.value.trim();
@@ -31,6 +70,12 @@ class PasswordReset extends Component {
       this.refs.email.value = '';
     }
   }
+  /**
+   * 
+   * 
+   * @returns a modalcomponent for the reset Password
+   * @memberof PasswordReset
+   */
   render() {
     return (
       <div> 
@@ -48,9 +93,11 @@ class PasswordReset extends Component {
                 </a>
               </div>
               <div className="modal-body">
-                <form className="reset-password" onSubmit={this.resetPassword.bind(this)}>
+                <form className="reset-password" 
+                  onSubmit={this.resetPassword.bind(this)}>
                   <div className="form-group">
-                    <input type="email" ref="email" className="form-control reset-email" 
+                    <input type="email" ref="email" 
+                      className="form-control reset-email" 
                       id="emailAddress" required={true} />
                     <button type="submit" className="send" 
                       className="btn btn-primary" >Submit</button>

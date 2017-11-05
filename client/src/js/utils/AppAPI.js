@@ -3,6 +3,9 @@ import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
 
+/**
+ * @description This file exports all the applications API
+ */
 module.exports = {
   signIn({ email, password }) {
     axios.post('/signIn', { email, password })
@@ -132,7 +135,7 @@ module.exports = {
   postMessage({ groupId, message, priority, id, name }) {
     axios.post('/message', { groupId, message, priority, id, name })
       .then((response) => {
-        const { message } = response.data;
+        const { message } = response.data; // eslint-disable-line
       }).catch((error) => {
         toastr.error(error);
       });

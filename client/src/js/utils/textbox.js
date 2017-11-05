@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextBox = ({ onChange, currentValue, label, isPassword, className }) => {
-  return (<div>
+const TextBox = ({ onChange, currentValue, label, isPassword, className }) => 
+  (<div>
     <label>{label}</label>
     <input className={className}
       type = {isPassword ? 'password' : 'text'}
@@ -12,7 +12,6 @@ const TextBox = ({ onChange, currentValue, label, isPassword, className }) => {
       value = { currentValue }
     />
   </div>);
-};
 
 
 TextBox.propTypes = {
