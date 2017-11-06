@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import GroupStore from '../stores/GroupStore';
-import ViewActions from '../actions/AppActions';
-import AllUserList from './AllUserList.jsx';
+import AllUserList from './AllUserList';
 
 
-const { getAllUsers } = ViewActions;
-
+/**
+ * @description This class List handles adding users not
+ * currently in the current selected group
+ * 
+ * @class AddUser
+ * @extends {Component}
+ */
 class  AddUser extends Component {
+  /**
+   * Creates an instance of AddUser.
+   * @param {any} props 
+   * @memberof AddUser
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,22 +24,51 @@ class  AddUser extends Component {
     this._onChange = this._onChange.bind(this);
     this.removeNode = this.removeNode.bind(this);
   }
+  /**
+   * @description Adds a change listener to the
+   * Groupstore just before the component is mounted
+   * 
+   * @memberof AddUser
+   */
   componentWillMount() {
     GroupStore.addChangeListener(this._onChange);
   }
+  /**
+   * @description Removes change listener just before 
+   * the component unmounts
+   * 
+   * @memberof AddUser
+   */
   componentWillUnmount() {
     GroupStore.removeChangeListener(this._onChange);
   }
+  /**
+   * @description This method is passed to the change listeners
+   * to update the component when there is a change in the store
+   * 
+   * @memberof AddUser
+   */
   _onChange() {
     this.setState({
       allUserList: GroupStore.getAllUsers(),
     });
   } 
+  /**
+   * @description Removes the change listener when modal component is
+   * closed
+   * 
+   * @memberof AddUser
+   */
   removeNode() {
     GroupStore.removeChangeListener(this._onChange);
   }
 
-  
+  /**
+   * 
+   * 
+   * @returns Jsx component that lists out all users
+   * @memberof AddUser
+   */
   render() {
     const { allUserList } = this.state;
     // console.log(allUserList, '====> Modal Component');
@@ -45,7 +83,8 @@ class  AddUser extends Component {
                 <h5 className="modal-title" 
                   id="addUser">Add Users to Your Group</h5>
                 <a type="button" className="times" 
-                  className="close" onClick={this.removeNode} data-dismiss="modal" aria-label="Close">
+                  className="close" onClick={this.removeNode} 
+                  data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </a>
               </div>

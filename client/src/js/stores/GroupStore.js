@@ -3,82 +3,122 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
 import AppAPI from '../utils/AppAPI';
 
-/**
- * This Store Handles Sign In, SignIn(Google)
- * Sign Out, Create Group, and SignOut.
- * @param {string} message - Initialized empty string to 
- * hold status messages from server
- * @param {object} received - Initialized empty object to 
- * hold response data from server
- * @param {array} userArray - Holds an array of Users from dataBase
- */
 let groupArray = [];
 let groupUsersArray = [];
 let allUserArray = [];
-
-function addToGroupArray(payload) {
-  const { newGroupName } = payload;
-  groupArray.push(newGroupName);
-}
-function addToUserArray(payload) {
-  const { groupUser } = payload;
-    // console.log(allUserArray, ' ====> From GroupStore');
-  // groupUsersArray.push(groupUser);
-}
+/**
+ * @description this function populates the groupArray with
+ * groups fetched from database
+ * 
+ * @param {any} payload 
+ */
 function setGroups(payload) {
   const { groups } = payload;
   groupArray = groups;
-  // console.log(groupArray, ' ====> From GroupStore');
-  // return groupArray;
 }
+/**
+ * @description This function populates the groupUsersArray
+ * with groupUsers fetched from database
+ * 
+ * @param {any} payload 
+ * @returns 
+ */
 function setGroupUsers(payload) {
   const { groupUser } = payload;
-  // console.log(groupUser, '======> groupStore');
   groupUsersArray = groupUser;
   return groupUsersArray;
 }
+/**
+ * @description This function populates the allUserArray
+ * with all users fetched from the database
+ * 
+ * @param {any} payload 
+ */
 function setAllUsers(payload) {
   const { allUsers } = payload;
   allUserArray = allUsers;
-  // return allUserArray;
 }
 
+/**
+ * @description This flux store handles all group actions
+ * 
+ * @class GroupStore
+ * @extends {EventEmitter}
+ */
 class GroupStore extends EventEmitter {
+  /**
+   * @constructor
+   * Creates an instance of GroupStore.
+   * @memberof GroupStore
+   */
   constructor() {
     super();
     this.dispatchToken = AppDispatcher.register(
       this.dispatcherCallback.bind(this));
   }
-  
+  /**
+   * 
+   * 
+   * @returns {array} groupArray
+   * @memberof GroupStore
+   */
   getGroups() {
     return groupArray;
   }
+  /**
+   * 
+   * 
+   * @returns {array} groupUsersArray
+   * @memberof GroupStore
+   */
   getUsers() {
     return groupUsersArray;
   }
+  /**
+   * 
+   * 
+   * @returns allUserArray
+   * @memberof GroupStore
+   */
   getAllUsers() {
     return allUserArray;
   }
+  /**
+   * @description This method emits a change event
+   * everytime the store is updated
+   * 
+   * @memberof GroupStore
+   */
   emitChange() {
     this.emit('change');
   }
+  /**
+   *  @description This method listens for change event
+   * in the store and on change calls the callback
+   * 
+   * @param {any} callback 
+   * @memberof GroupStore
+   */
   addChangeListener(callback) {
     this.on('change', callback);
-    // this.on('updateGroups', callback);
-    // this.on('updateAllUsers', callback);
-    // this.on('updateGroupUsers', callback);
-    // this.on('userAdded', callback);
   }
 
-  // Remove change listener
+  /**
+   *  @description This method removes change listeners
+   * 
+   * @param {any} callback 
+   * @memberof GroupStore
+   */
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-    // this.removeListener('updateGroups', callback);
-    // this.removeListener('updateGroupUsers', callback);
-    // this.removeListener('updateAllUsers', callback);
-    // this.removeListener('userAdded', callback);
   }
-
+  /**
+ * 
+ * 
+ * @param {any} { action } 
+ * @returns 
+ * @memberof GroupStore
+ */
   dispatcherCallback({ action }) {
     switch (action.type) {
       case AppConstants.GET_GROUPS:
@@ -90,7 +130,7 @@ class GroupStore extends EventEmitter {
         this.emitChange();
         break;
       case AppConstants.CREATE_GROUP:
-        addToGroupArray(action.payload);
+        // addToGroupArray(action.payload);
         AppAPI.createGroup(action.payload);
         this.emitChange();
         break;
@@ -101,7 +141,6 @@ class GroupStore extends EventEmitter {
       case AppConstants.RECEIVE_GROUP_USERS:
         setGroupUsers(action.payload);
         this.emitChange();
-        // this.emit('updateGroupUsers');
         break;
       case AppConstants.GET_ALL_USERS:
         AppAPI.getAllUsers(action.payload);
@@ -110,16 +149,13 @@ class GroupStore extends EventEmitter {
       case AppConstants.RECEIVE_ALL_USERS:
         setAllUsers(action.payload);
         this.emitChange();
-        // this.emit('updateAllUsers');
         break;
       case AppConstants.ADD_USER:
         AppAPI.addUser(action.payload);
-        addToUserArray(action.payload);
         this.emitChange();
         break;
       case AppConstants.ADD_USER_RESPONSE:
         this.emitChange();
-        // this.emit('updateGroupUsers');
         break;
       default:
         break;

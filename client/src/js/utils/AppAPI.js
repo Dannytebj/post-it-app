@@ -3,14 +3,15 @@ import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
 
-// import AppActions from '../actions/AppActions';
-
+/**
+ * @description This file exports all the applications API
+ */
 module.exports = {
   signIn({ email, password }) {
     axios.post('/signIn', { email, password })
       .then((response) =>  {
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
         browserHistory.push('home');
         toastr.success(message);
@@ -22,10 +23,10 @@ module.exports = {
   signUp({ email, password, username, phoneNumber }) {
     axios.post('/signUp', { email, password, username, phoneNumber })
       .then((response) =>  {
-        browserHistory.push('home');
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
+        browserHistory.push('home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -79,8 +80,8 @@ module.exports = {
         toastr.error(message);
       });
   },  
-  createGroup({ groupName, userId, userName }) {
-    axios.post('/group', { groupName, userId, userName })
+  createGroup({ groupName, userUid, userName }) {
+    axios.post('/group', { groupName, userUid, userName })
       .then((response) => {
         const { message } = response.data;
         toastr.success(message);
@@ -93,10 +94,13 @@ module.exports = {
     axios.get(`/getGroup/${userUid}`)
       .then((response) => {
         const { message, groups } = response.data;
-        AppActions.receiveGroups(groups);
-        toastr.success(message);
+        toastr.success(message);        
+        if (groups) {
+          AppActions.receiveGroups(groups);
+        } else {
+          toastr.info(message);          
+        }
       }).catch((error) => {
-        // const { message } = error.response.data;
         toastr.error(error);
       });
   },
@@ -104,8 +108,12 @@ module.exports = {
     axios.get(`/getGroupUsers/${groupId}`)
       .then((response) => {
         const { message, groupUser } = response.data;
-        AppActions.receiveGroupUsers(groupUser);
-        toastr.success(message);
+        if (groupUser) {
+          AppActions.receiveGroupUsers(groupUser);
+          toastr.success(message);
+        } else {
+          toastr.info(message);
+        }
       }).catch((error) => {
         toastr.error(error);
       });
@@ -114,20 +122,20 @@ module.exports = {
     axios.get(`/notGroupUsers/${groupId}`)
       .then((response) => {
         const { message, allUsers } = response.data;
-        // console.log(allUsers,'====> From AppAPI');
-        AppActions.receiveAllUsers(allUsers);
-        toastr.success(message);
+        if (allUsers) {
+          AppActions.receiveAllUsers(allUsers);
+          toastr.success(message);
+        } else {
+          toastr.info(message);
+        }
       }).catch((error) => {
         toastr.error(error);
       });
   },
   postMessage({ groupId, message, priority, id, name }) {
     axios.post('/message', { groupId, message, priority, id, name })
-      .then(() => {
-        // const { message } = response.data;
-        const messages = { id, message, name };
-        console.log(messages, "=====> ApppApi");
-        AppActions.updateMessageStore(id, message, name);
+      .then((response) => {
+        const { message } = response.data; // eslint-disable-line
       }).catch((error) => {
         toastr.error(error);
       });
@@ -139,7 +147,6 @@ module.exports = {
         if (messages) {
           AppActions.receiveAllMessages(messages);
         } else {
-          const { message } = response.data;
           toastr.info(message);
           AppActions.resetMessageStore();
         }

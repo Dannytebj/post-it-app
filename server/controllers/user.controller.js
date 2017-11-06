@@ -3,8 +3,8 @@ const firebase = require('firebase');
 const emailValidation = require('../utils/emailValidation');
 
 /**
- * This Controller exports controllers for the user endpoints
- * @param {*} req User Requests
+ * This file exports controllers for the user endpoints
+ * @param {*} req All User Requests
  * @param {*} res Server Responses
  */
 
@@ -25,17 +25,21 @@ export const signUp = (req, res) => {
           displayName: username,
         })
           .then(() => {
-            const uid = user.uid;
-            firebase.database().ref(`/users/${uid}`).set(
+            const userUid = user.uid;
+            const username = user.displayName;            
+            firebase.database().ref(`/users/${userUid}`).set(
               {
-                name: user.displayName,
-                id: user.uid,
+                name: username,
+                id: userUid,
                 email,
-                phoneNumber
-              }
+                phoneNumber,
+              },
             );
             res.status(201)
-              .send({ message: 'User Succesfully created!' });
+              .send({ message: 'User Succesfully created!',
+                username,
+                userUid,
+              });
           });
       });
     promise.catch((error) => {
@@ -49,11 +53,11 @@ export const signIn = (req, res) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then((user) => {
       const username = user.displayName;
-      const uid = user.uid;
-      res.json({
+      const userUid = user.uid;
+      res.send({
         message: 'User Logged In Successfully!',
-        userName: username,
-        userUid: uid,
+        username,
+        userUid,
       });
     })
     .catch((error) => {
@@ -107,7 +111,7 @@ export const resetPassword = (req, res) => {
       .then(() => {
         res.status(200)
           .send({
-            message: 'A mail has been sent to the email address provided'
+            message: 'A mail has been sent to the email address provided',
           });
       }).catch((error) => {
         res.status(500)
