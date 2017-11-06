@@ -49,10 +49,10 @@ module.exports = {
   signInWithGoogle({ idToken }) {
     axios.post('/signIn/google', { idToken })
       .then((response) =>  {
-        browserHistory.push('home');
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
+        browserHistory.push('home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -94,7 +94,6 @@ module.exports = {
     axios.get(`/getGroup/${userUid}`)
       .then((response) => {
         const { message, groups } = response.data;
-        toastr.success(message);        
         if (groups) {
           AppActions.receiveGroups(groups);
         } else {
@@ -110,7 +109,6 @@ module.exports = {
         const { message, groupUser } = response.data;
         if (groupUser) {
           AppActions.receiveGroupUsers(groupUser);
-          toastr.success(message);
         } else {
           toastr.info(message);
         }
@@ -124,7 +122,6 @@ module.exports = {
         const { message, allUsers } = response.data;
         if (allUsers) {
           AppActions.receiveAllUsers(allUsers);
-          toastr.success(message);
         } else {
           toastr.info(message);
         }
@@ -143,7 +140,7 @@ module.exports = {
   getAllMessages({ groupId }) {
     axios.get(`/getMessages/${groupId}`)
       .then((response) => {
-        const { messages } = response.data;
+        const { messages, message } = response.data;
         if (messages) {
           AppActions.receiveAllMessages(messages);
         } else {

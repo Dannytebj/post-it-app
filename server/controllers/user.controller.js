@@ -92,7 +92,23 @@ export const signInWithGoogle = (req, res) => {
   const provider = new firebase.auth.GoogleAuthProvider.credential(idToken);
   firebase.auth().signInWithCredential(provider)
     .then((googleUser) => {
-      res.send({ user: googleUser });
+      const userUid = googleUser.uid;
+      const username = googleUser.displayName;
+      const email = googleUser.email;
+      const phoneNumber = googleUser.phoneNumber;            
+      firebase.database().ref(`/users/${userUid}`).set(
+        {
+          name: username,
+          id: userUid,
+          email,
+          phoneNumber,
+        },
+      );
+      res.status(201)
+        .send({ message: 'User Succesfully created!',
+          username,
+          userUid,
+        });
     })
     .catch((error) => {
       res.status(401);

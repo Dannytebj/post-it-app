@@ -6,8 +6,13 @@ import MessageStore from '../stores/MessageStore';
 import MessageList from './MessageList';
 import MessageTextBox from '../utils/msgText';
 
+const port = process.env.PORT || 9999;
+
+
 const { getMessages, postMessage, updateMessageStore } = ViewActions;
-const socket = io('http://localhost:9999');
+// const socket = io('http://localhost:9999');
+const socket = io(`https://postitdanny.herokuapp.com:${port}`);
+
 
 /**
  * 
@@ -142,7 +147,7 @@ class GroupMessages extends Component {
                   <MessageList messageList={ messageList } />}
               </div>
               <div className="row msgBox">
-                <div className="col-lg-6">
+                <div className="col-lg-12">
                   <div className="input-group">
                     <MessageTextBox className='msgText'
                       onChange={(value) => { 
