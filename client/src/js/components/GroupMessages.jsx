@@ -6,12 +6,12 @@ import MessageStore from '../stores/MessageStore';
 import MessageList from './MessageList';
 import MessageTextBox from '../utils/msgText';
 
-const port = process.env.PORT || 9999;
+// const port = process.env.PORT || 9999;
 
 
 const { getMessages, postMessage, updateMessageStore } = ViewActions;
 // const socket = io('http://localhost:9999');
-const socket = io(`https://postitdanny.herokuapp.com:${port}`);
+const socket = io('https://postitdanny.herokuapp.com');
 
 
 /**
