@@ -7,12 +7,21 @@ import Google from './GoogleSignIn';
 import PassWordReset from './PasswordReset';
 import '../../scss/index.scss';
 
-/**
- * Component That handles SignIn and SignUP
- */
 const { signIn, signUp } = ViewActions;
-
+/**
+ * @description Handles the Landing page, SignIn,
+ * SignUp, Reset Password
+ * 
+ * @class Login
+ * @extends {Component}
+ */
 class Login extends Component {
+  /**
+   * @constructor
+   * Creates an instance of Login.
+   * @param {any} props 
+   * @memberof Login
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -28,21 +37,49 @@ class Login extends Component {
     this.toggleSignInUp = this.toggleSignInUp.bind(this);
     this.toggleResetPass = this.toggleResetPass.bind(this);
   }
+  /**
+   * @description This method adds a change listener to the 
+   * Userstore when the component is mounted
+   * 
+   * @memberof Login
+   */
   componentDidMount() {
     UserStore.addChangeListener(this.onChange);
   }
+  /**
+   * @description This method removes userstore change listener
+   * it is triggered before the component unmounts
+   * 
+   * @memberof Login
+   */
   componentWillUnmount() {
     UserStore.removeChangeListener(this.onChange);
   }
+  /**
+   * @description This forces an Update when there is a change
+   * in the Userstore
+   * 
+   * @memberof Login
+   */
   onChange() {
     this.forceUpdate();
   }
-
+  /**
+ * @description When called it sets the state of the component to 
+ * signing in or  signing Up. 
+ * 
+ * @memberof Login
+ */
   toggleSignInUp() {
     this.setState({
       signingIn: !this.state.signingIn,
     });
   }
+  /**
+   * @description Toggles the reset Password Modal
+   * 
+   * @memberof Login
+   */
   toggleResetPass() {
     this.setState({
       resetPass: true,
@@ -62,7 +99,12 @@ class Login extends Component {
     }
     signUp(email, password, username, phoneNumber);
   }
-
+  /**
+ * 
+ * 
+ * @returns  Jsx component for the landing Page
+ * @memberof Login
+ */
   render() {
     const { 
       email, 
@@ -126,9 +168,11 @@ class Login extends Component {
                 <PassWordReset/>
                 { (signingIn) ?
                   <p className="message">Not registered ? 
-                    <a className="toggler1" onClick={this.toggleSignInUp}>Sign Up</a></p> :
+                    <a className="toggler1" 
+                      onClick={this.toggleSignInUp}>Sign Up</a></p> :
                   <p className="message">Already registered? 
-                    <a className="toggler2" onClick={this.toggleSignInUp}>Sign In</a></p> 
+                    <a className="toggler2" 
+                      onClick={this.toggleSignInUp}>Sign In</a></p> 
                 }
               </div>
             </div>

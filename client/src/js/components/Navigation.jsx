@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+/**
+ * @description This is a stateless component that returns
+ * an unordered list of navigation elements
+ * 
+ */
 const MyNavigator = () => (
   <ul className="nav navbar-nav">         
     <li>

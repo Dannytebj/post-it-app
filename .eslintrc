@@ -40,8 +40,17 @@
         "react/prop-types": 2, // Prevent missing props validation in a React component definition
         "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
         // "react/require-extension": [1, { "extensions": [".js"] }], // Restrict file extensions that may be required
-        "react/self-closing-comp": 2 // Prevent extra closing tags for components without children
+        "react/self-closing-comp": 2, // Prevent extra closing tags for components without children
         // "react/wrap-multilines": 2 // Prevent missing parentheses around multilines JSX
+        "require-jsdoc": ["error", {
+          "require": {
+              "FunctionDeclaration": true,
+              "MethodDefinition": true,
+              "ClassDeclaration": true,
+              "ArrowFunctionExpression": false,
+              "FunctionExpression": false
+          }
+      }]
     },
     "globals": {
         "jQuery": true,

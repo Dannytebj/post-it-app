@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MessageTextBox = ({ onChange, currentValue, className }) => {
-  return (
-    <div>
-      <input className={className}
-        type = "text"
-        onChange = { (event) => {
-          onChange(event.target.value);
-        } }
-        value = { currentValue }
-      />
-    </div>);
-};
+const MessageTextBox = ({ onChange, currentValue, className }) => (
+  <div>
+    <input className={className}
+      type = "text"
+      onChange = { (event) => {
+        onChange(event.target.value);
+      } }
+      value = { currentValue }
+    />
+  </div>);
 
 
 MessageTextBox.propTypes = {

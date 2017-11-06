@@ -1,6 +1,9 @@
 import React from 'react';
-import MyNavigator from './Navigation.jsx';
-        
+import MyNavigator from './Navigation';
+/**
+ * @description Stateless component that renders layout
+ * contains navigator
+ */     
 const Layout = () => {
   const user = localStorage.getItem('userName');
   return (<nav className="navbar navbar-default">
@@ -16,7 +19,7 @@ const Layout = () => {
           <span className="icon-bar" />
           <span className="icon-bar" />
         </button>
-        <a className="navbar-brand" href="#">PostIt</a>
+        <a className="navbar-brand" href="#">Welcome, {user}</a>
       </div>
       <div className="collapse navbar-collapse" id="my-navbar-collapse">
         <MyNavigator/>

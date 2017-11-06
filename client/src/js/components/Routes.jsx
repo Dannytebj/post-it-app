@@ -9,7 +9,7 @@ import SignOut from '../components/SignOut';
 
 
 /**
- * Contains Routes to all my components
+ * @description Contains Routes to all components
  */
 const RequireAuth = (nextState, replace) => {
   const user = localStorage.getItem('userUid');
