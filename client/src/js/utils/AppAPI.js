@@ -42,7 +42,7 @@ module.exports = {
         localStorage.clear();
         toastr.success(message);
       }).catch((error) => {
-        const { message } = error.response.data;
+        const { message } = error.response;
         toastr.error(message);
       });
   },

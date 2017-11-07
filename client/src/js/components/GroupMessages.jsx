@@ -36,8 +36,6 @@ class GroupMessages extends Component {
       message: '',
     };
     this.showGroupMessages = this.showGroupMessages.bind(this);
-    this.setPriorityUrgent = this.setPriorityUrgent.bind(this);
-    this.setPriorityCritical = this.setPriorityCritical.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this._onChange = this._onChange.bind(this);
   }
@@ -48,13 +46,19 @@ class GroupMessages extends Component {
    * @memberof GroupMessages
    */
   componentWillMount() {
+    MessageStore.addChangeListener(this._onChange);
+  }
+  /**
+ * 
+ * 
+ * @memberof GroupMessages
+ */
+  componentDidMount() {
     const groupId = localStorage.getItem('groupId');        
     socket.on(`newMessage${groupId}`, (payload) => {
       const { id, message, name } = payload;
       updateMessageStore(id, message, name);
     });
-
-    MessageStore.addChangeListener(this._onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -106,20 +110,12 @@ class GroupMessages extends Component {
     });
   }
   /**
-   * @description set the priority of the message to Urgent
+   * @description set the priority of messages
    * 
    * @memberof GroupMessages
    */
-  setPriorityUrgent() {
-    this.setState({ priority: 'Urgent' });
-  }
-  /**
-   * @description set the priority of messages to crititcal
-   * 
-   * @memberof GroupMessages
-   */
-  setPriorityCritical() {
-    this.setState({ priority: 'Critical' });
+  setPriority(event) {
+    this.setState({ priority: event.target.value });
   }
 
   /**
@@ -142,39 +138,46 @@ class GroupMessages extends Component {
           </div>
           {(group.groupId !== groupId) ? '' :
             <div className="col-md-6 messageArea">
-              <div className="messageTray">
-                {(messageList === '') ? '' :
-                  <MessageList messageList={ messageList } />}
+              <div>
+                {(messageList.length === 0) ?
+                  <span className="center"><h4> No Group Selected</h4></span> :
+                  <div className="messageTray">
+                    <MessageList messageList={ messageList } />
+                  </div>}
               </div>
-              <div className="row msgBox">
-                <div className="col-lg-12">
-                  <div className="input-group">
-                    <MessageTextBox className='msgText'
-                      onChange={(value) => { 
-                        this.setState({ message: value });
-                      }}
-                      currentValue={message}
-                    />
-                    <span className="input-group-btn">
-                      <button className="btn btn-default send-msg" 
-                        type="button" onClick={this.sendMessage}>send</button>
-                    </span>
+              {(messageList.length === 0) ? '' : <div>
+                <div className="row msgBox">
+                  <div className="col-lg-12">
+                    <div className="input-group">
+                      <MessageTextBox className='msgText'
+                        onChange={(value) => { 
+                          this.setState({ message: value });
+                        }}
+                        currentValue={message}
+                      />
+                      <span className="input-group-btn">
+                        <button className="btn btn-default send-msg" 
+                          type="button" onClick={this.sendMessage}>send</button>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="dropdown">
-                <button className="btn btn-default dropdown-toggle" 
-                  type="button" id="dropdownMenu1" 
-                  data-toggle="dropdown" aria-haspopup="true" 
-                  aria-expanded="true">
-                        Priority
-                  <span className="caret" />
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li onClick ={this.setPriorityUrgent}>Urgent</li>
-                  <li onClick ={this.setPriorityCritical}>Critical</li>
-                </ul>
-              </div>
+                <div className="radio" onChange={this.setPriority.bind(this)}>
+                  <label className="radio-inline">
+                    <input type="radio" value="Normal" name="priority" 
+                      defaultChecked = {true} /> 
+                  Normal
+                  </label>
+                  <label className="radio-inline">
+                    <input type="radio" value="Urgent" name="priority"/> 
+                  Urgent
+                  </label>
+                  <label className="radio-inline">
+                    <input type="radio" value="Critical" name="priority"/> 
+                  Critical
+                  </label>           
+                </div>
+              </div>}
             </div>
           }
         </div>
