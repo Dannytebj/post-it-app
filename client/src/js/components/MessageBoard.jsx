@@ -88,16 +88,11 @@ class MessageBoard extends Component {
               <a href="" onClick = {this.fetchGroups}  
                 data-target=".1a" data-toggle="tab">Message Board</a>
             </li>
-            <li><a href="" data-target=".2a"  data-toggle="tab">empty</a>
-            </li>
           </ul>
           <div className="tab-content clearfix">
             <div className="tab-pane active 1a" id="1a" aria-hidden="true">
               <h3>Your Groups</h3>
               <MessageGroupList groupList= {groupList}/>
-            </div>
-            <div className="tab-pane 2a" id="2a" aria-hidden="true">
-              <h3>The groups you Belong to;</h3>
             </div>
           </div>
         </div>

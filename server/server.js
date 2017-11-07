@@ -56,17 +56,13 @@ const server = app.listen(port, () => {
 
 const io = socketio(server);
 io.on('connection', (socket) => {
-  console.log('Connected');
+  console.log('Connected'); // eslint-disable-line
   socket.on('disconnect', () => {
-    console.log('Disconnected');
+    console.log('Disconnected'); // eslint-disable-line
   });
 });
 
 socketConfig.socketInstance(io);
-
-setTimeout(() => {
-  io.emit('randomEventInHistory', 'something');
-}, 5000);
 
 app.use(webpackHotMiddleware(compiler));
 
