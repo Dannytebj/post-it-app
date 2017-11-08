@@ -10,8 +10,8 @@ import MessageTextBox from '../utils/msgText';
 
 
 const { getMessages, postMessage, updateMessageStore } = ViewActions;
-const socket = io('http://localhost:9999'); // This Link is required on local machine
-// const socket = io('https://postitdanny.herokuapp.com'); // This Link is required for hosted app
+// const socket = io('http://localhost:9999'); // This Link is required on local machine
+const socket = io('https://postitdanny.herokuapp.com'); // This Link is required for hosted app
 
 
 /**
