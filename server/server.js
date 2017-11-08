@@ -1,6 +1,7 @@
 import express from 'express';
 import webpack from 'webpack';
 import firebase from 'firebase';
+import expressValidator from 'express-validator';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import path from 'path';
@@ -9,7 +10,6 @@ import socketio from 'socket.io';
 import Config from '../webpack.config';
 import routes from './routes/index';
 import socketConfig from './utils/socketConfig';
-// import dotenv from 'dotenv';
 import config from './config/config';
 
 
@@ -40,6 +40,8 @@ app.use((req, res, next) => {
          'content-type, Authorization');
   next();
 });
+
+app.use(expressValidator());
 
 app.use(routes);
 

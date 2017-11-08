@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 
 describe('The SignUp route controller', () => {
   let email;
-  let userName;
+  let username;
   let password;
   let phoneNumber;
   beforeEach(() => {
-    userName = faker.name.findName();
+    username = faker.name.findName();
     email = faker.internet.email();
     password = 'abc123';
     phoneNumber = faker.phone.phoneNumber();
@@ -26,7 +26,7 @@ describe('The SignUp route controller', () => {
   it('should return 200 on successful signUp', (done) => {
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber })
+      .send({ email, password, username, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -38,7 +38,7 @@ describe('The SignUp route controller', () => {
   it('should return 400 if user already exist', (done) => {
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber })
+      .send({ email, password, username, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -51,7 +51,7 @@ describe('The SignUp route controller', () => {
     const email = 'johndoe4me.com';
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber })
+      .send({ email, password, username, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -64,7 +64,7 @@ describe('The SignUp route controller', () => {
     const password = '';
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber })
+      .send({ email, password, username, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -78,7 +78,7 @@ describe('The SignUp route controller', () => {
     const email = 'weakpass@myself.com';
     chai.request(app)
       .post('/signUp', signUp)
-      .send({ email, password, userName, phoneNumber })
+      .send({ email, password, username, phoneNumber })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -103,6 +103,7 @@ describe('The SignIn Controller', () => {
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
+          console.log(res);
           res.status.should.equal(200);
         }
         done();
@@ -159,6 +160,19 @@ describe('The Reset Password Controller', () => {
       .end((res) => {
         if (res) {
           res.status.should.equal(400);
+        }
+        done();
+      });
+  });
+  it('should return 200 when reset password mail has been sent', (done) => {
+    const email = 'john.doe@myself.com';
+    chai.request(app)
+      .post('/resetPassword', resetPassword)
+      .send({ email })
+      .set('Accept', 'application/json')
+      .end((res) => {
+        if (res) {
+          res.status.should.equal(200);
         }
         done();
       });

@@ -1,5 +1,5 @@
 import express from 'express';
-// import router from '../server';
+import validateInputs from '../utils/validator';
 import {
   signUp,
   signIn,
@@ -16,7 +16,6 @@ import {
   getAllUsers,
   notGroupUsers,
   addUser,
-  checkGroupName,
 } from '../controllers/groups';
 
 
@@ -24,7 +23,7 @@ const router = express.Router();
 // END POINTS FOR POST-IT router
 //  Post Routes
 router.post('/signIn', signIn);
-router.post('/signUp', signUp);
+router.post('/signUp', validateInputs, signUp);
 router.post('/signOut', signOut);
 router.post('/signIn/google', signInWithGoogle);
 router.post('/group', createGroup);
