@@ -103,7 +103,6 @@ describe('The SignIn Controller', () => {
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
-          console.log(res);
           res.status.should.equal(200);
         }
         done();
