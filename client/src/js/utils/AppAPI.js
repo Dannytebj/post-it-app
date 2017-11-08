@@ -8,7 +8,7 @@ import AppActions from '../actions/AppActions';
  */
 module.exports = {
   signIn({ email, password }) {
-    axios.post('/signIn', { email, password })
+    axios.post('/api/v1/signIn', { email, password })
       .then((response) =>  {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
@@ -21,7 +21,7 @@ module.exports = {
       });
   },
   signUp({ email, password, username, phoneNumber }) {
-    axios.post('/signUp', { email, password, username, phoneNumber })
+    axios.post('/api/v1/signUp', { email, password, username, phoneNumber })
       .then((response) =>  {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
@@ -34,7 +34,7 @@ module.exports = {
       });
   },
   signOut() {
-    axios.post('/signOut')
+    axios.post('/api/v1/signOut')
       .then((response) =>  {
         browserHistory.push('/');
         const { message } = response.data;
@@ -47,7 +47,7 @@ module.exports = {
       });
   },
   signInWithGoogle({ idToken }) {
-    axios.post('/signIn/google', { idToken })
+    axios.post('/api/v1/signIn/google', { idToken })
       .then((response) =>  {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
@@ -60,7 +60,7 @@ module.exports = {
       });
   }, 
   resetPassword({ email }) {
-    axios.post('/resetPassword', { email })
+    axios.post('/api/v1/resetPassword', { email })
       .then((response) =>  {
         const { message } = response.data;
         toastr.success(message);
@@ -70,7 +70,7 @@ module.exports = {
       });
   },  
   addUser({ groupId, groupName, name, id }) {
-    axios.post(`/group/${groupId}/users`, { groupName, name, id })
+    axios.post(`/api/v1/group/${groupId}/users`, { groupName, name, id })
       .then((response) =>  {
         const { message } = response.data;
         AppActions.addUserResponse();
@@ -81,7 +81,7 @@ module.exports = {
       });
   },  
   createGroup({ groupName, userUid, userName }) {
-    axios.post('/group', { groupName, userUid, userName })
+    axios.post('/api/v1/group', { groupName, userUid, userName })
       .then((response) => {
         const { message } = response.data;
         toastr.success(message);
@@ -91,7 +91,7 @@ module.exports = {
       });
   },
   getGroups({ userUid }) {
-    axios.get(`/getGroup/${userUid}`)
+    axios.get(`/api/v1/getGroup/${userUid}`)
       .then((response) => {
         const { message, groups } = response.data;
         if (groups) {
@@ -104,7 +104,7 @@ module.exports = {
       });
   },
   getGroupUsers({ groupId }) {
-    axios.get(`/getGroupUsers/${groupId}`)
+    axios.get(`/api/v1/getGroupUsers/${groupId}`)
       .then((response) => {
         const { message, groupUser } = response.data;
         if (groupUser) {
@@ -117,7 +117,7 @@ module.exports = {
       });
   },
   getAllUsers({ groupId }) {
-    axios.get(`/notGroupUsers/${groupId}`)
+    axios.get(`/api/v1/notGroupUsers/${groupId}`)
       .then((response) => {
         const { message, allUsers } = response.data;
         if (allUsers) {
@@ -130,7 +130,7 @@ module.exports = {
       });
   },
   postMessage({ groupId, message, priority, id, name }) {
-    axios.post('/message', { groupId, message, priority, id, name })
+    axios.post('/api/v1/message', { groupId, message, priority, id, name })
       .then((response) => {
         const { message } = response.data; // eslint-disable-line
       }).catch((error) => {
@@ -138,7 +138,7 @@ module.exports = {
       });
   },
   getAllMessages({ groupId }) {
-    axios.get(`/getMessages/${groupId}`)
+    axios.get(`/api/v1/getMessages/${groupId}`)
       .then((response) => {
         const { messages, message } = response.data;
         if (messages) {

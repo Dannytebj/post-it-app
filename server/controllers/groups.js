@@ -14,7 +14,6 @@ import io from '../utils/socketConfig';
 // ============Controller for Creating Groups ============
 
 export const createGroup = (req, res) => {
-  // const currUser = firebase.auth().currentUser;
   const { userUid, userName, groupName } = req.body;
   const convertedName = convertCase(groupName);
   const groupNameArray = [];

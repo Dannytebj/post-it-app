@@ -10,8 +10,8 @@ import MessageTextBox from '../utils/msgText';
 
 
 const { getMessages, postMessage, updateMessageStore } = ViewActions;
-// const socket = io('http://localhost:9999');
-const socket = io('https://postitdanny.herokuapp.com');
+// const socket = io('http://localhost:9999'); // This Link is required on local machine
+const socket = io('https://postitdanny.herokuapp.com'); // This Link is required for hosted app
 
 
 /**
@@ -145,7 +145,7 @@ class GroupMessages extends Component {
                     <MessageList messageList={ messageList } />
                   </div>}
               </div>
-              {(messageList.length === 0) ? '' : <div>
+              {(group.groupId !== groupId) ? '' : <div>
                 <div className="row msgBox">
                   <div className="col-lg-12">
                     <div className="input-group">

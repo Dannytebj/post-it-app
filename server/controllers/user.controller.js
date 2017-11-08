@@ -11,7 +11,36 @@ const emailValidation = require('../utils/emailValidation');
 // ============ Controller for Signing Up Users ============
 export const signUp = (req, res) => {
   const { email, password, username, phoneNumber } = req.body;
-  let promise;
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      user.updateProfile({
+        displayName: username,
+      })
+        .then(() => {
+          const userUid = user.uid;
+          const username = user.displayName;            
+          firebase.database().ref(`/users/${userUid}`).set(
+            {
+              name: username,
+              id: userUid,
+              email,
+              phoneNumber,
+            },
+          );
+          res.status(201)
+            .send({ message: 'User Succesfully created!',
+              username,
+              userUid,
+            });
+        });
+    })
+    .catch((error) => {
+      res.status(400).send({ error: error.message });
+    });
+};
+// ============ Controller that Sign's In Users ============
+export const signIn = (req, res) => {
+  const { email, password } = req.body;
   if (!emailValidation(email)) {
     res.status(400)
       .send({ error: 'Please use a valid email address' });
@@ -19,58 +48,28 @@ export const signUp = (req, res) => {
     res.status(400)
       .send({ error: 'Please, you have not entered a password' });
   } else {
-    promise = firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
-        user.updateProfile({
-          displayName: username,
-        })
-          .then(() => {
-            const userUid = user.uid;
-            const username = user.displayName;            
-            firebase.database().ref(`/users/${userUid}`).set(
-              {
-                name: username,
-                id: userUid,
-                email,
-                phoneNumber,
-              },
-            );
-            res.status(201)
-              .send({ message: 'User Succesfully created!',
-                username,
-                userUid,
-              });
-          });
+        const username = user.displayName;
+        const userUid = user.uid;
+        res.send({
+          message: 'User Logged In Successfully!',
+          username,
+          userUid,
+        });
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          res.status(404)
+            .send({ message: 'Sorry!, User not found!!, Kindly SignUp first' });
+        } else if (error.code === 'auth/wrong-password') {
+          res.status(422)
+            .send({ message: 'Hey! you have provided an invalid password!!' });
+        } else {
+          res.status(400).send({ message: error.message });
+        }
       });
-    promise.catch((error) => {
-      res.status(400).send({ error: error.message });
-    });
   }
-};
-// ============ Controller that Sign's In Users ============
-export const signIn = (req, res) => {
-  const { email, password } = req.body;
-  firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      const username = user.displayName;
-      const userUid = user.uid;
-      res.send({
-        message: 'User Logged In Successfully!',
-        username,
-        userUid,
-      });
-    })
-    .catch((error) => {
-      if (error.code === 'auth/user-not-found') {
-        res.status(404)
-          .send({ message: 'Sorry!, User not found!!, Kindly SignUp first' });
-      } else if (error.code === 'auth/wrong-password') {
-        res.status(422)
-          .send({ message: 'Hey! you have provided an invalid password!!' });
-      } else {
-        res.status(400).send({ message: error.message });
-      }
-    });
 };
 
 // =========== Controller that Sign's out  Registered User===========

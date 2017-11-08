@@ -100,12 +100,15 @@ class Group extends Component {
           </div>
           {(group.groupId !== groupId) ? '' :
             <div className="col-md-3 groupUsers">
-              <UserList userList={ userList } /> 
-              {(group.isAdmin) ? <div><a className=".btn-success" 
+              {(userList.length === 0) ? 
+                <span>Please select a group<br/> </span> : 
+                <UserList userList={ userList } /> }
+              {(group.isAdmin) ? <div><button type="button" 
+                className="btn-primary btn-md" 
                 data-toggle="modal"
                 onClick = {this.showAllUsers} 
-                data-target=".addUser">Add User</a> 
-              <a onClick={this.showMessageBoard}>MessageBoard</a></div> : '' }
+                data-target=".addUser">Add User</button> 
+              </div> : '' }
               <AddUser/>
             </div>
           }   
