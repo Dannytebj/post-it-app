@@ -108,10 +108,18 @@ class Groups extends Component {
 
           <div className="tab-content clearfix">
             <div className="tab-pane active 1a" id="1a" aria-hidden="true">
-              <h3>Enter Group Name</h3>
+              <div className="row">
+                <p className ="col-md-6"><strong>Welcome to your GroupBoard,
+                </strong><br/>
+                  Post-It allows you to create groups and add other users 
+                  to that group.
+                  To create a group, kindly enter the name of your group 
+                  and click the Create Group button
+                </p>
+              </div>
               <form onSubmit={this.doCreateGroup.bind(this)}>
                 <div className="form-group row">
-                  <div className ="col-sm-4">
+                  <div className ="col-sm-6">
                     <input type="text" ref="groupName" 
                       className="form-control grpInput" 
                       id="groupName" required={true} />
