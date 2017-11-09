@@ -21,7 +21,7 @@ describe('The SignUp route controller', () => {
     username = faker.name.findName();
     email = faker.internet.email();
     password = 'abc123';
-    phoneNumber = faker.phone.phoneNumber();
+    phoneNumber = '09876543211';
   });
   it('should return 200 on successful signUp', (done) => {
     chai.request(app)
