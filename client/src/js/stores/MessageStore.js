@@ -34,7 +34,6 @@ function setGroups(payload) {
  */
 function updateMessages(payload) {
   const { id, message, name } = payload;
-  console.log('===> Updating', payload);
   messageArray.push({ id, message, name });
 }
 /**
