@@ -7,8 +7,9 @@ const validateInputs = (req, res, next) => {
   req.check('password', 'Password must be a mininum of 6 character')
     .isLength(6, 50);
   req.check('phoneNumber', 'Phone number must be valid digits')
-    .isLength(11, 25).matches(/\d/);
-  req.check('phoneNumber', 'Phone number is required').notEmpty().matches(/\d/);
+    .isLength(11, 25).matches(/^\d+$/);
+  req.check('phoneNumber', 'Phone number is required').notEmpty()
+    .matches(/^\d+$/);
   const errors = req.validationErrors();
   if (errors) {
     const message = errors[0].msg;
