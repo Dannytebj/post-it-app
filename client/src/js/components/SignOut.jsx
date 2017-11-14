@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { browserHistory } from "react-router";
 import UserStore from '../stores/UserStore';
 import viewActions from '../actions/AppActions';
 import Layout from './Layout';
+import appHistory from '../utils/History';
 
 
 const { signOut } = viewActions;
@@ -68,7 +68,7 @@ class SignOut extends Component {
    * @memberof SignOut
    */
   home() {
-    browserHistory.push('home');
+    appHistory.push('/home');
   }
   /**
    * 

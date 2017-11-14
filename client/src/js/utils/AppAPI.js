@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
+import appHistory from './History';
 
 /**
  * @description This file exports all the applications API
@@ -13,7 +14,7 @@ module.exports = {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
-        browserHistory.push('home');
+        appHistory.push('/home');
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -26,7 +27,7 @@ module.exports = {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
-        browserHistory.push('home');        
+        appHistory.push('/home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -36,10 +37,10 @@ module.exports = {
   signOut() {
     axios.post('/api/v1/signOut')
       .then((response) =>  {
-        browserHistory.push('/');
-        const { message } = response.data;
-        gapi.auth2.getAuthInstance().signOut();
+        appHistory.push('/');
         localStorage.clear();
+        gapi.auth2.getAuthInstance().signOut();
+        const { message } = response.data;
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response;
@@ -52,7 +53,7 @@ module.exports = {
         const { username, userUid, message } = response.data;
         localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
-        browserHistory.push('home');        
+        appHistory.push('/home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -144,8 +145,8 @@ module.exports = {
         if (messages) {
           AppActions.receiveAllMessages(messages);
         } else {
-          toastr.info(message);
           AppActions.resetMessageStore();
+          toastr.info(message);
         }
       }).catch((error) => {
         toastr.error(error);

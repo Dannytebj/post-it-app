@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
-import GroupList from './GroupList';
+// import GroupList from './GroupList';
 import Layout from './Layout';
 
 
-const { getGroups, createGroup } = ViewActions;
+const { createGroup } = ViewActions;
 
 /**
  * 
@@ -101,9 +101,6 @@ class Groups extends Component {
             <li className="active">
               <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
             </li>
-            <li><a className="fetchGroups" href="" onClick = {this.fetchGroups} 
-              data-target=".2a"  data-toggle="tab">View Your Groups</a>
-            </li>
           </ul>
 
           <div className="tab-content clearfix">
@@ -131,10 +128,6 @@ class Groups extends Component {
                   </div>
                 </div>
               </form>
-            </div>
-            <div className="tab-pane 2a" id="2a" aria-hidden="true">
-              <h3>The groups you Belong to;</h3>
-              <GroupList groupList= {groupList}/>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ViewActions from '../actions/AppActions';
-import MessageStore from '../stores/MessageStore';
-import MessageGroupList from './MessageGroupList';
+import GroupStore from '../stores/GroupStore';
+import GroupList from './GroupList';
 import Layout from './Layout';
 
 const { getGroups } = ViewActions;
@@ -10,62 +10,60 @@ const { getGroups } = ViewActions;
 /**
  * @description This class is the Parent of the message components
  * 
- * @class MessageBoard
+ * @class GroupLayout
  * @extends {Component}
  */
-class MessageBoard extends Component {
+class GroupLayout extends Component {
   /**
    * @constructor
-   * Creates an instance of MessageBoard.
+   * Creates an instance of GroupLayout.
    * @param {any} props 
-   * @memberof MessageBoard
+   * @memberof GroupLayout
    */
   constructor(props) {
     super(props);
 
     this.state = {
-      groupList: MessageStore.getGroups(),
-      isFetchingData: false,
-      fetchMessage: '',
+      groupList: GroupStore.getGroups(),
     };
     this._onChange = this._onChange.bind(this);
     this.fetchGroups = this.fetchGroups.bind(this);
   }
   /**
    * @description Adds a change listener to the
-   * MessageStore just before the component is mounted
+   * GroupStore just before the component is mounted
    * 
-   * @memberof MessageBoard
+   * @memberof GroupLayout
    */
   componentWillMount() {
     this.fetchGroups();
-    MessageStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this._onChange);
   }
   /**
    * @description Removes change listener just before 
    * the component unmounts
    * 
-   * @memberof MessageBoard
+   * @memberof GroupLayout
    */
   componentWillUnmount() {
-    MessageStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this._onChange);
   }
   /**
  *   @description This method is passed to the change listeners
  * to update the state of the component when there is a 
  * change in the store
  * 
- * @memberof MessageBoard
+ * @memberof GroupLayout
  */
   _onChange() {
     this.setState({
-      groupList: MessageStore.getGroups(),
+      groupList: GroupStore.getGroups(),
     });
   }
   /**
  * @description this method when called triggers the getgroups actions
  * 
- * @memberof MessageBoard
+ * @memberof GroupLayout
  */
   fetchGroups() {
     const userUid = localStorage.getItem('userUid');
@@ -75,18 +73,17 @@ class MessageBoard extends Component {
    * 
    * 
    * @returns 
-   * @memberof MessageBoard
+   * @memberof GroupLayout
    */
   render() {
     const { groupList } = this.state;
     return (
       <div>
         <Layout/>
-        <MessageGroupList groupList= {groupList}/>
-
+        <GroupList groupList= {groupList}/>
       </div>
     );
   }
 }
 
-export default MessageBoard;
+export default GroupLayout;
