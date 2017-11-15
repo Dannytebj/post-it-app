@@ -79,7 +79,8 @@
       "!**/coverage/**",
       "!webpack.config.js",
       "!bundle.js",
-      "!client/src/index.js"
+      "!client/src/index.js",
+      "!client/src/js/components/Routes.jsx"
     ]
   },
   "dependencies": {

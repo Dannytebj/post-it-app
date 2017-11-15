@@ -1,11 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { shallow, mount } from 'enzyme';
+import { NavLink, MemoryRouter } from 'react-router-dom';
+import {  mount } from 'enzyme';
 import MyNavigator from '../js/components/Navigation';
 
 describe('Navigator Component', () => {
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<MyNavigator/>, div);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = mount(<MemoryRouter><MyNavigator/></MemoryRouter>);
+  });
+  it('should have NavLink', () => {
+    expect(wrapper.find(NavLink)).toHaveLength(5);
   });
 });

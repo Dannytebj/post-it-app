@@ -9,7 +9,7 @@ import {
   getMessages,
   notGroupUsers,
   getAllUsers,
-  addUser } from '../controllers/groups';
+  addUser } from '../controllers/groupsController';
 
 const app = require('../server');
 

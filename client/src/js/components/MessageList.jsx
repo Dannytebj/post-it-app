@@ -21,7 +21,7 @@ class MessageList extends Component {
       groupId: props.match.params.groupId,  // eslint-disable-line
       messageList: MessageStore.getAllMessages(),
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   /**
@@ -31,7 +31,7 @@ class MessageList extends Component {
    * @memberof MessageList
    */
   componentWillMount() {
-    MessageStore.addChangeListener(this._onChange);
+    MessageStore.addChangeListener(this.onChange);
   }
   /**
      * @description Removes change listener just before 
@@ -40,7 +40,7 @@ class MessageList extends Component {
      * @memberof GroupMessages
      */
   componentWillUnmount() {
-    MessageStore.removeChangeListener(this._onChange);
+    MessageStore.removeChangeListener(this.onChange);
   }
   /**
    * 
@@ -48,7 +48,7 @@ class MessageList extends Component {
    * @memberof BroadCastGroup
    */
   componentWillReceiveProps(newProps) {
-    MessageStore.addChangeListener(this._onChange);
+    MessageStore.addChangeListener(this.onChange);
     this.setState({
       groupId: newProps.match.params.groupId,
     });
@@ -60,7 +60,7 @@ class MessageList extends Component {
    * 
    * @memberof GroupMessages
    */
-  _onChange() {
+  onChange() {
     this.state.messageList = MessageStore.getAllMessages();
   }
 

@@ -20,7 +20,7 @@ class SignOut extends Component {
    */
   constructor() {
     super();
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.logOut = this.logOut.bind(this);
     this.home = this.home.bind(this);
   }
@@ -31,7 +31,7 @@ class SignOut extends Component {
   * @memberof SignOut
   */
   componentDidMount() {
-    UserStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before the component
@@ -40,7 +40,7 @@ class SignOut extends Component {
    * @memberof SignOut
    */
   componentWillUnmount() {
-    UserStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this.onChange);
   }
   /**
    *  @description This method is passed to the change listeners
@@ -49,7 +49,7 @@ class SignOut extends Component {
    * 
    * @memberof SignOut
    */
-  _onChange() {
+  onChange() {
     this.forceUpdate();
   } 
   /**

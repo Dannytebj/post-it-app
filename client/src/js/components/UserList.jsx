@@ -20,7 +20,7 @@ class UserList extends Component {
       userList: GroupStore.getUsers(),
       groupId: props.match.params.groupId,  // eslint-disable-line
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -29,7 +29,7 @@ class UserList extends Component {
    * @memberof UserList
    */
   componentWillMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
      * @description Removes change listener just before 
@@ -38,7 +38,7 @@ class UserList extends Component {
      * @memberof UserList
      */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
    * 
@@ -46,7 +46,7 @@ class UserList extends Component {
    * @memberof UserList
    */
   componentWillReceiveProps(newProps) {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
     this.setState({
       groupId: newProps.match.params.groupId,
     });
@@ -58,7 +58,7 @@ class UserList extends Component {
    * 
    * @memberof GroupMessages
    */
-  _onChange() {
+  onChange() {
     this.state.userList = GroupStore.getUsers();
   }
 
@@ -74,8 +74,8 @@ class UserList extends Component {
     return (
       <ul className="list-group">
         {
-          userList.map((user, index) => 
-            (<GroupUsers user={user} key={index}/>))
+          userList.map(user => 
+            (<GroupUsers user={user} key={user.id}/>))
         }
       </ul>
     );

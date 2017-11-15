@@ -6,7 +6,7 @@ import {
   signOut,
   signInWithGoogle,
   resetPassword,
-} from '../controllers/user.controller';
+} from '../controllers/userController';
 import {
   createGroup,
   getGroups,
@@ -16,7 +16,7 @@ import {
   getAllUsers,
   notGroupUsers,
   addUser,
-} from '../controllers/groups';
+} from '../controllers/groupsController';
 
 
 const router = express.Router();

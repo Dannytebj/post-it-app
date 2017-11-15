@@ -5,7 +5,7 @@ import {
   signUp,
   signIn,
   signOut, 
-  resetPassword } from '../controllers/user.controller';
+  resetPassword } from '../controllers/userController';
 
 const app = require('../server');
 

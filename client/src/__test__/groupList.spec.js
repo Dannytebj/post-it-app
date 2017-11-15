@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import localStorageMock from './mocks/localstorageMock';
 import GroupList from '../js/components/GroupList';
-import Group from '../js/components/Group';
+import Groups from '../js/components/Groups';
 
 jest.mock('toastr', () => jest.fn());
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
@@ -24,7 +24,7 @@ describe('The GroupList Component', () => {
     ];
   });
   it('should contain <Group/>', () => {
-    const wrapper = mount(<GroupList groupList={groupList} />);
-    expect(wrapper.find(Group)).toHaveLength(2);
+    const wrapper = shallow(<GroupList groupList={groupList} />);
+    expect(wrapper.find(Groups)).toHaveLength(2);
   });
 });
