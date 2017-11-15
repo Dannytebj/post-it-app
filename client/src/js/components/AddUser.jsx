@@ -22,7 +22,6 @@ class  AddUser extends Component {
       allUserList: GroupStore.getAllUsers(),
     };
     this._onChange = this._onChange.bind(this);
-    this.removeNode = this.removeNode.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -49,19 +48,8 @@ class  AddUser extends Component {
    * @memberof AddUser
    */
   _onChange() {
-    this.setState({
-      allUserList: GroupStore.getAllUsers(),
-    });
+    this.state.allUserList = GroupStore.getAllUsers();
   } 
-  /**
-   * @description Removes the change listener when modal component is
-   * closed
-   * 
-   * @memberof AddUser
-   */
-  removeNode() {
-    GroupStore.removeChangeListener(this._onChange);
-  }
 
   /**
    * 
@@ -71,7 +59,6 @@ class  AddUser extends Component {
    */
   render() {
     const { allUserList } = this.state;
-    // console.log(allUserList, '====> Modal Component');
     return (
       <div> 
         <div className="modal fade addUser" 

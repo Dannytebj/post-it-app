@@ -16,5 +16,14 @@
     crossorigin="anonymous">
 </script>
     <div id="main-container"></div>
-<script type="text/jsx" src="/bundle.js"></script></body>
+
+<script type="text/jsx" src="/bundle.js"></script>
+    <script>
+    $(".menu-toggle").click(function(e) {
+        e.preventDefault();
+        $(".wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
 </html>

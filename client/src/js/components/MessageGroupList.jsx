@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GroupMessages from './GroupMessages';
+import GroupSideBar from './GroupSideBar';
 
 /**
  * @description Receives an array of Object(groupList)
@@ -11,12 +11,17 @@ import GroupMessages from './GroupMessages';
  * @param {Array} groupList 
  */
 const MessageGroupList = ({ groupList }) => (
-  <ul id="groups">
-    {
-      groupList.map((group, index) => 
-        (<GroupMessages group={group} key={index}/>))
-    }
-  </ul>);
+  <div className="wrapper">
+    <div className = "sidebar-wrapper">
+      <ul className="sidebar-nav">
+        {
+          groupList.map(group => 
+            (<GroupSideBar group={group} key={group.groupId}/>))
+        }
+      </ul>
+    </div>
+  </div>
+);
 
 MessageGroupList.propTypes = {
   groupList: PropTypes.array.isRequired,

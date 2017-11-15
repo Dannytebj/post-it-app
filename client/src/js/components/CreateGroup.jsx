@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
-import GroupList from './GroupList';
+import TextBox from '../utils/textbox';
 import Layout from './Layout';
 
 
-const { getGroups, createGroup } = ViewActions;
+const { createGroup } = ViewActions;
 
 /**
  * 
@@ -13,7 +13,7 @@ const { getGroups, createGroup } = ViewActions;
  * @class Groups
  * @extends {Component}
  */
-class Groups extends Component {
+class CreateGroup extends Component {
   /**
    * @constructor
    * Creates an instance of Groups.
@@ -23,12 +23,11 @@ class Groups extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupList: GroupStore.getGroups(),
-      isFetchingData: false,
       fetchMessage: '',
+      newGroupName: '',
     };
-    this._onChange = this._onChange.bind(this);
-    this.fetchGroups = this.fetchGroups.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.doCreateGroup = this.doCreateGroup.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -37,7 +36,7 @@ class Groups extends Component {
    * @memberof Groups
    */
   componentWillMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -46,7 +45,7 @@ class Groups extends Component {
    * @memberof Groups
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
    *  @description This method is passed to the change listeners
@@ -55,10 +54,7 @@ class Groups extends Component {
    * 
    * @memberof Groups
    */
-  _onChange() {
-    this.setState({
-      groupList: GroupStore.getGroups(),
-    });
+  onChange() {
   }
   /**
    * @description This method calls the createGroup Action
@@ -68,22 +64,15 @@ class Groups extends Component {
    */
   doCreateGroup(event) {
     event.preventDefault();
-    const newGroupName = this.refs.groupName.value.trim();
+    const { newGroupName } = this.state;
     const userUid = localStorage.getItem('userUid');
     const userName = localStorage.getItem('userName');
     if (newGroupName !== '') {
       createGroup(newGroupName, userUid, userName);
-      this.refs.groupName.value = '';
-    }
-  } 
-  /**
-   * @description This method calls the getGoups action
-   * 
-   * @memberof Groups
-   */
-  fetchGroups() {
-    const userUid = localStorage.getItem('userUid');
-    getGroups(userUid);
+      this.setState({
+        newGroupName: '',
+      });
+    } 
   }
   /**
    * 
@@ -92,7 +81,7 @@ class Groups extends Component {
    * @memberof Groups
    */
   render() {
-    const { groupList } = this.state;
+    const { newGroupName } = this.state;
     return (
       <div>
         <Layout/>
@@ -100,9 +89,6 @@ class Groups extends Component {
           <ul className="nav nav-pills">
             <li className="active">
               <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
-            </li>
-            <li><a className="fetchGroups" href="" onClick = {this.fetchGroups} 
-              data-target=".2a"  data-toggle="tab">View Your Groups</a>
             </li>
           </ul>
 
@@ -117,12 +103,15 @@ class Groups extends Component {
                   and click the Create Group button
                 </p>
               </div>
-              <form onSubmit={this.doCreateGroup.bind(this)}>
+              <form onSubmit={this.doCreateGroup}>
                 <div className="form-group row">
                   <div className ="col-sm-6">
-                    <input type="text" ref="groupName" 
-                      className="form-control grpInput" 
-                      id="groupName" required={true} />
+                    <TextBox
+                      className = "groupName"
+                      onChange={(value) => { this.setState({ newGroupName: value }); }}
+                      label="Group Name"
+                      currentValue={newGroupName}
+                    />
                   </div>
                   <div className="col-sm-4">
                     <button type="submit" className="send" 
@@ -132,10 +121,6 @@ class Groups extends Component {
                 </div>
               </form>
             </div>
-            <div className="tab-pane 2a" id="2a" aria-hidden="true">
-              <h3>The groups you Belong to;</h3>
-              <GroupList groupList= {groupList}/>
-            </div>
           </div>
         </div>
       </div>
@@ -143,4 +128,4 @@ class Groups extends Component {
   }
 }
 
-export default Groups;
+export default CreateGroup;

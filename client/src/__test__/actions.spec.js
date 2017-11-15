@@ -22,7 +22,6 @@ describe('PostIt Actions', () => {
   it('should dispatch a view action of type signIn users', () => {
     email = 'danny@myself.com';
     password = 'asd123';
-    // console.log(dispatcher);
     AppActions.signIn(email, password);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CLICK_SIGN_IN,
@@ -34,11 +33,10 @@ describe('PostIt Actions', () => {
     password = 'asd123';
     phoneNumber = '09876543211';
     username = 'Jimmy Jatt';
-    // console.log(dispatcher);
-    AppActions.signUp(username, email, password, phoneNumber);
+    AppActions.signUp(email, password, username, phoneNumber);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CLICK_SIGN_UP,
-      payload: { username, email, password, phoneNumber },
+      payload: { email, password, username, phoneNumber },
     });
   });
   it('should dispatch a view action of type signOut users', () => {
@@ -73,13 +71,13 @@ describe('PostIt Actions', () => {
     });
   });
   it('should dispatch a view action of type createGroup', () => {
-    const userId = '343526282927345#$$$#dgskaidb';
+    const userUid = '343526282927345#$$$#dgskaidb';
     const groupName = 'Test';
     const userName = 'Falz';
-    AppActions.createGroup(groupName, userId, userName);
+    AppActions.createGroup(groupName, userUid, userName);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CREATE_GROUP,
-      payload: { groupName, userId, userName },
+      payload: { groupName, userUid, userName },
     });
   });
   it('should dispatch a view action of type receiveGroups', () => {

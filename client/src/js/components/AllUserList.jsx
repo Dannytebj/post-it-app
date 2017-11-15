@@ -13,8 +13,8 @@ import AllUsers from './AllUsers';
 const AllUserList = ({ allUserList }) => (
   <ul className="list-group">
     {
-      allUserList.map((user, index) => 
-        (<AllUsers user={user} key={index}/>))
+      allUserList.map(user => 
+        (<AllUsers user={user} key={user.id}/>))
     }
   </ul>
 );

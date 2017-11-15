@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
+
 
 /**
  * @description This is a stateless component that returns
@@ -9,24 +11,29 @@ import { Link } from 'react-router';
 const MyNavigator = () => (
   <ul className="nav navbar-nav">         
     <li>
-      <Link to={'home'}>
+      <NavLink to={'/home'}>
         <p className="menu">Home</p>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={'group'}>
-        <p className="menu">Group</p>
-      </Link>
+      <NavLink to={'/createGroup'}>
+        <p className="menu"> Create Group</p>
+      </NavLink>
     </li>
     <li>
-      <Link to={'message'}>
+      <NavLink to={'/group'}>
+        <p className="menu">Groups</p>
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to={'/message'}>
         <p className="menu">Message Board</p>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={'signOut'}>
+      <NavLink to={'/signOut'}>
         <p className="menu">Sign Out</p>
-      </Link>
+      </NavLink>
     </li>
   </ul>
 );

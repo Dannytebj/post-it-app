@@ -13,3 +13,4 @@ dist
 .env
 npm-debug.log
 .nyc_output
+bundle.js
