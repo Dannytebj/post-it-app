@@ -35,7 +35,7 @@ export const signUp = (req, res) => {
         });
     })
     .catch((error) => {
-      res.status(400).send({ error: error.message });
+      res.status(400).send({ message: error.message });
     });
 };
 // ============ Controller that Sign's In Users ============
@@ -43,10 +43,10 @@ export const signIn = (req, res) => {
   const { email, password } = req.body;
   if (!emailValidation(email)) {
     res.status(400)
-      .send({ error: 'Please use a valid email address' });
+      .send({ message: 'Please use a valid email address' });
   } else if (password === '') {
     res.status(400)
-      .send({ error: 'Please, you have not entered a password' });
+      .send({ message: 'Please, you have not entered a password' });
   } else {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
