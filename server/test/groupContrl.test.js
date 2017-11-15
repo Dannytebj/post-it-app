@@ -1,9 +1,6 @@
-import mocha from 'mocha';
 import chai from 'chai';
-// import firebase from 'firebase';
 import chaiHttp from 'chai-http';
 import faker from 'faker';
-import assert from 'assert';
 import { 
   createGroup,
   getGroups,
@@ -12,28 +9,27 @@ import {
   getMessages,
   notGroupUsers,
   getAllUsers,
-  addUser } from '../controllers/groups';
+  addUser } from '../controllers/groupsController';
 
-const expect = require('chai').expect;
 const app = require('../server');
 
 chai.should();
 chai.use(chaiHttp);
 
 describe('The Create Group controller', () => {
-  let userId; 
+  let userUid; 
   let userName;
 
   beforeEach(() => {
     userName = 'John Doe';
-    userId = 'vmodRxnuhhXZQsqTBQx4A6V48CI2';
+    userUid = 'vmodRxnuhhXZQsqTBQx4A6V48CI2';
   });
 
   it('should return 200 when a Group is Successfully created', (done) => {
     const groupName = faker.company.companyName();
     chai.request(app)
-      .post('/group', createGroup)
-      .send({ groupName, userName, userId })
+      .post('/api/v1/group', createGroup)
+      .send({ groupName, userName, userUid })
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -46,7 +42,7 @@ describe('The Create Group controller', () => {
     const groupName = faker.company.companyName();
     const userId = null;
     chai.request(app)
-      .get('/group', createGroup)
+      .get('/api/v1/group', createGroup)
       .send({ groupName, userName, userId })
       .set('Accept', 'application/json')
       .end((res) => {
@@ -60,7 +56,7 @@ describe('The Create Group controller', () => {
     const groupName = faker.company.companyName();
     const userId = 'vmodRxnuhhXZQsqTBQx4A6';
     chai.request(app)
-      .get('/group', createGroup)
+      .get('/api/v1/group', createGroup)
       .send({ groupName, userName, userId })
       .set('Accept', 'application/json')
       .end((res) => {
@@ -76,7 +72,7 @@ describe('The Get Group controllers', () => {
   it('should return 200 when groups are fetched successfully', (done) => {
     const userUid = 'vmodRxnuhhXZQsqTBQx4A6V48CI2';
     chai.request(app)
-      .get(`/getGroup/${userUid}`, getGroups)
+      .get(`/api/v1/getGroup/${userUid}`, getGroups)
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -90,7 +86,7 @@ describe('The Get Group controllers', () => {
 describe('The Get All Users controller', () => {
   it('should return 200 on successful fetch of group Users', (done) => {
     chai.request(app)
-      .get('/getUsers', getAllUsers)
+      .get('/api/v1/getUsers', getAllUsers)
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -114,7 +110,7 @@ describe('The Add User Controller', () => {
   });
   it('should return 200 when a user is successfully added to group', (done) => {
     chai.request(app)
-      .post(`/group/${groupId}/users`, addUser)
+      .post(`/api/v1/group/${groupId}/users`, addUser)
       .send({ groupName, name, id })
       .set('Accept', 'application/json')
       .end((res) => {
@@ -133,7 +129,7 @@ describe('The Get Group Users Controller', () => {
   });
   it('should return 200 when all Group Users are fetched', (done) => {
     chai.request(app)
-      .get(`/getGroupUsers/${groupId}`, getGroupUsers)
+      .get(`/api/v1/getGroupUsers/${groupId}`, getGroupUsers)
       .set('Accept', 'application/json')
       .end((res) => {
         if (res) {
@@ -152,7 +148,7 @@ describe('The Get All Users Controller', () => {
   it('should return 200 when all Users not in that group are fetched', 
     (done) => {
       chai.request(app)
-        .get(`/notGroupUsers/${groupId}`, notGroupUsers)
+        .get(`/api/v1/notGroupUsers/${groupId}`, notGroupUsers)
         .set('Accept', 'application/json')
         .end((res) => {
           if (res) {
@@ -179,7 +175,7 @@ describe('The Message Controllers', () => {
   it('should return 200 when a message is successfully posted to a group', 
     (done) => {
       chai.request(app)
-        .post('/message', postMessage)
+        .post('/api/v1/message', postMessage)
         .send({ message, name, id, priority, groupId })
         .set('Accept', 'application/json')
         .end((res) => {
@@ -193,7 +189,21 @@ describe('The Message Controllers', () => {
   it('should return 200 when all messages are successfully fetched',
     (done) => {
       chai.request(app)
-        .get(`/getMessages/${groupId}`, getMessages)
+        .get(`/api/v1/getMessages/${groupId}`, getMessages)
+        .set('Accept', 'application/json')
+        .end((res) => {
+          if (res) {
+            res.status.should.equal(200);
+          }
+          done();
+        });
+    });
+  it('should return call sendNotification when message Urgent/Critical',
+    (done) => {
+      const priority = 'Critical';
+      chai.request(app)
+        .post('/api/v1/message', postMessage)
+        .send({ message, name, id, priority, groupId })
         .set('Accept', 'application/json')
         .end((res) => {
           if (res) {

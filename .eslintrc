@@ -19,6 +19,7 @@
         "no-unused-vars": 2, // disallow declaration of variables that are not used in the code
         "no-redeclare": 2, // disallow declaring the same variable more then once
         "new-cap": 0,
+        "class-methods-use-this": 0,
         //
         // eslint-plugin-react
         //
@@ -39,8 +40,17 @@
         "react/prop-types": 2, // Prevent missing props validation in a React component definition
         "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
         // "react/require-extension": [1, { "extensions": [".js"] }], // Restrict file extensions that may be required
-        "react/self-closing-comp": 2 // Prevent extra closing tags for components without children
+        "react/self-closing-comp": 2, // Prevent extra closing tags for components without children
         // "react/wrap-multilines": 2 // Prevent missing parentheses around multilines JSX
+        "require-jsdoc": ["error", {
+          "require": {
+              "FunctionDeclaration": true,
+              "MethodDefinition": true,
+              "ClassDeclaration": true,
+              "ArrowFunctionExpression": false,
+              "FunctionExpression": false
+          }
+      }]
     },
     "globals": {
         "jQuery": true,
@@ -75,10 +85,21 @@
         "browser": true,
         "es6": true
     },
+"parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
     "ecmaFeatures": {
-        "jsx": true,
-        "modules": true
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
     }
-}
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx"]
+      }
+    }
+  }
 }
