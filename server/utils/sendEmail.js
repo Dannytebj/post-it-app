@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.load();
 const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
 
 dotenv.load();
 // console.log( process.env.GMAIL_USERNAME, process.env.PASS );
@@ -12,16 +10,13 @@ dotenv.load();
  * @param emails - Emails of Users in group
  * @param priority - Priority of message
  */
-const transporter = nodemailer.createTransport(smtpTransport({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
   auth: {
     user: process.env.GMAIL_USERNAME,
     pass: process.env.PASS,
   },
-}),
+},
 );
 const emailOptions = {
   subject: 'New Message!',
