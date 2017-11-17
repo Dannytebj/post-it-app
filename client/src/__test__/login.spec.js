@@ -15,7 +15,6 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 describe('The Login Component', () => {
   it('should have these Comonents', () => {
     const wrapper = mount(<Login/>);
-    // console.log(wrapper.node.clickSign);
     expect(wrapper.find(PassWordReset)).toHaveLength(1);
     expect(wrapper.find(Google)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);

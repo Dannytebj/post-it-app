@@ -7,7 +7,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import path from 'path';
 import bodyParser from 'body-parser';
 import socketio from 'socket.io';
-import Config from '../webpack.config';
+// import Config from '../webpack.config';
 import routes from './routes/index';
 import socketConfig from './utils/socketConfig';
 import config from './config/config';
@@ -19,7 +19,7 @@ import config from './config/config';
  */
 const port = process.env.PORT || 9999;
 const app = express();
-const publicPath = express.static(path.join(__dirname, '../client/public'));
+const publicPath = express.static(path.join(__dirname, '../dist'));
 app.use('/', publicPath);
 
 // for parsing application/x-www-form-urlencoded)
@@ -44,12 +44,22 @@ app.use((req, res, next) => {
 app.use(expressValidator());
 
 app.use(routes);
+let Config;
+if (process.env.NODE_ENV === 'production') {
+  Config = require('../webpack.config.prod'); //eslint-disable-line
+} else {
+  Config = require('../webpack.dev'); //eslint-disable-line
+  const compiler = webpack(Config);
+  app.use(webpackMiddleware(compiler, {
+    publicPath: Config.output.publicPath,
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 const compiler = webpack(Config);
 app.use(webpackMiddleware(compiler, {
   publicPath: Config.output.publicPath,
 }));
-
 firebase.initializeApp(config);
 
 const server = app.listen(port, () => {
@@ -66,7 +76,6 @@ io.on('connection', (socket) => {
 
 socketConfig.socketInstance(io);
 
-app.use(webpackHotMiddleware(compiler));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

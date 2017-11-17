@@ -1,6 +1,8 @@
 import AppConstants from '../js/constants/AppConstants';
 import MessageStore from '../js/stores/MessageStore';
 import AppDispatcher from '../js/dispatcher/AppDispatcher';
+import seedData from './helpers/seeder';
+
 
 /* global jest */
 jest.mock('axios');
@@ -65,7 +67,6 @@ describe('PostIt MessageStore', () => {
     emitChange();
     updateMessages();
     const messageArray = MessageStore.getAllMessages();
-    // console.log(msgArr);
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
     expect(updateMessages).toHaveBeenCalled();
     expect(messageArray.length).toBeGreaterThan(0);
@@ -139,24 +140,12 @@ describe('PostIt MessageStore', () => {
 });
 
 describe('PostIt MessageStore', () => {
+  const groups = seedData.groups;
   const receiveGroups = {
     source: 'VIEW_ACTION',
     action: {
       type: AppConstants.RECEIVE_GROUPS,
-      payload: { 
-        groups: [
-          {
-            groupId: "-KqA34JyVjKTzw0-Pbrx",
-            groupName: "The ThroneRoom Priests",
-            isAdmin: true,
-          },
-          {
-            groupId: "-Kr5X4AB7meaxVPSWFIt",
-            groupName: "oreoluwade",
-            isAdmin: false,
-          },
-        ],
-      },
+      payload: { groups },
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
