@@ -14,7 +14,8 @@
   "scripts": {
     "dev": "babel-watch ./server/server.js",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
-    "start:dev": "babel-node ./server/server.js",
+    "build": "NODE_ENV=production webpack && babel-node ./server/server.js",
+    "start:dev": "nodemon --watch server --exec babel-node ./server/server.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest client/src/__test__/*.spec.js",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js"
@@ -55,7 +56,9 @@
     "nodemon": "^1.11.0",
     "nyc": "^11.2.1",
     "react-test-renderer": "^16.0.0",
-    "sinon": "^2.3.6"
+    "sinon": "^2.3.6",
+    "webpack-dev-server": "^1.16.5",
+    "webpack-merge": "^4.1.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -99,6 +102,7 @@
     "body-parser": "~1.0.1",
     "chai": "^4.0.0",
     "classnames": "^2.2.5",
+    "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.26.4",
     "dotenv": "^4.0.0",
     "eventsource-polyfill": "^0.9.6",
@@ -112,6 +116,7 @@
     "html-webpack-plugin": "^2.30.1",
     "http": "0.0.0",
     "is-utf8": "^0.2.1",
+    "jquery": "^3.2.1",
     "keymirror": "^0.1.1",
     "loader-utils": "^1.1.0",
     "mocha": "^3.4.2",
@@ -144,10 +149,12 @@
     "superagent": "^3.4.4",
     "supertest": "^3.0.0",
     "toastr": "^2.1.2",
+    "uglifyjs-webpack-plugin": "^1.0.1",
     "underscore": "^1.8.3",
-    "webpack": "^2.6.1",
+    "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-hot-middleware": "^2.18.2"
+    "webpack-hot-middleware": "^2.18.2",
+    "webpack-merge": "^4.1.1"
   }
 }
