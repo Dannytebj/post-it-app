@@ -45,8 +45,8 @@ class GroupSideBar extends Component {
     const { groupId, groupName } = this.props.group;
 
     return (
-      <li >
-        <NavLink to={`/broadCastGroup/${groupId}/${groupName}`}>
+      <li>
+        <NavLink to={`/broadCastGroup/${groupId}/${groupName}`} >
           <p onClick={this.setGroupId}>{groupName}</p>
         </NavLink>      
       </li>

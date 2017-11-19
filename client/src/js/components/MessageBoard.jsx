@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import ViewActions from '../actions/AppActions';
 import MessageStore from '../stores/MessageStore';
 import MessageGroupList from './MessageGroupList';
@@ -28,7 +29,7 @@ class MessageBoard extends Component {
       isFetchingData: false,
       fetchMessage: '',
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.fetchGroups = this.fetchGroups.bind(this);
   }
   /**
@@ -39,7 +40,19 @@ class MessageBoard extends Component {
    */
   componentWillMount() {
     this.fetchGroups();
-    MessageStore.addChangeListener(this._onChange);
+    MessageStore.addChangeListener(this.onChange);
+  }
+
+  /**
+   * 
+   * 
+   * @memberof MessageBoard
+   */
+  componentDidMount() {
+    $("#menu-toggle").click((e) => {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
   }
   /**
    * @description Removes change listener just before 
@@ -48,7 +61,7 @@ class MessageBoard extends Component {
    * @memberof MessageBoard
    */
   componentWillUnmount() {
-    MessageStore.removeChangeListener(this._onChange);
+    MessageStore.removeChangeListener(this.onChange);
   }
   /**
  *   @description This method is passed to the change listeners
@@ -57,7 +70,7 @@ class MessageBoard extends Component {
  * 
  * @memberof MessageBoard
  */
-  _onChange() {
+  onChange() {
     this.setState({
       groupList: MessageStore.getGroups(),
     });
@@ -83,6 +96,8 @@ class MessageBoard extends Component {
       <div>
         <Layout/>
         <MessageGroupList groupList= {groupList}/>
+        <a href="#menu-toggle" className="btn btn-default toggler" id="menu-toggle">Toggle Groups</a>
+
 
       </div>
     );

@@ -32,7 +32,7 @@ class BroadCastGroup extends Component {
       message: '',
     };
     this.sendMessage = this.sendMessage.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.setPriority = this.setPriority.bind(this);
   }
   /**
@@ -42,7 +42,7 @@ class BroadCastGroup extends Component {
    * @memberof MessageBoard
    */
   componentDidMount() {
-    MessageStore.addChangeListener(this._onChange);
+    MessageStore.addChangeListener(this.onChange);
     const groupId = localStorage.getItem('groupId');        
     socket.on(`newMessage${groupId}`, (payload) => {
       const { id, message, name } = payload;
@@ -56,7 +56,7 @@ class BroadCastGroup extends Component {
    * @memberof GroupMessages
    */
   componentWillUnmount() {
-    MessageStore.removeChangeListener(this._onChange);
+    MessageStore.removeChangeListener(this.onChange);
   }
   /**
  *   @description This method is passed to the change listeners
@@ -65,8 +65,8 @@ class BroadCastGroup extends Component {
  * 
  * @memberof MessageBoard
  */
-  _onChange() {
- this.forceUpdate();
+  onChange() {
+    this.forceUpdate();
   }
   /**
  * @description When called this method triggers the

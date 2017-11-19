@@ -95,7 +95,7 @@ class CreateGroup extends Component {
           <div className="tab-content clearfix">
             <div className="tab-pane active 1a" id="1a" aria-hidden="true">
               <div className="row">
-                <p className ="col-md-6"><strong>Welcome to your GroupBoard,
+                <p className ="col-md-6 para"><strong>Welcome to your GroupBoard,
                 </strong><br/>
                   Post-It allows you to create groups and add other users 
                   to that group.
@@ -109,7 +109,7 @@ class CreateGroup extends Component {
                     <TextBox
                       className = "groupName"
                       onChange={(value) => { this.setState({ newGroupName: value }); }}
-                      label="Group Name"
+                      label=""
                       currentValue={newGroupName}
                     />
                   </div>

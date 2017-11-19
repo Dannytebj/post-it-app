@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
 import GroupList from './GroupList';
@@ -8,7 +9,7 @@ const { getGroups } = ViewActions;
 
 
 /**
- * @description This class is the Parent of the message components
+ * @description This class is
  * 
  * @class GroupLayout
  * @extends {Component}
@@ -26,7 +27,7 @@ class GroupLayout extends Component {
     this.state = {
       groupList: GroupStore.getGroups(),
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.fetchGroups = this.fetchGroups.bind(this);
   }
   /**
@@ -37,7 +38,18 @@ class GroupLayout extends Component {
    */
   componentWillMount() {
     this.fetchGroups();
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
+  }
+  /**
+   * 
+   * 
+   * @memberof GroupLayout
+   */
+  componentDidMount() {
+    $("#menu-toggle").click((e) => {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
   }
   /**
    * @description Removes change listener just before 
@@ -46,7 +58,7 @@ class GroupLayout extends Component {
    * @memberof GroupLayout
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
  *   @description This method is passed to the change listeners
@@ -55,7 +67,7 @@ class GroupLayout extends Component {
  * 
  * @memberof GroupLayout
  */
-  _onChange() {
+  onChange() {
     this.setState({
       groupList: GroupStore.getGroups(),
     });
@@ -81,6 +93,8 @@ class GroupLayout extends Component {
       <div>
         <Layout/>
         <GroupList groupList= {groupList}/>
+        <a href="#menu-toggle" className="btn btn-default toggler" id="menu-toggle">Toggle Groups</a>
+
       </div>
     );
   }
