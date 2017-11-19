@@ -11,9 +11,9 @@ import GroupSideBar from './GroupSideBar';
  * @param {Array} groupList 
  */
 const MessageGroupList = ({ groupList }) => (
-  <div className="wrapper">
-    <div className = "sidebar-wrapper">
-      <ul className="sidebar-nav">
+  <div id="wrapper">
+    <div id = "sidebar-wrapper">
+      <ul id="sidebar-nav">
         {
           groupList.map(group => 
             (<GroupSideBar group={group} key={group.groupId}/>))

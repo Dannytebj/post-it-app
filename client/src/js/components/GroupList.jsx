@@ -12,9 +12,9 @@ import Groups from './Groups';
  * @param {Array} groupList 
  */
 const GroupList = ({ groupList }) => (
-  <div className="wrapper">
-    <div className = "sidebar-wrapper">
-      <ul className="sidebar-nav">
+  <div id="wrapper">
+    <div id = "sidebar-wrapper">
+      <ul id="sidebar-nav">
         {
           groupList.map(group => 
             (<Groups group={group} key={group.groupId}/>))
