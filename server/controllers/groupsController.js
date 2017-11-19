@@ -172,7 +172,7 @@ export const getMessages = (req, res) => {
 
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
-  const { message, priority, groupId, id, name } = req.body;
+  const { message, priority, groupId, id, name, groupName } = req.body;
   // const currUser = firebase.auth().currentUser;
   if (id) {
     const messageKey = firebase.database().ref(`messages/${groupId}`)
@@ -193,7 +193,7 @@ export const postMessage = (req, res) => {
         }
         res.status(200)
           .send({ message: 'Your message was posted successfully!' });
-        const payload = { id, message, name };
+        const payload = { id, message, name, groupName };
         io.emit(`newMessage${groupId}`, payload);
       });
     promise.catch((error) => {

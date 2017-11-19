@@ -29,8 +29,9 @@ class GroupSideBar extends Component {
    * @memberof GroupSideBar
    */
   setGroupId() {
-    const { groupId } = this.props.group;
+    const { groupId, groupName } = this.props.group;
     localStorage.setItem('groupId', groupId);
+    localStorage.setItem('groupName', groupName);
     resetMessageStore();
     getMessages(groupId);
   }

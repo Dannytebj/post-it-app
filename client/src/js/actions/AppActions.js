@@ -165,10 +165,10 @@ const ViewActions = {
  * @param {string} id Id of User
  * @param {string} priority priority of message
  */
-  postMessage: (groupId, message, priority, id, name) => {
+  postMessage: (groupId, message, priority, id, name, groupName) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.POST_MESSAGE,
-      payload: { groupId, message, priority, id, name },
+      payload: { groupId, message, priority, id, name, groupName },
     });
   },
   getMessages: (groupId) => {

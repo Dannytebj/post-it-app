@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import io from 'socket.io-client';
+import toastr from 'toastr';
 import MessageStore from '../stores/MessageStore';
 import ViewActions from '../actions/AppActions';
 import MessageBoard from './MessageBoard';
@@ -9,8 +10,8 @@ import MessageTextBox from '../utils/msgText';
 import appHistory from '../utils/History';
 
 const { postMessage, updateMessageStore } = ViewActions;
-// const socket = io('http://localhost:9999'); // This Link is required on local machine
-const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
+const socket = io('http://localhost:9999'); // This Link is required on local machine
+// const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
 
 
 /**
@@ -45,8 +46,9 @@ class BroadCastGroup extends Component {
     MessageStore.addChangeListener(this.onChange);
     const groupId = localStorage.getItem('groupId');        
     socket.on(`newMessage${groupId}`, (payload) => {
-      const { id, message, name } = payload;
+      const { id, message, name, groupName } = payload;
       updateMessageStore(id, message, name);
+      toastr.info(`You have a new message in: ${groupName}`);
     });
   }
   /**
@@ -79,7 +81,8 @@ class BroadCastGroup extends Component {
     const groupId = localStorage.getItem('groupId');
     const id = localStorage.getItem('userUid');
     const name = localStorage.getItem('userName');
-    postMessage(groupId, message, priority, id, name);
+    const groupName = localStorage.getItem('groupName');
+    postMessage(groupId, message, priority, id, name, groupName);
     this.setState({
       message: '',
     });

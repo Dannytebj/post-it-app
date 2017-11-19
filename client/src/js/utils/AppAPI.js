@@ -130,8 +130,8 @@ module.exports = {
         toastr.error(error);
       });
   },
-  postMessage({ groupId, message, priority, id, name }) {
-    axios.post('/api/v1/message', { groupId, message, priority, id, name })
+  postMessage({ groupId, message, priority, id, name, groupName }) {
+    axios.post('/api/v1/message', { groupId, message, priority, id, name, groupName })
       .then((response) => {
         const { message } = response.data; // eslint-disable-line
       }).catch((error) => {
