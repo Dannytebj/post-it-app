@@ -13,15 +13,15 @@ jest.mock('toastr', () => jest.fn());
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('The MessageBoard Component', () => {
-  it('should have the <Layout />', () => {
+  it('should have the <Layout /> component defined', () => {
     const wrapper = mount(<MemoryRouter><MessageBoard/></MemoryRouter>);
     expect(wrapper.find(Layout)).toHaveLength(1);
   });
-  it('should have the <MessageGroupList />', () => {
+  it('should have the <MessageGroupList /> component defined', () => {
     const wrapper = mount(<MemoryRouter><MessageBoard/></MemoryRouter>);
     expect(wrapper.find(MessageGroupList)).toHaveLength(1);
   });
-  it('should have MessageGroupList', () => {
+  it('should have MessageGroupList defined with groupList prop', () => {
     const wrapper = (<MessageGroupList groupList= {seedData.groupList}/>);
     expect(wrapper.props).toBeDefined();
   });

@@ -7,14 +7,14 @@ import AppAPI from '../utils/AppAPI';
  * @description This flux store handles signingIn,
  * signingUp, signingOut, and ResetPassword
  * 
- * @class LoginStore
+ * @class UserStore
  * @extends {EventEmitter}
  */
-class LoginStore extends EventEmitter {
+class UserStore extends EventEmitter {
   /**
    * @constructor
-   * Creates an instance of LoginStore.
-   * @memberof LoginStore
+   * Creates an instance of UserStore.
+   * @memberof UserStore
    */
   constructor() {
     super();
@@ -25,7 +25,7 @@ class LoginStore extends EventEmitter {
  * @description This method emits a change event
  * everytime the store is updated
  * 
- * @memberof LoginStore
+ * @memberof UserStore
  */
   emitChange() {
     this.emit('change');
@@ -35,7 +35,7 @@ class LoginStore extends EventEmitter {
    * in the store and on change calls the callback
    * 
    * @param {any} callback 
-   * @memberof LoginStore
+   * @memberof UserStore
    */
   addChangeListener(callback) {
     this.on('change', callback);
@@ -44,7 +44,7 @@ class LoginStore extends EventEmitter {
   * @description This method removes change listeners
   * 
   * @param {any} callback 
-  * @memberof LoginStore
+  * @memberof UserStore
   */
   removeChangeListener(callback) {
     this.removeListener('change', callback);
@@ -54,7 +54,7 @@ class LoginStore extends EventEmitter {
  * 
  * @param {any} { action } 
  * @returns 
- * @memberof LoginStore
+ * @memberof UserStore
  */
   dispatcherCallback({ action }) {
     switch (action.type) {
@@ -85,4 +85,4 @@ class LoginStore extends EventEmitter {
   }
 }
 
-export default new LoginStore();
+export default new UserStore();

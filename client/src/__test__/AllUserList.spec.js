@@ -6,7 +6,7 @@ import seedData from './helpers/seeder';
 
 
 describe('The AllUserList component', () => {
-  it('Should mount without crashing', () => {
+  it('Should mount with the allUserList prop defined ', () => {
     const wrapper = mount(<AllUserList allUserList={ seedData.allUserList } />);
     expect(wrapper.props).toBeDefined();
   });

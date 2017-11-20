@@ -1,5 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+const propTypes = {
+  messages: PropTypes.object.isRequired,
+};
 /**
  * @description This is a stateless component that helps display messages
  * @param {*} messages 
@@ -14,8 +18,7 @@ const Messages = ({ messages }) => (
   </div>
 );
 
-Messages.propTypes = {
-  messages: PropTypes.object.isRequired,
-};
+Messages.propTypes = propTypes;
+
 export default Messages;
 

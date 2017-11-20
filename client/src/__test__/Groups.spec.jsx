@@ -11,13 +11,13 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 
 describe('The Groups Component', () => {
-  it('should have NavLink', () => {
+  it('should have NavLink component', () => {
     const wrapper = mount(<MemoryRouter>
       <Groups group = { seedData.group }/></MemoryRouter>);
     expect(wrapper.find(NavLink)).toHaveLength(1);
   });
 
-  it('should have these nodes', () => {
+  it('should have these p tag defined', () => {
     const wrapper = shallow(<Groups group = { seedData.group }/>);
     expect(wrapper.find('p')).toHaveLength(1);
   });

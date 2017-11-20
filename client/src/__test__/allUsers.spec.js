@@ -11,11 +11,11 @@ jest.mock('toastr', () => jest.fn());
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('The AllUsers Component', () => {
-  it('Should mount without crashing', () => {
+  it('Should have a user prop defined', () => {
     const wrapper = mount(<AllUsers user={seedData.user} />);
     expect(wrapper.props).toBeDefined();
   });
-  it('should contain this prop', () => {
+  it('should have user prop defined with these attributes', () => {
     const wrapper = mount(<AllUsers user={seedData.user} />);
     expect(wrapper.node.props.user.id).toEqual("sLoAYxwu0uRb7XCkTVAp2llLMm43");
     expect(wrapper.node.props.user.name).toEqual("DannyBoyNow");
@@ -40,16 +40,14 @@ describe('The AllUsers Component', () => {
     addUser();
     wrapper.find('.add').simulate('click');
     expect(addUser).toHaveBeenCalled();
-    // console.log(wrapper.node);
   });
 });
 describe('The GroupUser Component', () => {
-  
-  it('Should mount without crashing', () => {
+  it('Should have a user prop defined', () => {
     const wrapper = mount(<GroupUsers user={seedData.user} />);
     expect(wrapper.props).toBeDefined();
   });
-  it('should contain this prop', () => {
+  it('should have user prop defined with these attributes', () => {
     const wrapper = mount(<GroupUsers user={seedData.user} />);
     expect(wrapper.node.props.user.id).toEqual("sLoAYxwu0uRb7XCkTVAp2llLMm43");
     expect(wrapper.node.props.user.name).toEqual("DannyBoyNow");

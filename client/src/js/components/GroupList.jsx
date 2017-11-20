@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import Group from './Group';
 import Groups from './Groups';
+
+const propTypes = {
+  groupList: PropTypes.array.isRequired,
+};
 
 /**
  * @description Receives an array of Object(groups)
@@ -24,8 +27,6 @@ const GroupList = ({ groupList }) => (
   </div>
 );
 
-GroupList.propTypes = {
-  groupList: PropTypes.array.isRequired,
-};
+GroupList.propTypes = propTypes;
 
 export default GroupList;

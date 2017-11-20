@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  user: PropTypes.object.isRequired,
+};
 /**
  * @description Helper component that Receives props from (Object)
  * 
@@ -13,8 +16,7 @@ const GroupUsers = ({ user }) => (
     { user.name }
   </li>
 );
-GroupUsers.propTypes = {
-  user: PropTypes.object.isRequired,
-};
+GroupUsers.propTypes = propTypes;
+
 export default GroupUsers;
 

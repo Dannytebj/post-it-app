@@ -41,7 +41,8 @@ class GroupLayout extends Component {
     GroupStore.addChangeListener(this.onChange);
   }
   /**
-   * 
+   * @description enables toggling of group side bar
+   * when component mounted
    * 
    * @memberof GroupLayout
    */
@@ -93,7 +94,8 @@ class GroupLayout extends Component {
       <div>
         <Layout/>
         <GroupList groupList= {groupList}/>
-        <a href="#menu-toggle" className="btn btn-default toggler" id="menu-toggle">Toggle Groups</a>
+        <a href="#menu-toggle" className="btn btn-default toggler" 
+          id="menu-toggle">Toggle Groups</a>
 
       </div>
     );

@@ -18,4 +18,5 @@ exclude_paths:
 - "server/test/"
 - "client/src/__test__/*"
 - "bundle.js"
+- "dist/"
 - "client/public/js/bundle.js"

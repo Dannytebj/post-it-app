@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GroupSideBar from './GroupSideBar';
 
+const propTypes = { 
+  groupList: PropTypes.array.isRequired,
+};
 /**
  * @description Receives an array of Object(groupList)
  * and creates a list element
@@ -23,8 +26,6 @@ const MessageGroupList = ({ groupList }) => (
   </div>
 );
 
-MessageGroupList.propTypes = {
-  groupList: PropTypes.array.isRequired,
-};
+MessageGroupList.propTypes = propTypes;
 
 export default MessageGroupList;

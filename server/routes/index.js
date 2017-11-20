@@ -20,7 +20,8 @@ import {
 
 
 const router = express.Router();
-// END POINTS FOR POST-IT router
+// END POINTS FOR POST-IT APP
+
 //  Post Routes
 router.post('/api/v1/signIn', signIn);
 router.post('/api/v1/signUp', validateInputs, signUp);
@@ -39,5 +40,4 @@ router.get('/api/v1/getGroup/:userUid', getGroups);
 router.get('/api/v1/getMessages/:groupId', getMessages);
 
 
-// module.exports = router;
 export default router;

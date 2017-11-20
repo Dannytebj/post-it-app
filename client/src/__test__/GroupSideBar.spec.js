@@ -21,7 +21,7 @@ describe('The GroupSideBar Component', () => {
   it('should have NavLink', () => {
     expect(wrapper.find(NavLink)).toHaveLength(1);
   });
-  it('should have these nodes', () => {
+  it('should have the p tag defined', () => {
     const wrapper = shallow(<GroupSideBar group = { seedData.group }/>);
     expect(wrapper.find('p')).toHaveLength(1);
   });

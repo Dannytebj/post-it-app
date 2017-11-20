@@ -17,11 +17,11 @@ describe('The CreateGroup Component', () => {
     localStorage.setItem('userName', 'Havana');
     wrapper = mount(<MemoryRouter><CreateGroup/></MemoryRouter>);
   });
-  it('should have the <Layout />', () => {
+  it('should have the <Layout /> component defined', () => {
     expect(wrapper.find(Layout)).toHaveLength(1);
   });
 
-  it('should call doCreateGroup method', () => {
+  it('should have a textbox component working properly', () => {
     const component = shallow(
       <CreateGroup />,
     );

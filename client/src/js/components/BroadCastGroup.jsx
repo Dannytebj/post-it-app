@@ -9,19 +9,23 @@ import MessageTextBox from '../utils/msgText';
 import appHistory from '../utils/History';
 
 const { postMessage, updateMessageStore } = ViewActions;
-// const socket = io('http://localhost:9999'); // This Link is required on local machine
-const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
+let socket;
+if (process.env.NODE_ENV === 'production') {
+  socket = io('https://postitdanny.herokuapp.com');
+} else {
+  socket = io('http://localhost:9999');
+}
 
 
 /**
- * 
+ * @description This class handles the realtime mesaging
  * 
  * @class BroadCastGroup
  * @extends {Component}
  */
 class BroadCastGroup extends Component {
   /**
-     * Creates an instance of BroadCastGroup.
+     * @description Creates an instance of BroadCastGroup.
      * @param {any} props 
      * @memberof BroadCastGroup
      */
@@ -37,9 +41,9 @@ class BroadCastGroup extends Component {
   }
   /**
    * @description Adds a change listener to the
-   * MessageStore just before the component is mounted
+   * MessageStore once the component is mounted
    * 
-   * @memberof MessageBoard
+   * @memberof BroadCastGroup
    */
   componentDidMount() {
     MessageStore.addChangeListener(this.onChange);
@@ -53,7 +57,7 @@ class BroadCastGroup extends Component {
    * @description Removes change listener just before 
    * the component unmounts
    * 
-   * @memberof GroupMessages
+   * @memberof BroadCastGroup
    */
   componentWillUnmount() {
     MessageStore.removeChangeListener(this.onChange);
@@ -63,7 +67,7 @@ class BroadCastGroup extends Component {
  * to update the state of the component when there is a 
  * change in the store
  * 
- * @memberof MessageBoard
+ * @memberof BroadCastGroup
  */
   onChange() {
     this.forceUpdate();
@@ -72,7 +76,7 @@ class BroadCastGroup extends Component {
  * @description When called this method triggers the
  * postMessage action
  * 
- * @memberof GroupMessages
+ * @memberof BroadCastGroup
  */
   sendMessage() {
     const { priority, message } = this.state;
@@ -87,7 +91,7 @@ class BroadCastGroup extends Component {
   /**
      * @description set the priority of messages
      * 
-     * @memberof GroupMessages
+     * @memberof BroadCastGroup
      */
   setPriority(event) {
     this.setState({ priority: event.target.value });
@@ -96,7 +100,7 @@ class BroadCastGroup extends Component {
   /**
    * 
    * 
-   * @returns 
+   * @returns {void}
    * @memberof BroadCastGroup
    */
   render() {
@@ -109,9 +113,10 @@ class BroadCastGroup extends Component {
             <div className="messageContainer">
               <div className="col-md-10  messageTray">
                 <Switch>
-                  <Route path='/broadcastGroup/:groupId/:groupName' component={groupProps => (
-                    <MessageList {...groupProps} />
-                  )} />
+                  <Route path='/broadcastGroup/:groupId/:groupName' 
+                    component={groupProps => (
+                      <MessageList {...groupProps} />
+                    )} />
                 </Switch>
               </div>  
               <div>

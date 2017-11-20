@@ -10,7 +10,7 @@ jest.mock('toastr', () => jest.fn());
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('The GroupList Component', () => {
-  it('should contain <Group/>', () => {
+  it('should contain the Groups component', () => {
     const wrapper = shallow(<GroupList groupList={seedData.groupList} />);
     expect(wrapper.find(Groups)).toHaveLength(2);
   });

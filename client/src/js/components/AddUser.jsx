@@ -21,7 +21,7 @@ class  AddUser extends Component {
     this.state = {
       allUserList: GroupStore.getAllUsers(),
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -30,7 +30,7 @@ class  AddUser extends Component {
    * @memberof AddUser
    */
   componentWillMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -39,7 +39,7 @@ class  AddUser extends Component {
    * @memberof AddUser
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
    * @description This method is passed to the change listeners
@@ -47,7 +47,7 @@ class  AddUser extends Component {
    * 
    * @memberof AddUser
    */
-  _onChange() {
+  onChange() {
     this.state.allUserList = GroupStore.getAllUsers();
   } 
 

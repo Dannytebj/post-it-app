@@ -2,6 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AllUsers from './AllUsers';
 
+const propTypes = {
+  allUserList: PropTypes.array.isRequired,
+};
+
 /**
  * @description Receives an array of Object(allUser)
  * and creates a list element
@@ -19,8 +23,6 @@ const AllUserList = ({ allUserList }) => (
   </ul>
 );
 
-AllUserList.propTypes = {
-  allUserList: PropTypes.array.isRequired,
-};
+AllUserList.propTypes = propTypes;
 
 export default AllUserList;

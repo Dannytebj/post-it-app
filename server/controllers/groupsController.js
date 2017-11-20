@@ -173,7 +173,6 @@ export const getMessages = (req, res) => {
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
   const { message, priority, groupId, id, name } = req.body;
-  // const currUser = firebase.auth().currentUser;
   if (id) {
     const messageKey = firebase.database().ref(`messages/${groupId}`)
       .push({

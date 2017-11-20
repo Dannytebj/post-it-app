@@ -9,7 +9,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      debug: true,
+      debug: false,
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

@@ -130,7 +130,6 @@ class GroupStore extends EventEmitter {
         this.emitChange();
         break;
       case AppConstants.CREATE_GROUP:
-        // addToGroupArray(action.payload);
         AppAPI.createGroup(action.payload);
         this.emitChange();
         break;
