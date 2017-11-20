@@ -10,8 +10,8 @@ import MessageTextBox from '../utils/msgText';
 import appHistory from '../utils/History';
 
 const { postMessage, updateMessageStore } = ViewActions;
-const socket = io('http://localhost:9999'); // This Link is required on local machine
-// const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
+// const socket = io('http://localhost:9999'); // This Link is required on local machine
+const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
 
 
 /**
