@@ -35,7 +35,7 @@ export const signUp = (req, res) => {
         });
     })
     .catch((error) => {
-      res.status(400).send({ message: error.message });
+      res.status(409).send({ message: error.message });
     });
 };
 // ============ Controller that Sign's In Users ============
