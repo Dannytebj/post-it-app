@@ -33,8 +33,8 @@ function setGroups(payload) {
  * @param {any} payload 
  */
 function updateMessages(payload) {
-  const { id, message, name } = payload;
-  messageArray.push({ id, message, name });
+  const { id, message, name, priority, timeStamp } = payload;
+  messageArray.push({ id, message, name, priority, timeStamp });
 }
 /**
  * @description This function resets the messageArray for 

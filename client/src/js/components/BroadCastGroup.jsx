@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import io from 'socket.io-client';
+import $ from 'jquery';
 import MessageStore from '../stores/MessageStore';
 import ViewActions from '../actions/AppActions';
 import MessageBoard from './MessageBoard';
@@ -39,6 +40,16 @@ class BroadCastGroup extends Component {
     this.onChange = this.onChange.bind(this);
     this.setPriority = this.setPriority.bind(this);
   }
+
+  /**
+   * @description Unsets the groupName and groupId from localstorage
+   * on reload
+   * 
+   * @memberof BroadCastGroup
+   */
+  componentWillMount() {
+
+  }
   /**
    * @description Adds a change listener to the
    * MessageStore once the component is mounted
@@ -49,10 +60,11 @@ class BroadCastGroup extends Component {
     MessageStore.addChangeListener(this.onChange);
     const groupId = localStorage.getItem('groupId');        
     socket.on(`newMessage${groupId}`, (payload) => {
-      const { id, message, name } = payload;
-      updateMessageStore(id, message, name);
+      const { id, message, name, priority, timeStamp } = payload;
+      updateMessageStore(id, message, name, priority, timeStamp);
     });
   }
+
   /**
    * @description Removes change listener just before 
    * the component unmounts
@@ -137,6 +149,7 @@ class BroadCastGroup extends Component {
                   </div>
                 </div>
                 <div className="radio" onChange={this.setPriority.bind(this)}>
+                  <label>Select Priority Level:</label><br/>
                   <label className="radio-inline">
                     <input type="radio" value="Normal" name="priority" 
                       defaultChecked = {true} /> 

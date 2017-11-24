@@ -177,10 +177,10 @@ const ViewActions = {
       payload: { groupId },
     });
   },
-  updateMessageStore: (id, message, name) => {
+  updateMessageStore: (id, message, name, priority, timeStamp) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.UPDATE_MESSAGE_STORE,
-      payload: { id, message, name },
+      payload: { id, message, name, priority, timeStamp },
     });
   },
   receiveAllMessages: (messages) => {

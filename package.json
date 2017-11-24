@@ -125,6 +125,7 @@
     "keymirror": "^0.1.1",
     "loader-utils": "^1.1.0",
     "mocha": "^3.4.2",
+    "moment": "^2.19.2",
     "nexmo": "^2.0.2",
     "node-mailer": "^0.1.1",
     "node-sass": "^4.5.3",

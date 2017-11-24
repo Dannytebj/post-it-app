@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import moment from 'moment';
 import getArray from '../utils/getArray';
 import SendNotification from '../utils/sendNotifications';
 import convertCase from '../utils/convertCase';
@@ -15,28 +16,28 @@ import io from '../utils/socketConfig';
 
 export const createGroup = (req, res) => {
   const { userUid, userName, groupName } = req.body;
-  const convertedName = convertCase(groupName);
+  const normalizedName = convertCase(groupName);
   const groupNameArray = [];
   const groupRef = firebase.database().ref(`users/${userUid}/groups`); 
   const dbRef = firebase.database().ref('/group');  
-  groupRef.once('value', (data) => {
-    data.forEach((child) => {
-      const eachName = child.val().groupName;
-      groupNameArray.push(eachName);
+  groupRef.once('value', (groups) => {
+    groups.forEach((child) => {
+      const currentGroupName = child.val().groupName;
+      groupNameArray.push(currentGroupName);
     });
     const uniqueName = groupNameArray
-      .find(groupname => groupname === convertedName);
+      .find(groupNames => groupNames === normalizedName);
     if (uniqueName) {
       res.status(409)
-        .send({ message: `${uniqueName} is already a group name na` });
+        .send({ message: `Sorry, ${uniqueName} is already a group name` });
     } else if (userUid !== null) {
       const newGroupId = dbRef.push({
-        groupName: convertedName,
+        groupName: normalizedName,
       }).key;
       firebase.database().ref(`/users/${userUid}/groups`).push(
         {
           groupId: newGroupId,
-          groupName: convertedName,
+          groupName: normalizedName,
           isAdmin: true,
         });
       firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
@@ -47,7 +48,7 @@ export const createGroup = (req, res) => {
         .then(() => {
           res.status(200)
             .send({ 
-              message: `You Just Created a group called: ${convertedName}` });
+              message: `You Just Created a group called: ${normalizedName}` });
         })
         .catch((error) => {
           res.send({ message: error.message });
@@ -92,18 +93,18 @@ export const getGroupUsers = (req, res) => {
         .send({ message: 'This group has no user yet!' });
     } else {
       const groupUsersArray = getArray(groupUsers);
-      ref1.once('value', (users2) => {
-        const usersGotten = users2.val();
-        if (users2 !== null) {
-          const allUsers = getArray(usersGotten);
-          const filtered = allUsers.filter(userInAllUsers => 
+      ref1.once('value', (allUsers) => {
+        const fetchedUsers = allUsers.val();
+        if (allUsers !== null) {
+          const allUsersArray = getArray(fetchedUsers);
+          const filteredUsers = allUsersArray.filter(userInAllUsers => 
             groupUsersArray.some(
               userInGroup => userInAllUsers.id === userInGroup.id),
           );
           res.status(200)
             .send({
               message: 'Users fetched successfully',
-              groupUser: filtered,
+              groupUser: filteredUsers,
             });
         }
       })
@@ -127,18 +128,18 @@ export const notGroupUsers = (req, res) => {
         .send({ message: 'This group has no user yet!' });
     } else {
       const groupUsersArray = getArray(groupUsers);
-      ref1.once('value', (users2) => {
-        const usersGotten = users2.val();
-        if (usersGotten !== null) {
-          const allUsers = getArray(usersGotten);
-          const filtered = allUsers.filter(userInAllUsers => 
+      ref1.once('value', (allUsers) => {
+        const fetchedUsers = allUsers.val();
+        if (fetchedUsers !== null) {
+          const allUsersArray = getArray(fetchedUsers);
+          const filteredUsers = allUsersArray.filter(userInAllUsers => 
             !groupUsersArray.some(
               userInGroup => userInAllUsers.id === userInGroup.id),
           );
           res.status(200)
             .send({
               message: 'Users fetched successfully',
-              allUsers: filtered,
+              allUsers: filteredUsers,
             });
         }
       })
@@ -154,10 +155,10 @@ export const notGroupUsers = (req, res) => {
 export const getMessages = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`/messages/${groupId}`);
-  ref.once('value', (msgData) => {
-    const mesResponse = msgData.val();
-    if (mesResponse !== null) {
-      const messages = getArray(mesResponse);
+  ref.once('value', (fetchedMessages) => {
+    const allMessages = fetchedMessages.val();
+    if (allMessages !== null) {
+      const messages = getArray(allMessages);
       res.status(200)
         .send({ messages });
     } else {
@@ -173,6 +174,7 @@ export const getMessages = (req, res) => {
 //  ============ Controller that post's messages ============
 export const postMessage = (req, res) => {
   const { message, priority, groupId, id, name } = req.body;
+  const timeStamp = moment().format('llll');
   if (id) {
     const messageKey = firebase.database().ref(`messages/${groupId}`)
       .push({
@@ -180,6 +182,7 @@ export const postMessage = (req, res) => {
         name,
         message,
         priority,
+        timeStamp,
       }).key;
     const promise = firebase.database().ref(`group/${groupId}/messages`)
       .push({
@@ -192,7 +195,7 @@ export const postMessage = (req, res) => {
         }
         res.status(200)
           .send({ message: 'Your message was posted successfully!' });
-        const payload = { id, message, name };
+        const payload = { id, message, name, priority, timeStamp };
         io.emit(`newMessage${groupId}`, payload);
       });
     promise.catch((error) => {
