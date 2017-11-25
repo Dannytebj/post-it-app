@@ -43,7 +43,7 @@ module.exports = {
         const { message } = response.data;
         toastr.success(message);
       }).catch((error) => {
-        const { message } = error.response;
+        const { message } = error.response.data;
         toastr.error(message);
       });
   },

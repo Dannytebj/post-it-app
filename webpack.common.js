@@ -13,7 +13,7 @@ module.exports = {
       {
         test: /.jsx?$/,
         include: [path.join(__dirname, 'client')],
-        loaders: ['react-hot-loader', 'babel-loader'],
+        loaders: ['babel-loader'],
         exclude: /(node_modules|bower_components)/,
       },
       {
