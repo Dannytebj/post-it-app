@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import sinon from 'sinon';
 import AllUsers from '../js/components/AllUsers';
 import GroupUsers from '../js/components/GroupUsers';
 import localStorageMock from './mocks/localstorageMock';
@@ -34,12 +35,11 @@ describe('The AllUsers Component', () => {
     wrapper.unmount();
     expect(listenerSpy2).toHaveBeenCalled();
   });
-  it('Should call the addUser function when Clicked', () => {
+  it('Should call the addUser method when Clicked', () => {
+    const addUserSpy = jest.spyOn(AllUsers.prototype, 'addUser');
     const wrapper = mount(<AllUsers user={seedData.user} />);
-    const addUser = jest.fn();
-    addUser();
     wrapper.find('.add').simulate('click');
-    expect(addUser).toHaveBeenCalled();
+    expect(addUserSpy).toHaveBeenCalled();
   });
 });
 describe('The GroupUser Component', () => {

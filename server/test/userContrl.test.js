@@ -34,12 +34,13 @@ describe('Users', () => {
         .end((err, res) => {
           if (!err) {
             expect(res).to.have.status(201);
-            res.body.should.have.property('message').equal("User Succesfully created!");
+            res.body.should.have.property('message')
+              .equal("User Succesfully created!");
           }
           done();
         });
     });
-    it('should return 400 if email supplied already exist', (done) => {
+    it('should return 409 if email supplied already exist', (done) => {
       const email = 'john.doe@myself.com';
       chai.request(app)
         .post('/api/v1/signUp', signUp)
@@ -122,7 +123,7 @@ describe('Users', () => {
           done();
         });
     });
-    it.only('should return 400 for Invalid SignIn details', (done) => {
+    it('should return 400 when an Invalid email is passed', (done) => {
       const email = 'johndoe4me.com';
       const password = '';
       chai.request(app)
@@ -140,41 +141,34 @@ describe('Users', () => {
     });
   }); // End of SignIn Test Suite
 
-  describe('The SignOut Controller', () => {
-    it('should return 200 when user successfully signOut', (done) => {
+  describe('Sign Out ', () => {
+    it('should return 200 when a user successfully signs Out', (done) => {
       chai.request(app)
         .post('/api/v1/signOut', signOut)
         .set('Accept', 'application/json')
-        .end((res) => {
+        .end((err, res) => {
           if (res) {
             res.status.should.equal(200);
-          }
-          done();
-        });
-    });
-    it('should return 400 when signOut fails', (done) => {
-      chai.request(app)
-        .post('/api/v1/signOut', signOut)
-        .set('Accept', 'application/json')
-        .end((res) => {
-          if (res) {
-            res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal("User signed Out");
           }
           done();
         });
     });
   }); // End of SignOut Test Suite
 
-  describe('The Reset Password Controller', () => {
+  describe('Reset Password ', () => {
     it('should return 400 if an invalid email is passed', (done) => {
       const badEmail = 'badtguy.com';
       chai.request(app)
         .post('/api/v1/resetPassword', resetPassword)
         .send({ badEmail })
         .set('Accept', 'application/json')
-        .end((res) => {
+        .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal("Please use a valid email address");
           }
           done();
         });
@@ -185,9 +179,26 @@ describe('Users', () => {
         .post('/api/v1/resetPassword', resetPassword)
         .send({ email })
         .set('Accept', 'application/json')
-        .end((res) => {
+        .end((err, res) => {
           if (res) {
             res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal("A mail has been sent to the email address provided");
+          }
+          done();
+        });
+    });
+    it('should return 404 when email provided does not exist', (done) => {
+      const email = 'john.doe2017@myself.com';
+      chai.request(app)
+        .post('/api/v1/resetPassword', resetPassword)
+        .send({ email })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(404);
+            res.body.should.have.property('message')
+              .equal("There is no user record corresponding to this email address"); // eslint-disable-line
           }
           done();
         });

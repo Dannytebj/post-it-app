@@ -16,48 +16,50 @@ import io from '../utils/socketConfig';
 
 export const createGroup = (req, res) => {
   const { userUid, userName, groupName } = req.body;
-  const normalizedName = convertCase(groupName);
-  const groupNameArray = [];
-  const groupRef = firebase.database().ref(`users/${userUid}/groups`); 
-  const dbRef = firebase.database().ref('/group');  
-  groupRef.once('value', (groups) => {
-    groups.forEach((child) => {
-      const currentGroupName = child.val().groupName;
-      groupNameArray.push(currentGroupName);
-    });
-    const uniqueName = groupNameArray
-      .find(groupNames => groupNames === normalizedName);
-    if (uniqueName) {
-      res.status(409)
-        .send({ message: `Sorry, ${uniqueName} is already a group name` });
-    } else if (userUid !== null) {
-      const newGroupId = dbRef.push({
-        groupName: normalizedName,
-      }).key;
-      firebase.database().ref(`/users/${userUid}/groups`).push(
-        {
-          groupId: newGroupId,
+  if (userUid !== '') {
+    const normalizedName = convertCase(groupName);
+    const groupNameArray = [];
+    const groupRef = firebase.database().ref(`users/${userUid}/groups`); 
+    const dbRef = firebase.database().ref('/group');  
+    groupRef.once('value', (groups) => {
+      groups.forEach((child) => {
+        const currentGroupName = child.val().groupName;
+        groupNameArray.push(currentGroupName);
+      });
+      const uniqueName = groupNameArray
+        .find(groupNames => groupNames === normalizedName);
+      if (uniqueName) {
+        res.status(409)
+          .send({ message: 'Sorry, This group name already exists' });
+      } else {
+        const newGroupId = dbRef.push({
           groupName: normalizedName,
-          isAdmin: true,
-        });
-      firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
-        .update({
-          id: userUid,
-          name: userName,
-        })
-        .then(() => {
-          res.status(200)
-            .send({ 
-              message: `You Just Created a group called: ${normalizedName}` });
-        })
-        .catch((error) => {
-          res.send({ message: error.message });
-        });
-    } else {
-      res.status(400);
-      res.send({ message: 'Please sign In first!' });
-    }
-  });
+        }).key;
+        firebase.database().ref(`/users/${userUid}/groups`).push(
+          {
+            groupId: newGroupId,
+            groupName: normalizedName,
+            isAdmin: true,
+          });
+        firebase.database().ref(`group/${newGroupId}/users/${userUid}`)
+          .update({
+            id: userUid,
+            name: userName,
+          })
+          .then(() => {
+            res.status(201)
+              .send({ 
+                message: `You Just Created a group called: ${normalizedName}` });
+          })
+          .catch((error) => {
+            res.send({ message: error.message });
+          });
+      } 
+    });
+  } else {
+    res.status(401)
+      .send({ message: 'Please sign In first!' });
+  }
 };
 
 //  ============ Controller that Gets all groups created  ============
@@ -116,7 +118,7 @@ export const getGroupUsers = (req, res) => {
   });
 };
 
-// ===========controller gets the all users not in a particular group =========
+// ===========controller gets all users not in a particular group =========
 export const notGroupUsers = (req, res) => {
   const groupId = req.params.groupId;
   const ref = firebase.database().ref(`group/${groupId}/users`);
@@ -160,7 +162,7 @@ export const getMessages = (req, res) => {
     if (allMessages !== null) {
       const messages = getArray(allMessages);
       res.status(200)
-        .send({ messages });
+        .send({ message: 'messages fetched successfully', messages });
     } else {
       res.status(200)
         .send({ message: 'There are no Messages!' });
@@ -214,7 +216,7 @@ export const getAllUsers = (req, res) => {
   ref.once('value', (data) => {
     const users = getArray(data.val());
     res.status(200)
-      .send(users);
+      .send({ message: 'Users fetched Successfully', users });
   }).catch((error) => {
     res.send({ message: error.message });
   });
@@ -224,7 +226,7 @@ export const addUser = (req, res) => {
   const { groupName, name, id } = req.body;
   const groupId = req.params.groupId;
   if (id) {
-    const promise = firebase.database()
+    firebase.database()
       .ref(`/group/${groupId}/users/${id}`)
       .update({
         id,
@@ -235,15 +237,15 @@ export const addUser = (req, res) => {
         groupId,
         groupName,
         isAdmin: false,
+      })
+      .then(() => {
+        res.status(200);
+        res.send({ message: 'Your group has a new User' });
+      })
+      .catch((error) => {
+        res.status(400);
+        res.send({ message: error.message });
       });
-    promise.then(() => {
-      res.status(200);
-      res.send({ message: 'Your group has a new User ' });
-    });
-    promise.catch((error) => {
-      res.status(400);
-      res.send({ message: error.message });
-    });
   } else {
     res.status(401);
     res.send({ message: 'You need to be signed In' });

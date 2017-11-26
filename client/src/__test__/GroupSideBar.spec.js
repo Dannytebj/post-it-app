@@ -26,11 +26,10 @@ describe('The GroupSideBar Component', () => {
     expect(wrapper.find('p')).toHaveLength(1);
   });
   
-  it('should simulates a click event', () => {
-    const setGroupId = jest.fn();
-    setGroupId();
+  it('should call setGroupId method', () => {
+    const setGroupIdSpy = jest.spyOn(GroupSideBar.prototype, 'setGroupId');
     const wrapper = shallow(<GroupSideBar group = { seedData.group }/>);
     wrapper.find('p').simulate('click');
-    expect(setGroupId).toHaveBeenCalled();
+    expect(setGroupIdSpy).toHaveBeenCalled();
   });
 });

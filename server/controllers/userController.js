@@ -3,12 +3,12 @@ const firebase = require('firebase');
 const emailValidation = require('../utils/emailValidation');
 
 /**
- * This file exports controllers for the user endpoints
+ * This file exports Methods for the user endpoints
  * @param {*} req All User Requests
  * @param {*} res Server Responses
  */
 
-// ============ Controller for Signing Up Users ============
+// ============ Method for Signing Up Users ============
 export const signUp = (req, res) => {
   const { email, password, username, phoneNumber } = req.body;
   firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -38,7 +38,7 @@ export const signUp = (req, res) => {
       res.status(409).send({ message: error.message });
     });
 };
-// ============ Controller that Sign's In Users ============
+// ============ Method that Sign's In Users ============
 export const signIn = (req, res) => {
   const { email, password } = req.body;
   if (!emailValidation(email)) {
@@ -72,7 +72,7 @@ export const signIn = (req, res) => {
   }
 };
 
-// =========== Controller that Sign's out  Registered User===========
+// =========== Method that Sign's out  Registered User===========
 export const signOut = (req, res) => {
   firebase.auth().signOut()
     .then(() => {
@@ -85,7 +85,7 @@ export const signOut = (req, res) => {
     });
 };
 
-// =========== Controller for Google SignIn===========
+// =========== Method for Google SignIn===========
 export const signInWithGoogle = (req, res) => {
   const idToken = req.body.idToken;
   const provider = new firebase.auth.GoogleAuthProvider.credential(idToken);
@@ -115,12 +115,12 @@ export const signInWithGoogle = (req, res) => {
     });
 };
 
-// ============ Controller for Password Reset ===========
+// ============ Method for Password Reset ===========
 export const resetPassword = (req, res) => {
   const emailAddress = req.body.email;
   if (!emailValidation(emailAddress)) {
     res.status(400)
-      .send({ error: 'Please use a valid email address' });
+      .send({ message: 'Please use a valid email address' });
   } else {
     firebase.auth().sendPasswordResetEmail(emailAddress)
       .then(() => {
@@ -129,8 +129,14 @@ export const resetPassword = (req, res) => {
             message: 'A mail has been sent to the email address provided',
           });
       }).catch((error) => {
-        res.status(500)
-          .send({ message: error.message });
+        if (error.code === 'auth/user-not-found') {
+          res.status(404)
+            .send({
+              message: 'There is no user record corresponding to this email address' }); // eslint-disable-line
+        } else {
+          res.status(500)
+            .send({ message: error.message });
+        }
       });
   }
 };

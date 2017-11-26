@@ -59,7 +59,5 @@ class GroupSideBar extends Component {
     );
   }
 }
-
 GroupSideBar.propTypes = propTypes;
-
 export default GroupSideBar;

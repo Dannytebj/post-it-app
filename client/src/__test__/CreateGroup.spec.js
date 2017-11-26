@@ -35,8 +35,8 @@ describe('The CreateGroup Component', () => {
   });
 
   it('Should call removeChangeListener when component unmounts', () => {
-    const listenerSpy2 = spyOn(GroupStore, 'removeChangeListener');
+    const listenerSpy = spyOn(GroupStore, 'removeChangeListener');
     wrapper.unmount();
-    expect(listenerSpy2).toHaveBeenCalled();
+    expect(listenerSpy).toHaveBeenCalled();
   });
 });
