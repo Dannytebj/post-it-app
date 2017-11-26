@@ -9,6 +9,7 @@ import SignOut from '../components/SignOut';
 import BroadCastGroup from '../components/BroadCastGroup';
 import GroupsBoard from './GroupsBoard';
 import GroupLayout from './GroupLayout';
+import Landing from './Landing';
 import appHistory from '../utils/History';
 
 /**
@@ -47,7 +48,10 @@ const Routes = () => (
           (<GroupLayout/>) : <Redirect to='/'/>)} 
         />
         <Route  path= "/signOut" component={ SignOut } />
-        <Route  path="/" component={ Login } />
+        <Route path="/login" render={() => (RequireAuth() ?
+          (<Redirect to='/home'/>) : <Login/>)} 
+        />
+        <Route  path="/" component ={Landing}/>
         <Route  path ="/*" component ={ NotFound } />
       </Switch>
     </div>

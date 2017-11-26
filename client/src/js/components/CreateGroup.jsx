@@ -86,12 +86,6 @@ class CreateGroup extends Component {
       <div>
         <Layout/>
         <div className="exTab1 container">
-          <ul className="nav nav-pills">
-            <li className="active">
-              <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
-            </li>
-          </ul>
-
           <div className="tab-content clearfix">
             <div className="tab-pane active 1a" id="1a" aria-hidden="true">
               <div className="row">

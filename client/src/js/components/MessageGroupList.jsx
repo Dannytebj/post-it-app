@@ -17,6 +17,7 @@ const MessageGroupList = ({ groupList }) => (
   <div id="wrapper">
     <div id = "sidebar-wrapper">
       <ul id="sidebar-nav">
+        <h4 className="headers">Groups</h4>
         {
           groupList.map(group => 
             (<GroupSideBar group={group} key={group.groupId}/>))

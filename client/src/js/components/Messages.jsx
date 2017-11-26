@@ -11,6 +11,11 @@ const propTypes = {
  */
 const Messages = ({ messages }) => (
   <div>
+    <div>
+      <span className=" center priorityTag">
+        { `Priority: ${messages.priority}` }</span><br/>
+      <span className="timeTag">{ messages.timeStamp }</span>
+    </div>
     <span className="nameTag">{ messages.name }</span>
     <li className="well well-sm">
       { messages.message }

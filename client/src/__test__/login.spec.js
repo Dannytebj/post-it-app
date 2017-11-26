@@ -54,26 +54,19 @@ describe('The Login Component', () => {
       { target: { value: 'danny@myself.com' } });
     expect(wrapper.state().email).toEqual('danny@myself.com');
   });
-  it('should have this state when signing Up', () => {
-    const wrapper = mount(<Login/>);
-    const clickSign = jest.fn();
-    clickSign();
-    wrapper.setState({ signingIn: false });
-    wrapper.find('.email').simulate('change',
-      { target: { value: 'danny@myself.com' } });
-    wrapper.find('.fullName').simulate('change',
-      { target: { value: 'Donald Trump' } });
-    wrapper.find('.phoneNumber').simulate('change',
-      { target: { value: '09876543211' } });
-    wrapper.find('.password').simulate('change',
-      { target: { value: 'asd123' } });
+  it('should call the clickSign method when button is clicked', () => {
+    const clickSignSpy = jest.spyOn(Login.prototype, 'clickSign');
+    const wrapper = shallow(<Login/>);
     wrapper.find(Button).simulate('click'); 
-    expect(wrapper.state().email).toEqual('danny@myself.com');
-    expect(wrapper.state().username).toEqual('Donald Trump');
-    expect(wrapper.state().phoneNumber).toEqual('09876543211');
-    expect(wrapper.state().password).toEqual('asd123');
-    expect(clickSign).toHaveBeenCalled();
+    expect(clickSignSpy).toHaveBeenCalled();
   });
+  it('should call the toggleSignInUp method when button is clicked', () => {
+    const toggleSignInUpSpy = jest.spyOn(Login.prototype, 'toggleSignInUp');
+    const wrapper = shallow(<Login/>);
+    wrapper.find('.toggler1').simulate('click'); 
+    expect(toggleSignInUpSpy).toHaveBeenCalled();
+  });
+
   it('should have these defined functions', () => {
     const wrapper = mount(<Login />);
     expect(wrapper.node.clickSign).toBeDefined();

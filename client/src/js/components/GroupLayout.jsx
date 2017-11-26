@@ -94,9 +94,9 @@ class GroupLayout extends Component {
       <div>
         <Layout/>
         <GroupList groupList= {groupList}/>
+        <div className="well well-sm pageHeaders">GroupBoard</div>
         <a href="#menu-toggle" className="btn btn-default toggler" 
           id="menu-toggle">Toggle Groups</a>
-
       </div>
     );
   }

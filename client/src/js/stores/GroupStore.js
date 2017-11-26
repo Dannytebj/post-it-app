@@ -29,6 +29,17 @@ function setGroupUsers(payload) {
   return groupUsersArray;
 }
 /**
+ * This function updates the groupUsersArray when 
+ * a new user is added to the group 
+ * 
+ * @param {any} payload 
+ */
+function updateGroupUsers(payload) {
+  const { groupId, groupName, name, id } = payload;
+  const groupUser = { groupId, groupName, name, id };
+  groupUsersArray.push(groupUser);
+}
+/**
  * @description This function populates the allUserArray
  * with all users fetched from the database
  * 
@@ -151,6 +162,7 @@ class GroupStore extends EventEmitter {
         break;
       case AppConstants.ADD_USER:
         AppAPI.addUser(action.payload);
+        updateGroupUsers(action.payload);
         this.emitChange();
         break;
       case AppConstants.ADD_USER_RESPONSE:

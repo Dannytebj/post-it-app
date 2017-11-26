@@ -35,7 +35,7 @@ describe('PostIt GroupStore', () => {
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call receiveGroups API', () => {
+  it('should successfully update the store when Groups are fetched', () => {
     mockCall(receiveGroups);
     const groupArray = GroupStore.getGroups();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
@@ -91,12 +91,13 @@ describe('PostIt GroupStore', () => {
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call receiveGroupUsers Action', () => {
-    mockCall(receiveGroupUsers);
-    const groupUsersArray = GroupStore.getUsers();
-    expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(groupUsersArray.length).toBeGreaterThan(0);
-  });
+  it('should successfully update the store when groupUsers are fetched ',
+    () => {
+      mockCall(receiveGroupUsers);
+      const groupUsersArray = GroupStore.getUsers();
+      expect(AppDispatcher.register.mock.calls.length).toBe(1);
+      expect(groupUsersArray.length).toBeGreaterThan(0);
+    });
 });
 describe('PostIt GroupStore', () => {
   const getAllUsers = {
