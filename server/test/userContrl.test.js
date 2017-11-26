@@ -174,7 +174,7 @@ describe('Users', () => {
         });
     });
     it('should return 200 when reset password mail has been sent', (done) => {
-      const email = 'john.doe@myself.com';
+      const email = 'jerod71@gmail.com';
       chai.request(app)
         .post('/api/v1/resetPassword', resetPassword)
         .send({ email })
