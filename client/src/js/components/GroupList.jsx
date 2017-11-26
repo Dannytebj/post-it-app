@@ -1,17 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Group from './Group';
+import Groups from './Groups';
 
-const GroupList = ({ groupList }) => (
-  <ul id="groups">
-    {
-      groupList.map((group, index) => 
-        (<Group group={group} key={index}/>))
-    }
-  </ul>);
-
-GroupList.propTypes = {
+const propTypes = {
   groupList: PropTypes.array.isRequired,
 };
+
+/**
+ * @description Receives an array of Object(groups)
+ * and creates a list element
+ * 
+ * @returns a unordered list element
+ * 
+ * @param {Array} groupList 
+ */
+const GroupList = ({ groupList }) => (
+  <div id="wrapper">
+    <div id = "sidebar-wrapper">
+      <ul id="sidebar-nav">
+        <h4 className="headers">Your Groups</h4>
+        {
+          groupList.map(group => 
+            (<Groups group={group} key={group.groupId}/>))
+        }
+      </ul>
+    </div>
+  </div>
+);
+
+GroupList.propTypes = propTypes;
 
 export default GroupList;

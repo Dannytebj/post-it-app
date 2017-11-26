@@ -1,18 +1,88 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import shortid from 'shortid';
+import MessageStore from '../stores/MessageStore';
 import Messages from './Messages';
 
-const MessageList = ({ messageList }) => (
-  <ul className="list-group">
-    {
-      messageList.map((messages, index) => 
-        (<Messages messages={messages} key={index}/>))
-    }
-  </ul>
-);
+/**
+ * 
+ * 
+ * @class MessageList
+ * @extends {Component}
+ */
+class MessageList extends Component {
+  /**
+   * Creates an instance of MessageList.
+   * @param {any} props 
+   * @memberof MessageList
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      groupId: props.match.params.groupId,  // eslint-disable-line
+      messageList: MessageStore.getAllMessages(),
+    };
+    this.onChange = this.onChange.bind(this);
+  }
 
-MessageList.propTypes = {
-  messageList: PropTypes.array.isRequired,
-};
+  /**
+   * @description Adds a ChangeListener to store just
+   * before the component mounts
+   * 
+   * @memberof MessageList
+   */
+  componentWillMount() {
+    MessageStore.addChangeListener(this.onChange);
+  }
+  /**
+     * @description Removes change listener just before 
+     * the component unmounts
+     * 
+     * @memberof MessageList
+     */
+  componentWillUnmount() {
+    MessageStore.removeChangeListener(this.onChange);
+  }
+  /**
+   * 
+   * 
+   * @memberof MessageList
+   */
+  componentWillReceiveProps(newProps) {
+    MessageStore.addChangeListener(this.onChange);
+    this.setState({
+      groupId: newProps.match.params.groupId,
+    });
+  }
+  /**
+   * @description This method is passed to the change listeners
+   * to update the state of the component when there is a 
+   * change in the store
+   * 
+   * @memberof MessageList
+   */
+  onChange() {
+    this.state.messageList = MessageStore.getAllMessages();
+  }
+
+  /**
+   * 
+   * 
+   * @returns 
+   * @memberof MessageList
+   */
+  render() {
+    const { messageList } = this.state;
+    return (
+      <div>
+        <ul className="list-group"> 
+          {
+            messageList.map(messages => 
+              (<Messages messages={messages} key={shortid.generate()}/>))
+          } 
+        </ul>  
+      </div>
+    );
+  }
+}
 
 export default MessageList;

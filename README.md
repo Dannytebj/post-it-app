@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Dannytebj/post-it-app/badge.svg?branch=dev1)](https://coveralls.io/github/Dannytebj/post-it-app?branch=dev1)
 
 PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
-To view the project visit this [link](https://postitdanny.herokuapp.com)
+To view the project visit this [PostitByDanny](https://postitdanny.herokuapp.com)
 
 ## Key Features of this Application
 + Users can Create Account
@@ -44,10 +44,10 @@ To view the project visit this [link](https://postitdanny.herokuapp.com)
  * [Axios:](https://www.npmjs.com/package/axios)  Axios is an http client library used in making API calls.
  * [Jest:](https://facebook.github.io/jest/) Jest is used to run tests.
 
- # Coding Style
+ ## Coding Style
 - Airbnb 
 
-# Language
+## Language
 - Javascript
 
 
@@ -60,7 +60,7 @@ To view the project visit this [link](https://postitdanny.herokuapp.com)
  Contributions are always welcome. If you are interested in enhancing the features in the project, follow these steps below:
  + Fork the project to your repository then clone it to your local machine.
  + Create a new branch and make features that will enhance it.
- + If the you wish to update an existing enhancement submit a pull request.
+ + If the you wish to update an existing enhancement submit a pull request against `dev1` branch.
  + If you find bugs in the application, create a `New Issue` and let me know about it.
  + If you need clarification on what is not clear, contact me via mail [daniel.atebije@andela.com](mailto:daniel.atebije@andela.com)
 

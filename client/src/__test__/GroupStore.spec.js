@@ -1,6 +1,8 @@
 import AppConstants from '../js/constants/AppConstants';
 import GroupStore from '../js/stores/GroupStore';
 import AppDispatcher from '../js/dispatcher/AppDispatcher';
+import seedData from './helpers/seeder';
+
 
 /* global jest */
 jest.mock('axios');
@@ -19,46 +21,25 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call GetGroups API', () => {
     mockCall(getGroups);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
 describe('PostIt GroupStore', () => {
+  const groups = seedData.groups;
   const receiveGroups = {
     source: 'VIEW_ACTION',
     action: {
       type: AppConstants.RECEIVE_GROUPS,
-      payload: { 
-        groups: [
-          {
-            groupId: "-KqA34JyVjKTzw0-Pbrx",
-            groupName: "The ThroneRoom Priests",
-            isAdmin: true,
-          },
-          {
-            groupId: "-Kr5X4AB7meaxVPSWFIt",
-            groupName: "oreoluwade",
-            isAdmin: false,
-          },
-        ],
-      },
+      payload: { groups },
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call receiveGroups API', () => {
+  it('should successfully update the store when Groups are fetched', () => {
     mockCall(receiveGroups);
-    const setGroups = jest.fn();
-    const emitChange = jest.fn();
-    setGroups();
-    emitChange();
     const groupArray = GroupStore.getGroups();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(setGroups).toHaveBeenCalled();
     expect(groupArray.length).toBeGreaterThan(0);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -77,13 +58,7 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call createGroup API', () => {
     mockCall(createGroup);
-    const emitChange = jest.fn();
-    const addToGroupArray = jest.fn();
-    addToGroupArray();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(addToGroupArray).toHaveBeenCalled();
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -100,47 +75,29 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call getGroupUsers API', () => {
     mockCall(getGroupUsers);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
 describe('PostIt GroupStore', () => {
+  const groupUser = seedData.groupUser;
   const receiveGroupUsers = {
     source: 'VIEW_ACTION',
     action: {
       type: AppConstants.RECEIVE_GROUP_USERS,
       payload: { 
-        groupUser: [
-          {
-            id: "-KqA34JyVjKTzw0-Pbrx",
-            name: "Test User",
-            email: 'testemail@email.com',
-          },
-          {
-            id: "-KqA34JyVjKTzw0-Pbry",
-            name: "Test User2",
-            email: 'testemail@email.com',
-          },
-        ],
+        groupUser,
       },
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
-  it('should successfully call receiveGroupUsers Action', () => {
-    mockCall(receiveGroupUsers);
-    const setGroupUsers = jest.fn();
-    const emitChange = jest.fn();
-    setGroupUsers();
-    emitChange();
-    const groupUsersArray = GroupStore.getUsers();
-    expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(setGroupUsers).toHaveBeenCalled();
-    expect(groupUsersArray.length).toBeGreaterThan(0);
-    expect(emitChange).toHaveBeenCalled();
-  });
+  it('should successfully update the store when groupUsers are fetched ',
+    () => {
+      mockCall(receiveGroupUsers);
+      const groupUsersArray = GroupStore.getUsers();
+      expect(AppDispatcher.register.mock.calls.length).toBe(1);
+      expect(groupUsersArray.length).toBeGreaterThan(0);
+    });
 });
 describe('PostIt GroupStore', () => {
   const getAllUsers = {
@@ -155,46 +112,25 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call getAllUsers API', () => {
     mockCall(getAllUsers);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
 describe('PostIt GroupStore', () => {
+  const allUsers = seedData.allUsers;
   const receiveAllUsers = {
     source: 'VIEW_ACTION',
     action: {
       type: AppConstants.RECEIVE_ALL_USERS,
-      payload: { 
-        allUsers: [
-          {
-            id: "-KqA34JyVjKTzw0-Pbrx",
-            name: "Test User",
-            email: 'testemail@email.com',
-          },
-          {
-            id: "-KqA34JyVjKTzw0-Pbry",
-            name: "Test User2",
-            email: 'testemail@email.com',
-          },
-        ],
-      },
+      payload: { allUsers },
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully receive/set all Users array', () => {
     mockCall(receiveAllUsers);
-    const setAllUsers = jest.fn();
-    const emitChange = jest.fn();
-    setAllUsers();
-    emitChange();
     const allUserArray = GroupStore.getAllUsers();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(setAllUsers).toHaveBeenCalled();
     expect(allUserArray.length).toBeGreaterThan(0);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -214,10 +150,7 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call addUser API', () => {
     mockCall(addUser);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -231,10 +164,7 @@ describe('PostIt GroupStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call addUser API', () => {
     mockCall(addUserResponse);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.load();
 const nexmo = new Nexmo({
   apiKey: process.env.NEXMO_API_KEY,
-  apiSecret: process.env.NEXTMO_API_SECRET
+  apiSecret: process.env.NEXTMO_API_SECRET,
 });
 module.exports = (phoneNumbers, priority) => {
   if (priority === 'Critical') {
@@ -16,7 +16,7 @@ module.exports = (phoneNumbers, priority) => {
             console.log(error);  // eslint-disable-line
           }
           console.log(response);  // eslint-disable-line
-        }
+        },
       );
     });
   }

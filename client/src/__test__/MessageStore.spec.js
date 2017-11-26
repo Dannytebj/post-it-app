@@ -1,6 +1,8 @@
 import AppConstants from '../js/constants/AppConstants';
 import MessageStore from '../js/stores/MessageStore';
 import AppDispatcher from '../js/dispatcher/AppDispatcher';
+import seedData from './helpers/seeder';
+
 
 /* global jest */
 jest.mock('axios');
@@ -38,10 +40,7 @@ describe('PostIt MessageStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call GetMessages API', () => {
     mockCall(getMessages);
-    const clearMessageArray = jest.fn();
-    clearMessageArray();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(clearMessageArray).toHaveBeenCalled();
   });
 });
 
@@ -60,16 +59,9 @@ describe('PostIt MessageStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call updateMessages when messages are posted', () => {
     mockCall(updateMessageStore);
-    const updateMessages = jest.fn();
-    const emitChange = jest.fn();
-    emitChange();
-    updateMessages();
     const messageArray = MessageStore.getAllMessages();
-    // console.log(msgArr);
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(updateMessages).toHaveBeenCalled();
     expect(messageArray.length).toBeGreaterThan(0);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -88,13 +80,7 @@ describe('PostIt MessageStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should call setMessages when messages are gotten from API', () => {
     mockCall(receiveAllMessages);
-    const setMessages = jest.fn();
-    const emitChange = jest.fn();
-    emitChange();
-    setMessages();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(setMessages).toHaveBeenCalled();
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -108,13 +94,7 @@ describe('PostIt MessageStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should clear Message array', () => {
     mockCall(resetMessageStore);
-    const clearMessageArray = jest.fn();
-    const emitChange = jest.fn();
-    emitChange();
-    clearMessageArray();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(clearMessageArray).toHaveBeenCalled();
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
@@ -131,45 +111,24 @@ describe('PostIt MessageStore', () => {
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call GetGroups API', () => {
     mockCall(getGroups);
-    const emitChange = jest.fn();
-    emitChange();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(emitChange).toHaveBeenCalled();
   });
 });
 
 describe('PostIt MessageStore', () => {
+  const groups = seedData.groups;
   const receiveGroups = {
     source: 'VIEW_ACTION',
     action: {
       type: AppConstants.RECEIVE_GROUPS,
-      payload: { 
-        groups: [
-          {
-            groupId: "-KqA34JyVjKTzw0-Pbrx",
-            groupName: "The ThroneRoom Priests",
-            isAdmin: true,
-          },
-          {
-            groupId: "-Kr5X4AB7meaxVPSWFIt",
-            groupName: "oreoluwade",
-            isAdmin: false,
-          },
-        ],
-      },
+      payload: { groups },
     },
   };
   const mockCall = AppDispatcher.register.mock.calls[0][0];
   it('should successfully call GetGroups API', () => {
     mockCall(receiveGroups);
-    const setGroups = jest.fn();
-    const emitChange = jest.fn();
-    setGroups();
-    emitChange();
     const groupArray = MessageStore.getGroups();
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
-    expect(setGroups).toHaveBeenCalled();
     expect(groupArray.length).toBeGreaterThan(0);
-    expect(emitChange).toHaveBeenCalled();
   });
 });

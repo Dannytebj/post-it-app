@@ -20,10 +20,10 @@ const ViewActions = {
  * @param {string} username users fullname
  * @param {string} phoneNumber Users phone Number
  */
-  signUp: (username, email, password, phoneNumber) => {
+  signUp: (email, password, username, phoneNumber) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.CLICK_SIGN_UP,
-      payload: { username, email, password, phoneNumber },
+      payload: { email, password, username, phoneNumber },
     });
   },
   /**
@@ -69,10 +69,10 @@ const ViewActions = {
  * @param {*} groupName name of the group created
  */
 
-  createGroup: (groupName, userId, userName) => {
+  createGroup: (groupName, userUid, userName) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.CREATE_GROUP,
-      payload: { groupName, userId, userName },
+      payload: { groupName, userUid, userName },
     });
   },
 
@@ -177,10 +177,10 @@ const ViewActions = {
       payload: { groupId },
     });
   },
-  updateMessageStore: (id, message, name) => {
+  updateMessageStore: (id, message, name, priority, timeStamp) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.UPDATE_MESSAGE_STORE,
-      payload: { id, message, name },
+      payload: { id, message, name, priority, timeStamp },
     });
   },
   receiveAllMessages: (messages) => {

@@ -1,6 +1,8 @@
 import React from 'react';
 import Layout from './Layout';
-
+/**
+ * @description stateless component that renders the home page
+ */
 const Home = () => (
   <div className="container-fluid">
     <div className="row">

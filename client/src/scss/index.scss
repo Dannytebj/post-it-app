@@ -2,7 +2,8 @@
 
 body{
     background-color: white;
-    opacity: 0.7;
+    background: url(https://res.cloudinary.com/dannytebj/image/upload/v1511027301/round_tgrzva.png);
+    opacity: 0.9;
     width: 100%;
     height: 550px;
     #app {
@@ -19,6 +20,8 @@ body{
   }
   .groupPane {
     margin-right: 10px;
+    float: left;
+    width: 200px;
   }
   .tab-content {
     color: black;
@@ -26,6 +29,29 @@ body{
     padding: 5px 15px;
   }
 }
+.navbar-default .navbar-nav>li {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+}
+.groupList {
+  width: 95%;
+  height: 50px;
+  margin-bottom: 5px;
+  padding: 10px;
+    list-style: none;
+     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+  a {
+  text-decoration: none;
+  text-align: center;
+  }
+  }
 
 /* On using dropdown menu (To right shift popuped) */
 
@@ -43,6 +69,7 @@ body{
   float: right;
 }
 .groups{
+  margin: auto;
   display: inline;
   list-style-type: none;
 .names {
@@ -58,6 +85,7 @@ body{
   border: 1px solid skyblue;
   max-height: 150px;
   overflow: scroll;
+  margin-left: 210px;
   .user-names {
   width: 95%;
   margin-bottom: 5px;
@@ -98,37 +126,33 @@ li {
     font-size: 14px;
   }
 
-  .groupList {
-  width: 95%;
-  height: 50px;
-  margin-bottom: 5px;
-  padding: 10px;
-    list-style: none;
-     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  &:hover {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  }
-  a {
-  text-decoration: none;
-  text-align: center;
-  }
-  }
+  
 }
    .nameTag {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 8px;
-      color: cornflowerblue;
+      font-size: 9px;
+      color: black;
     }
 
+   .timeTag {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
+      color: black;
+      float: right;
+    }
+    .priorityTag {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 9px;
+      color: black;
+      float: right;
+    }
   .messageTray {
-  background-color:rgba(66, 139, 202, 0.3 );
-  border-radius: 5px;
-  color: black;
-  padding: 20px;
-  max-height: 550px;
-  overflow: scroll;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    background: #f2f2f2;
+    color: black;
+    padding: 20px;
+    max-height: 400px;
+    overflow: scroll;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   li{
     list-style: none;
   }
@@ -324,17 +348,7 @@ li {
       color:white;
       border: 0 none;
     }
-    input {
-    font-family: "Roboto", sans-serif;
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
+
   #sendButton {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -368,10 +382,21 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .msgBox{
   margin-top: 5px;
+}
+.msgText {
+  background-color: #f2f2f2;
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
 }
 .dropdown {
   margin-top: 5px;
@@ -383,5 +408,149 @@ footer {
 .panel-body {
   padding-bottom: 20px;
 }
-     
+.messageContainer {
+margin-left: 35%;
+margin-right: 1%;
+margin-bottom: 8%;
 }
+.group-Users {
+  margin-left: 35%;
+}
+.groupName {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  width: 100%;
+  border: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.para {
+  padding: 25px;
+  text-align: justify;
+}
+}
+.toggler {
+  margin-left: 78%;
+  margin-bottom: 5px;
+}
+.pageHeaders {
+  margin-left: 27%;
+  width: 60%;
+}
+.headers {
+  padding-left: 25%;
+  font-weight: 600;
+  color: whitesmoke;
+}
+.landings {
+  padding: 40px;
+  margin: 50px;
+  font-size: 20px;
+}
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  &.toggled {
+    padding-left: 250px;
+  }
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 550px;
+  overflow: scroll;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+#sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    text-indent: 20px;
+    line-height: 40px;
+    a {
+      display: block;
+      text-decoration: none;
+      color: #999999;
+      &:hover {
+        text-decoration: none;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      &:active, &:focus {
+        text-decoration: none;
+      }
+    }
+  }
+  > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+    a {
+      color: #999999;
+      &:hover {
+        color: #fff;
+        background: none;
+      }
+    }
+  }
+}
+
+@media (min-width: 568px) {
+  #wrapper {
+    padding-left: 250px;
+    &.toggled {
+      padding-left: 0;
+    }
+  }
+  #sidebar-wrapper {
+    width: 250px;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    width: 0;
+  }
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
+    // background-color:rgba(10, 122, 202, 0.4);

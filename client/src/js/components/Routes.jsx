@@ -1,32 +1,60 @@
 import React from 'react';
-import { Router, Route, browserHistory } from 'react-router';
+import { Route, Switch, Router, Redirect } from 'react-router-dom';
 import Login from '../components/Login';
 import NotFound from '../components/NotFound';
 import Home from '../components/Home';
-import Groups from '../components/GroupBoard';
+import CreateGroup from '../components/CreateGroup';
 import MessageBoard from '../components/MessageBoard';
 import SignOut from '../components/SignOut';
-
+import BroadCastGroup from '../components/BroadCastGroup';
+import GroupsBoard from './GroupsBoard';
+import GroupLayout from './GroupLayout';
+import Landing from './Landing';
+import appHistory from '../utils/History';
 
 /**
- * Contains Routes to all my components
+ * @description Contains Routes to all components
  */
-const RequireAuth = (nextState, replace) => {
+const RequireAuth = () => {
+  let isAuthenticated;
+  isAuthenticated = false;
   const user = localStorage.getItem('userUid');
   if (!user) {
-    replace({
-      pathname: '/',
-    });
+    return isAuthenticated;
   }
+  isAuthenticated = true;
+  return isAuthenticated;
 };
 const Routes = () => (
-  <Router history={ browserHistory }>
-    <Route  path="/" component={ Login } />
-    <Route  path= "home" component={ Home } onEnter= {RequireAuth}/>
-    <Route  path= "group" component={ Groups } onEnter= {RequireAuth}/>
-    <Route  path= "message" component={ MessageBoard } onEnter= {RequireAuth}/>
-    <Route  path= "signOut" component={ SignOut } />
-    <Route  path ="/*" component ={ NotFound } />
+  <Router history={ appHistory } >
+    <div>
+      <Switch>
+        <Route  path= "/home" render={() => (RequireAuth() ?
+          (<Home/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path= "/createGroup" render={() => (RequireAuth() ? 
+          (<CreateGroup/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path= "/message" render={() => (RequireAuth() ? 
+          (<MessageBoard/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path="/broadCastGroup/" render={() => (RequireAuth() ? 
+          (<BroadCastGroup/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path="/groups/" render={() => (RequireAuth() ? 
+          (<GroupsBoard/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path="/group" render={() => (RequireAuth() ? 
+          (<GroupLayout/>) : <Redirect to='/'/>)} 
+        />
+        <Route  path= "/signOut" component={ SignOut } />
+        <Route path="/login" render={() => (RequireAuth() ?
+          (<Redirect to='/home'/>) : <Login/>)} 
+        />
+        <Route  path="/" component ={Landing}/>
+        <Route  path ="/*" component ={ NotFound } />
+      </Switch>
+    </div>
   </Router>
 );
 export default Routes;

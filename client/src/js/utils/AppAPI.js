@@ -1,16 +1,20 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+// import { browserHistory } from 'react-router';
 import toastr from 'toastr';
 import AppActions from '../actions/AppActions';
+import appHistory from './History';
 
+/**
+ * @description This file exports all the applications API
+ */
 module.exports = {
   signIn({ email, password }) {
-    axios.post('/signIn', { email, password })
+    axios.post('/api/v1/signIn', { email, password })
       .then((response) =>  {
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
-        browserHistory.push('home');
+        appHistory.push('/home');
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -18,12 +22,12 @@ module.exports = {
       });
   },
   signUp({ email, password, username, phoneNumber }) {
-    axios.post('/signUp', { email, password, username, phoneNumber })
+    axios.post('/api/v1/signUp', { email, password, username, phoneNumber })
       .then((response) =>  {
-        browserHistory.push('home');
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
+        appHistory.push('/home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -31,25 +35,24 @@ module.exports = {
       });
   },
   signOut() {
-    axios.post('/signOut')
+    axios.post('/api/v1/signOut')
       .then((response) =>  {
-        browserHistory.push('/');
-        const { message } = response.data;
-        gapi.auth2.getAuthInstance().signOut();
+        appHistory.push('/');
         localStorage.clear();
+        gapi.auth2.getAuthInstance().signOut();
+        const { message } = response.data;
         toastr.success(message);
       }).catch((error) => {
-        const { message } = error.response.data;
-        toastr.error(message);
+        toastr.error(error);
       });
   },
   signInWithGoogle({ idToken }) {
-    axios.post('/signIn/google', { idToken })
+    axios.post('/api/v1/signIn/google', { idToken })
       .then((response) =>  {
-        browserHistory.push('home');
-        const { userName, userUid, message } = response.data;
-        localStorage.setItem('userName', userName);
+        const { username, userUid, message } = response.data;
+        localStorage.setItem('userName', username);
         localStorage.setItem('userUid', userUid);
+        appHistory.push('/home');        
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
@@ -57,7 +60,7 @@ module.exports = {
       });
   }, 
   resetPassword({ email }) {
-    axios.post('/resetPassword', { email })
+    axios.post('/api/v1/resetPassword', { email })
       .then((response) =>  {
         const { message } = response.data;
         toastr.success(message);
@@ -67,7 +70,7 @@ module.exports = {
       });
   },  
   addUser({ groupId, groupName, name, id }) {
-    axios.post(`/group/${groupId}/users`, { groupName, name, id })
+    axios.post(`/api/v1/group/${groupId}/users`, { groupName, name, id })
       .then((response) =>  {
         const { message } = response.data;
         AppActions.addUserResponse();
@@ -77,8 +80,8 @@ module.exports = {
         toastr.error(message);
       });
   },  
-  createGroup({ groupName, userId, userName }) {
-    axios.post('/group', { groupName, userId, userName })
+  createGroup({ groupName, userUid, userName }) {
+    axios.post('/api/v1/group', { groupName, userUid, userName })
       .then((response) => {
         const { message } = response.data;
         toastr.success(message);
@@ -88,53 +91,61 @@ module.exports = {
       });
   },
   getGroups({ userUid }) {
-    axios.get(`/getGroup/${userUid}`)
+    axios.get(`/api/v1/getGroup/${userUid}`)
       .then((response) => {
         const { message, groups } = response.data;
-        AppActions.receiveGroups(groups);
-        toastr.success(message);
+        if (groups) {
+          AppActions.receiveGroups(groups);
+        } else {
+          toastr.info(message);          
+        }
       }).catch((error) => {
         toastr.error(error);
       });
   },
   getGroupUsers({ groupId }) {
-    axios.get(`/getGroupUsers/${groupId}`)
+    axios.get(`/api/v1/getGroupUsers/${groupId}`)
       .then((response) => {
         const { message, groupUser } = response.data;
-        AppActions.receiveGroupUsers(groupUser);
-        toastr.success(message);
+        if (groupUser) {
+          AppActions.receiveGroupUsers(groupUser);
+        } else {
+          toastr.info(message);
+        }
       }).catch((error) => {
         toastr.error(error);
       });
   },
   getAllUsers({ groupId }) {
-    axios.get(`/notGroupUsers/${groupId}`)
+    axios.get(`/api/v1/notGroupUsers/${groupId}`)
       .then((response) => {
         const { message, allUsers } = response.data;
-        AppActions.receiveAllUsers(allUsers);
-        toastr.success(message);
+        if (allUsers) {
+          AppActions.receiveAllUsers(allUsers);
+        } else {
+          toastr.info(message);
+        }
       }).catch((error) => {
         toastr.error(error);
       });
   },
   postMessage({ groupId, message, priority, id, name }) {
-    axios.post('/message', { groupId, message, priority, id, name })
-      .then(() => {
-        AppActions.updateMessageStore(id, message, name);
+    axios.post('/api/v1/message', { groupId, message, priority, id, name })
+      .then((response) => {
+        const { message } = response.data; // eslint-disable-line
       }).catch((error) => {
         toastr.error(error);
       });
   },
   getAllMessages({ groupId }) {
-    axios.get(`/getMessages/${groupId}`)
+    axios.get(`/api/v1/getMessages/${groupId}`)
       .then((response) => {
-        const { messages } = response.data;
+        const { messages, message } = response.data;
         if (messages) {
           AppActions.receiveAllMessages(messages);
         } else {
-          const { message } = response.data;
-          toastr.info(message);
           AppActions.resetMessageStore();
+          toastr.info(message);
         }
       }).catch((error) => {
         toastr.error(error);

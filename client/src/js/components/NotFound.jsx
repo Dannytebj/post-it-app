@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import Img from 'react-image';
-
+/**
+ * @description This component is rendered when an invalid route is hit
+ */
 const NotFound = () => (
   <div className="container-fluid">
     <div className="row">
@@ -15,9 +17,9 @@ const NotFound = () => (
       <div className="col-md-4 col-md-offset-3">
         <ul className="nav navbar-nav">         
           <li>
-            <Link to={'home'}>
+            <NavLink to={'/home'}>
         Back to Safety
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

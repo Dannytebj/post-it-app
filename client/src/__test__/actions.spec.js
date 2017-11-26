@@ -19,35 +19,33 @@ describe('PostIt Actions', () => {
   afterEach(() => {
     dispatcher.mockReset();
   });
-  it('should dispatch a view action of type signIn users', () => {
+  it('should dispatch a view action that sign In users', () => {
     email = 'danny@myself.com';
     password = 'asd123';
-    // console.log(dispatcher);
     AppActions.signIn(email, password);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CLICK_SIGN_IN,
       payload: { email, password },
     });
   });
-  it('should dispatch a view action of type signUp users', () => {
+  it('should dispatch a view action that sign Up users', () => {
     email = 'danny@myself.com';
     password = 'asd123';
     phoneNumber = '09876543211';
     username = 'Jimmy Jatt';
-    // console.log(dispatcher);
-    AppActions.signUp(username, email, password, phoneNumber);
+    AppActions.signUp(email, password, username, phoneNumber);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CLICK_SIGN_UP,
-      payload: { username, email, password, phoneNumber },
+      payload: { email, password, username, phoneNumber },
     });
   });
-  it('should dispatch a view action of type signOut users', () => {
+  it('should dispatch a view action that sign Out users', () => {
     AppActions.signOut();
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CLICK_SIGN_OUT,
     });
   });
-  it('should dispatch a view action of type signInWithGoogle', () => {
+  it('should dispatch a view action that signIn users With Google', () => {
     const idToken = '343526282927345#$$$#dgskaidb';
     AppActions.signInWithGoogle(idToken);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -56,7 +54,7 @@ describe('PostIt Actions', () => {
     });
   });
 
-  it('should dispatch a view action of type sendPasswordReset', () => {
+  it('should dispatch a view action that sends Password Reset', () => {
     email = 'danny@myself.com';
     AppActions.sendPasswordReset(email);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -64,7 +62,7 @@ describe('PostIt Actions', () => {
       payload: { email },
     });
   });
-  it('should dispatch a view action of type getGroups', () => {
+  it('should dispatch a view action that gets Groups', () => {
     const userUid = '343526282927345#$$$#dgskaidb';
     AppActions.getGroups(userUid);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -72,17 +70,17 @@ describe('PostIt Actions', () => {
       payload: { userUid },
     });
   });
-  it('should dispatch a view action of type createGroup', () => {
-    const userId = '343526282927345#$$$#dgskaidb';
+  it('should dispatch a view action that creates a Group', () => {
+    const userUid = '343526282927345#$$$#dgskaidb';
     const groupName = 'Test';
     const userName = 'Falz';
-    AppActions.createGroup(groupName, userId, userName);
+    AppActions.createGroup(groupName, userUid, userName);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.CREATE_GROUP,
-      payload: { groupName, userId, userName },
+      payload: { groupName, userUid, userName },
     });
   });
-  it('should dispatch a view action of type receiveGroups', () => {
+  it('should dispatch a view action that receive Groups', () => {
     const groups = {};
     AppActions.receiveGroups(groups);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -90,7 +88,7 @@ describe('PostIt Actions', () => {
       payload: { groups },
     });
   });
-  it('should dispatch a view action of type getGroupUsers', () => {
+  it('should dispatch a view action that get Group Users', () => {
     const groupId = '343526282927345#$$$#dgskaidb';
     AppActions.getGroupUsers(groupId);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -98,7 +96,7 @@ describe('PostIt Actions', () => {
       payload: { groupId },
     });
   });
-  it('should dispatch a view action of type receiveGroupUsers', () => {
+  it('should dispatch a view action that receive Group Users', () => {
     const groupUser = {};
     AppActions.receiveGroupUsers(groupUser);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -106,7 +104,7 @@ describe('PostIt Actions', () => {
       payload: { groupUser },
     });
   });
-  it('should dispatch a view action of type getAllUsers', () => {
+  it('should dispatch a view action that getAllUsers', () => {
     const groupId = '343526282927345#$$$#dgskaidb';
     AppActions.getAllUsers(groupId);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -114,7 +112,7 @@ describe('PostIt Actions', () => {
       payload: { groupId },
     });
   });
-  it('should dispatch a view action of type receiveAllUsers', () => {
+  it('should dispatch a view action that receiveAllUsers', () => {
     const allUsers = {};
     AppActions.receiveAllUsers(allUsers);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -122,7 +120,7 @@ describe('PostIt Actions', () => {
       payload: { allUsers },
     });
   });
-  it('should dispatch a view action of type addUser', () => {
+  it('should dispatch a view action that adds User to group', () => {
     const id = '343526282927345#$$$#dgskaidb';
     const groupId = '12swd4we2343sjii8';
     const groupName = 'Test';
@@ -133,13 +131,14 @@ describe('PostIt Actions', () => {
       payload: { groupId, groupName, name, id },
     });
   });
-  it('should dispatch a view action of type resetMessageStore', () => {
-    AppActions.addUserResponse();
-    expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
-      type: AppConstants.ADD_USER_RESPONSE,
+  it('should dispatch a view action that returns response from add user', 
+    () => {
+      AppActions.addUserResponse();
+      expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
+        type: AppConstants.ADD_USER_RESPONSE,
+      });
     });
-  });
-  it('should dispatch a view action of type postMessage', () => {
+  it('should dispatch a view action that posts Message', () => {
     const id = '343526282927345#$$$#dgskaidb';
     const groupId = '12swd4we2343sjii8';
     const priority = 'Urgent';
@@ -151,7 +150,7 @@ describe('PostIt Actions', () => {
       payload: { groupId, message, priority, id, name },
     });
   });
-  it('should dispatch a view action of type getMessages', () => {
+  it('should dispatch a view action that gets Messages', () => {
     const groupId = '12swd4we2343sjii8';
     AppActions.getMessages(groupId);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -159,7 +158,7 @@ describe('PostIt Actions', () => {
       payload: { groupId },
     });
   });
-  it('should dispatch a view action of type updateMessageStore', () => {
+  it('should dispatch a view action that updates Message Store', () => {
     const id = '343526282927345#$$$#dgskaidb';
     const message = 'Test Message';
     const name = 'Falz';
@@ -169,7 +168,7 @@ describe('PostIt Actions', () => {
       payload: { id, message, name },
     });
   });
-  it('should dispatch a view action of type receiveAllMessages', () => {
+  it('should dispatch a view action that receives All Messages', () => {
     const messages = {};
     AppActions.receiveAllMessages(messages);
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
@@ -177,7 +176,7 @@ describe('PostIt Actions', () => {
       payload: { messages },
     });
   });
-  it('should dispatch a view action of type resetMessageStore', () => {
+  it('should dispatch a view action that reset Message Store', () => {
     AppActions.resetMessageStore();
     expect(AppDispatcher.handleViewAction).toHaveBeenCalledWith({
       type: AppConstants.RESET_STORE,

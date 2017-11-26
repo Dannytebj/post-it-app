@@ -13,15 +13,14 @@ jest.mock('toastr', () => jest.fn());
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 describe('The Login Component', () => {
-  it('should have these Comonents', () => {
+  it('should have these Comonents defined', () => {
     const wrapper = mount(<Login/>);
-    // console.log(wrapper.node.clickSign);
     expect(wrapper.find(PassWordReset)).toHaveLength(1);
     expect(wrapper.find(Google)).toHaveLength(1);
     expect(wrapper.find(Button)).toHaveLength(1);
     expect(wrapper.find(TextBox)).toHaveLength(2);
   });
-  it('should have an initial state  to be set', () => {
+  it('should have an initial state  to be set to 0', () => {
     const wrapper = mount(<Login/>); 
     expect(wrapper.state().email.length).toEqual(0);
     expect(wrapper.state().password.length).toEqual(0);
@@ -55,26 +54,19 @@ describe('The Login Component', () => {
       { target: { value: 'danny@myself.com' } });
     expect(wrapper.state().email).toEqual('danny@myself.com');
   });
-  it('should have this state when signing Up', () => {
-    const wrapper = mount(<Login/>);
-    const clickSign = jest.fn();
-    clickSign();
-    wrapper.setState({ signingIn: false });
-    wrapper.find('.email').simulate('change',
-      { target: { value: 'danny@myself.com' } });
-    wrapper.find('.fullName').simulate('change',
-      { target: { value: 'Donald Trump' } });
-    wrapper.find('.phoneNumber').simulate('change',
-      { target: { value: '09876543211' } });
-    wrapper.find('.password').simulate('change',
-      { target: { value: 'asd123' } });
+  it('should call the clickSign method when button is clicked', () => {
+    const clickSignSpy = jest.spyOn(Login.prototype, 'clickSign');
+    const wrapper = shallow(<Login/>);
     wrapper.find(Button).simulate('click'); 
-    expect(wrapper.state().email).toEqual('danny@myself.com');
-    expect(wrapper.state().username).toEqual('Donald Trump');
-    expect(wrapper.state().phoneNumber).toEqual('09876543211');
-    expect(wrapper.state().password).toEqual('asd123');
-    expect(clickSign).toHaveBeenCalled();
+    expect(clickSignSpy).toHaveBeenCalled();
   });
+  it('should call the toggleSignInUp method when button is clicked', () => {
+    const toggleSignInUpSpy = jest.spyOn(Login.prototype, 'toggleSignInUp');
+    const wrapper = shallow(<Login/>);
+    wrapper.find('.toggler1').simulate('click'); 
+    expect(toggleSignInUpSpy).toHaveBeenCalled();
+  });
+
   it('should have these defined functions', () => {
     const wrapper = mount(<Login />);
     expect(wrapper.node.clickSign).toBeDefined();
