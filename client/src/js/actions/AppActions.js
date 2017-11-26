@@ -34,8 +34,8 @@ const ViewActions = {
       type: AppConstants.CLICK_SIGN_OUT,
     });
   },
-  /**
-     * Action method that let's Users Sign In with Gogle
+  /** @description  Action method that let's Users Sign In with Gogle
+     *@param {string} idToken
      */
   signInWithGoogle: (idToken) => {
     AppDispatcher.handleViewAction({
@@ -92,9 +92,8 @@ const ViewActions = {
   /**
  * Action methods that fetchs 
  * all Users in a group 
- * @param {string} groupId Array of Groups
+ * @param {string} groupId 
  */
-
   getGroupUsers: (groupId) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.GET_GROUP_USERS,
@@ -105,7 +104,7 @@ const ViewActions = {
   /**
  * Action methods that receives 
  * all Users in a group from server response
- * @param {string} groupId Array of Groups
+ * @param {string} groupUser 
  */
   receiveGroupUsers: (groupUser) => {
     AppDispatcher.handleViewAction({
@@ -116,7 +115,7 @@ const ViewActions = {
   /**
  * Action methods that fetchs 
  * all Users 
- * @param {string} groupId Array of Groups
+ * @param {string} groupId
  */
 
   getAllUsers: (groupId) => {
@@ -129,7 +128,7 @@ const ViewActions = {
   /**
  * Action methods that receives 
  * all Users from server response
- * @param {string} groupId Array of Groups
+ * @param {string} groupId
  */
   receiveAllUsers: (allUsers) => {
     AppDispatcher.handleViewAction({
@@ -171,24 +170,46 @@ const ViewActions = {
       payload: { groupId, message, priority, id, name },
     });
   },
+  /**
+   * @description Action Method that gets all messages in a group
+   * @param {string} groupId 
+   */
   getMessages: (groupId) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.GET_ALL_MESSAGES,
       payload: { groupId },
     });
   },
+  /**
+   * @description Action method that updates the store
+   * when a new message is posted
+   * @param {string} id id of user who posted the message
+   * @param {string} message message content
+   * @param {string} name name of user who posted
+   * @param {string} priority priority of message
+   * @param {string} timeStamp time message was posted
+   * 
+   */
   updateMessageStore: (id, message, name, priority, timeStamp) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.UPDATE_MESSAGE_STORE,
       payload: { id, message, name, priority, timeStamp },
     });
   },
+  /**
+   * @description Action Method that receives messages from database
+   * 
+   * @param {object} messages
+   */
   receiveAllMessages: (messages) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.RECEIVE_ALL_MESSAGES,
       payload: { messages },
     });
   }, 
+  /**
+   * @description Action method that resets message store
+   */
   resetMessageStore: () => {
     AppDispatcher.handleViewAction({
       type: AppConstants.RESET_STORE,

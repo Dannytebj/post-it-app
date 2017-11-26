@@ -42,15 +42,6 @@ class BroadCastGroup extends Component {
   }
 
   /**
-   * @description Unsets the groupName and groupId from localstorage
-   * on reload
-   * 
-   * @memberof BroadCastGroup
-   */
-  componentWillMount() {
-
-  }
-  /**
    * @description Adds a change listener to the
    * MessageStore once the component is mounted
    * 
