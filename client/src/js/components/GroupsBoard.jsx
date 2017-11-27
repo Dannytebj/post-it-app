@@ -75,14 +75,12 @@ class GroupsBoard extends Component {
    */
   render() {
     const isAdmin = localStorage.getItem('isAdmin');
-    const groupName = localStorage.getItem('groupName');
     return (
       <div className="container-fluid" >
         <div className="row">
           <GroupLayout/>
           <Router history = { appHistory }>
             <div className="group-Users">
-              <h3> Users in {groupName}</h3>
               <div className="col-md-8 ">
                 <Switch>
                   <Route path='/groups/:groupId/:groupName' 

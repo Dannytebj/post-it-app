@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GroupStore from '../stores/GroupStore';
 import AllUserList from './AllUserList';
+import TextBox from '../utils/textbox';
 
 
 /**
@@ -20,6 +21,7 @@ class  AddUser extends Component {
     super(props);
     this.state = {
       allUserList: GroupStore.getAllUsers(),
+      searchTerm: '',
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -75,7 +77,8 @@ class  AddUser extends Component {
                   <span aria-hidden="true">&times;</span>
                 </a>
               </div>
-              <div className="modal-body">
+              <div className="modal-body addUserBody">
+                
                 {(allUserList.length === 0) ? 'There are no more users to add' :
                   <AllUserList  allUserList = { allUserList }/> }
               </div>
