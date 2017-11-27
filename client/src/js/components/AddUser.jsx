@@ -76,7 +76,8 @@ class  AddUser extends Component {
                 </a>
               </div>
               <div className="modal-body">
-                <AllUserList  allUserList = { allUserList }/>
+                {(allUserList.length === 0) ? 'There are no more users to add' :
+                  <AllUserList  allUserList = { allUserList }/> }
               </div>
             </div>
           </div>
