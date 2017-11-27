@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import io from 'socket.io-client';
+import $ from 'jquery';
 import MessageStore from '../stores/MessageStore';
 import ViewActions from '../actions/AppActions';
 import MessageBoard from './MessageBoard';
@@ -9,19 +10,23 @@ import MessageTextBox from '../utils/msgText';
 import appHistory from '../utils/History';
 
 const { postMessage, updateMessageStore } = ViewActions;
-// const socket = io('http://localhost:9999'); // This Link is required on local machine
-const socket = io('https://postitdanny.herokuapp.com'); // eslint-disable-line  
+let socket;
+if (process.env.NODE_ENV === 'production') {
+  socket = io('https://postitdanny.herokuapp.com');
+} else {
+  socket = io('http://localhost:9999');
+}
 
 
 /**
- * 
+ * @description This class handles the realtime mesaging
  * 
  * @class BroadCastGroup
  * @extends {Component}
  */
 class BroadCastGroup extends Component {
   /**
-     * Creates an instance of BroadCastGroup.
+     * @description Creates an instance of BroadCastGroup.
      * @param {any} props 
      * @memberof BroadCastGroup
      */
@@ -35,25 +40,36 @@ class BroadCastGroup extends Component {
     this.onChange = this.onChange.bind(this);
     this.setPriority = this.setPriority.bind(this);
   }
+
+  /**
+   * @description Unsets the groupName and groupId from localstorage
+   * on reload
+   * 
+   * @memberof BroadCastGroup
+   */
+  componentWillMount() {
+
+  }
   /**
    * @description Adds a change listener to the
-   * MessageStore just before the component is mounted
+   * MessageStore once the component is mounted
    * 
-   * @memberof MessageBoard
+   * @memberof BroadCastGroup
    */
   componentDidMount() {
     MessageStore.addChangeListener(this.onChange);
     const groupId = localStorage.getItem('groupId');        
     socket.on(`newMessage${groupId}`, (payload) => {
-      const { id, message, name } = payload;
-      updateMessageStore(id, message, name);
+      const { id, message, name, priority, timeStamp } = payload;
+      updateMessageStore(id, message, name, priority, timeStamp);
     });
   }
+
   /**
    * @description Removes change listener just before 
    * the component unmounts
    * 
-   * @memberof GroupMessages
+   * @memberof BroadCastGroup
    */
   componentWillUnmount() {
     MessageStore.removeChangeListener(this.onChange);
@@ -63,7 +79,7 @@ class BroadCastGroup extends Component {
  * to update the state of the component when there is a 
  * change in the store
  * 
- * @memberof MessageBoard
+ * @memberof BroadCastGroup
  */
   onChange() {
     this.forceUpdate();
@@ -72,7 +88,7 @@ class BroadCastGroup extends Component {
  * @description When called this method triggers the
  * postMessage action
  * 
- * @memberof GroupMessages
+ * @memberof BroadCastGroup
  */
   sendMessage() {
     const { priority, message } = this.state;
@@ -87,7 +103,7 @@ class BroadCastGroup extends Component {
   /**
      * @description set the priority of messages
      * 
-     * @memberof GroupMessages
+     * @memberof BroadCastGroup
      */
   setPriority(event) {
     this.setState({ priority: event.target.value });
@@ -96,7 +112,7 @@ class BroadCastGroup extends Component {
   /**
    * 
    * 
-   * @returns 
+   * @returns {void}
    * @memberof BroadCastGroup
    */
   render() {
@@ -109,9 +125,10 @@ class BroadCastGroup extends Component {
             <div className="messageContainer">
               <div className="col-md-10  messageTray">
                 <Switch>
-                  <Route path='/broadcastGroup/:groupId/:groupName' component={groupProps => (
-                    <MessageList {...groupProps} />
-                  )} />
+                  <Route path='/broadcastGroup/:groupId/:groupName' 
+                    component={groupProps => (
+                      <MessageList {...groupProps} />
+                    )} />
                 </Switch>
               </div>  
               <div>
@@ -132,6 +149,7 @@ class BroadCastGroup extends Component {
                   </div>
                 </div>
                 <div className="radio" onChange={this.setPriority.bind(this)}>
+                  <label>Select Priority Level:</label><br/>
                   <label className="radio-inline">
                     <input type="radio" value="Normal" name="priority" 
                       defaultChecked = {true} /> 

@@ -8,15 +8,15 @@ import Layout from './Layout';
 const { createGroup } = ViewActions;
 
 /**
- * 
+ * @description This class handles creating groups
  * 
  * @class Groups
  * @extends {Component}
  */
 class CreateGroup extends Component {
   /**
+   * @description Creates an instance of Groups.
    * @constructor
-   * Creates an instance of Groups.
    * @param {any} props 
    * @memberof Groups
    */
@@ -86,17 +86,12 @@ class CreateGroup extends Component {
       <div>
         <Layout/>
         <div className="exTab1 container">
-          <ul className="nav nav-pills">
-            <li className="active">
-              <a href="" data-target=".1a" data-toggle="tab">Create A Group</a>
-            </li>
-          </ul>
-
           <div className="tab-content clearfix">
             <div className="tab-pane active 1a" id="1a" aria-hidden="true">
               <div className="row">
-                <p className ="col-md-6 para"><strong>Welcome to your GroupBoard,
-                </strong><br/>
+                <p className ="col-md-6 para">
+                  <strong>Welcome to your GroupBoard,
+                  </strong><br/>
                   Post-It allows you to create groups and add other users 
                   to that group.
                   To create a group, kindly enter the name of your group 
@@ -108,7 +103,9 @@ class CreateGroup extends Component {
                   <div className ="col-sm-6">
                     <TextBox
                       className = "groupName"
-                      onChange={(value) => { this.setState({ newGroupName: value }); }}
+                      onChange={(value) => { 
+                        this.setState({ newGroupName: value }); 
+                      }}
                       label=""
                       currentValue={newGroupName}
                     />

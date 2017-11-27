@@ -16,7 +16,7 @@ const { getAllUsers } = ViewActions;
  */
 class GroupsBoard extends Component {
   /**
-     * Creates an instance of BroadCastGroup.
+     * @description Creates an instance of BroadCastGroup.
      * @param {any} props 
      * @memberof GroupsBoard
      */
@@ -26,7 +26,7 @@ class GroupsBoard extends Component {
       priority: 'Normal',
       message: '',
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.showAllUsers = this.showAllUsers.bind(this);
   }
   /**
@@ -36,7 +36,7 @@ class GroupsBoard extends Component {
    * @memberof GroupsBoard
    */
   componentDidMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -45,7 +45,7 @@ class GroupsBoard extends Component {
    * @memberof GroupsBoard
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
  *   @description This method is passed to the change listeners
@@ -54,7 +54,7 @@ class GroupsBoard extends Component {
  * 
  * @memberof GroupsBoard
  */
-  _onChange() {
+  onChange() {
     this.forceUpdate();
   }
   /**
@@ -70,24 +70,23 @@ class GroupsBoard extends Component {
   /**
    * 
    * 
-   * @returns 
+   * @returns {void}
    * @memberof GroupsBoard
    */
   render() {
     const isAdmin = localStorage.getItem('isAdmin');
-    const groupName = localStorage.getItem('groupName');
     return (
       <div className="container-fluid" >
         <div className="row">
           <GroupLayout/>
           <Router history = { appHistory }>
             <div className="group-Users">
-              <h3> Users in {groupName}</h3>
               <div className="col-md-8 ">
                 <Switch>
-                  <Route path='/groups/:groupId/:groupName' component={groupProps => (
-                    <UserList {...groupProps} />
-                  )} />
+                  <Route path='/groups/:groupId/:groupName' 
+                    component={groupProps => (
+                      <UserList {...groupProps} />
+                    )} />
                 </Switch>
               </div>
               {(isAdmin === 'isAdmin') ? <div><button type="button" 

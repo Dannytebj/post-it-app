@@ -6,6 +6,9 @@ import ViewActions from '../actions/AppActions';
 
 const { getMessages, resetMessageStore } = ViewActions;
 
+const propTypes = {
+  group: PropTypes.object.isRequired,
+};
 /**
  * 
  * 
@@ -14,7 +17,7 @@ const { getMessages, resetMessageStore } = ViewActions;
  */
 class GroupSideBar extends Component {
   /**
-     * Creates an instance of GroupSideBar.
+     * @description Creates an instance of GroupSideBar.
      * @param {any} props 
      * @memberof GroupSideBar
      */
@@ -24,13 +27,16 @@ class GroupSideBar extends Component {
   }
 
   /**
-   * 
+   * @description When called sets the current group's groupId and
+   * passes it to the getMessages action. It also calls the resetMessageStore
+   * action
    * 
    * @memberof GroupSideBar
    */
   setGroupId() {
-    const { groupId } = this.props.group;
+    const { groupId, groupName } = this.props.group;
     localStorage.setItem('groupId', groupId);
+    localStorage.setItem('groupName', groupName);
     resetMessageStore();
     getMessages(groupId);
   }
@@ -38,7 +44,7 @@ class GroupSideBar extends Component {
   /**
    * 
    * 
-   * @returns 
+   * @returns {void}
    * @memberof GroupSideBar
    */
   render() {
@@ -50,14 +56,8 @@ class GroupSideBar extends Component {
           <p onClick={this.setGroupId}>{groupName}</p>
         </NavLink>      
       </li>
-
-
     );
   }
 }
-
-GroupSideBar.propTypes = {
-  group: PropTypes.object.isRequired,
-};
-
+GroupSideBar.propTypes = propTypes;
 export default GroupSideBar;

@@ -14,11 +14,15 @@
   "scripts": {
     "dev": "babel-watch ./server/server.js",
     "starts:dev": "NODE_ENV=development webpack  --config webpack.dev.js && babel-node ./server/server.js",
-    "start": "NODE_ENV=production webpack --config webpack.config.prod.js && babel-node ./server/server.js",
+    "start": "NODE_ENV=production node server/dist/server.js",
     "start:dev": "nodemon --watch server --exec babel-node ./server/server.js",
+    "build:server": "rimraf server/dist/ && babel ./server --out-dir ./server/dist/ --copy-files",
+    "build:client": "webpack -p --config webpack.config.prod.js",
+    "build": "npm run build:server && npm run build:client",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest client/src/__test__/*.spec.js",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 300000 server/test/*.test.js"
+    "postinstall": "[\"$NODE_ENV\" != production ] && exit 0; npm run build",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 30000 server/test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -88,7 +92,8 @@
       "!client/src/js/components/Routes.jsx",
       "!webpack.common.js",
       "!webpack.config.prod.js",
-      "!webpack.dev.js"
+      "!webpack.dev.js",
+      "!client/src/js/components/Groups.jsx"
     ]
   },
   "dependencies": {
@@ -125,6 +130,7 @@
     "keymirror": "^0.1.1",
     "loader-utils": "^1.1.0",
     "mocha": "^3.4.2",
+    "moment": "^2.19.2",
     "nexmo": "^2.0.2",
     "node-mailer": "^0.1.1",
     "node-sass": "^4.5.3",

@@ -4,6 +4,9 @@ import ViewActions from '../actions/AppActions';
 import GroupStore from '../stores/GroupStore';
 
 const { addUser } = ViewActions;
+const propTypes = {
+  user: PropTypes.object.isRequired,
+};
 /**
  * @description This class handles adding a user
  * 
@@ -24,7 +27,7 @@ class AllUsers extends Component {
       userAdded: false,
     };
     this.addUser = this.addUser.bind(this);
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -33,7 +36,7 @@ class AllUsers extends Component {
    * @memberof AllUsers
    */
   componentWillMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -42,7 +45,7 @@ class AllUsers extends Component {
    * @memberof AllUsers
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
    *  @description This method is passed to the change listeners
@@ -51,7 +54,7 @@ class AllUsers extends Component {
    * 
    * @memberof AllUsers
    */
-  _onChange() {
+  onChange() {
     this.setState({
       userAdded: false,
     });
@@ -72,7 +75,7 @@ class AllUsers extends Component {
     addUser(groupId, groupName, name, id);
   }
   /**
- * 
+ * @description Creates the add button if user not added
  * 
  * @param {boolean} isAddingUser 
  * @returns {boolean}
@@ -99,8 +102,7 @@ class AllUsers extends Component {
     );
   }
 }
-AllUsers.propTypes = {
-  user: PropTypes.object.isRequired,
-};
+AllUsers.propTypes = propTypes;
+
 export default AllUsers;
 

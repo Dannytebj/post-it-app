@@ -6,14 +6,14 @@ const { signInWithGoogle } = ViewActions;
 /**
  * 
  * 
- * @class Google
+ * @class GoogleSignIn
  * @extends {Component}
  */
-class Google extends Component {
+class GoogleSignIn extends Component {
   /**
-   * Creates an instance of Google.
+   * Creates an instance of GoogleSignIn.
    * @param {any} props 
-   * @memberof Google
+   * @memberof GoogleSignIn
    */
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class Google extends Component {
    * 
    * 
    * @param {any} googleUser 
-   * @memberof Google
+   * @memberof GoogleSignIn
    */
   onSignIn(googleUser) {
     const idToken = googleUser.getAuthResponse().id_token;
@@ -31,10 +31,10 @@ class Google extends Component {
   }
 
   /**
- * @description jsx component for signing in with google
+ * @description jsx component for signing in with GoogleSignIn
  * 
  * @returns {string} authentication token
- * @memberof Google
+ * @memberof GoogleSignIn
  */
   render() {
     return (
@@ -47,4 +47,4 @@ class Google extends Component {
     );
   }
 }
-export default Google;
+export default GoogleSignIn;

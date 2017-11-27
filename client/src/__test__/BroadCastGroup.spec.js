@@ -22,17 +22,16 @@ describe('The BroadCastGroup Component', () => {
     expect(wrapper.find(Switch)).toHaveLength(1);
   });
   it('Should call removeChangeListener when component unmounts', () => {
-    const listenerSpy2 = spyOn(MessageStore, 'removeChangeListener');
+    const listenerSpy = spyOn(MessageStore, 'removeChangeListener');
     wrapper.unmount();
-    expect(listenerSpy2).toHaveBeenCalled();
+    expect(listenerSpy).toHaveBeenCalled();
   });
   
-  it('should should simulate a click event', () => {
-    const sendMessage = jest.fn();
-    sendMessage();
+  it('should button is clicked should call sendMessage method', () => {
+    const sendMessageSpy = jest.spyOn(BroadCastGroup.prototype, 'sendMessage');
     const wrapper = shallow(<BroadCastGroup/>);
     wrapper.find('button').simulate('click');
-    expect(sendMessage).toHaveBeenCalled();
+    expect(sendMessageSpy).toHaveBeenCalled();
   });
 });
 

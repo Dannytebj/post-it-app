@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GroupStore from '../stores/GroupStore';
 import AllUserList from './AllUserList';
+import TextBox from '../utils/textbox';
 
 
 /**
@@ -20,8 +21,9 @@ class  AddUser extends Component {
     super(props);
     this.state = {
       allUserList: GroupStore.getAllUsers(),
+      searchTerm: '',
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   /**
    * @description Adds a change listener to the
@@ -30,7 +32,7 @@ class  AddUser extends Component {
    * @memberof AddUser
    */
   componentWillMount() {
-    GroupStore.addChangeListener(this._onChange);
+    GroupStore.addChangeListener(this.onChange);
   }
   /**
    * @description Removes change listener just before 
@@ -39,7 +41,7 @@ class  AddUser extends Component {
    * @memberof AddUser
    */
   componentWillUnmount() {
-    GroupStore.removeChangeListener(this._onChange);
+    GroupStore.removeChangeListener(this.onChange);
   }
   /**
    * @description This method is passed to the change listeners
@@ -47,7 +49,7 @@ class  AddUser extends Component {
    * 
    * @memberof AddUser
    */
-  _onChange() {
+  onChange() {
     this.state.allUserList = GroupStore.getAllUsers();
   } 
 
@@ -75,8 +77,10 @@ class  AddUser extends Component {
                   <span aria-hidden="true">&times;</span>
                 </a>
               </div>
-              <div className="modal-body">
-                <AllUserList  allUserList = { allUserList }/>
+              <div className="modal-body addUserBody">
+                
+                {(allUserList.length === 0) ? 'There are no more users to add' :
+                  <AllUserList  allUserList = { allUserList }/> }
               </div>
             </div>
           </div>

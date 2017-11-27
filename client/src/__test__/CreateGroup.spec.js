@@ -17,11 +17,11 @@ describe('The CreateGroup Component', () => {
     localStorage.setItem('userName', 'Havana');
     wrapper = mount(<MemoryRouter><CreateGroup/></MemoryRouter>);
   });
-  it('should have the <Layout />', () => {
+  it('should have the <Layout /> component defined', () => {
     expect(wrapper.find(Layout)).toHaveLength(1);
   });
 
-  it('should call doCreateGroup method', () => {
+  it('should have a textbox component working properly', () => {
     const component = shallow(
       <CreateGroup />,
     );
@@ -35,8 +35,8 @@ describe('The CreateGroup Component', () => {
   });
 
   it('Should call removeChangeListener when component unmounts', () => {
-    const listenerSpy2 = spyOn(GroupStore, 'removeChangeListener');
+    const listenerSpy = spyOn(GroupStore, 'removeChangeListener');
     wrapper.unmount();
-    expect(listenerSpy2).toHaveBeenCalled();
+    expect(listenerSpy).toHaveBeenCalled();
   });
 });

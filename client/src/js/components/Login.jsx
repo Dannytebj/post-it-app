@@ -87,8 +87,10 @@ class Login extends Component {
   }
     
   /**
-     * Method that calls the signIn and 
+     * @description Method that calls the signIn and 
      * signUp Action and passes payload to it
+     * 
+     * @memberof Login
      */
   clickSign() {
     const { email, password, username, 

@@ -5,6 +5,9 @@ import ViewActions from '../actions/AppActions';
 
 
 const { getGroupUsers } = ViewActions;
+const propTypes = {
+  group: PropTypes.object.isRequired,
+};
 
 /**
  * 
@@ -60,8 +63,6 @@ class Groups extends Component {
   }
 }
 
-Groups.propTypes = {
-  group: PropTypes.object.isRequired,
-};
+Groups.propTypes = propTypes;
 
 export default Groups;

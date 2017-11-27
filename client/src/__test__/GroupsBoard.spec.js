@@ -28,12 +28,11 @@ describe('The GroupsBoard Component', () => {
     expect(listenerSpy2).toHaveBeenCalled();
   });
   
-  it('should should simulate a click event', () => {
-    const showAllUsers = jest.fn();
-    showAllUsers();
+  it('should call showAllUsers method', () => {
+    const showAllUsersSpy = jest.spyOn(GroupsBoard.prototype, 'showAllUsers');
     const wrapper = shallow(<GroupsBoard/>);
     wrapper.find('button').simulate('click');
-    expect(showAllUsers).toHaveBeenCalled();
+    expect(showAllUsersSpy).toHaveBeenCalled();
   });
 });
 

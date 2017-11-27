@@ -21,16 +21,15 @@ describe('The GroupSideBar Component', () => {
   it('should have NavLink', () => {
     expect(wrapper.find(NavLink)).toHaveLength(1);
   });
-  it('should have these nodes', () => {
+  it('should have the p tag defined', () => {
     const wrapper = shallow(<GroupSideBar group = { seedData.group }/>);
     expect(wrapper.find('p')).toHaveLength(1);
   });
   
-  it('should simulates a click event', () => {
-    const setGroupId = jest.fn();
-    setGroupId();
+  it('should call setGroupId method', () => {
+    const setGroupIdSpy = jest.spyOn(GroupSideBar.prototype, 'setGroupId');
     const wrapper = shallow(<GroupSideBar group = { seedData.group }/>);
     wrapper.find('p').simulate('click');
-    expect(setGroupId).toHaveBeenCalled();
+    expect(setGroupIdSpy).toHaveBeenCalled();
   });
 });

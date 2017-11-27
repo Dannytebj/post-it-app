@@ -43,8 +43,7 @@ module.exports = {
         const { message } = response.data;
         toastr.success(message);
       }).catch((error) => {
-        const { message } = error.response;
-        toastr.error(message);
+        toastr.error(error);
       });
   },
   signInWithGoogle({ idToken }) {

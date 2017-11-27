@@ -96,9 +96,9 @@ class MessageBoard extends Component {
       <div>
         <Layout/>
         <MessageGroupList groupList= {groupList}/>
-        <a href="#menu-toggle" className="btn btn-default toggler" id="menu-toggle">Toggle Groups</a>
-
-
+        <div className="well well-sm pageHeaders">MessageBoard</div>
+        <a href="#menu-toggle" className="btn btn-default toggler"
+          id="menu-toggle">Toggle Groups</a>
       </div>
     );
   }

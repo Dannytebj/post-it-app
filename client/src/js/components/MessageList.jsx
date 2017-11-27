@@ -37,7 +37,7 @@ class MessageList extends Component {
      * @description Removes change listener just before 
      * the component unmounts
      * 
-     * @memberof GroupMessages
+     * @memberof MessageList
      */
   componentWillUnmount() {
     MessageStore.removeChangeListener(this.onChange);
@@ -45,7 +45,7 @@ class MessageList extends Component {
   /**
    * 
    * 
-   * @memberof BroadCastGroup
+   * @memberof MessageList
    */
   componentWillReceiveProps(newProps) {
     MessageStore.addChangeListener(this.onChange);
@@ -58,7 +58,7 @@ class MessageList extends Component {
    * to update the state of the component when there is a 
    * change in the store
    * 
-   * @memberof GroupMessages
+   * @memberof MessageList
    */
   onChange() {
     this.state.messageList = MessageStore.getAllMessages();
