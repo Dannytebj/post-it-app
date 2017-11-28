@@ -58,11 +58,11 @@ class BroadCastGroup extends Component {
    */
   componentDidMount() {
     MessageStore.addChangeListener(this.onChange);
-    const groupId = localStorage.getItem('groupId');        
-    socket.on(`newMessage${groupId}`, (payload) => {
-      const { id, message, name, priority, timeStamp } = payload;
-      updateMessageStore(id, message, name, priority, timeStamp);
-    });
+    // const groupId = localStorage.getItem('groupId');        
+    // socket.on(`newMessage${groupId}`, (payload) => {
+    //   const { id, message, name, priority, timeStamp } = payload;
+    //   updateMessageStore(id, message, name, priority, timeStamp);
+    // });
   }
 
   /**

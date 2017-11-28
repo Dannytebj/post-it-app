@@ -132,7 +132,8 @@ module.exports = {
   postMessage({ groupId, message, priority, id, name }) {
     axios.post('/api/v1/message', { groupId, message, priority, id, name })
       .then((response) => {
-        const { message } = response.data; // eslint-disable-line
+        const { timeStamp } = response.data; // eslint-disable-line
+        AppActions.updateMessageStore(id, message, name, priority, timeStamp);
       }).catch((error) => {
         toastr.error(error);
       });

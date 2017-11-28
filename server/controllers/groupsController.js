@@ -192,13 +192,13 @@ export const postMessage = (req, res) => {
         messageKey,
       })
       .then(() => {
-        const payload = { id, message, name, priority, timeStamp };
-        io.emit(`newMessage${groupId}`, payload);
+        // const payload = { id, message, name, priority, timeStamp };
+        // io.emit(`newMessage${groupId}`, payload);
         if (priority === 'Urgent' || priority === 'Critical') {
           SendNotification(groupId, priority);
         }
         res.status(200)
-          .send({ message: 'Your message was posted successfully!' });
+          .send({ message: 'Your message was posted successfully!', timeStamp });
       });
     promise.catch((error) => {
       res.status(400)
