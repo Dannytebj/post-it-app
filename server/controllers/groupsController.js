@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import moment from 'moment';
 import getArray from '../utils/getArray';
-import SendNotification from '../utils/SendNotifications';
+import SendNotification from '../utils/sendNotifications';
 import convertCase from '../utils/convertCase';
 import io from '../utils/socketConfig';
 
