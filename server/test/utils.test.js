@@ -25,7 +25,7 @@ describe('The Helper function', () => {
         expect(getArray(myObj)).to.be.a('array');
       });
   });
-  describe('emailValidation', () => {
+  describe('emailValidation:', () => {
     const badEmail = 'bademail.com';
     const goodEmail = 'goodEmail@email.com';
     it('should validate a string to be of email format', () => {
