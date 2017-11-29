@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import io from 'socket.io-client';
-import $ from 'jquery';
 import MessageStore from '../stores/MessageStore';
 import ViewActions from '../actions/AppActions';
 import MessageBoard from './MessageBoard';
@@ -42,13 +41,17 @@ class BroadCastGroup extends Component {
   }
 
   /**
-   * @description Unsets the groupName and groupId from localstorage
-   * on reload
+   * @description Updates the message tray with new messages
    * 
+   * @param {any} 
    * @memberof BroadCastGroup
    */
-  componentWillMount() {
-
+  componentWillReceiveProps() {
+    const groupId = localStorage.getItem('groupId');   
+    socket.on(`newMessage${groupId}`, (payload) => {
+      const { id, message, name, priority, timeStamp } = payload;
+      updateMessageStore(id, message, name, priority, timeStamp);
+    });
   }
   /**
    * @description Adds a change listener to the
@@ -58,11 +61,6 @@ class BroadCastGroup extends Component {
    */
   componentDidMount() {
     MessageStore.addChangeListener(this.onChange);
-    // const groupId = localStorage.getItem('groupId');        
-    // socket.on(`newMessage${groupId}`, (payload) => {
-    //   const { id, message, name, priority, timeStamp } = payload;
-    //   updateMessageStore(id, message, name, priority, timeStamp);
-    // });
   }
 
   /**
